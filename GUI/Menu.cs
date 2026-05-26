@@ -12,6 +12,8 @@ namespace GUI
 {
     public partial class Menu : Form
     {
+        int posX, posY;
+        bool arrastrando = false;
         public Menu()
         {
             InitializeComponent();
@@ -92,6 +94,36 @@ namespace GUI
         private void btnMinimizar_Click(object sender, EventArgs e)
         {
             this.WindowState = FormWindowState.Minimized;
+        }
+
+        private void BarraTitulo_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                arrastrando = true;
+                posX = e.X;
+                posY = e.Y;
+            }
+        }
+
+        private void BarraTitulo_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (arrastrando)
+            {
+                this.Location = new Point(this.Location.X + (e.X - posX), this.Location.Y + (e.Y - posY));
+            }
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            Bitacora bitacora = new Bitacora();
+            bitacora.Show();
+        }
+
+        private void BarraTitulo_MouseUp(object sender, MouseEventArgs e)
+        {
+            arrastrando = false;
         }
     }
 }
