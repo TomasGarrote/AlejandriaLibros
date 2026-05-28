@@ -7,9 +7,4 @@
 <LangVersion>latest</LangVersion>
   </PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\BE\BE.csproj" />
-    <ProjectReference Include="..\DAL\DAL.csproj" />
-  </ItemGroup>
-
 </Project>
