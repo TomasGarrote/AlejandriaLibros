@@ -47,19 +47,20 @@
             this.dtpFechaInicio = new System.Windows.Forms.DateTimePicker();
             this.dtpFechaFinal = new System.Windows.Forms.DateTimePicker();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.btnCerrar = new System.Windows.Forms.PictureBox();
             this.btnMaximizar = new System.Windows.Forms.PictureBox();
             this.btnMinimizar = new System.Windows.Forms.PictureBox();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.btnAplicar = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.panel1.SuspendLayout();
-            this.panel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnCerrar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnMaximizar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnMinimizar)).BeginInit();
+            this.panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // dataGridView1
@@ -234,41 +235,6 @@
             this.panel1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.panel1_MouseMove);
             this.panel1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.panel1_MouseUp);
             // 
-            // panel2
-            // 
-            this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
-            this.panel2.Controls.Add(this.lblApellido);
-            this.panel2.Controls.Add(this.lblEvento);
-            this.panel2.Controls.Add(this.lblCriticidad);
-            this.panel2.Controls.Add(this.dtpFechaFinal);
-            this.panel2.Controls.Add(this.lblFechaFinal);
-            this.panel2.Controls.Add(this.dtpFechaInicio);
-            this.panel2.Controls.Add(this.lblFechaInicio);
-            this.panel2.Controls.Add(this.txtNombre);
-            this.panel2.Controls.Add(this.txtApellido);
-            this.panel2.Controls.Add(this.cmbCriticidad);
-            this.panel2.Controls.Add(this.lblModulo);
-            this.panel2.Controls.Add(this.lblNombre);
-            this.panel2.Controls.Add(this.cmbLogin);
-            this.panel2.Controls.Add(this.cmbEvento);
-            this.panel2.Controls.Add(this.lblLogin);
-            this.panel2.Controls.Add(this.cmbModulo);
-            this.panel2.Location = new System.Drawing.Point(124, 377);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(871, 168);
-            this.panel2.TabIndex = 18;
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
-            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(0, 44);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(209, 103);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox1.TabIndex = 19;
-            this.pictureBox1.TabStop = false;
-            // 
             // btnCerrar
             // 
             this.btnCerrar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -308,6 +274,42 @@
             this.btnMinimizar.TabStop = false;
             this.btnMinimizar.Click += new System.EventHandler(this.btnMinimizar_Click);
             // 
+            // panel2
+            // 
+            this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
+            this.panel2.Controls.Add(this.btnAplicar);
+            this.panel2.Controls.Add(this.lblApellido);
+            this.panel2.Controls.Add(this.lblEvento);
+            this.panel2.Controls.Add(this.lblCriticidad);
+            this.panel2.Controls.Add(this.dtpFechaFinal);
+            this.panel2.Controls.Add(this.lblFechaFinal);
+            this.panel2.Controls.Add(this.dtpFechaInicio);
+            this.panel2.Controls.Add(this.lblFechaInicio);
+            this.panel2.Controls.Add(this.txtNombre);
+            this.panel2.Controls.Add(this.txtApellido);
+            this.panel2.Controls.Add(this.cmbCriticidad);
+            this.panel2.Controls.Add(this.lblModulo);
+            this.panel2.Controls.Add(this.lblNombre);
+            this.panel2.Controls.Add(this.cmbLogin);
+            this.panel2.Controls.Add(this.cmbEvento);
+            this.panel2.Controls.Add(this.lblLogin);
+            this.panel2.Controls.Add(this.cmbModulo);
+            this.panel2.Location = new System.Drawing.Point(124, 377);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(871, 168);
+            this.panel2.TabIndex = 18;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
+            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+            this.pictureBox1.Location = new System.Drawing.Point(0, 44);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(209, 103);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox1.TabIndex = 19;
+            this.pictureBox1.TabStop = false;
+            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -318,6 +320,15 @@
             this.label1.Size = new System.Drawing.Size(130, 33);
             this.label1.TabIndex = 20;
             this.label1.Text = "Bitacora";
+            // 
+            // btnAplicar
+            // 
+            this.btnAplicar.Location = new System.Drawing.Point(626, 132);
+            this.btnAplicar.Name = "btnAplicar";
+            this.btnAplicar.Size = new System.Drawing.Size(121, 23);
+            this.btnAplicar.TabIndex = 17;
+            this.btnAplicar.Text = "Aplicar";
+            this.btnAplicar.UseVisualStyleBackColor = true;
             // 
             // Bitacora
             // 
@@ -335,12 +346,12 @@
             this.Text = "Bitacora";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.panel1.ResumeLayout(false);
-            this.panel2.ResumeLayout(false);
-            this.panel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnCerrar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnMaximizar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnMinimizar)).EndInit();
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -372,5 +383,6 @@
         private System.Windows.Forms.PictureBox btnMaximizar;
         private System.Windows.Forms.PictureBox btnMinimizar;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button btnAplicar;
     }
 }
