@@ -6,22 +6,23 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace GUI
 {
-    public partial class FormUsuarios : Form
+    public partial class Usuarios : Form
     {
         int posX, posY;
         bool arrastrando = false;
         private UserAction userAction;
-        private UsuarioBLL usuariBLL;
-        public FormUsuarios()
+        private UsuarioBLL usuarioBLL;
+        public Usuarios()
         {
             InitializeComponent();
-            usuariBLL = new UsuarioBLL();
+            usuarioBLL = new UsuarioBLL();
             lblTextoTabla.Text = "[Usuarios Activos]";
         }
 
@@ -35,6 +36,7 @@ namespace GUI
             {
                 lblTextoTabla.Text = "[Todos los Usuarios]";
             }
+
         }
 
         private void btnCerrar_Click(object sender, EventArgs e)
@@ -102,7 +104,7 @@ namespace GUI
             userAction = UserAction.Add;
             textBox1.Text = "Modo Añadir";
             EnabledControls(button1, button2, button3, button4, btnAplicar, btnCancelar, button7, panel2, panModificarUsuario, panel3);
-            usuariBLL.RegistrarUsuario(new UsuarioBE());
+            //usuarioBLL.RegistrarUsuario(new UsuarioBE());
         }
         private void EnabledControls(params Control[] controls)
         {
@@ -119,9 +121,14 @@ namespace GUI
                 switch (userAction)
                 {
                     case UserAction.Add:
-
+                        usuarioBLL.RegistrarUsuario(new UsuarioBE(txtDni.Text,txtNom.Text,txtApe.Text,txtUsuario.Text,Encriptador.EncriptarSHA256(txtDni.Text + txtNom.Text), txtEmail.Text,false,true,txtRol.Text));
+                        EnabledControls(button1, button2, button3, button4, btnAplicar, btnCancelar, button7, panel2, panModificarUsuario, panel3);
+                        MostrarUsuarios(dataGridView1, usuarioBLL.ListarUsuariosActivos());
                         break;
                     case UserAction.Delete:
+                        usuarioBLL.EliminarLogico((dataGridView1.SelectedRows[0].DataBoundItem as UsuarioBE).DNI);
+                        EnabledControls(button1, button2, button3, button4, btnAplicar, btnCancelar, button7, panel2, panModificarUsuario, panel3);
+                        MostrarUsuarios(dataGridView1, usuarioBLL.ListarUsuariosActivos());
                         break;
                     case UserAction.Modify:
                         break;
@@ -131,12 +138,32 @@ namespace GUI
                         break;
                     default:
                         break;
+
                 }
             }
             catch (Exception ex)
             {
 
                 throw;
+            }
+        }
+        public void MostrarUsuarios(DataGridView dgv, object obj)
+        {
+            dgv.DataSource = null;
+            dgv.DataSource = obj;
+            if (obj is List<UsuarioBE> lista)
+            {
+                for (int i = 0; i < lista.Count && i < dgv.Rows.Count; i++)
+                {
+                    if (lista[i].Bloqueado)
+                    {
+                        dgv.Rows[i].DefaultCellStyle.ForeColor = Color.Red;
+                    }
+                    else
+                    {
+                        dgv.Rows[i].DefaultCellStyle.ForeColor = Color.Black;
+                    }
+                }
             }
         }
 
