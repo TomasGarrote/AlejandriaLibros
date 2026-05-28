@@ -17,11 +17,11 @@ namespace GUI
         int posX, posY;
         bool arrastrando = false;
         private UserAction userAction;
-        private UsuarioBLL usuariBLL;
+        private UsuarioBLL usuarioBLL;
         public Usuarios()
         {
             InitializeComponent();
-            usuariBLL = new UsuarioBLL();
+            usuarioBLL = new UsuarioBLL();
             lblTextoTabla.Text = "[Usuarios Activos]";
         }
 
@@ -103,7 +103,7 @@ namespace GUI
             userAction = UserAction.Add;
             textBox1.Text = "Modo Añadir";
             EnabledControls(button1, button2, button3, button4, btnAplicar, btnCancelar, button7, panel2, panModificarUsuario, panel3);
-            usuariBLL.RegistrarUsuario(new UsuarioBE());
+            //usuarioBLL.RegistrarUsuario(new UsuarioBE());
         }
         private void EnabledControls(params Control[] controls)
         {
@@ -120,7 +120,7 @@ namespace GUI
                 switch (userAction)
                 {
                     case UserAction.Add:
-                        usuariBLL.RegistrarUsuario(new )
+                        //usuarioBLL.RegistrarUsuario()
 
                         break;
                     case UserAction.Delete:
