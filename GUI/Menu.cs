@@ -125,8 +125,7 @@ namespace GUI
         private void btnUsuarios_Click(object sender, EventArgs e)
         {
             this.Hide();
-            Usuarios usuarios = new Usuarios();
-            usuarios.Show();
+            FormUsuarios usuarios = new FormUsuarios();
         }
 
         private void BarraTitulo_MouseUp(object sender, MouseEventArgs e)

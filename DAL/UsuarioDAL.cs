@@ -9,10 +9,7 @@ namespace DAL
 {
     public class UsuarioDAL:AbstractDAL<UsuarioBE>
     {
-        public UsuarioDAL() : base()
-        {
-            
-        }
+        public UsuarioDAL() : base() { }
 
         public void Registrar(UsuarioBE entity)
         {
@@ -55,17 +52,17 @@ namespace DAL
             throw new NotImplementedException();
         }
 
-        public UsuarioBE ObtenerPorUserName(string usuario)
+        public UsuarioBE ObtenerPorUsuario(string usuario)
         {
             throw new NotImplementedException();
         }
 
-        public void ResetearIntentos(UsuarioBE usuario)
+        public void ResetearIntentos(string username)
         {
             throw new NotImplementedException();
         }
 
-        public void SumarIntentoFallido(UsuarioBE usuario)
+        public void SumarIntento(string username)
         {
             throw new NotImplementedException();
         }
