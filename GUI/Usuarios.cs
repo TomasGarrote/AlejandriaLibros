@@ -12,13 +12,13 @@ using System.Windows.Forms;
 
 namespace GUI
 {
-    public partial class FormUsuarios : Form
+    public partial class Usuarios : Form
     {
         int posX, posY;
         bool arrastrando = false;
         private UserAction userAction;
         private UsuarioBLL usuariBLL;
-        public FormUsuarios()
+        public Usuarios()
         {
             InitializeComponent();
             usuariBLL = new UsuarioBLL();
@@ -35,6 +35,7 @@ namespace GUI
             {
                 lblTextoTabla.Text = "[Todos los Usuarios]";
             }
+
         }
 
         private void btnCerrar_Click(object sender, EventArgs e)
@@ -119,6 +120,7 @@ namespace GUI
                 switch (userAction)
                 {
                     case UserAction.Add:
+                        usuariBLL.RegistrarUsuario(new )
 
                         break;
                     case UserAction.Delete:
@@ -131,6 +133,7 @@ namespace GUI
                         break;
                     default:
                         break;
+
                 }
             }
             catch (Exception ex)
