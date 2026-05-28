@@ -1,5 +1,6 @@
-﻿using Servicios;
-using DAL;
+﻿using DAL;
+using Microsoft.Data.SqlClient;
+using Servicios;
 using System;
 using System.Collections.Generic;
 
@@ -35,5 +36,9 @@ namespace BLL
 
             return DAL.FiltrarEventos(nombre, apellido, login, modulo, evento, desde, hasta, criticidad);
         }
+
+        public List<string> ObtenerLogins() => DAL.ObtenerLogins();
+
+        public UsuarioBE ObtenerUsuarioPorLogin(string login) => DAL.ObtenerUsuarioPorLogin(login);
     }
 }
