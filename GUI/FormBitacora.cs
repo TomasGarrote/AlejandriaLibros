@@ -2,13 +2,11 @@
 using Servicios;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.IO;
 using System.Windows.Forms;
+using iTextSharp.text.pdf;
+using iText = iTextSharp.text;
 
 namespace GUI
 {
@@ -187,6 +185,82 @@ namespace GUI
             {
                 this.Location = new Point(this.Location.X + (e.X - posX), this.Location.Y + (e.Y - posY));
             }
+        }
+
+        private void btnLimpiar_Click(object sender, EventArgs e)
+        {
+            cmbLogin.SelectedIndexChanged -= cmbLogin_SelectedIndexChanged;
+            dtgvBitacora.SelectionChanged -= DtgvBitacora_SelectionChanged;
+
+            txtNombre.Text = string.Empty;
+            txtApellido.Text = string.Empty;
+
+            cmbLogin.SelectedIndex = -1;
+            cmbModulo.SelectedIndex = 0;
+            cmbEvento.SelectedIndex = -1;
+            cmbCriticidad.SelectedIndex = 0;
+
+            dtpFechaInicio.Value = DateTime.Now.AddDays(-3);
+            dtpFechaFinal.Value = DateTime.Now;
+
+            dtgvBitacora.DataSource = null;
+            dtgvBitacora.DataSource = bll.ListarEventos();
+
+            cmbLogin.SelectedIndexChanged += cmbLogin_SelectedIndexChanged;
+            dtgvBitacora.SelectionChanged += DtgvBitacora_SelectionChanged;
+        }
+
+        private void btnImprimir_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog saveDialog = new SaveFileDialog();
+            saveDialog.Filter = "PDF|*.pdf";
+            saveDialog.FileName = "Bitacora_" + DateTime.Now.ToString("yyyyMMdd_HHmm");
+
+            if (saveDialog.ShowDialog() != DialogResult.OK) return;
+
+            iText.Document doc = new iText.Document(iText.PageSize.A4, 20f, 20f, 20f, 20f);
+            PdfWriter.GetInstance(doc, new FileStream(saveDialog.FileName, FileMode.Create));
+            doc.Open();
+
+            iText.Font fontTitulo = iText.FontFactory.GetFont(iText.FontFactory.HELVETICA_BOLD, 14);
+            doc.Add(new iText.Paragraph("Bitácora de Eventos", fontTitulo));
+            doc.Add(new iText.Paragraph(" "));
+
+            PdfPTable tabla = new PdfPTable(6);
+            tabla.WidthPercentage = 100;
+            tabla.SetWidths(new float[] { 15f, 12f, 8f, 12f, 25f, 10f });
+
+            iText.Font fontHeader = iText.FontFactory.GetFont(iText.FontFactory.HELVETICA_BOLD, 9);
+            iText.Font fontCell = iText.FontFactory.GetFont(iText.FontFactory.HELVETICA, 8);
+            iText.BaseColor colorHeader = new iText.BaseColor(70, 130, 180);
+
+            foreach (string col in new[] { "Login", "Fecha", "Hora", "Módulo", "Evento", "Criticidad" })
+            {
+                PdfPCell cell = new PdfPCell(new iText.Phrase(col, fontHeader));
+                cell.BackgroundColor = colorHeader;
+                cell.HorizontalAlignment = iText.Element.ALIGN_CENTER;
+                cell.Padding = 5;
+                tabla.AddCell(cell);
+            }
+
+            foreach (DataGridViewRow row in dtgvBitacora.Rows)
+            {
+                if (row.DataBoundItem is Bitacora b)
+                {
+                    tabla.AddCell(new PdfPCell(new iText.Phrase(b.Login, fontCell)) { Padding = 4 });
+                    tabla.AddCell(new PdfPCell(new iText.Phrase(b.Fecha.ToString("dd/MM/yyyy"), fontCell)) { Padding = 4 });
+                    tabla.AddCell(new PdfPCell(new iText.Phrase(b.Fecha.ToString("HH:mm"), fontCell)) { Padding = 4 });
+                    tabla.AddCell(new PdfPCell(new iText.Phrase(b.Modulo, fontCell)) { Padding = 4 });
+                    tabla.AddCell(new PdfPCell(new iText.Phrase(b.Descripcion, fontCell)) { Padding = 4 });
+                    tabla.AddCell(new PdfPCell(new iText.Phrase(b.Criticidad.ToString(), fontCell)) { Padding = 4, HorizontalAlignment = iText.Element.ALIGN_CENTER });
+                }
+            }
+
+            doc.Add(tabla);
+            doc.Close();
+
+            MessageBox.Show("PDF generado correctamente.", "Imprimir", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo(saveDialog.FileName) { UseShellExecute = true });
         }
 
         private void cmbLogin_SelectedIndexChanged(object sender, EventArgs e)
