@@ -91,11 +91,6 @@ namespace GUI
             }
         }
 
-        private void checkBox1_CheckedChanged(object sender, EventArgs e)
-        {
-            panModificarUsuario.Enabled = checkBox1.Checked;
-        }
-
         private void panel1_MouseDown(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)

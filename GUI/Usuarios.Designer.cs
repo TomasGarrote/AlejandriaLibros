@@ -72,7 +72,6 @@
             this.panModificarUsuario = new System.Windows.Forms.Panel();
             this.cmbBloqueado = new System.Windows.Forms.ComboBox();
             this.cmbActivo = new System.Windows.Forms.ComboBox();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnCerrar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnMaximizar)).BeginInit();
@@ -537,25 +536,12 @@
             this.cmbActivo.Size = new System.Drawing.Size(167, 21);
             this.cmbActivo.TabIndex = 41;
             // 
-            // checkBox1
-            // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.checkBox1.Location = new System.Drawing.Point(364, 475);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(89, 17);
-            this.checkBox1.TabIndex = 53;
-            this.checkBox1.Text = "Activar Panel";
-            this.checkBox1.UseVisualStyleBackColor = true;
-            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
-            // 
             // Usuarios
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
             this.ClientSize = new System.Drawing.Size(1012, 643);
-            this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.panModificarUsuario);
             this.Controls.Add(this.button7);
             this.Controls.Add(this.btnCancelar);
@@ -636,6 +622,5 @@
         private System.Windows.Forms.Panel panModificarUsuario;
         private System.Windows.Forms.ComboBox cmbActivo;
         private System.Windows.Forms.ComboBox cmbBloqueado;
-        private System.Windows.Forms.CheckBox checkBox1;
     }
 }
