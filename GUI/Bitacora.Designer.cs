@@ -51,9 +51,9 @@
             this.btnMaximizar = new System.Windows.Forms.PictureBox();
             this.btnMinimizar = new System.Windows.Forms.PictureBox();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.btnAplicar = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.btnAplicar = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnCerrar)).BeginInit();
@@ -299,6 +299,16 @@
             this.panel2.Size = new System.Drawing.Size(871, 168);
             this.panel2.TabIndex = 18;
             // 
+            // btnAplicar
+            // 
+            this.btnAplicar.Location = new System.Drawing.Point(626, 132);
+            this.btnAplicar.Name = "btnAplicar";
+            this.btnAplicar.Size = new System.Drawing.Size(121, 23);
+            this.btnAplicar.TabIndex = 17;
+            this.btnAplicar.Text = "Aplicar";
+            this.btnAplicar.UseVisualStyleBackColor = true;
+            this.btnAplicar.Click += new System.EventHandler(this.btnAplicar_Click);
+            // 
             // pictureBox1
             // 
             this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
@@ -320,15 +330,6 @@
             this.label1.Size = new System.Drawing.Size(130, 33);
             this.label1.TabIndex = 20;
             this.label1.Text = "Bitacora";
-            // 
-            // btnAplicar
-            // 
-            this.btnAplicar.Location = new System.Drawing.Point(626, 132);
-            this.btnAplicar.Name = "btnAplicar";
-            this.btnAplicar.Size = new System.Drawing.Size(121, 23);
-            this.btnAplicar.TabIndex = 17;
-            this.btnAplicar.Text = "Aplicar";
-            this.btnAplicar.UseVisualStyleBackColor = true;
             // 
             // Bitacora
             // 

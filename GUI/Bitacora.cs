@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BLL;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -14,9 +15,11 @@ namespace GUI
     {
         int posX, posY;
         bool arrastrando = false;
+        BitacoraBLL bll; 
         public Bitacora()
         {
             InitializeComponent();
+            bll = new BitacoraBLL();
         }
 
         private void panel1_MouseUp(object sender, MouseEventArgs e)
@@ -52,6 +55,11 @@ namespace GUI
         private void btnMinimizar_Click(object sender, EventArgs e)
         {
             this.WindowState = FormWindowState.Minimized;
+        }
+
+        private void btnAplicar_Click(object sender, EventArgs e)
+        {
+
         }
 
         private void panel1_MouseMove(object sender, MouseEventArgs e)
