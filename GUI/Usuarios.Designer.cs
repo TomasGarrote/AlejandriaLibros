@@ -1,6 +1,6 @@
 ﻿namespace GUI
 {
-    partial class Usuarios
+    partial class FormUsuarios
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Usuarios));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormUsuarios));
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnCerrar = new System.Windows.Forms.PictureBox();
             this.btnMaximizar = new System.Windows.Forms.PictureBox();
@@ -70,8 +70,8 @@
             this.btnCancelar = new System.Windows.Forms.Button();
             this.button7 = new System.Windows.Forms.Button();
             this.panModificarUsuario = new System.Windows.Forms.Panel();
-            this.cmbBloqueado = new System.Windows.Forms.ComboBox();
             this.cmbActivo = new System.Windows.Forms.ComboBox();
+            this.cmbBloqueado = new System.Windows.Forms.ComboBox();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnCerrar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnMaximizar)).BeginInit();
@@ -428,6 +428,7 @@
             this.button1.TabIndex = 45;
             this.button1.Text = "Crear";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // button2
             // 
@@ -466,6 +467,7 @@
             this.btnAplicar.TabIndex = 49;
             this.btnAplicar.Text = "Aplicar";
             this.btnAplicar.UseVisualStyleBackColor = false;
+            this.btnAplicar.Click += new System.EventHandler(this.btnAplicar_Click);
             // 
             // btnCancelar
             // 
@@ -512,18 +514,6 @@
             this.panModificarUsuario.TabIndex = 52;
             this.panModificarUsuario.EnabledChanged += new System.EventHandler(this.panModificarUsuario_EnabledChanged);
             // 
-            // cmbBloqueado
-            // 
-            this.cmbBloqueado.BackColor = System.Drawing.Color.Gray;
-            this.cmbBloqueado.FormattingEnabled = true;
-            this.cmbBloqueado.Items.AddRange(new object[] {
-            "Desbloqueado",
-            "Bloqueado"});
-            this.cmbBloqueado.Location = new System.Drawing.Point(98, 169);
-            this.cmbBloqueado.Name = "cmbBloqueado";
-            this.cmbBloqueado.Size = new System.Drawing.Size(167, 21);
-            this.cmbBloqueado.TabIndex = 40;
-            // 
             // cmbActivo
             // 
             this.cmbActivo.BackColor = System.Drawing.Color.Gray;
@@ -535,6 +525,18 @@
             this.cmbActivo.Name = "cmbActivo";
             this.cmbActivo.Size = new System.Drawing.Size(167, 21);
             this.cmbActivo.TabIndex = 41;
+            // 
+            // cmbBloqueado
+            // 
+            this.cmbBloqueado.BackColor = System.Drawing.Color.Gray;
+            this.cmbBloqueado.FormattingEnabled = true;
+            this.cmbBloqueado.Items.AddRange(new object[] {
+            "Desbloqueado",
+            "Bloqueado"});
+            this.cmbBloqueado.Location = new System.Drawing.Point(98, 169);
+            this.cmbBloqueado.Name = "cmbBloqueado";
+            this.cmbBloqueado.Size = new System.Drawing.Size(167, 21);
+            this.cmbBloqueado.TabIndex = 40;
             // 
             // Usuarios
             // 

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using BLL;
+using Servicios;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -10,13 +12,16 @@ using System.Windows.Forms;
 
 namespace GUI
 {
-    public partial class Usuarios : Form
+    public partial class FormUsuarios : Form
     {
         int posX, posY;
         bool arrastrando = false;
-        public Usuarios()
+        private UserAction userAction;
+        private UsuarioBLL usuariBLL;
+        public FormUsuarios()
         {
             InitializeComponent();
+            usuariBLL = new UsuarioBLL();
             lblTextoTabla.Text = "[Usuarios Activos]";
         }
 
@@ -88,6 +93,50 @@ namespace GUI
                 txtRol.BackColor = Color.Gray;
                 cmbActivo.BackColor = Color.Gray;
                 cmbBloqueado.BackColor = Color.Gray;
+            }
+        }
+                
+        //Crear Usuario
+        private void button1_Click(object sender, EventArgs e)
+        {
+            userAction = UserAction.Add;
+            textBox1.Text = "Modo Añadir";
+            EnabledControls(button1, button2, button3, button4, btnAplicar, btnCancelar, button7, panel2, panModificarUsuario, panel3);
+            usuariBLL.RegistrarUsuario(new UsuarioBE());
+        }
+        private void EnabledControls(params Control[] controls)
+        {
+            foreach (Control b in controls)
+            {
+                b.Enabled = !b.Enabled;
+            }
+        }
+
+        private void btnAplicar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                switch (userAction)
+                {
+                    case UserAction.Add:
+
+                        break;
+                    case UserAction.Delete:
+                        break;
+                    case UserAction.Modify:
+                        break;
+                    case UserAction.UnBlock:
+                        break;
+                    case UserAction.Consult:
+                        break;
+                    default:
+                        break;
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw;
             }
         }
 

@@ -1,14 +1,15 @@
-﻿using System;
+﻿using DAL;
+using Microsoft.Data.SqlClient;
+using Servicios;
+using System;
 using System.Collections.Generic;
 using System.Text;
-using BE;
-using DAL;
 
-namespace Servicios
+namespace DAL
 {
     public class UsuarioDAL:AbstractDAL<UsuarioBE>
     {
-        public UsuarioDAL():base() { }
+        public UsuarioDAL() : base() { }
 
         public void Registrar(UsuarioBE entity)
         {
@@ -41,6 +42,5 @@ namespace Servicios
             }
 
         }
-
     }
 }
