@@ -123,6 +123,13 @@ namespace GUI
             }
         }
 
+        private void linkCambioContraseña_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            this.Hide();
+            CambiarContraseña cambioContraseña = new CambiarContraseña();
+            cambioContraseña.ShowDialog();
+        }
+
         private void panel1_MouseDown(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)

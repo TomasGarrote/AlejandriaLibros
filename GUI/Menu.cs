@@ -123,9 +123,7 @@ namespace GUI
 
         private void button2_Click(object sender, EventArgs e)
         {
-            this.Hide();
-            Usuarios usuarios = new Usuarios();
-            usuarios.Show();
+            
         }
 
         private void BarraTitulo_MouseUp(object sender, MouseEventArgs e)
