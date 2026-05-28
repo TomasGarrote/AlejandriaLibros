@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -120,10 +121,14 @@ namespace GUI
                 switch (userAction)
                 {
                     case UserAction.Add:
-                        //usuarioBLL.RegistrarUsuario()
-
+                        usuarioBLL.RegistrarUsuario(new UsuarioBE(txtDni.Text,txtNom.Text,txtApe.Text,txtUsuario.Text,Encriptador.EncriptarSHA256(txtDni.Text + txtNom.Text), txtEmail.Text,false,true,txtRol.Text));
+                        EnabledControls(button1, button2, button3, button4, btnAplicar, btnCancelar, button7, panel2, panModificarUsuario, panel3);
+                        MostrarUsuarios(dataGridView1, usuarioBLL.ListarUsuariosActivos());
                         break;
                     case UserAction.Delete:
+                        usuarioBLL.EliminarLogico((dataGridView1.SelectedRows[0].DataBoundItem as UsuarioBE).DNI);
+                        EnabledControls(button1, button2, button3, button4, btnAplicar, btnCancelar, button7, panel2, panModificarUsuario, panel3);
+                        MostrarUsuarios(dataGridView1, usuarioBLL.ListarUsuariosActivos());
                         break;
                     case UserAction.Modify:
                         break;
@@ -140,6 +145,25 @@ namespace GUI
             {
 
                 throw;
+            }
+        }
+        public void MostrarUsuarios(DataGridView dgv, object obj)
+        {
+            dgv.DataSource = null;
+            dgv.DataSource = obj;
+            if (obj is List<UsuarioBE> lista)
+            {
+                for (int i = 0; i < lista.Count && i < dgv.Rows.Count; i++)
+                {
+                    if (lista[i].Bloqueado)
+                    {
+                        dgv.Rows[i].DefaultCellStyle.ForeColor = Color.Red;
+                    }
+                    else
+                    {
+                        dgv.Rows[i].DefaultCellStyle.ForeColor = Color.Black;
+                    }
+                }
             }
         }
 

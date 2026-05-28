@@ -2,9 +2,11 @@
 using Servicios;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Windows.Forms;
 
 namespace BLL
 {
@@ -66,6 +68,71 @@ namespace BLL
             {
                 ex.Message.ToString();
                 throw new Exception(ex.Message);
+            }
+        }
+
+        public void RegistrarUsuario(UsuarioBE usuarioBE)
+        {
+            try
+            {
+                ValidarCaracteresUsuario(usuarioBE);
+                if (usuarioDAL.BuscarUsuarioPorDNI(usuarioBE.DNI) == null)
+                {
+                    usuarioDAL.Registrar(usuarioBE);
+                    throw new Exception("Usuario registrado exitosamente");
+                }
+                else
+                {
+                    throw new Exception("El usuario ya existe");
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+        private void ValidarCaracteresUsuario(UsuarioBE usuario)
+        {
+
+            if (!Regex.IsMatch(usuario.Email, @"^[^@\s]+@[^@\s]+\.[^@\s]+$")) throw new Exception("ElFormatoDelEmailEsIncorrectoU");
+            if (!Regex.IsMatch(usuario.DNI, @"^\d{8}$")) throw new Exception("ElFormatoDelDNIEsIncorrectoU");
+            if (!Regex.IsMatch(usuario.Nombre, @"^.{3,}$") || !Regex.IsMatch(usuario.Nombre, @"^.{3,}$"))
+                throw new Exception("ElFormatoDelNomOApeEsIncorrectoU");
+
+        }
+
+        public List<UsuarioBE> ListarUsuariosActivos()
+        {
+            var todos = usuarioDAL.ListarTodosLosUsuarios();
+
+            var activos = todos.Where(u => u.Activo).ToList();
+
+            return activos as List<UsuarioBE>;
+        }
+
+        public void EliminarLogico(string dNI)
+        {
+            try
+            {
+                UsuarioBE user = usuarioDAL.BuscarUsuarioPorDNI(dNI);
+
+                if (user.Activo)
+                {
+                    usuarioDAL.EliminarLogico(dNI);
+                    throw new Exception("Usuario Fue Eliminado");
+
+                }
+                else
+                {
+                    throw new Exception("El Usuario Ya Esta Eliminado");
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
             }
         }
     }
