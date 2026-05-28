@@ -12,6 +12,7 @@
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
+<LangVersion>latest</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -46,11 +47,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Bitacora.cs">
+    <Compile Include="FormBitacora.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Bitacora.Designer.cs">
-      <DependentUpon>Bitacora.cs</DependentUpon>
+    <Compile Include="FormBitacora.Designer.cs">
+      <DependentUpon>FormBitacora.cs</DependentUpon>
     </Compile>
     <Compile Include="CambiarContraseña.cs">
       <SubType>Form</SubType>
@@ -78,8 +79,8 @@
     <Compile Include="Usuarios.Designer.cs">
       <DependentUpon>Usuarios.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Bitacora.resx">
-      <DependentUpon>Bitacora.cs</DependentUpon>
+    <EmbeddedResource Include="FormBitacora.resx">
+      <DependentUpon>FormBitacora.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="CambiarContraseña.resx">
       <DependentUpon>CambiarContraseña.cs</DependentUpon>
@@ -120,18 +121,16 @@
     <None Include="Resources\Alejandria2.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\OjoAbierto.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\OjoCerrado.png" />
-  </ItemGroup>
-  <ItemGroup>
+    <ProjectReference Include="..\BE\BE.csproj">
+      <Project>{e31fb921-b111-4774-88e1-da47a20afddd}</Project>
+      <Name>BE</Name>
+    </ProjectReference>
     <ProjectReference Include="..\BLL\BLL.csproj">
       <Project>{4d6b9335-2b53-4404-9c9f-ed2fdc1f5986}</Project>
       <Name>BLL</Name>
     </ProjectReference>
     <ProjectReference Include="..\Servicios\Servicios.csproj">
-      <Project>{DD2E21F0-0E76-40DD-8D8B-91252B7C0CC8}</Project>
+      <Project>{dd2e21f0-0e76-40dd-8d8b-91252b7c0cc8}</Project>
       <Name>Servicios</Name>
     </ProjectReference>
   </ItemGroup>

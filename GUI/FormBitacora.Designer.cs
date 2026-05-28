@@ -1,6 +1,6 @@
 ﻿namespace GUI
 {
-    partial class Bitacora
+    partial class FormBitacora
     {
         /// <summary>
         /// Required designer variable.
@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Bitacora));
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormBitacora));
+            this.dtgvBitacora = new System.Windows.Forms.DataGridView();
             this.lblNombre = new System.Windows.Forms.Label();
             this.lblApellido = new System.Windows.Forms.Label();
             this.lblLogin = new System.Windows.Forms.Label();
@@ -51,10 +51,10 @@
             this.btnMaximizar = new System.Windows.Forms.PictureBox();
             this.btnMinimizar = new System.Windows.Forms.PictureBox();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.btnAplicar = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.btnAplicar = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dtgvBitacora)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnCerrar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnMaximizar)).BeginInit();
@@ -63,14 +63,14 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
-            // dataGridView1
+            // dtgvBitacora
             // 
-            this.dataGridView1.BackgroundColor = System.Drawing.SystemColors.WindowFrame;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(124, 153);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(871, 218);
-            this.dataGridView1.TabIndex = 0;
+            this.dtgvBitacora.BackgroundColor = System.Drawing.SystemColors.WindowFrame;
+            this.dtgvBitacora.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dtgvBitacora.Location = new System.Drawing.Point(124, 153);
+            this.dtgvBitacora.Name = "dtgvBitacora";
+            this.dtgvBitacora.Size = new System.Drawing.Size(871, 218);
+            this.dtgvBitacora.TabIndex = 0;
             // 
             // lblNombre
             // 
@@ -299,6 +299,16 @@
             this.panel2.Size = new System.Drawing.Size(871, 168);
             this.panel2.TabIndex = 18;
             // 
+            // btnAplicar
+            // 
+            this.btnAplicar.Location = new System.Drawing.Point(626, 132);
+            this.btnAplicar.Name = "btnAplicar";
+            this.btnAplicar.Size = new System.Drawing.Size(121, 23);
+            this.btnAplicar.TabIndex = 17;
+            this.btnAplicar.Text = "Aplicar";
+            this.btnAplicar.UseVisualStyleBackColor = true;
+            this.btnAplicar.Click += new System.EventHandler(this.btnAplicar_Click);
+            // 
             // pictureBox1
             // 
             this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
@@ -321,15 +331,6 @@
             this.label1.TabIndex = 20;
             this.label1.Text = "Bitacora";
             // 
-            // btnAplicar
-            // 
-            this.btnAplicar.Location = new System.Drawing.Point(626, 132);
-            this.btnAplicar.Name = "btnAplicar";
-            this.btnAplicar.Size = new System.Drawing.Size(121, 23);
-            this.btnAplicar.TabIndex = 17;
-            this.btnAplicar.Text = "Aplicar";
-            this.btnAplicar.UseVisualStyleBackColor = true;
-            // 
             // Bitacora
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -339,12 +340,12 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.dtgvBitacora);
             this.Controls.Add(this.pictureBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "Bitacora";
             this.Text = "Bitacora";
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dtgvBitacora)).EndInit();
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.btnCerrar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnMaximizar)).EndInit();
@@ -359,7 +360,7 @@
 
         #endregion
 
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView dtgvBitacora;
         private System.Windows.Forms.Label lblNombre;
         private System.Windows.Forms.Label lblApellido;
         private System.Windows.Forms.Label lblLogin;

@@ -1,4 +1,4 @@
-﻿namespace BE
+﻿namespace Servicios
 {
     public class Bitacora
     {

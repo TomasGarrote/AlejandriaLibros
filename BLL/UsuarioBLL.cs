@@ -1,10 +1,10 @@
-﻿using System;
+﻿using DAL;
+using Servicios;
+using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
-using System.Windows.Forms;
-using Servicios;
-using DAL;
+using System.Text.RegularExpressions;
 
 namespace BLL
 {
@@ -51,8 +51,8 @@ namespace BLL
             }
 			catch (Exception ex)
 			{
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return LoginResultado.Error;
+                ex.Message.ToString();
+                throw new Exception(ex.Message);
             }
         }
 
@@ -64,7 +64,8 @@ namespace BLL
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                ex.Message.ToString();
+                throw new Exception(ex.Message);
             }
         }
     }
