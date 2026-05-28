@@ -115,16 +115,17 @@ namespace GUI
             }
         }
 
-        private void button6_Click(object sender, EventArgs e)
+        private void btnBitacora_Click(object sender, EventArgs e)
         {
             this.Hide();
             FormBitacora bitacora = new FormBitacora();
             bitacora.Show();
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void btnUsuarios_Click(object sender, EventArgs e)
         {
-            
+            this.Hide();
+            FormUsuarios usuarios = new FormUsuarios();
         }
 
         private void BarraTitulo_MouseUp(object sender, MouseEventArgs e)
