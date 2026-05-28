@@ -4,21 +4,21 @@ using System.Text;
 
 namespace Servicios
 {
-    public class ManagerDeSesion
+    public class SessionManager
     {
-        private static ManagerDeSesion _instance;
+        private static SessionManager _instance;
         private string _usuarioLogueado;
-        private ManagerDeSesion()
+        private SessionManager()
         {
             _usuarioLogueado = null;
         }
-        public static ManagerDeSesion Instance
+        public static SessionManager Instance
         {
             get
             {
                 if (_instance == null)
                 {
-                    _instance = new ManagerDeSesion();
+                    _instance = new SessionManager();
                 }
                 return _instance;
             }
