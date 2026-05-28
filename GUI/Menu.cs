@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Servicios;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -124,8 +125,8 @@ namespace GUI
         private void button2_Click(object sender, EventArgs e)
         {
             this.Hide();
-            Usuarios usuarios = new Usuarios();
-            usuarios.Show();
+            Servicios.UsuarioBE usuarios = new UsuarioBE();
+            //usuarios();
         }
 
         private void BarraTitulo_MouseUp(object sender, MouseEventArgs e)
