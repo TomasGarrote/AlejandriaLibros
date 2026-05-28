@@ -117,7 +117,7 @@ namespace GUI
         private void button6_Click(object sender, EventArgs e)
         {
             this.Hide();
-            Bitacora bitacora = new Bitacora();
+            FormBitacora bitacora = new FormBitacora();
             bitacora.Show();
         }
 
