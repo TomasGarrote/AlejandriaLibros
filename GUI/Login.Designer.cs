@@ -37,7 +37,6 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnCerrar = new System.Windows.Forms.PictureBox();
             this.btnMinimizar = new System.Windows.Forms.PictureBox();
-            this.linkCambioContraseña = new System.Windows.Forms.LinkLabel();
             this.pbMostrarClave = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel1.SuspendLayout();
@@ -146,19 +145,6 @@
             this.btnMinimizar.TabStop = false;
             this.btnMinimizar.Click += new System.EventHandler(this.btnMinimizar_Click);
             // 
-            // linkCambioContraseña
-            // 
-            this.linkCambioContraseña.AutoSize = true;
-            this.linkCambioContraseña.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.linkCambioContraseña.LinkColor = System.Drawing.Color.MediumTurquoise;
-            this.linkCambioContraseña.Location = new System.Drawing.Point(106, 428);
-            this.linkCambioContraseña.Name = "linkCambioContraseña";
-            this.linkCambioContraseña.Size = new System.Drawing.Size(147, 18);
-            this.linkCambioContraseña.TabIndex = 7;
-            this.linkCambioContraseña.TabStop = true;
-            this.linkCambioContraseña.Text = "Olvide mi contraseña";
-            this.linkCambioContraseña.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkCambioContraseña_LinkClicked);
-            // 
             // pbMostrarClave
             // 
             this.pbMostrarClave.Cursor = System.Windows.Forms.Cursors.Hand;
@@ -188,7 +174,6 @@
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
             this.ClientSize = new System.Drawing.Size(355, 496);
             this.Controls.Add(this.pbMostrarClave);
-            this.Controls.Add(this.linkCambioContraseña);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.btnLogin);
             this.Controls.Add(this.txtContraseña);
@@ -220,7 +205,6 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.PictureBox btnCerrar;
         private System.Windows.Forms.PictureBox btnMinimizar;
-        private System.Windows.Forms.LinkLabel linkCambioContraseña;
         private System.Windows.Forms.PictureBox pbMostrarClave;
     }
 }
