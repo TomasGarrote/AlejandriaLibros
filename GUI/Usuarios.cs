@@ -115,14 +115,6 @@ namespace GUI
             }
         }
                 
-        //Crear Usuario
-        private void button1_Click(object sender, EventArgs e)
-        {
-            userAction = UserAction.Add;
-            textBox1.Text = "Modo Añadir";
-            EnabledControls(button1, button2, button3, button4, btnAplicar, btnCancelar, button7, panel2, panModificarUsuario, panel3);
-            
-        }
         private void EnabledControls(params Control[] controls)
         {
             foreach (Control b in controls)
@@ -131,6 +123,8 @@ namespace GUI
                 if (b.Name == "btnAplicar" || b.Name == "btnCancelar")
                 {
                     b.BackColor = Color.Green;
+                    panel10.BackColor = Color.Green;
+                    panel11.BackColor = Color.Green;
                 }
                 else
                 {
@@ -171,9 +165,11 @@ namespace GUI
                         MessageBox.Show("Usuario Fue Eliminado", "Alerta!", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         break;
                     case UserAction.Modify:
+                        txtDni.ReadOnly = true;
                         if (ValidarCamposVacios(txtNom, txtApe, txtDni, txtUsuario, txtEmail, txtRol) && ValidarEntradaUsuario())
                         {
                             usuarioBLL.Modificar((dataGridView1.SelectedRows[0].DataBoundItem as UsuarioBE).DNI, new UsuarioBE(txtDni.Text, txtNom.Text, txtApe.Text, txtUsuario.Text, string.Empty, txtEmail.Text, default, default, txtRol.Text));
+                            txtDni.ReadOnly = false;
                             ReiniciarBotones();
                             MessageBox.Show("Usuario Fue Modificado", "Alerta!", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             MostrarUsuarios(dataGridView1, usuarioBLL.ListarUsuariosActivos());
@@ -299,7 +295,7 @@ namespace GUI
         private void button3_Click(object sender, EventArgs e)
         {
             userAction = UserAction.Modify;
-            EnabledControls(button1, button2, button3, button4, btnAplicar, btnCancelar, button7, panel2, panModificarUsuario,txtDni);
+            EnabledControls(btnCrear, btnDesbloquear, btnModificar, btnActDes, btnAplicar, btnCancelar, button7, pnFiltrado, panModificarUsuario,txtDni);
             MostrarUsuarios(dataGridView1, usuarioBLL.ListarUsuariosActivos());
         }
 
@@ -310,38 +306,6 @@ namespace GUI
                 arrastrando = true;
                 posX = e.X;
                 posY = e.Y;
-            }
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-            if(dataGridView1.SelectedRows.Count > 0)
-            {
-                userAction = UserAction.UnBlock;
-                textBox1.Text = "Modo desbloquear";
-                EnabledControls(button1, button2, button3, button4, btnAplicar, btnCancelar, button7, panel2);
-            }
-        }
-
-        private void button4_Click(object sender, EventArgs e)
-        {
-            if (dataGridView1.SelectedRows.Count > 0)
-            {
-                UsuarioBE us = usuarioBLL.BuscarUsuarioPorDNI(dataGridView1.SelectedRows[0].Cells[0].Value.ToString());
-                if (!us.Activo)
-                {
-                    userAction = UserAction.Activate;
-                    textBox1.Text = "Modo activar";
-                }
-                else
-                {
-                    userAction = UserAction.Delete;
-                    textBox1.Text = "Modo eliminar";
-
-                }
-
-                
-                EnabledControls(button1, button2, button3, button4, btnAplicar, btnCancelar, button7, panel2, panModificarUsuario);
             }
         }
 
@@ -359,7 +323,7 @@ namespace GUI
             txtRol.Clear();
             txtUsuario.Clear();
 
-            panel2.Enabled = true;
+            pnFiltrado.Enabled = true;
             panel3.Enabled = true;
             panModificarUsuario.Enabled = false;
 
@@ -368,14 +332,17 @@ namespace GUI
             btnAplicar.BackColor = Color.Maroon;
             btnCancelar.BackColor = Color.Maroon;
 
-            button1.Enabled = true;
-            button2.Enabled = true;
-            button3.Enabled = true;
-            button4.Enabled = true;
-            button1.BackColor = Color.Green;
-            button2.BackColor = Color.Green;
-            button3.BackColor = Color.Green;
-            button4.BackColor = Color.Green;
+            panel10.BackColor = Color.Maroon;
+            panel11.BackColor = Color.Maroon;
+
+            btnCrear.Enabled = true;
+            btnDesbloquear.Enabled = true;
+            btnModificar.Enabled = true;
+            btnActDes.Enabled = true;
+            btnCrear.BackColor = Color.Green;
+            btnDesbloquear.BackColor = Color.Green;
+            btnModificar.BackColor = Color.Green;
+            btnActDes.BackColor = Color.Green;
 
             //txtNom.Enabled = false;
             //txtApe.Enabled = false;
@@ -425,6 +392,54 @@ namespace GUI
                     e.CellStyle.ForeColor = Color.Black;
                 }
             }
+        }
+
+        private void btnCrear_Click(object sender, EventArgs e)
+        {
+            userAction = UserAction.Add;
+            textBox1.Text = "Modo Añadir";
+            EnabledControls(btnCrear, btnDesbloquear, btnModificar, btnActDes, btnAplicar, btnCancelar, button7, pnFiltrado, panModificarUsuario, panel3);
+        }
+
+        private void btnDesbloquear_Click(object sender, EventArgs e)
+        {
+            if (dataGridView1.SelectedRows.Count > 0)
+            {
+                userAction = UserAction.UnBlock;
+                textBox1.Text = "Modo desbloquear";
+                EnabledControls(btnCrear, btnDesbloquear, btnModificar, btnActDes, btnAplicar, btnCancelar, button7, pnFiltrado);
+            }
+        }
+
+        private void btnModificar_Click(object sender, EventArgs e)
+        {
+            userAction = UserAction.Modify;
+            EnabledControls(btnCrear, btnDesbloquear, btnModificar, btnActDes, btnAplicar, btnCancelar, button7, pnFiltrado, panModificarUsuario, txtDni);
+            MostrarUsuarios(dataGridView1, usuarioBLL.ListarUsuariosActivos());
+        }
+
+        private void btnActDes_Click(object sender, EventArgs e)
+        {
+            if (dataGridView1.SelectedRows.Count > 0)
+            {
+                UsuarioBE us = usuarioBLL.BuscarUsuarioPorDNI(dataGridView1.SelectedRows[0].Cells[0].Value.ToString());
+                if (!us.Activo)
+                {
+                    userAction = UserAction.Activate;
+                    textBox1.Text = "Modo activar";
+                }
+                else
+                {
+                    userAction = UserAction.Delete;
+                    textBox1.Text = "Modo eliminar";
+                }
+                EnabledControls(btnCrear, btnDesbloquear, btnModificar, btnActDes, btnAplicar, btnCancelar, button7, pnFiltrado, panModificarUsuario);
+            }
+        }
+
+        private void Usuarios_Load(object sender, EventArgs e)
+        {
+
         }
 
         private void ConfigurarGrillaSeleccionFila(DataGridView dgv)

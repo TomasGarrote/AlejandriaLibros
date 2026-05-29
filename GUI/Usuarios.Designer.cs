@@ -51,31 +51,43 @@
             this.label7 = new System.Windows.Forms.Label();
             this.radioButton1 = new System.Windows.Forms.RadioButton();
             this.radioButton2 = new System.Windows.Forms.RadioButton();
-            this.panel2 = new System.Windows.Forms.Panel();
+            this.pnFiltrado = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
             this.lblTextoTabla = new System.Windows.Forms.Label();
             this.lblCantidadUsers = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
+            this.btnCrear = new System.Windows.Forms.Button();
+            this.btnDesbloquear = new System.Windows.Forms.Button();
+            this.btnModificar = new System.Windows.Forms.Button();
+            this.btnActDes = new System.Windows.Forms.Button();
             this.btnAplicar = new System.Windows.Forms.Button();
             this.btnCancelar = new System.Windows.Forms.Button();
             this.panModificarUsuario = new System.Windows.Forms.Panel();
             this.button7 = new System.Windows.Forms.Button();
             this.panel4 = new System.Windows.Forms.Panel();
             this.panel5 = new System.Windows.Forms.Panel();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.panel6 = new System.Windows.Forms.Panel();
+            this.panel7 = new System.Windows.Forms.Panel();
+            this.panel8 = new System.Windows.Forms.Panel();
+            this.panel9 = new System.Windows.Forms.Panel();
+            this.panel10 = new System.Windows.Forms.Panel();
+            this.panel11 = new System.Windows.Forms.Panel();
+            this.panel12 = new System.Windows.Forms.Panel();
+            this.panel13 = new System.Windows.Forms.Panel();
+            this.label8 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnCerrar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnMaximizar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnMinimizar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
-            this.panel2.SuspendLayout();
+            this.pnFiltrado.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panModificarUsuario.SuspendLayout();
             this.panel4.SuspendLayout();
             this.panel5.SuspendLayout();
+            this.panel2.SuspendLayout();
+            this.panel13.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -87,7 +99,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1012, 43);
+            this.panel1.Size = new System.Drawing.Size(1075, 43);
             this.panel1.TabIndex = 0;
             this.panel1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panel1_MouseDown);
             this.panel1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.panel1_MouseMove);
@@ -98,7 +110,7 @@
             this.btnCerrar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCerrar.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnCerrar.Image = ((System.Drawing.Image)(resources.GetObject("btnCerrar.Image")));
-            this.btnCerrar.Location = new System.Drawing.Point(984, 3);
+            this.btnCerrar.Location = new System.Drawing.Point(1047, 3);
             this.btnCerrar.Name = "btnCerrar";
             this.btnCerrar.Size = new System.Drawing.Size(25, 35);
             this.btnCerrar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -111,7 +123,7 @@
             this.btnMaximizar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnMaximizar.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnMaximizar.Image = ((System.Drawing.Image)(resources.GetObject("btnMaximizar.Image")));
-            this.btnMaximizar.Location = new System.Drawing.Point(953, 3);
+            this.btnMaximizar.Location = new System.Drawing.Point(1016, 3);
             this.btnMaximizar.Name = "btnMaximizar";
             this.btnMaximizar.Size = new System.Drawing.Size(25, 35);
             this.btnMaximizar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -124,7 +136,7 @@
             this.btnMinimizar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnMinimizar.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnMinimizar.Image = ((System.Drawing.Image)(resources.GetObject("btnMinimizar.Image")));
-            this.btnMinimizar.Location = new System.Drawing.Point(922, 3);
+            this.btnMinimizar.Location = new System.Drawing.Point(985, 3);
             this.btnMinimizar.Name = "btnMinimizar";
             this.btnMinimizar.Size = new System.Drawing.Size(25, 35);
             this.btnMinimizar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -160,13 +172,15 @@
             // 
             // textBox1
             // 
-            this.textBox1.Enabled = false;
+            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBox1.Location = new System.Drawing.Point(15, 37);
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
+            this.textBox1.ReadOnly = true;
             this.textBox1.Size = new System.Drawing.Size(252, 197);
             this.textBox1.TabIndex = 22;
             this.textBox1.Text = "Modo consulta";
+            this.textBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // label1
             // 
@@ -306,7 +320,7 @@
             this.radioButton1.FlatAppearance.CheckedBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
             this.radioButton1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.radioButton1.ForeColor = System.Drawing.SystemColors.Control;
-            this.radioButton1.Location = new System.Drawing.Point(8, 13);
+            this.radioButton1.Location = new System.Drawing.Point(14, 13);
             this.radioButton1.Name = "radioButton1";
             this.radioButton1.Size = new System.Drawing.Size(78, 24);
             this.radioButton1.TabIndex = 40;
@@ -320,7 +334,7 @@
             this.radioButton2.AutoSize = true;
             this.radioButton2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.radioButton2.ForeColor = System.Drawing.SystemColors.Control;
-            this.radioButton2.Location = new System.Drawing.Point(142, 13);
+            this.radioButton2.Location = new System.Drawing.Point(138, 13);
             this.radioButton2.Name = "radioButton2";
             this.radioButton2.Size = new System.Drawing.Size(71, 24);
             this.radioButton2.TabIndex = 41;
@@ -328,15 +342,16 @@
             this.radioButton2.UseVisualStyleBackColor = true;
             this.radioButton2.CheckedChanged += new System.EventHandler(this.radioButton2_CheckedChanged);
             // 
-            // panel2
+            // pnFiltrado
             // 
-            this.panel2.BackColor = System.Drawing.Color.Maroon;
-            this.panel2.Controls.Add(this.radioButton1);
-            this.panel2.Controls.Add(this.radioButton2);
-            this.panel2.Location = new System.Drawing.Point(333, 95);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(225, 50);
-            this.panel2.TabIndex = 42;
+            this.pnFiltrado.BackColor = System.Drawing.Color.Maroon;
+            this.pnFiltrado.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pnFiltrado.Controls.Add(this.radioButton1);
+            this.pnFiltrado.Controls.Add(this.radioButton2);
+            this.pnFiltrado.Location = new System.Drawing.Point(335, 96);
+            this.pnFiltrado.Name = "pnFiltrado";
+            this.pnFiltrado.Size = new System.Drawing.Size(225, 50);
+            this.pnFiltrado.TabIndex = 42;
             // 
             // panel3
             // 
@@ -345,7 +360,7 @@
             this.panel3.Controls.Add(this.dataGridView1);
             this.panel3.Location = new System.Drawing.Point(71, 161);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(768, 198);
+            this.panel3.Size = new System.Drawing.Size(769, 198);
             this.panel3.TabIndex = 43;
             // 
             // lblTextoTabla
@@ -370,53 +385,81 @@
             this.lblCantidadUsers.TabIndex = 44;
             this.lblCantidadUsers.Text = "Cantidad de Usuarios: 0";
             // 
-            // button1
+            // btnCrear
             // 
-            this.button1.Location = new System.Drawing.Point(864, 161);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(123, 41);
-            this.button1.TabIndex = 45;
-            this.button1.Text = "Crear";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.btnCrear.BackColor = System.Drawing.Color.Transparent;
+            this.btnCrear.FlatAppearance.BorderSize = 0;
+            this.btnCrear.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Maroon;
+            this.btnCrear.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCrear.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCrear.ForeColor = System.Drawing.SystemColors.Control;
+            this.btnCrear.Location = new System.Drawing.Point(0, 125);
+            this.btnCrear.Name = "btnCrear";
+            this.btnCrear.Size = new System.Drawing.Size(154, 41);
+            this.btnCrear.TabIndex = 45;
+            this.btnCrear.Text = "Crear";
+            this.btnCrear.UseVisualStyleBackColor = false;
+            this.btnCrear.Click += new System.EventHandler(this.btnCrear_Click);
             // 
-            // button2
+            // btnDesbloquear
             // 
-            this.button2.Location = new System.Drawing.Point(864, 208);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(123, 41);
-            this.button2.TabIndex = 46;
-            this.button2.Text = "Desbloquear";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.btnDesbloquear.BackColor = System.Drawing.Color.Transparent;
+            this.btnDesbloquear.FlatAppearance.BorderSize = 0;
+            this.btnDesbloquear.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Maroon;
+            this.btnDesbloquear.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnDesbloquear.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnDesbloquear.ForeColor = System.Drawing.SystemColors.Control;
+            this.btnDesbloquear.Location = new System.Drawing.Point(0, 166);
+            this.btnDesbloquear.Name = "btnDesbloquear";
+            this.btnDesbloquear.Size = new System.Drawing.Size(154, 41);
+            this.btnDesbloquear.TabIndex = 46;
+            this.btnDesbloquear.Text = "Desbloquear";
+            this.btnDesbloquear.UseVisualStyleBackColor = false;
+            this.btnDesbloquear.Click += new System.EventHandler(this.btnDesbloquear_Click);
             // 
-            // button3
+            // btnModificar
             // 
-            this.button3.Location = new System.Drawing.Point(864, 255);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(123, 41);
-            this.button3.TabIndex = 47;
-            this.button3.Text = "Modificar";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
+            this.btnModificar.BackColor = System.Drawing.Color.Transparent;
+            this.btnModificar.FlatAppearance.BorderSize = 0;
+            this.btnModificar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Maroon;
+            this.btnModificar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnModificar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnModificar.ForeColor = System.Drawing.SystemColors.Control;
+            this.btnModificar.Location = new System.Drawing.Point(0, 207);
+            this.btnModificar.Name = "btnModificar";
+            this.btnModificar.Size = new System.Drawing.Size(154, 41);
+            this.btnModificar.TabIndex = 47;
+            this.btnModificar.Text = "Modificar";
+            this.btnModificar.UseVisualStyleBackColor = false;
+            this.btnModificar.Click += new System.EventHandler(this.btnModificar_Click);
             // 
-            // button4
+            // btnActDes
             // 
-            this.button4.Location = new System.Drawing.Point(864, 302);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(123, 41);
-            this.button4.TabIndex = 48;
-            this.button4.Text = "Activar/Desactivar";
-            this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
+            this.btnActDes.BackColor = System.Drawing.Color.Transparent;
+            this.btnActDes.FlatAppearance.BorderSize = 0;
+            this.btnActDes.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Maroon;
+            this.btnActDes.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnActDes.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnActDes.ForeColor = System.Drawing.SystemColors.Control;
+            this.btnActDes.Location = new System.Drawing.Point(0, 248);
+            this.btnActDes.Name = "btnActDes";
+            this.btnActDes.Size = new System.Drawing.Size(154, 41);
+            this.btnActDes.TabIndex = 48;
+            this.btnActDes.Text = "Activar/Desactivar";
+            this.btnActDes.UseVisualStyleBackColor = false;
+            this.btnActDes.Click += new System.EventHandler(this.btnActDes_Click);
             // 
             // btnAplicar
             // 
             this.btnAplicar.BackColor = System.Drawing.Color.Maroon;
             this.btnAplicar.Enabled = false;
-            this.btnAplicar.Location = new System.Drawing.Point(864, 349);
+            this.btnAplicar.FlatAppearance.BorderSize = 0;
+            this.btnAplicar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAplicar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAplicar.ForeColor = System.Drawing.SystemColors.Control;
+            this.btnAplicar.Location = new System.Drawing.Point(1, 289);
             this.btnAplicar.Name = "btnAplicar";
-            this.btnAplicar.Size = new System.Drawing.Size(123, 41);
+            this.btnAplicar.Size = new System.Drawing.Size(154, 41);
             this.btnAplicar.TabIndex = 49;
             this.btnAplicar.Text = "Aplicar";
             this.btnAplicar.UseVisualStyleBackColor = false;
@@ -426,9 +469,13 @@
             // 
             this.btnCancelar.BackColor = System.Drawing.Color.Maroon;
             this.btnCancelar.Enabled = false;
-            this.btnCancelar.Location = new System.Drawing.Point(864, 396);
+            this.btnCancelar.FlatAppearance.BorderSize = 0;
+            this.btnCancelar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCancelar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCancelar.ForeColor = System.Drawing.SystemColors.Control;
+            this.btnCancelar.Location = new System.Drawing.Point(1, 330);
             this.btnCancelar.Name = "btnCancelar";
-            this.btnCancelar.Size = new System.Drawing.Size(123, 41);
+            this.btnCancelar.Size = new System.Drawing.Size(154, 41);
             this.btnCancelar.TabIndex = 50;
             this.btnCancelar.Text = "Cancelar";
             this.btnCancelar.UseVisualStyleBackColor = false;
@@ -437,6 +484,7 @@
             // panModificarUsuario
             // 
             this.panModificarUsuario.BackColor = System.Drawing.Color.Maroon;
+            this.panModificarUsuario.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panModificarUsuario.Controls.Add(this.label7);
             this.panModificarUsuario.Controls.Add(this.label6);
             this.panModificarUsuario.Controls.Add(this.label5);
@@ -450,7 +498,7 @@
             this.panModificarUsuario.Controls.Add(this.txtApe);
             this.panModificarUsuario.Controls.Add(this.txtDni);
             this.panModificarUsuario.Enabled = false;
-            this.panModificarUsuario.Location = new System.Drawing.Point(74, 383);
+            this.panModificarUsuario.Location = new System.Drawing.Point(71, 373);
             this.panModificarUsuario.Name = "panModificarUsuario";
             this.panModificarUsuario.Size = new System.Drawing.Size(283, 179);
             this.panModificarUsuario.TabIndex = 52;
@@ -458,19 +506,27 @@
             // 
             // button7
             // 
-            this.button7.Location = new System.Drawing.Point(864, 443);
+            this.button7.BackColor = System.Drawing.Color.Transparent;
+            this.button7.FlatAppearance.BorderSize = 0;
+            this.button7.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Maroon;
+            this.button7.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button7.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button7.ForeColor = System.Drawing.SystemColors.Control;
+            this.button7.Location = new System.Drawing.Point(1, 371);
             this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(123, 41);
+            this.button7.Size = new System.Drawing.Size(154, 41);
             this.button7.TabIndex = 51;
             this.button7.Text = "SALIR";
-            this.button7.UseVisualStyleBackColor = true;
+            this.button7.UseVisualStyleBackColor = false;
+            this.button7.Visible = false;
             // 
             // panel4
             // 
             this.panel4.BackColor = System.Drawing.Color.Maroon;
+            this.panel4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel4.Controls.Add(this.label1);
             this.panel4.Controls.Add(this.textBox1);
-            this.panel4.Location = new System.Drawing.Point(558, 367);
+            this.panel4.Location = new System.Drawing.Point(560, 373);
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(280, 247);
             this.panel4.TabIndex = 53;
@@ -478,43 +534,142 @@
             // panel5
             // 
             this.panel5.BackColor = System.Drawing.Color.Maroon;
+            this.panel5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel5.Controls.Add(this.lblCantidadUsers);
-            this.panel5.Location = new System.Drawing.Point(638, 95);
+            this.panel5.Location = new System.Drawing.Point(640, 94);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(200, 49);
+            this.panel5.Size = new System.Drawing.Size(200, 50);
             this.panel5.TabIndex = 54;
+            // 
+            // panel2
+            // 
+            this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
+            this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel2.Controls.Add(this.panel12);
+            this.panel2.Controls.Add(this.panel11);
+            this.panel2.Controls.Add(this.panel10);
+            this.panel2.Controls.Add(this.panel9);
+            this.panel2.Controls.Add(this.panel8);
+            this.panel2.Controls.Add(this.panel7);
+            this.panel2.Controls.Add(this.panel6);
+            this.panel2.Controls.Add(this.button7);
+            this.panel2.Controls.Add(this.btnCancelar);
+            this.panel2.Controls.Add(this.btnAplicar);
+            this.panel2.Controls.Add(this.btnActDes);
+            this.panel2.Controls.Add(this.btnModificar);
+            this.panel2.Controls.Add(this.btnDesbloquear);
+            this.panel2.Controls.Add(this.btnCrear);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Right;
+            this.panel2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.panel2.Location = new System.Drawing.Point(911, 43);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(164, 600);
+            this.panel2.TabIndex = 55;
+            // 
+            // panel6
+            // 
+            this.panel6.BackColor = System.Drawing.Color.Maroon;
+            this.panel6.Location = new System.Drawing.Point(154, 125);
+            this.panel6.Name = "panel6";
+            this.panel6.Size = new System.Drawing.Size(10, 41);
+            this.panel6.TabIndex = 52;
+            // 
+            // panel7
+            // 
+            this.panel7.BackColor = System.Drawing.Color.Maroon;
+            this.panel7.Location = new System.Drawing.Point(154, 166);
+            this.panel7.Name = "panel7";
+            this.panel7.Size = new System.Drawing.Size(10, 41);
+            this.panel7.TabIndex = 53;
+            // 
+            // panel8
+            // 
+            this.panel8.BackColor = System.Drawing.Color.Maroon;
+            this.panel8.Location = new System.Drawing.Point(154, 207);
+            this.panel8.Name = "panel8";
+            this.panel8.Size = new System.Drawing.Size(10, 41);
+            this.panel8.TabIndex = 54;
+            // 
+            // panel9
+            // 
+            this.panel9.BackColor = System.Drawing.Color.Maroon;
+            this.panel9.Location = new System.Drawing.Point(154, 248);
+            this.panel9.Name = "panel9";
+            this.panel9.Size = new System.Drawing.Size(10, 41);
+            this.panel9.TabIndex = 55;
+            // 
+            // panel10
+            // 
+            this.panel10.BackColor = System.Drawing.Color.Maroon;
+            this.panel10.Location = new System.Drawing.Point(154, 289);
+            this.panel10.Name = "panel10";
+            this.panel10.Size = new System.Drawing.Size(10, 41);
+            this.panel10.TabIndex = 56;
+            // 
+            // panel11
+            // 
+            this.panel11.BackColor = System.Drawing.Color.Maroon;
+            this.panel11.Location = new System.Drawing.Point(154, 330);
+            this.panel11.Name = "panel11";
+            this.panel11.Size = new System.Drawing.Size(10, 41);
+            this.panel11.TabIndex = 57;
+            // 
+            // panel12
+            // 
+            this.panel12.BackColor = System.Drawing.Color.Maroon;
+            this.panel12.Location = new System.Drawing.Point(154, 371);
+            this.panel12.Name = "panel12";
+            this.panel12.Size = new System.Drawing.Size(10, 41);
+            this.panel12.TabIndex = 58;
+            this.panel12.Visible = false;
+            // 
+            // panel13
+            // 
+            this.panel13.BackColor = System.Drawing.Color.Maroon;
+            this.panel13.Controls.Add(this.label8);
+            this.panel13.Location = new System.Drawing.Point(912, 122);
+            this.panel13.Name = "panel13";
+            this.panel13.Size = new System.Drawing.Size(164, 49);
+            this.panel13.TabIndex = 55;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.ForeColor = System.Drawing.SystemColors.Control;
+            this.label8.Location = new System.Drawing.Point(31, 11);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(106, 24);
+            this.label8.TabIndex = 44;
+            this.label8.Text = "Opciones:";
             // 
             // Usuarios
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
-            this.ClientSize = new System.Drawing.Size(1012, 643);
+            this.ClientSize = new System.Drawing.Size(1075, 643);
+            this.Controls.Add(this.panel13);
+            this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel5);
             this.Controls.Add(this.panel4);
             this.Controls.Add(this.panModificarUsuario);
-            this.Controls.Add(this.button7);
-            this.Controls.Add(this.btnCancelar);
-            this.Controls.Add(this.btnAplicar);
-            this.Controls.Add(this.button4);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
             this.Controls.Add(this.panel3);
-            this.Controls.Add(this.panel2);
+            this.Controls.Add(this.pnFiltrado);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "Usuarios";
             this.Text = "Usuarios";
+            this.Load += new System.EventHandler(this.Usuarios_Load);
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.btnCerrar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnMaximizar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnMinimizar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
-            this.panel2.ResumeLayout(false);
-            this.panel2.PerformLayout();
+            this.pnFiltrado.ResumeLayout(false);
+            this.pnFiltrado.PerformLayout();
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
             this.panModificarUsuario.ResumeLayout(false);
@@ -523,6 +678,9 @@
             this.panel4.PerformLayout();
             this.panel5.ResumeLayout(false);
             this.panel5.PerformLayout();
+            this.panel2.ResumeLayout(false);
+            this.panel13.ResumeLayout(false);
+            this.panel13.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -551,19 +709,29 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.RadioButton radioButton1;
         private System.Windows.Forms.RadioButton radioButton2;
-        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Panel pnFiltrado;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Label lblTextoTabla;
         private System.Windows.Forms.Label lblCantidadUsers;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button btnCrear;
+        private System.Windows.Forms.Button btnDesbloquear;
+        private System.Windows.Forms.Button btnModificar;
+        private System.Windows.Forms.Button btnActDes;
         private System.Windows.Forms.Button btnAplicar;
         private System.Windows.Forms.Button btnCancelar;
         private System.Windows.Forms.Panel panModificarUsuario;
         private System.Windows.Forms.Button button7;
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.Panel panel5;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Panel panel6;
+        private System.Windows.Forms.Panel panel12;
+        private System.Windows.Forms.Panel panel11;
+        private System.Windows.Forms.Panel panel10;
+        private System.Windows.Forms.Panel panel9;
+        private System.Windows.Forms.Panel panel8;
+        private System.Windows.Forms.Panel panel7;
+        private System.Windows.Forms.Panel panel13;
+        private System.Windows.Forms.Label label8;
     }
 }
