@@ -130,10 +130,24 @@ namespace BLL
                 if (user.Activo)
                 {
                     usuarioDAL.EliminarLogico(dNI);
+                    Bitacora bitacora = new Bitacora();
+                    bitacora.Login = SessionManager.Instance.UsuarioActual().ToString();
+                    bitacora.Modulo = "Usuarios";
+                    bitacora.Evento = "Eliminar Usuario (Baja lógica) exitoso";
+                    bitacora.Criticidad = 1;
+
+                    bitacoraBLL.RegistrarEvento(bitacora);
                 }
                 else
                 {
                     usuarioDAL.ActivarUsuario(dNI);
+                    Bitacora bitacora = new Bitacora();
+                    bitacora.Login = SessionManager.Instance.UsuarioActual().ToString();
+                    bitacora.Modulo = "Usuarios";
+                    bitacora.Evento = "Eliminar Usuario (Baja lógica) exitoso";
+                    bitacora.Criticidad = 1;
+
+                    bitacoraBLL.RegistrarEvento(bitacora);
                 }
 
             }
@@ -154,6 +168,11 @@ namespace BLL
                     throw new Exception("La nueva contraseña no puede ser igual a la anterior");
                 }
                 usuarioDAL.CambiarClave(usuario, Encriptador.GetHash256(nuevaContra));
+                Bitacora bitacora = new Bitacora();
+                bitacora.Login = SessionManager.Instance.UsuarioActual().ToString();
+                bitacora.Modulo = "Usuarios";
+                bitacora.Evento = "Cambiar Clave exitoso";
+                bitacora.Criticidad = 1;
             }
             catch (Exception ex)
             {
@@ -177,6 +196,11 @@ namespace BLL
                 else
                 {
                     usuarioDAL.Modificar(dNI, usuarioBE);
+                    Bitacora bitacora = new Bitacora();
+                    bitacora.Login = SessionManager.Instance.UsuarioActual().ToString();
+                    bitacora.Modulo = "Usuarios";
+                    bitacora.Evento = "Modificar Usuario exitoso";
+                    bitacora.Criticidad = 1;
                 }
 
             }
@@ -193,6 +217,11 @@ namespace BLL
                     string nuevaClave = Encriptador.GetHash256(user.DNI + user.Nombre);
 
                     usuarioDAL.DesbloquearUsuario(user.DNI, nuevaClave);
+                    Bitacora bitacora = new Bitacora();
+                    bitacora.Login = SessionManager.Instance.UsuarioActual().ToString();
+                    bitacora.Modulo = "Usuarios";
+                    bitacora.Evento = "Desbloquear Usuario exitoso";
+                    bitacora.Criticidad = 1;
                 }
                 else
                 {
