@@ -51,11 +51,12 @@
             this.btnMaximizar = new System.Windows.Forms.PictureBox();
             this.btnMinimizar = new System.Windows.Forms.PictureBox();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.btnImprimir = new System.Windows.Forms.Button();
+            this.btnLimpiar = new System.Windows.Forms.Button();
             this.btnAplicar = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.btnLimpiar = new System.Windows.Forms.Button();
-            this.btnImprimir = new System.Windows.Forms.Button();
+            this.panel3 = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.dtgvBitacora)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnCerrar)).BeginInit();
@@ -63,15 +64,16 @@
             ((System.ComponentModel.ISupportInitialize)(this.btnMinimizar)).BeginInit();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.panel3.SuspendLayout();
             this.SuspendLayout();
             // 
             // dtgvBitacora
             // 
             this.dtgvBitacora.BackgroundColor = System.Drawing.SystemColors.WindowFrame;
             this.dtgvBitacora.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dtgvBitacora.Location = new System.Drawing.Point(124, 153);
+            this.dtgvBitacora.Location = new System.Drawing.Point(5, 38);
             this.dtgvBitacora.Name = "dtgvBitacora";
-            this.dtgvBitacora.Size = new System.Drawing.Size(871, 218);
+            this.dtgvBitacora.Size = new System.Drawing.Size(876, 238);
             this.dtgvBitacora.TabIndex = 0;
             // 
             // lblNombre
@@ -79,7 +81,7 @@
             this.lblNombre.AutoSize = true;
             this.lblNombre.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblNombre.ForeColor = System.Drawing.SystemColors.Control;
-            this.lblNombre.Location = new System.Drawing.Point(34, 33);
+            this.lblNombre.Location = new System.Drawing.Point(42, 24);
             this.lblNombre.Name = "lblNombre";
             this.lblNombre.Size = new System.Drawing.Size(66, 16);
             this.lblNombre.TabIndex = 1;
@@ -90,7 +92,7 @@
             this.lblApellido.AutoSize = true;
             this.lblApellido.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblApellido.ForeColor = System.Drawing.SystemColors.Control;
-            this.lblApellido.Location = new System.Drawing.Point(256, 36);
+            this.lblApellido.Location = new System.Drawing.Point(264, 27);
             this.lblApellido.Name = "lblApellido";
             this.lblApellido.Size = new System.Drawing.Size(69, 16);
             this.lblApellido.TabIndex = 2;
@@ -101,7 +103,7 @@
             this.lblLogin.AutoSize = true;
             this.lblLogin.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblLogin.ForeColor = System.Drawing.SystemColors.Control;
-            this.lblLogin.Location = new System.Drawing.Point(51, 77);
+            this.lblLogin.Location = new System.Drawing.Point(59, 68);
             this.lblLogin.Name = "lblLogin";
             this.lblLogin.Size = new System.Drawing.Size(49, 16);
             this.lblLogin.TabIndex = 3;
@@ -112,7 +114,7 @@
             this.lblModulo.AutoSize = true;
             this.lblModulo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblModulo.ForeColor = System.Drawing.SystemColors.Control;
-            this.lblModulo.Location = new System.Drawing.Point(38, 105);
+            this.lblModulo.Location = new System.Drawing.Point(46, 96);
             this.lblModulo.Name = "lblModulo";
             this.lblModulo.Size = new System.Drawing.Size(62, 16);
             this.lblModulo.TabIndex = 4;
@@ -123,7 +125,7 @@
             this.lblFechaInicio.AutoSize = true;
             this.lblFechaInicio.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblFechaInicio.ForeColor = System.Drawing.SystemColors.Control;
-            this.lblFechaInicio.Location = new System.Drawing.Point(230, 78);
+            this.lblFechaInicio.Location = new System.Drawing.Point(238, 69);
             this.lblFechaInicio.Name = "lblFechaInicio";
             this.lblFechaInicio.Size = new System.Drawing.Size(95, 16);
             this.lblFechaInicio.TabIndex = 5;
@@ -134,7 +136,7 @@
             this.lblFechaFinal.AutoSize = true;
             this.lblFechaFinal.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblFechaFinal.ForeColor = System.Drawing.SystemColors.Control;
-            this.lblFechaFinal.Location = new System.Drawing.Point(533, 77);
+            this.lblFechaFinal.Location = new System.Drawing.Point(541, 68);
             this.lblFechaFinal.Name = "lblFechaFinal";
             this.lblFechaFinal.Size = new System.Drawing.Size(87, 16);
             this.lblFechaFinal.TabIndex = 6;
@@ -145,7 +147,7 @@
             this.lblEvento.AutoSize = true;
             this.lblEvento.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblEvento.ForeColor = System.Drawing.SystemColors.Control;
-            this.lblEvento.Location = new System.Drawing.Point(266, 105);
+            this.lblEvento.Location = new System.Drawing.Point(274, 96);
             this.lblEvento.Name = "lblEvento";
             this.lblEvento.Size = new System.Drawing.Size(59, 16);
             this.lblEvento.TabIndex = 7;
@@ -156,7 +158,7 @@
             this.lblCriticidad.AutoSize = true;
             this.lblCriticidad.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblCriticidad.ForeColor = System.Drawing.SystemColors.Control;
-            this.lblCriticidad.Location = new System.Drawing.Point(543, 105);
+            this.lblCriticidad.Location = new System.Drawing.Point(551, 96);
             this.lblCriticidad.Name = "lblCriticidad";
             this.lblCriticidad.Size = new System.Drawing.Size(77, 16);
             this.lblCriticidad.TabIndex = 8;
@@ -164,22 +166,24 @@
             // 
             // txtNombre
             // 
-            this.txtNombre.Location = new System.Drawing.Point(106, 32);
+            this.txtNombre.Location = new System.Drawing.Point(114, 23);
             this.txtNombre.Name = "txtNombre";
+            this.txtNombre.ReadOnly = true;
             this.txtNombre.Size = new System.Drawing.Size(100, 20);
             this.txtNombre.TabIndex = 9;
             // 
             // txtApellido
             // 
-            this.txtApellido.Location = new System.Drawing.Point(327, 32);
+            this.txtApellido.Location = new System.Drawing.Point(335, 23);
             this.txtApellido.Name = "txtApellido";
+            this.txtApellido.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.txtApellido.Size = new System.Drawing.Size(100, 20);
             this.txtApellido.TabIndex = 10;
             // 
             // cmbLogin
             // 
             this.cmbLogin.FormattingEnabled = true;
-            this.cmbLogin.Location = new System.Drawing.Point(106, 77);
+            this.cmbLogin.Location = new System.Drawing.Point(114, 68);
             this.cmbLogin.Name = "cmbLogin";
             this.cmbLogin.Size = new System.Drawing.Size(121, 21);
             this.cmbLogin.TabIndex = 11;
@@ -187,7 +191,7 @@
             // cmbModulo
             // 
             this.cmbModulo.FormattingEnabled = true;
-            this.cmbModulo.Location = new System.Drawing.Point(106, 104);
+            this.cmbModulo.Location = new System.Drawing.Point(114, 95);
             this.cmbModulo.Name = "cmbModulo";
             this.cmbModulo.Size = new System.Drawing.Size(121, 21);
             this.cmbModulo.TabIndex = 12;
@@ -195,7 +199,7 @@
             // cmbEvento
             // 
             this.cmbEvento.FormattingEnabled = true;
-            this.cmbEvento.Location = new System.Drawing.Point(327, 104);
+            this.cmbEvento.Location = new System.Drawing.Point(335, 95);
             this.cmbEvento.Name = "cmbEvento";
             this.cmbEvento.Size = new System.Drawing.Size(121, 21);
             this.cmbEvento.TabIndex = 13;
@@ -203,21 +207,21 @@
             // cmbCriticidad
             // 
             this.cmbCriticidad.FormattingEnabled = true;
-            this.cmbCriticidad.Location = new System.Drawing.Point(626, 104);
+            this.cmbCriticidad.Location = new System.Drawing.Point(634, 95);
             this.cmbCriticidad.Name = "cmbCriticidad";
             this.cmbCriticidad.Size = new System.Drawing.Size(121, 21);
             this.cmbCriticidad.TabIndex = 14;
             // 
             // dtpFechaInicio
             // 
-            this.dtpFechaInicio.Location = new System.Drawing.Point(327, 75);
+            this.dtpFechaInicio.Location = new System.Drawing.Point(335, 66);
             this.dtpFechaInicio.Name = "dtpFechaInicio";
             this.dtpFechaInicio.Size = new System.Drawing.Size(200, 20);
             this.dtpFechaInicio.TabIndex = 15;
             // 
             // dtpFechaFinal
             // 
-            this.dtpFechaFinal.Location = new System.Drawing.Point(626, 74);
+            this.dtpFechaFinal.Location = new System.Drawing.Point(634, 65);
             this.dtpFechaFinal.Name = "dtpFechaFinal";
             this.dtpFechaFinal.Size = new System.Drawing.Size(200, 20);
             this.dtpFechaFinal.TabIndex = 16;
@@ -231,7 +235,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1111, 43);
+            this.panel1.Size = new System.Drawing.Size(1121, 43);
             this.panel1.TabIndex = 17;
             this.panel1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panel1_MouseDown);
             this.panel1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.panel1_MouseMove);
@@ -242,7 +246,7 @@
             this.btnCerrar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCerrar.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnCerrar.Image = ((System.Drawing.Image)(resources.GetObject("btnCerrar.Image")));
-            this.btnCerrar.Location = new System.Drawing.Point(1082, 3);
+            this.btnCerrar.Location = new System.Drawing.Point(1092, 3);
             this.btnCerrar.Name = "btnCerrar";
             this.btnCerrar.Size = new System.Drawing.Size(25, 35);
             this.btnCerrar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -255,7 +259,7 @@
             this.btnMaximizar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnMaximizar.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnMaximizar.Image = ((System.Drawing.Image)(resources.GetObject("btnMaximizar.Image")));
-            this.btnMaximizar.Location = new System.Drawing.Point(1051, 3);
+            this.btnMaximizar.Location = new System.Drawing.Point(1061, 3);
             this.btnMaximizar.Name = "btnMaximizar";
             this.btnMaximizar.Size = new System.Drawing.Size(25, 35);
             this.btnMaximizar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -268,7 +272,7 @@
             this.btnMinimizar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnMinimizar.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnMinimizar.Image = ((System.Drawing.Image)(resources.GetObject("btnMinimizar.Image")));
-            this.btnMinimizar.Location = new System.Drawing.Point(1020, 3);
+            this.btnMinimizar.Location = new System.Drawing.Point(1030, 3);
             this.btnMinimizar.Name = "btnMinimizar";
             this.btnMinimizar.Size = new System.Drawing.Size(25, 35);
             this.btnMinimizar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -278,7 +282,7 @@
             // 
             // panel2
             // 
-            this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
+            this.panel2.BackColor = System.Drawing.Color.Maroon;
             this.panel2.Controls.Add(this.btnImprimir);
             this.panel2.Controls.Add(this.btnLimpiar);
             this.panel2.Controls.Add(this.btnAplicar);
@@ -298,14 +302,34 @@
             this.panel2.Controls.Add(this.cmbEvento);
             this.panel2.Controls.Add(this.lblLogin);
             this.panel2.Controls.Add(this.cmbModulo);
-            this.panel2.Location = new System.Drawing.Point(124, 377);
+            this.panel2.Location = new System.Drawing.Point(120, 417);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(871, 168);
+            this.panel2.Size = new System.Drawing.Size(886, 168);
             this.panel2.TabIndex = 18;
+            // 
+            // btnImprimir
+            // 
+            this.btnImprimir.Location = new System.Drawing.Point(634, 121);
+            this.btnImprimir.Name = "btnImprimir";
+            this.btnImprimir.Size = new System.Drawing.Size(121, 23);
+            this.btnImprimir.TabIndex = 19;
+            this.btnImprimir.Text = "Imprimir";
+            this.btnImprimir.UseVisualStyleBackColor = true;
+            this.btnImprimir.Click += new System.EventHandler(this.btnImprimir_Click);
+            // 
+            // btnLimpiar
+            // 
+            this.btnLimpiar.Location = new System.Drawing.Point(114, 121);
+            this.btnLimpiar.Name = "btnLimpiar";
+            this.btnLimpiar.Size = new System.Drawing.Size(120, 23);
+            this.btnLimpiar.TabIndex = 18;
+            this.btnLimpiar.Text = "Limpiar";
+            this.btnLimpiar.UseVisualStyleBackColor = true;
+            this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click);
             // 
             // btnAplicar
             // 
-            this.btnAplicar.Location = new System.Drawing.Point(327, 131);
+            this.btnAplicar.Location = new System.Drawing.Point(335, 122);
             this.btnAplicar.Name = "btnAplicar";
             this.btnAplicar.Size = new System.Drawing.Size(121, 23);
             this.btnAplicar.TabIndex = 17;
@@ -329,42 +353,31 @@
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.SystemColors.Control;
-            this.label1.Location = new System.Drawing.Point(480, 114);
+            this.label1.Location = new System.Drawing.Point(375, 3);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(130, 33);
             this.label1.TabIndex = 20;
             this.label1.Text = "Bitacora";
             // 
-            // btnLimpiar
+            // panel3
             // 
-            this.btnLimpiar.Location = new System.Drawing.Point(106, 130);
-            this.btnLimpiar.Name = "btnLimpiar";
-            this.btnLimpiar.Size = new System.Drawing.Size(120, 23);
-            this.btnLimpiar.TabIndex = 18;
-            this.btnLimpiar.Text = "Limpiar";
-            this.btnLimpiar.UseVisualStyleBackColor = true;
-            this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click);
-            // 
-            // btnImprimir
-            // 
-            this.btnImprimir.Location = new System.Drawing.Point(626, 130);
-            this.btnImprimir.Name = "btnImprimir";
-            this.btnImprimir.Size = new System.Drawing.Size(121, 23);
-            this.btnImprimir.TabIndex = 19;
-            this.btnImprimir.Text = "Imprimir";
-            this.btnImprimir.UseVisualStyleBackColor = true;
-            this.btnImprimir.Click += new System.EventHandler(this.btnImprimir_Click);
+            this.panel3.BackColor = System.Drawing.Color.Maroon;
+            this.panel3.Controls.Add(this.dtgvBitacora);
+            this.panel3.Controls.Add(this.label1);
+            this.panel3.Location = new System.Drawing.Point(120, 118);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(886, 281);
+            this.panel3.TabIndex = 21;
             // 
             // FormBitacora
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
-            this.ClientSize = new System.Drawing.Size(1111, 590);
-            this.Controls.Add(this.label1);
+            this.ClientSize = new System.Drawing.Size(1121, 619);
+            this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.dtgvBitacora);
             this.Controls.Add(this.pictureBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "FormBitacora";
@@ -377,8 +390,9 @@
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.panel3.ResumeLayout(false);
+            this.panel3.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -411,5 +425,6 @@
         private System.Windows.Forms.Button btnAplicar;
         private System.Windows.Forms.Button btnImprimir;
         private System.Windows.Forms.Button btnLimpiar;
+        private System.Windows.Forms.Panel panel3;
     }
 }
