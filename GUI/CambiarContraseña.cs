@@ -67,5 +67,51 @@ namespace GUI
                 throw new Exception("Ingrese una nueva Contraseña!");
             }
         }
+
+        private void btnCerrar_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void btnMinimizar_Click(object sender, EventArgs e)
+        {
+            this.WindowState = FormWindowState.Minimized;
+        }
+
+        private void linkVolver_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            this.Close();
+            Login login = new Login();
+            login.Show();
+        }
+
+        private void pbMostrarClave_Click(object sender, EventArgs e)
+        {
+            bool mostrar = txtContraseña.UseSystemPasswordChar;
+            if (mostrar)
+            {
+                MostrarClave(false);
+                txtContraseña.UseSystemPasswordChar = false;
+                txtNuevaContraseña.UseSystemPasswordChar = false;
+
+            }
+            else
+            {
+                MostrarClave(true);
+                txtContraseña.UseSystemPasswordChar = true;
+                txtNuevaContraseña.UseSystemPasswordChar = true;
+            }
+        }
+        private void MostrarClave(bool mostrar)
+        {
+            if (mostrar)
+            {
+                pbMostrarClave.Image = Properties.Resources.OjoAbierto;
+            }
+            else
+            {
+                pbMostrarClave.Image = Properties.Resources.OjoCerrado;
+            }
+        }
     }
 }

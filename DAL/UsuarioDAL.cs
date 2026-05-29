@@ -3,6 +3,7 @@ using Microsoft.Data.SqlClient;
 using Servicios;
 using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Text;
 using System.Windows.Forms;
 
@@ -47,11 +48,53 @@ namespace DAL
 
         public void BloquearUsuario(string username)
         {
-            throw new NotImplementedException();
+            try
+            {
+                _sqlcommand.CommandText = @"update Usuario set Bloqueado = 1 where UserName=@user;";
+                _sqlcommand.Parameters.AddWithValue("@user", username);
+
+                _sqlserver.Open();
+                _sqlcommand.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }finally
+            {
+                _sqlcommand.Parameters.Clear();
+                _sqlserver.Close();
+            }
         }
         public int ObtenerIntentosFallidos(string dNI)
         {
-            throw new NotImplementedException();
+            try
+            {
+                _sqlcommand.CommandText = @"SELECT IntentosFallidos FROM Usuario WHERE DNI = @dni;"; ;
+                _sqlcommand.Parameters.AddWithValue("@dni", dNI);
+
+                _sqlserver.Open();
+                using (var reader = _sqlcommand.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        return reader.GetInt32(0);
+                    }
+
+                }
+                throw new Exception($"No se encontró el usuario con DNI {dNI}");
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                _sqlcommand.Parameters.Clear();
+                _sqlserver.Close();
+            }
+
         }
 
         public UsuarioBE ObtenerPorUserName(string usuario)
@@ -91,12 +134,49 @@ namespace DAL
 
         public void ResetearIntentos(UsuarioBE usuario)
         {
-            throw new NotImplementedException();
+            try
+            {
+                _sqlcommand.CommandText = @"update Usuario set IntentosFallidos = 0 where DNI=@dni;";
+                _sqlcommand.Parameters.AddWithValue("@dni", usuario.DNI);
+
+                _sqlserver.Open();
+                _sqlcommand.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                _sqlcommand.Parameters.Clear();
+                _sqlserver.Close();
+            }
         }
 
         public void SumarIntentoFallido(UsuarioBE usuario)
         {
-            throw new NotImplementedException();
+            try
+            {
+                int intentos = ObtenerIntentosFallidos(usuario.DNI);
+
+                _sqlcommand.CommandText = @"update Usuario set IntentosFallidos = @intentos where DNI=@dni;";
+                _sqlcommand.Parameters.AddWithValue("@dni", usuario.DNI);
+                _sqlcommand.Parameters.AddWithValue("@intentos", intentos+1);
+
+                _sqlserver.Open();
+                _sqlcommand.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                _sqlcommand.Parameters.Clear();
+                _sqlserver.Close();
+            }
         }
 
         public UsuarioBE BuscarUsuarioPorDNI(string dNI)

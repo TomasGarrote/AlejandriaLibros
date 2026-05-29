@@ -88,6 +88,7 @@ namespace GUI
                 {
                     case LoginResultado.ContraseñaIncorrecta:
                         throw new Exception("Usuario o Contraseña Incorrecta, vuelva a intentar.");
+                        
                     case LoginResultado.UsuarioNoEncontrado:
                         throw new Exception("Usuario o Contraseña Incorrecta, vuelva a intentar.");
                     case LoginResultado.Valido:
@@ -112,14 +113,11 @@ namespace GUI
         private void ValidarCamposVacios()
         {
             if(txtUsuario.Text == "") { 
-                //MessageBox.Show("Error! Ingrese un usuario");
-                MessageBox.Show("Ingrese un Usuario!","Error!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
+                throw new Exception("Ingrese un Usuario!");
             }
             if (txtContraseña.Text == "")
             {
-                MessageBox.Show("Error! Ingrese una contraseña", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
+                throw new Exception("Ingrese una Contraseña!");
             }
         }
 
