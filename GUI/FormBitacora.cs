@@ -2,13 +2,11 @@
 using Servicios;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.IO;
 using System.Windows.Forms;
+using iTextSharp.text.pdf;
+using iText = iTextSharp.text;
 
 namespace GUI
 {
@@ -19,82 +17,122 @@ namespace GUI
         BitacoraBLL bll; 
         public FormBitacora()
         {
-          
             InitializeComponent();
             bll = new BitacoraBLL();
+
             dtpFechaFinal.Value = DateTime.Now;
             dtpFechaInicio.Value = DateTime.Now.AddDays(-3);
 
-            
-            cmbLogin.Items.Clear();
-            foreach (var l in bll.ObtenerLogins())
-                cmbLogin.Items.Add(l);
-
             CargarFiltros();
 
-            List<Bitacora> listaInicial = bll.ListarEventos();
-            dtgvBitacora.DataSource = listaInicial;
-            ConfigurarDtgv();
+            try
+            {
+                List<Bitacora> listaInicial = bll.FiltrarEventos(null, null, null, "Todos", null, dtpFechaInicio.Value, dtpFechaFinal.Value, null);
+
+                dtgvBitacora.DataSource = listaInicial;
+                ConfigurarDtgv();
+                MostrarPrimerRegistro();
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("No se pudo conectar a la base de datos. Verificá tu conexión.", "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
 
             dtgvBitacora.SelectionChanged += DtgvBitacora_SelectionChanged;
 
+        }
+
+        private void MostrarPrimerRegistro()
+        {
             if (dtgvBitacora.Rows.Count > 0)
-                dtgvBitacora.Rows[0].Selected = true;
-        
-         
-        }
-
-        private void CargarFiltros()
-        {
-            // Logins
-            cmbLogin.Items.Clear();
-            foreach (var l in bll.ObtenerLogins())
-                cmbLogin.Items.Add(l);
-
-            // Módulos
-            cmbModulo.Items.Clear();
-            cmbModulo.Items.Add("Todos");
-            cmbModulo.Items.Add("Usuarios");
-            cmbModulo.Items.Add("Ventas");
-            cmbModulo.Items.Add("Compras");
-            cmbModulo.Items.Add("Maestro");
-            cmbModulo.Items.Add("Perfiles");
-            cmbModulo.SelectedIndex = 0;
-
-            // Eventos
-            cmbEvento.Items.Clear();
-            cmbEvento.Items.Add("Login");
-            cmbEvento.Items.Add("Logout");
-            cmbEvento.Items.Add("Crear Usuario");
-            cmbEvento.Items.Add("Cambiar Clave");
-            cmbEvento.Items.Add("Bloquear Usuario");
-            cmbEvento.Items.Add("Generar Carrito");
-            cmbEvento.Items.Add("Generar Factura");
-            cmbEvento.Items.Add("Imprimir Factura");
-            cmbEvento.Items.Add("Eliminar Producto");
-
-            // Criticidad
-            cmbCriticidad.Items.Clear();
-            cmbCriticidad.Items.Add("Todos");
-            for (int i = 1; i <= 5; i++)
-                cmbCriticidad.Items.Add(i.ToString());
-            cmbCriticidad.SelectedIndex = 0;
-        }
-
-        private void DtgvBitacora_SelectionChanged(object sender, EventArgs e)
-        {
-            if (dtgvBitacora.CurrentRow?.DataBoundItem is Bitacora b)
             {
-                UsuarioBE u = bll.ObtenerUsuarioPorLogin(b.Login);
+                dtgvBitacora.Rows[0].Selected = true;
+                if (dtgvBitacora.Rows[0].DataBoundItem is Bitacora b)
+                    MostrarUsuario(b.Login);
+            }
+            else
+            {
+                txtNombre.Text = string.Empty;
+                txtApellido.Text = string.Empty;
+            }
+        }
+        private void MostrarUsuario(string login)
+        {
+            try
+            {
+                UsuarioBE u = bll.ObtenerUsuarioPorLogin(login);
                 if (u != null)
                 {
                     txtNombre.Text = u.Nombre;
                     txtApellido.Text = u.Apellido;
                 }
+                else
+                {
+                    txtNombre.Text = string.Empty;
+                    txtApellido.Text = string.Empty;
+                }
+            }
+            catch (Exception)
+            {
+                txtNombre.Text = string.Empty;
+                txtApellido.Text = string.Empty;
             }
         }
 
-        private void ConfigurarDtgv()
+        private void CargarFiltros()
+        {
+            try
+            {
+                cmbLogin.SelectedIndexChanged -= cmbLogin_SelectedIndexChanged;
+
+                cmbLogin.Items.Clear();
+                foreach (var l in bll.ObtenerLogins())
+                    cmbLogin.Items.Add(l);
+
+                cmbModulo.Items.Clear();
+                cmbModulo.Items.Add("Todos");
+                cmbModulo.Items.Add("Usuarios");
+                cmbModulo.Items.Add("Ventas");
+                cmbModulo.Items.Add("Compras");
+                cmbModulo.Items.Add("Maestro");
+                cmbModulo.Items.Add("Perfiles");
+                cmbModulo.SelectedIndex = 0;
+
+                cmbEvento.Items.Clear();
+                cmbEvento.Items.Add("Login");
+                cmbEvento.Items.Add("Logout");
+                cmbEvento.Items.Add("Crear Usuario");
+                cmbEvento.Items.Add("Cambiar Clave");
+                cmbEvento.Items.Add("Bloquear Usuario");
+                cmbEvento.Items.Add("Generar Carrito");
+                cmbEvento.Items.Add("Generar Factura");
+                cmbEvento.Items.Add("Imprimir Factura");
+                cmbEvento.Items.Add("Eliminar Producto");
+
+                cmbCriticidad.Items.Clear();
+                cmbCriticidad.Items.Add("Todos");
+                for (int i = 1; i <= 5; i++)
+                    cmbCriticidad.Items.Add(i.ToString());
+                cmbCriticidad.SelectedIndex = 0;
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("No se pudieron cargar los filtros. Verificá tu conexión.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            finally
+            {
+                cmbLogin.SelectedIndexChanged += cmbLogin_SelectedIndexChanged;
+            }
+        }
+
+        private void DtgvBitacora_SelectionChanged(object sender, EventArgs e)
+        {
+            if (dtgvBitacora.CurrentRow?.DataBoundItem is Bitacora b)
+                MostrarUsuario(b.Login);
+        }
+
+       
+         private void ConfigurarDtgv()
         {
             dtgvBitacora.ReadOnly = true;
             dtgvBitacora.AllowUserToAddRows = false;
@@ -103,8 +141,29 @@ namespace GUI
             dtgvBitacora.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dtgvBitacora.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 
-            dtgvBitacora.Columns["Id_Evento"].Visible = false;
-            dtgvBitacora.Columns["Descripcion"].HeaderText = "Evento";
+            if (dtgvBitacora.Columns["Id_Evento"] != null)
+                dtgvBitacora.Columns["Id_Evento"].Visible = false;
+
+            if (dtgvBitacora.Columns["Fecha"] != null)
+                dtgvBitacora.Columns["Fecha"].Visible = false;
+
+            if (dtgvBitacora.Columns["Evento"] != null)
+                dtgvBitacora.Columns["Evento"].HeaderText = "Evento";
+
+            if (dtgvBitacora.Columns["FechaSolo"] != null)
+                dtgvBitacora.Columns["FechaSolo"].HeaderText = "Fecha";
+
+            if (dtgvBitacora.Columns["HoraSolo"] != null)
+                dtgvBitacora.Columns["HoraSolo"].HeaderText = "Hora";
+
+       
+            dtgvBitacora.Columns["Login"].DisplayIndex = 0;
+            dtgvBitacora.Columns["FechaSolo"].DisplayIndex = 1;
+            dtgvBitacora.Columns["HoraSolo"].DisplayIndex = 2;
+            dtgvBitacora.Columns["Modulo"].DisplayIndex = 3;
+            dtgvBitacora.Columns["Evento"].DisplayIndex = 4;
+            dtgvBitacora.Columns["Criticidad"].DisplayIndex = 5;
+        
         }
         private void panel1_MouseUp(object sender, MouseEventArgs e)
         {
@@ -145,39 +204,56 @@ namespace GUI
         {
             if (!ValidarFiltros()) return;
 
-            string nombre = string.IsNullOrWhiteSpace(txtNombre.Text) ? null : txtNombre.Text.Trim();
-            string apellido = string.IsNullOrWhiteSpace(txtApellido.Text) ? null : txtApellido.Text.Trim();
-            string login = string.IsNullOrWhiteSpace(cmbLogin.Text) ? null : cmbLogin.Text.Trim();
-            string modulo = cmbModulo.SelectedItem?.ToString();
-            string evento = string.IsNullOrWhiteSpace(cmbEvento.Text) ? null : cmbEvento.Text.Trim();
+            try
+            {
+                string nombre = string.IsNullOrWhiteSpace(txtNombre.Text) ? null : txtNombre.Text.Trim();
+                string apellido = string.IsNullOrWhiteSpace(txtApellido.Text) ? null : txtApellido.Text.Trim();
+                string login = string.IsNullOrWhiteSpace(cmbLogin.Text) ? null : cmbLogin.Text.Trim();
+                string modulo = cmbModulo.SelectedItem?.ToString();
+                string evento = string.IsNullOrWhiteSpace(cmbEvento.Text) ? null : cmbEvento.Text.Trim();
+                DateTime desde = dtpFechaInicio.Value;
+                DateTime hasta = dtpFechaFinal.Value;
 
-            DateTime desde = dtpFechaInicio.Value;
-            DateTime hasta = dtpFechaFinal.Value;
+                int? criticidad = null;
+                if (!string.IsNullOrEmpty(cmbCriticidad.Text) && cmbCriticidad.Text != "Todos")
+                    criticidad = Convert.ToInt32(cmbCriticidad.Text);
 
-            int? criticidad = null;
-            if (!string.IsNullOrEmpty(cmbCriticidad.Text) && cmbCriticidad.Text != "Todos")
-                criticidad = Convert.ToInt32(cmbCriticidad.Text);
+                List<Bitacora> listaFiltrada = bll.FiltrarEventos(nombre, apellido, login, modulo, evento, desde, hasta, criticidad);
 
-            List<Bitacora> listaFiltrada = bll.FiltrarEventos(nombre, apellido, login, modulo, evento, desde, hasta, criticidad);
+                dtgvBitacora.SelectionChanged -= DtgvBitacora_SelectionChanged;
+                dtgvBitacora.DataSource = null;
+                dtgvBitacora.DataSource = listaFiltrada;
+                ConfigurarDtgv();
+                dtgvBitacora.SelectionChanged += DtgvBitacora_SelectionChanged;
 
-            if (listaFiltrada.Count == 0)
-                MessageBox.Show("No hay coincidencias", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-            txtNombre.Text = string.Empty;
-            txtApellido.Text = string.Empty;
-
-            dtgvBitacora.DataSource = null;
-            dtgvBitacora.DataSource = listaFiltrada;
+                if (listaFiltrada.Count == 0)
+                {
+                    txtNombre.Text = string.Empty;
+                    txtApellido.Text = string.Empty;
+                    MessageBox.Show("No se encontraron registros con los filtros aplicados.", "Sin resultados", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    MostrarPrimerRegistro();
+                }
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Ocurrió un error al aplicar los filtros. Intentá de nuevo.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
 
         }
 
         private bool ValidarFiltros()
         {
-            if (dtpFechaInicio.Value > dtpFechaFinal.Value)
+            if (dtpFechaInicio.Value.Date > dtpFechaFinal.Value.Date)
             {
-                MessageBox.Show("Datos Incorrectos: La fecha inicio es mayor a la final.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("La fecha de inicio no puede ser mayor a la fecha final.", "Fechas incorrectas", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                dtpFechaInicio.Focus();
                 return false;
             }
+
+
             return true;
         }
 
@@ -189,17 +265,114 @@ namespace GUI
             }
         }
 
+        private void btnLimpiar_Click(object sender, EventArgs e)
+        {
+            cmbLogin.SelectedIndexChanged -= cmbLogin_SelectedIndexChanged;
+            dtgvBitacora.SelectionChanged -= DtgvBitacora_SelectionChanged;
+
+            txtNombre.Text = string.Empty;
+            txtApellido.Text = string.Empty;
+            cmbLogin.SelectedIndex = -1;
+            cmbModulo.SelectedIndex = 0;
+            cmbEvento.SelectedIndex = -1;
+            cmbCriticidad.SelectedIndex = 0;
+
+            dtpFechaInicio.Value = DateTime.Now.AddDays(-3);
+            dtpFechaFinal.Value = DateTime.Now;
+
+            try
+            {
+                dtgvBitacora.DataSource = null;
+                dtgvBitacora.DataSource = bll.FiltrarEventos(null, null, null, "Todos", null, dtpFechaInicio.Value, dtpFechaFinal.Value, null);
+                ConfigurarDtgv();
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("No se pudieron recargar los eventos.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                cmbLogin.SelectedIndexChanged += cmbLogin_SelectedIndexChanged;
+                dtgvBitacora.SelectionChanged += DtgvBitacora_SelectionChanged;
+            }
+        }
+
+        private void btnImprimir_Click(object sender, EventArgs e)
+        {
+            if (dtgvBitacora.Rows.Count == 0)
+            {
+                MessageBox.Show("No hay datos para imprimir.", "Sin datos", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            SaveFileDialog saveDialog = new SaveFileDialog();
+            saveDialog.Filter = "PDF|*.pdf";
+            saveDialog.FileName = "Bitacora_" + DateTime.Now.ToString("yyyyMMdd_HHmm");
+
+            if (saveDialog.ShowDialog() != DialogResult.OK) return;
+
+            try
+            {
+                iText.Document doc = new iText.Document(iText.PageSize.A4, 20f, 20f, 20f, 20f);
+                PdfWriter.GetInstance(doc, new FileStream(saveDialog.FileName, FileMode.Create));
+                doc.Open();
+
+                iText.Font fontTitulo = iText.FontFactory.GetFont(iText.FontFactory.HELVETICA_BOLD, 14);
+                iText.Font fontFecha = iText.FontFactory.GetFont(iText.FontFactory.HELVETICA, 9);
+                iText.Font fontHeader = iText.FontFactory.GetFont(iText.FontFactory.HELVETICA_BOLD, 9);
+                iText.Font fontCell = iText.FontFactory.GetFont(iText.FontFactory.HELVETICA, 8);
+                iText.BaseColor colorHeader = new iText.BaseColor(70, 130, 180);
+
+                doc.Add(new iText.Paragraph("Bitácora de Eventos", fontTitulo));
+                doc.Add(new iText.Paragraph("Generado el " + DateTime.Now.ToString("dd/MM/yyyy HH:mm"), fontFecha));
+                doc.Add(new iText.Paragraph(" "));
+
+                PdfPTable tabla = new PdfPTable(6);
+                tabla.WidthPercentage = 100;
+                tabla.SetWidths(new float[] { 15f, 12f, 8f, 12f, 25f, 10f });
+
+                foreach (string col in new[] { "Login", "Fecha", "Hora", "Módulo", "Evento", "Criticidad" })
+                {
+                    PdfPCell cell = new PdfPCell(new iText.Phrase(col, fontHeader));
+                    cell.BackgroundColor = colorHeader;
+                    cell.HorizontalAlignment = iText.Element.ALIGN_CENTER;
+                    cell.Padding = 5;
+                    tabla.AddCell(cell);
+                }
+
+                foreach (DataGridViewRow row in dtgvBitacora.Rows)
+                {
+                    if (row.DataBoundItem is Bitacora b)
+                    {
+                        tabla.AddCell(new PdfPCell(new iText.Phrase(b.Login, fontCell)) { Padding = 4 });
+                        tabla.AddCell(new PdfPCell(new iText.Phrase(b.Fecha.ToString("dd/MM/yyyy"), fontCell)) { Padding = 4 });
+                        tabla.AddCell(new PdfPCell(new iText.Phrase(b.Fecha.ToString("HH:mm"), fontCell)) { Padding = 4 });
+                        tabla.AddCell(new PdfPCell(new iText.Phrase(b.Modulo, fontCell)) { Padding = 4 });
+                        tabla.AddCell(new PdfPCell(new iText.Phrase(b.Evento, fontCell)) { Padding = 4 });
+                        tabla.AddCell(new PdfPCell(new iText.Phrase(b.Criticidad.ToString(), fontCell)) { Padding = 4, HorizontalAlignment = iText.Element.ALIGN_CENTER });
+                    }
+                }
+
+                doc.Add(tabla);
+                doc.Close();
+
+                MessageBox.Show("PDF generado correctamente.", "Listo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo(saveDialog.FileName) { UseShellExecute = true });
+            }
+            catch (IOException)
+            {
+                MessageBox.Show("El archivo está abierto en otro programa. Cerralo e intentá de nuevo.", "Archivo en uso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("No se pudo generar el PDF. Intentá de nuevo.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
         private void cmbLogin_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (!string.IsNullOrEmpty(cmbLogin.Text))
-            {
-                UsuarioBE u = bll.ObtenerUsuarioPorLogin(cmbLogin.Text);
-                if (u != null)
-                {
-                    txtNombre.Text = u.Nombre;
-                    txtApellido.Text = u.Apellido;
-                }
-            }
+                MostrarUsuario(cmbLogin.Text);
             else
             {
                 txtNombre.Text = string.Empty;

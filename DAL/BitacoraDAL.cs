@@ -1,5 +1,4 @@
-﻿
-using Microsoft.Data.SqlClient;
+﻿using Microsoft.Data.SqlClient;
 using Servicios;
 using System;
 using System.Collections.Generic;
@@ -8,27 +7,27 @@ namespace DAL
 {
     public class BitacoraDAL : AbstractDAL<Bitacora>
     {
-        public BitacoraDAL()
-        {
-            
-        }
+        public BitacoraDAL() { }
 
         public void RegistrarEvento(Bitacora unEvento)
         {
             try
             {
-                _sqlcommand.CommandText = @"INSERT INTO Bitacora (Login, Fecha, Modulo, Descripcion, Criticidad) 
-VALUES (@Login, @Fecha, @Modulo, @Descripcion, @Criticidad)";
-
+                _sqlcommand.CommandText = @"INSERT INTO Bitacora (Login, Fecha, Modulo, Evento, Criticidad) 
+                           VALUES (@Login, @Fecha, @Modulo, @Evento, @Criticidad)";
                 _sqlcommand.Parameters.Clear();
                 _sqlcommand.Parameters.AddWithValue("@Login", unEvento.Login);
                 _sqlcommand.Parameters.AddWithValue("@Fecha", unEvento.Fecha);
                 _sqlcommand.Parameters.AddWithValue("@Modulo", unEvento.Modulo);
-                _sqlcommand.Parameters.AddWithValue("@Descripcion", unEvento.Descripcion);
+                _sqlcommand.Parameters.AddWithValue("@Evento", unEvento.Evento);
                 _sqlcommand.Parameters.AddWithValue("@Criticidad", unEvento.Criticidad);
 
                 _sqlserver.Open();
                 _sqlcommand.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al registrar el evento en la bitácora.", ex);
             }
             finally
             {
@@ -42,13 +41,14 @@ VALUES (@Login, @Fecha, @Modulo, @Descripcion, @Criticidad)";
             try
             {
                 _sqlcommand.CommandText = @"SELECT b.Id_Evento, b.Login, b.Fecha, b.Modulo, 
-                            b.Descripcion, b.Criticidad
-                            FROM Bitacora b
-                            INNER JOIN Usuario u ON b.Login = u.UserName
-                            WHERE b.Fecha >= DATEADD(day, -3, GETDATE())
-                            ORDER BY b.Fecha DESC, b.Id_Evento DESC";
+                                            b.Evento, b.Criticidad
+                                            FROM Bitacora b
+                                            INNER JOIN Usuario u ON b.Login = u.UserName
+                                            WHERE b.Fecha >= DATEADD(day, -3, GETDATE())
+                                            ORDER BY b.Fecha DESC, b.Id_Evento DESC";
                 _sqlcommand.Parameters.Clear();
                 _sqlserver.Open();
+
                 using (SqlDataReader reader = _sqlcommand.ExecuteReader())
                 {
                     while (reader.Read())
@@ -59,13 +59,20 @@ VALUES (@Login, @Fecha, @Modulo, @Descripcion, @Criticidad)";
                             Login = reader.GetString(1),
                             Fecha = reader.GetDateTime(2),
                             Modulo = reader.GetString(3),
-                            Descripcion = reader.GetString(4),
+                            Evento = reader.GetString(4),
                             Criticidad = reader.GetInt32(5)
                         });
                     }
                 }
             }
-            finally { _sqlserver.Close(); }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al listar los eventos.", ex);
+            }
+            finally
+            {
+                _sqlserver.Close();
+            }
             return lista;
         }
 
@@ -75,10 +82,10 @@ VALUES (@Login, @Fecha, @Modulo, @Descripcion, @Criticidad)";
             try
             {
                 string query = @"SELECT b.Id_Evento, b.Login, b.Fecha, b.Modulo, 
-                 b.Descripcion, b.Criticidad
-                 FROM Bitacora b 
-                 INNER JOIN Usuario u ON b.Login = u.UserName
-                 WHERE 1=1";
+                                 b.Evento, b.Criticidad
+                                 FROM Bitacora b 
+                                 INNER JOIN Usuario u ON b.Login = u.UserName
+                                 WHERE 1=1";
 
                 _sqlcommand.Parameters.Clear();
 
@@ -94,7 +101,7 @@ VALUES (@Login, @Fecha, @Modulo, @Descripcion, @Criticidad)";
                 }
                 if (!string.IsNullOrEmpty(login))
                 {
-                    query += " AND u.UserName = @Login";
+                    query += " AND b.Login = @Login";
                     _sqlcommand.Parameters.AddWithValue("@Login", login);
                 }
                 if (!string.IsNullOrEmpty(modulo))
@@ -104,7 +111,7 @@ VALUES (@Login, @Fecha, @Modulo, @Descripcion, @Criticidad)";
                 }
                 if (!string.IsNullOrEmpty(evento))
                 {
-                    query += " AND b.Descripcion LIKE @Evento";
+                    query += " AND b.Evento LIKE @Evento";
                     _sqlcommand.Parameters.AddWithValue("@Evento", "%" + evento + "%");
                 }
                 if (criticidad.HasValue)
@@ -132,13 +139,20 @@ VALUES (@Login, @Fecha, @Modulo, @Descripcion, @Criticidad)";
                             Login = reader.GetString(1),
                             Fecha = reader.GetDateTime(2),
                             Modulo = reader.GetString(3),
-                            Descripcion = reader.GetString(4),
+                            Evento = reader.GetString(4),
                             Criticidad = reader.GetInt32(5)
                         });
                     }
                 }
             }
-            finally { _sqlserver.Close(); }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al filtrar los eventos.", ex);
+            }
+            finally
+            {
+                _sqlserver.Close();
+            }
             return lista;
         }
 
@@ -150,10 +164,19 @@ VALUES (@Login, @Fecha, @Modulo, @Descripcion, @Criticidad)";
                 _sqlcommand.CommandText = "SELECT DISTINCT UserName FROM Usuario ORDER BY UserName";
                 _sqlcommand.Parameters.Clear();
                 _sqlserver.Open();
+
                 using (SqlDataReader reader = _sqlcommand.ExecuteReader())
-                    while (reader.Read()) logins.Add(reader.GetString(0));
+                    while (reader.Read())
+                        logins.Add(reader.GetString(0));
             }
-            finally { _sqlserver.Close(); }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al obtener los logins.", ex);
+            }
+            finally
+            {
+                _sqlserver.Close();
+            }
             return logins;
         }
 
@@ -162,10 +185,13 @@ VALUES (@Login, @Fecha, @Modulo, @Descripcion, @Criticidad)";
             UsuarioBE usuario = null;
             try
             {
-                _sqlcommand.CommandText = "SELECT DNI, Nombre, Apellido, UserName FROM Usuario WHERE UserName = @Login";
+                _sqlcommand.CommandText = @"SELECT DNI, Nombre, Apellido, UserName 
+                                            FROM Usuario 
+                                            WHERE UserName = @Login";
                 _sqlcommand.Parameters.Clear();
                 _sqlcommand.Parameters.AddWithValue("@Login", login);
                 _sqlserver.Open();
+
                 using (SqlDataReader reader = _sqlcommand.ExecuteReader())
                 {
                     if (reader.Read())
@@ -180,7 +206,14 @@ VALUES (@Login, @Fecha, @Modulo, @Descripcion, @Criticidad)";
                     }
                 }
             }
-            finally { _sqlserver.Close(); }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al obtener el usuario.", ex);
+            }
+            finally
+            {
+                _sqlserver.Close();
+            }
             return usuario;
         }
     }
