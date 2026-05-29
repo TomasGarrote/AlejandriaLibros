@@ -29,16 +29,30 @@ namespace GUI
             ConfigurarGrillaSeleccionFila(dataGridView1);
         }
 
+        private void MostrarCantidadUsuarios()
+        {
+            if (radioButton1.Checked)
+            {
+                lblCantidadUsers.Text = $"Cantidad de Usuarios: {usuarioBLL.ListarUsuariosActivos().Count}";
+            }
+            else
+            {
+                lblCantidadUsers.Text = $"Cantidad de Usuarios: {usuarioBLL.ListarTodosUsuarios().Count}";
+            }
+        }
+
         private void radioButton1_CheckedChanged(object sender, EventArgs e)
         {
             if (radioButton1.Checked)
             {
                 lblTextoTabla.Text = "[Usuarios Activos]";
                 MostrarUsuarios(dataGridView1, usuarioBLL.ListarUsuariosActivos() as List<UsuarioBE>);
+                MostrarCantidadUsuarios();
             }
             else
             {
                 lblTextoTabla.Text = "[Todos los Usuarios]";
+                MostrarCantidadUsuarios();
             }
 
         }
@@ -125,13 +139,14 @@ namespace GUI
                         usuarioBLL.RegistrarUsuario(new UsuarioBE(txtDni.Text,txtNom.Text,txtApe.Text,txtUsuario.Text,Encriptador.GetHash256(txtDni.Text + txtNom.Text), txtEmail.Text,false,true,txtRol.Text));
                         ReiniciarBotones();
                         MostrarUsuarios(dataGridView1, usuarioBLL.ListarUsuariosActivos());
-                            lblTextoTabla.Text = $"[Usuarios Activos] + {usuarioBLL.ListarUsuariosActivos().Count}";
+                            MostrarCantidadUsuarios();
                         }
                             break;
                     case UserAction.Delete:
                         usuarioBLL.EliminarLogico((dataGridView1.SelectedRows[0].DataBoundItem as UsuarioBE).DNI);
                         ReiniciarBotones();
                         MostrarUsuarios(dataGridView1, usuarioBLL.ListarUsuariosActivos());
+                        MostrarCantidadUsuarios();
                         break;
                     case UserAction.Modify:
                         if (ValidarCamposVacios(txtNom, txtApe, txtDni, txtUsuario, txtEmail, txtRol) && ValidarEntradaUsuario())
