@@ -40,10 +40,13 @@
             this.txtNuevaContraseña = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.btnGuardarContra = new System.Windows.Forms.Button();
+            this.linkVolver = new System.Windows.Forms.LinkLabel();
+            this.pbMostrarClave = new System.Windows.Forms.PictureBox();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnCerrar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnMinimizar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbMostrarClave)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
@@ -54,7 +57,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(339, 43);
+            this.panel1.Size = new System.Drawing.Size(346, 43);
             this.panel1.TabIndex = 7;
             // 
             // btnCerrar
@@ -62,24 +65,26 @@
             this.btnCerrar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCerrar.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnCerrar.Image = ((System.Drawing.Image)(resources.GetObject("btnCerrar.Image")));
-            this.btnCerrar.Location = new System.Drawing.Point(311, 4);
+            this.btnCerrar.Location = new System.Drawing.Point(318, 4);
             this.btnCerrar.Name = "btnCerrar";
             this.btnCerrar.Size = new System.Drawing.Size(25, 35);
             this.btnCerrar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.btnCerrar.TabIndex = 5;
             this.btnCerrar.TabStop = false;
+            this.btnCerrar.Click += new System.EventHandler(this.btnCerrar_Click);
             // 
             // btnMinimizar
             // 
             this.btnMinimizar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnMinimizar.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnMinimizar.Image = ((System.Drawing.Image)(resources.GetObject("btnMinimizar.Image")));
-            this.btnMinimizar.Location = new System.Drawing.Point(283, 4);
+            this.btnMinimizar.Location = new System.Drawing.Point(290, 4);
             this.btnMinimizar.Name = "btnMinimizar";
             this.btnMinimizar.Size = new System.Drawing.Size(25, 35);
             this.btnMinimizar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.btnMinimizar.TabIndex = 3;
             this.btnMinimizar.TabStop = false;
+            this.btnMinimizar.Click += new System.EventHandler(this.btnMinimizar_Click);
             // 
             // pictureBox1
             // 
@@ -169,12 +174,39 @@
             this.btnGuardarContra.UseVisualStyleBackColor = false;
             this.btnGuardarContra.Click += new System.EventHandler(this.btnGuardarContra_Click);
             // 
+            // linkVolver
+            // 
+            this.linkVolver.AutoSize = true;
+            this.linkVolver.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.linkVolver.LinkColor = System.Drawing.Color.MediumTurquoise;
+            this.linkVolver.Location = new System.Drawing.Point(120, 441);
+            this.linkVolver.Name = "linkVolver";
+            this.linkVolver.Size = new System.Drawing.Size(101, 18);
+            this.linkVolver.TabIndex = 16;
+            this.linkVolver.TabStop = true;
+            this.linkVolver.Text = "Volver a Login";
+            this.linkVolver.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkVolver_LinkClicked);
+            // 
+            // pbMostrarClave
+            // 
+            this.pbMostrarClave.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.pbMostrarClave.Image = global::GUI.Properties.Resources.OjoAbierto;
+            this.pbMostrarClave.Location = new System.Drawing.Point(290, 246);
+            this.pbMostrarClave.Name = "pbMostrarClave";
+            this.pbMostrarClave.Size = new System.Drawing.Size(41, 40);
+            this.pbMostrarClave.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pbMostrarClave.TabIndex = 17;
+            this.pbMostrarClave.TabStop = false;
+            this.pbMostrarClave.Click += new System.EventHandler(this.pbMostrarClave_Click);
+            // 
             // CambiarContraseña
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
-            this.ClientSize = new System.Drawing.Size(339, 475);
+            this.ClientSize = new System.Drawing.Size(346, 486);
+            this.Controls.Add(this.pbMostrarClave);
+            this.Controls.Add(this.linkVolver);
             this.Controls.Add(this.btnGuardarContra);
             this.Controls.Add(this.txtNuevaContraseña);
             this.Controls.Add(this.label3);
@@ -191,6 +223,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.btnCerrar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnMinimizar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbMostrarClave)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -209,5 +242,7 @@
         private System.Windows.Forms.TextBox txtNuevaContraseña;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button btnGuardarContra;
+        private System.Windows.Forms.LinkLabel linkVolver;
+        private System.Windows.Forms.PictureBox pbMostrarClave;
     }
 }
