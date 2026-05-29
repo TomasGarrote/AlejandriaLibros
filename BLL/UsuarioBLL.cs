@@ -99,7 +99,7 @@ namespace BLL
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                throw ex;
             }
         }
         private void ValidarCaracteresUsuario(UsuarioBE usuario)
@@ -201,7 +201,7 @@ namespace BLL
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                throw ex;
             }
         }
 
