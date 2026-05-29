@@ -45,7 +45,7 @@ namespace BLL
                     else
                     {
                         SessionManager.Instance.Loguear(usuarioBE.Username);
-                        usuarioDAL.ResetearIntentos(usuarioBE);
+                        //usuarioDAL.ResetearIntentos(usuarioBE);
                         return LoginResultado.Valido;
                     }
                 }
@@ -134,6 +134,25 @@ namespace BLL
 
                 throw ex;
             }
+        }
+
+        public void CambiarClave(string usuario, string nuevaContra)
+        {
+            try
+            {
+                UsuarioBE user = usuarioDAL.ObtenerPorUserName(usuario);
+                if(user.Password == Encriptador.GetHash256(nuevaContra))
+                {
+                    throw new Exception("La nueva contraseña no puede ser igual a la anterior");
+                }
+                usuarioDAL.CambiarClave(usuario, Encriptador.GetHash256(nuevaContra));
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            
         }
     }
 }
