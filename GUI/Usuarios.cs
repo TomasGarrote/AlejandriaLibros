@@ -289,7 +289,7 @@ namespace GUI
         private void button3_Click(object sender, EventArgs e)
         {
             userAction = UserAction.Modify;
-            EnabledControls(button1, button2, button3, button4, btnAplicar, btnCancelar, button7, panel2, panModificarUsuario);
+            EnabledControls(button1, button2, button3, button4, btnAplicar, btnCancelar, button7, panel2, panModificarUsuario,txtDni);
             MostrarUsuarios(dataGridView1, usuarioBLL.ListarUsuariosActivos());
         }
 
