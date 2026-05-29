@@ -37,9 +37,9 @@
             this.txtUsuario = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.txtNuevaContraseña = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.btnLogin = new System.Windows.Forms.Button();
+            this.btnGuardarContra = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnCerrar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnMinimizar)).BeginInit();
@@ -132,15 +132,15 @@
             this.label1.TabIndex = 9;
             this.label1.Text = "Usuario:";
             // 
-            // textBox1
+            // txtNuevaContraseña
             // 
-            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1.Location = new System.Drawing.Point(62, 327);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.PasswordChar = '*';
-            this.textBox1.Size = new System.Drawing.Size(219, 40);
-            this.textBox1.TabIndex = 14;
+            this.txtNuevaContraseña.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtNuevaContraseña.Location = new System.Drawing.Point(62, 327);
+            this.txtNuevaContraseña.Multiline = true;
+            this.txtNuevaContraseña.Name = "txtNuevaContraseña";
+            this.txtNuevaContraseña.PasswordChar = '*';
+            this.txtNuevaContraseña.Size = new System.Drawing.Size(219, 40);
+            this.txtNuevaContraseña.TabIndex = 14;
             // 
             // label3
             // 
@@ -153,20 +153,21 @@
             this.label3.TabIndex = 13;
             this.label3.Text = "Contraseña:";
             // 
-            // btnLogin
+            // btnGuardarContra
             // 
-            this.btnLogin.BackColor = System.Drawing.Color.Maroon;
-            this.btnLogin.FlatAppearance.BorderSize = 0;
-            this.btnLogin.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.btnLogin.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnLogin.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnLogin.ForeColor = System.Drawing.Color.White;
-            this.btnLogin.Location = new System.Drawing.Point(62, 386);
-            this.btnLogin.Name = "btnLogin";
-            this.btnLogin.Size = new System.Drawing.Size(219, 40);
-            this.btnLogin.TabIndex = 15;
-            this.btnLogin.Text = "Guardar Contraseña";
-            this.btnLogin.UseVisualStyleBackColor = false;
+            this.btnGuardarContra.BackColor = System.Drawing.Color.Maroon;
+            this.btnGuardarContra.FlatAppearance.BorderSize = 0;
+            this.btnGuardarContra.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.btnGuardarContra.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnGuardarContra.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnGuardarContra.ForeColor = System.Drawing.Color.White;
+            this.btnGuardarContra.Location = new System.Drawing.Point(62, 386);
+            this.btnGuardarContra.Name = "btnGuardarContra";
+            this.btnGuardarContra.Size = new System.Drawing.Size(219, 40);
+            this.btnGuardarContra.TabIndex = 15;
+            this.btnGuardarContra.Text = "Guardar Contraseña";
+            this.btnGuardarContra.UseVisualStyleBackColor = false;
+            this.btnGuardarContra.Click += new System.EventHandler(this.btnGuardarContra_Click);
             // 
             // CambiarContraseña
             // 
@@ -174,8 +175,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
             this.ClientSize = new System.Drawing.Size(339, 475);
-            this.Controls.Add(this.btnLogin);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.btnGuardarContra);
+            this.Controls.Add(this.txtNuevaContraseña);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.txtContraseña);
             this.Controls.Add(this.txtUsuario);
@@ -205,8 +206,8 @@
         private System.Windows.Forms.TextBox txtUsuario;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox txtNuevaContraseña;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Button btnLogin;
+        private System.Windows.Forms.Button btnGuardarContra;
     }
 }

@@ -184,5 +184,28 @@ namespace DAL
                 _sqlserver.Close();
             }
         }
+
+        public void CambiarClave(string usuario, string nuevaContra)
+        {
+            try
+            {
+                _sqlcommand.CommandText = "update Usuario set Password = @nuevaPassword where UserName=@usuario;";
+                _sqlcommand.Parameters.AddWithValue("@usuario", usuario);
+                _sqlcommand.Parameters.AddWithValue("@nuevaPassword", nuevaContra);
+
+                _sqlserver.Open();
+                _sqlcommand.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+            finally
+            {
+                _sqlcommand.Parameters.Clear();
+                _sqlserver.Close();
+            }
+        }
     }
 }
