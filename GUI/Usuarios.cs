@@ -22,6 +22,7 @@ namespace GUI
         private UsuarioBLL usuarioBLL;
         public Usuarios()
         {
+            
             InitializeComponent();
             usuarioBLL = new UsuarioBLL();
             lblTextoTabla.Text = "[Usuarios Activos]";
@@ -145,10 +146,10 @@ namespace GUI
                 switch (userAction)
                 {
                     case UserAction.Add:
-                        if (ValidarCamposVacios(txtDni,txtApe,txtNom,txtEmail,txtRol,txtUsuario)) { 
-                        usuarioBLL.RegistrarUsuario(new UsuarioBE(txtDni.Text,txtNom.Text,txtApe.Text,txtUsuario.Text,Encriptador.GetHash256(txtDni.Text + txtNom.Text), txtEmail.Text,false,true,txtRol.Text));
-                        ReiniciarBotones();
-                        MostrarUsuarios(dataGridView1, usuarioBLL.ListarUsuariosActivos());
+                        if (ValidarCamposVacios(txtDni,txtApe,txtNom,txtEmail,txtRol,txtUsuario)) {
+                            usuarioBLL.RegistrarUsuario(new UsuarioBE(txtDni.Text,txtNom.Text,txtApe.Text,txtUsuario.Text,Encriptador.GetHash256(txtDni.Text + txtNom.Text), txtEmail.Text,false,true,txtRol.Text));
+                            ReiniciarBotones();
+                            MostrarUsuarios(dataGridView1, usuarioBLL.ListarUsuariosActivos());
                             MostrarCantidadUsuarios();
                         }
                             break;
@@ -180,8 +181,17 @@ namespace GUI
                         break;
                     case UserAction.UnBlock:
                         ReiniciarBotones();
-                        MostrarUsuarios(dataGridView1, usuarioBLL.ListarUsuariosActivos());
                         usuarioBLL.DesbloquearUsuario(dataGridView1.SelectedRows[0].DataBoundItem as UsuarioBE);
+                        if (radioButton1.Checked)
+                        {
+                            MostrarUsuarios(dataGridView1, usuarioBLL.ListarUsuariosActivos());
+                        }
+                        else
+                        {
+                            MostrarUsuarios(dataGridView1, usuarioBLL.ListarTodosUsuarios());
+
+                        }
+                        
                         MessageBox.Show("Usuario Fue Desbloqueado Y Clave Restaurada", "Alerta!", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         break;
                     case UserAction.Activate:
