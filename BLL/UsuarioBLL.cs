@@ -175,22 +175,27 @@ namespace BLL
             }
         }
 
-        public void CambiarClave(string usuario, string nuevaContra)
+        public LoginResultado CambiarClave(string usuario, string contraActual,string nuevaContra)
         {
             try
             {
                 UsuarioBE user = usuarioDAL.ObtenerPorUserName(usuario);
-                if(user.Password == Encriptador.GetHash256(nuevaContra))
-                {
-                    throw new Exception("La nueva contraseña no puede ser igual a la anterior");
-                }
+
+                if (user == null) return LoginResultado.UsuarioNoEncontrado;
+                if (user.Password == Encriptador.GetHash256(nuevaContra)) return LoginResultado.ContraseñaIguales;
+                if (user.Password != Encriptador.GetHash256(contraActual)) return LoginResultado.ContraseñaIncorrecta;
+                if (user.Bloqueado) return LoginResultado.Bloqueado;
+
                 usuarioDAL.CambiarClave(usuario, Encriptador.GetHash256(nuevaContra));
+
                 Bitacora bitacora = new Bitacora();
                 bitacora.Login = usuario;
                 bitacora.Modulo = "Usuarios";
                 bitacora.Evento = "Cambiar Clave exitoso";
                 bitacora.Criticidad = 1;
                 bitacoraBLL.RegistrarEvento(bitacora);
+
+                return LoginResultado.Valido;
 
             }
             catch (Exception ex)
@@ -260,5 +265,22 @@ namespace BLL
 
         public UsuarioBE BuscarUsuarioPorDNI(string v) => usuarioDAL.BuscarUsuarioPorDNI(v);
         public UsuarioBE BuscarUsuarioPorUserName(string user) => usuarioDAL.ObtenerPorUserName(user);
+
+        public bool ValidarNuevoUsuario(string user, string contra)
+        {
+            UsuarioBE usuario = usuarioDAL.ObtenerPorUserName(user);
+            if (usuario != null)
+            {
+                if(usuario.Password == Encriptador.GetHash256(usuario.DNI + usuario.Nombre))
+                {
+                    if(Encriptador.GetHash256(contra) == usuario.Password)
+                    {
+                        return true;
+                    }
+                }
+            }
+                
+            return false;
+        }
     }
 }
