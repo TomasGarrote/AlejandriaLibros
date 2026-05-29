@@ -61,7 +61,7 @@ namespace GUI
 
         private void btnCerrar_Click(object sender, EventArgs e)
         {
-            this.Close();
+            this.Hide();
             Menu menu = new Menu();
             menu.Show();
         }
@@ -184,25 +184,9 @@ namespace GUI
                 MessageBox.Show(ex.Message); 
             }
         }
-        public void MostrarUsuarios(DataGridView dgv, object obj)
-        {
-            dgv.DataSource = null;
-            dgv.DataSource = obj;
-            if (obj is List<UsuarioBE> lista)
-            {
-                for (int i = 0; i < lista.Count && i < dgv.Rows.Count; i++)
-                {
-                    if (lista[i].Bloqueado)
-                    {
-                        dgv.Rows[i].DefaultCellStyle.ForeColor = Color.Red;
-                    }
-                    else
-                    {
-                        dgv.Rows[i].DefaultCellStyle.ForeColor = Color.Black;
-                    }
-                }
-            }
-        }
+        public void MostrarUsuarios(DataGridView dgv, object obj) { dgv.DataSource = null; dgv.DataSource = obj; }
+            
+
         private bool ValidarCamposVacios(params Control[] controles)
         {
             StringBuilder mensaje = new StringBuilder();
@@ -375,6 +359,21 @@ namespace GUI
                     txtUsuario.Text = user.Username;
                     txtEmail.Text = user.Email;
                     txtRol.Text = user.Rol;
+                }
+            }
+        }
+
+        private void dataGridView1_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (e.RowIndex >= 0 && dataGridView1.Rows[e.RowIndex].DataBoundItem is UsuarioBE usuario)
+            { 
+                if (usuario.Bloqueado)
+                {
+                    e.CellStyle.ForeColor = Color.Red;
+                }
+                else
+                {
+                    e.CellStyle.ForeColor = Color.Black;
                 }
             }
         }
