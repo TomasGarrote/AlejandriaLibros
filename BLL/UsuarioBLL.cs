@@ -49,6 +49,14 @@ namespace BLL
                     {
                         SessionManager.Instance.Loguear(usuarioBE.Username);
                         //usuarioDAL.ResetearIntentos(usuarioBE);
+
+                        Bitacora bitacora = new Bitacora();
+                        bitacora.Login = SessionManager.Instance.UsuarioActual().ToString();
+                        bitacora.Modulo = "Usuarios";
+                        bitacora.Evento = "Login exitoso";
+                        bitacora.Criticidad = 1;
+                        bitacoraBLL.RegistrarEvento(bitacora);
+
                         return LoginResultado.Valido;
                     }
                 }
@@ -65,7 +73,16 @@ namespace BLL
         {
             try
             {
+                Bitacora bitacora = new Bitacora();
+                bitacora.Login = SessionManager.Instance.UsuarioActual().ToString();
+
                 SessionManager.Instance.Desloguear();
+
+                
+                bitacora.Modulo = "Usuarios";
+                bitacora.Evento = "Desloguear usuario";
+                bitacora.Criticidad = 1;
+                bitacoraBLL.RegistrarEvento(bitacora);
             }
             catch (Exception ex)
             {
@@ -144,7 +161,7 @@ namespace BLL
                     Bitacora bitacora = new Bitacora();
                     bitacora.Login = SessionManager.Instance.UsuarioActual().ToString();
                     bitacora.Modulo = "Usuarios";
-                    bitacora.Evento = "Eliminar Usuario (Baja lógica) exitoso";
+                    bitacora.Evento = "Activar Usuario (Baja lógica) exitoso";
                     bitacora.Criticidad = 1;
 
                     bitacoraBLL.RegistrarEvento(bitacora);
@@ -169,10 +186,12 @@ namespace BLL
                 }
                 usuarioDAL.CambiarClave(usuario, Encriptador.GetHash256(nuevaContra));
                 Bitacora bitacora = new Bitacora();
-                bitacora.Login = SessionManager.Instance.UsuarioActual().ToString();
+                bitacora.Login = usuario;
                 bitacora.Modulo = "Usuarios";
                 bitacora.Evento = "Cambiar Clave exitoso";
                 bitacora.Criticidad = 1;
+                bitacoraBLL.RegistrarEvento(bitacora);
+
             }
             catch (Exception ex)
             {
@@ -201,6 +220,7 @@ namespace BLL
                     bitacora.Modulo = "Usuarios";
                     bitacora.Evento = "Modificar Usuario exitoso";
                     bitacora.Criticidad = 1;
+                    bitacoraBLL.RegistrarEvento(bitacora);
                 }
 
             }
@@ -222,6 +242,8 @@ namespace BLL
                     bitacora.Modulo = "Usuarios";
                     bitacora.Evento = "Desbloquear Usuario exitoso";
                     bitacora.Criticidad = 1;
+                    bitacoraBLL.RegistrarEvento(bitacora);
+
                 }
                 else
                 {
