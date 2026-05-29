@@ -29,7 +29,7 @@ namespace DAL
                 _sqlcommand.Parameters.AddWithValue("@username", entity.Username);
                 _sqlcommand.Parameters.AddWithValue("@password", entity.Password);
                 _sqlcommand.Parameters.AddWithValue("@email", entity.Email);
-                _sqlcommand.Parameters.AddWithValue("@rol", entity.Rol);
+                _sqlcommand.Parameters.AddWithValue("@Rol", entity.Rol);
 
                 _sqlserver.Open();
                 _sqlcommand.ExecuteNonQuery();
@@ -60,8 +60,7 @@ namespace DAL
             try
             {
                 
-                _sqlcommand.CommandText = "select us.DNI,us.Nombre,us.Apellido,us.UserName,us.Password,us.Email,us.Bloqueado,us.Activo, p.Nombre from Usuario us " +
-                                            "inner join Perfil p on us.Perfil_ID= p.Perfil_ID where us.UserName=@username;";
+                _sqlcommand.CommandText = "SELECT us.DNI,us.Nombre,us.Apellido,us.UserName,us.Password,us.Email,us.Bloqueado,us.Activo, us.Rol FROM Usuario us WHERE us.UserName=@username;";
                 _sqlcommand.Parameters.AddWithValue("@username", usuario);
 
                 _sqlserver.Open();
@@ -106,8 +105,7 @@ namespace DAL
             try
             {
 
-                _sqlcommand.CommandText = "select us.DNI,us.Nombre,us.Apellido,us.UserName,us.Password,us.Email,us.Bloqueado,us.Activo, p.Nombre from Usuario us " +
-                    "inner join Perfil p on us.Perfil_ID= p.Perfil_ID where us.DNI=@dni;";
+                _sqlcommand.CommandText = "select us.DNI,us.Nombre,us.Apellido,us.UserName,us.Password,us.Email,us.Bloqueado,us.Activo, us.Rol from Usuario us where us.DNI=@dni;";
                 _sqlcommand.Parameters.AddWithValue("@dni", dNI);
 
                 _sqlserver.Open();
@@ -141,7 +139,7 @@ namespace DAL
         {
             try
             {
-                _sqlcommand.CommandText = @"select us.DNI,us.Nombre,us.Apellido,us.UserName,us.Password,us.Email,us.Bloqueado,us.Activo, p.Nombre from Usuario us inner join Perfil p on us.Perfil_ID= p.Perfil_ID;";
+                _sqlcommand.CommandText = @"select us.DNI,us.Nombre,us.Apellido,us.UserName,us.Password,us.Email,us.Bloqueado,us.Activo, us.Rol from Usuario us;";
                 _sqlserver.Open();
                 var reader = _sqlcommand.ExecuteReader();
                 var Usuariolst = new List<UsuarioBE>();
