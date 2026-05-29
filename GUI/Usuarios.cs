@@ -24,7 +24,7 @@ namespace GUI
         {
             InitializeComponent();
             usuarioBLL = new UsuarioBLL();
-            lblTextoTabla.Text = "[Usuarios Activos]";
+            lblTextoTabla.Text = $"[Usuarios Activos] + {usuarioBLL.ListarUsuariosActivos().Count}";
             MostrarUsuarios(dataGridView1, usuarioBLL.ListarUsuariosActivos());
             ConfigurarGrillaSeleccionFila(dataGridView1);
         }
@@ -34,6 +34,7 @@ namespace GUI
             if (radioButton1.Checked)
             {
                 lblTextoTabla.Text = "[Usuarios Activos]";
+                MostrarUsuarios(dataGridView1, usuarioBLL.ListarUsuariosActivos() as List<UsuarioBE>);
             }
             else
             {
@@ -124,6 +125,7 @@ namespace GUI
                         usuarioBLL.RegistrarUsuario(new UsuarioBE(txtDni.Text,txtNom.Text,txtApe.Text,txtUsuario.Text,Encriptador.GetHash256(txtDni.Text + txtNom.Text), txtEmail.Text,false,true,txtRol.Text));
                         ReiniciarBotones();
                         MostrarUsuarios(dataGridView1, usuarioBLL.ListarUsuariosActivos());
+                            lblTextoTabla.Text = $"[Usuarios Activos] + {usuarioBLL.ListarUsuariosActivos().Count}";
                         }
                             break;
                     case UserAction.Delete:
@@ -154,7 +156,7 @@ namespace GUI
             catch (Exception ex)
             {
 
-                throw;
+                MessageBox.Show(ex.Message); 
             }
         }
         public void MostrarUsuarios(DataGridView dgv, object obj)
@@ -322,6 +324,28 @@ namespace GUI
 
             userAction = UserAction.Consult;
 
+        }
+
+        private void radioButton2_CheckedChanged(object sender, EventArgs e)
+        {
+            MostrarUsuarios(dataGridView1, usuarioBLL.ListarTodosUsuarios() as List<UsuarioBE>);
+        }
+
+        private void dataGridView1_SelectionChanged(object sender, EventArgs e)
+        {
+            if (userAction == UserAction.Delete || userAction == UserAction.Modify || userAction == UserAction.UnBlock)
+            {
+                if (dataGridView1.SelectedRows.Count > 0)
+                {
+                    UsuarioBE user = usuarioBLL.BuscarUsuarioPorDNI(dataGridView1.SelectedRows[0].Cells[0].Value.ToString());
+                    txtDni.Text = user.DNI;
+                    txtNom.Text = user.Nombre;
+                    txtApe.Text = user.Apellido;
+                    txtUsuario.Text = user.Username;
+                    txtEmail.Text = user.Email;
+                    txtRol.Text = user.Rol;
+                }
+            }
         }
 
         private void ConfigurarGrillaSeleccionFila(DataGridView dgv)
