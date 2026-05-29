@@ -273,7 +273,7 @@ namespace GUI
             {
                 userAction = UserAction.UnBlock;
                 textBox1.Text = "Modo desbloquear";
-                EnabledControls(button1, button2, button3, button4, btnAplicar, btnCancelar, button7, panel2, panModificarUsuario);
+                EnabledControls(button1, button2, button3, button4, btnAplicar, btnCancelar, button7, panel2);
             }
         }
 
