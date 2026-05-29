@@ -129,6 +129,29 @@ namespace GUI
             usuarios.Show();
         }
 
+        private void btnReLogin_Click(object sender, EventArgs e)
+        {
+            if(SessionManager.Instance != null )
+            {
+                MessageBox.Show("Ya hay una sesión iniciada. Por favor, cierre sesión antes de intentar iniciar una nueva.", "Informacion", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+        private void btnLogout_Click(object sender, EventArgs e)
+        {
+            SessionManager.Instance.Desloguear();
+            this.Hide();
+            Login login = new Login();
+            login.Show();
+        }
+
+        private void btnCambiarClave_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            CambiarContraseña cambiarContraseña = new CambiarContraseña();
+            cambiarContraseña.Show();
+        }
+
         private void BarraTitulo_MouseUp(object sender, MouseEventArgs e)
         {
             arrastrando = false;

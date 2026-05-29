@@ -38,9 +38,9 @@
             this.panel3 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.button12 = new System.Windows.Forms.Button();
-            this.button13 = new System.Windows.Forms.Button();
-            this.button14 = new System.Windows.Forms.Button();
+            this.btnLogout = new System.Windows.Forms.Button();
+            this.btnCambiarClave = new System.Windows.Forms.Button();
+            this.btnReLogin = new System.Windows.Forms.Button();
             this.btnUsuario = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.panelAdminSubmenu = new System.Windows.Forms.Panel();
@@ -144,9 +144,9 @@
             this.panelUsuarioSubmenu.Controls.Add(this.panel3);
             this.panelUsuarioSubmenu.Controls.Add(this.panel2);
             this.panelUsuarioSubmenu.Controls.Add(this.panel1);
-            this.panelUsuarioSubmenu.Controls.Add(this.button12);
-            this.panelUsuarioSubmenu.Controls.Add(this.button13);
-            this.panelUsuarioSubmenu.Controls.Add(this.button14);
+            this.panelUsuarioSubmenu.Controls.Add(this.btnLogout);
+            this.panelUsuarioSubmenu.Controls.Add(this.btnCambiarClave);
+            this.panelUsuarioSubmenu.Controls.Add(this.btnReLogin);
             this.panelUsuarioSubmenu.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelUsuarioSubmenu.Location = new System.Drawing.Point(0, 402);
             this.panelUsuarioSubmenu.Name = "panelUsuarioSubmenu";
@@ -178,50 +178,53 @@
             this.panel1.Size = new System.Drawing.Size(5, 35);
             this.panel1.TabIndex = 6;
             // 
-            // button12
+            // btnLogout
             // 
-            this.button12.Dock = System.Windows.Forms.DockStyle.Top;
-            this.button12.FlatAppearance.BorderSize = 0;
-            this.button12.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.button12.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button12.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button12.ForeColor = System.Drawing.Color.White;
-            this.button12.Location = new System.Drawing.Point(0, 70);
-            this.button12.Name = "button12";
-            this.button12.Size = new System.Drawing.Size(200, 35);
-            this.button12.TabIndex = 2;
-            this.button12.Text = "Logout";
-            this.button12.UseVisualStyleBackColor = true;
+            this.btnLogout.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnLogout.FlatAppearance.BorderSize = 0;
+            this.btnLogout.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.btnLogout.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnLogout.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnLogout.ForeColor = System.Drawing.Color.White;
+            this.btnLogout.Location = new System.Drawing.Point(0, 70);
+            this.btnLogout.Name = "btnLogout";
+            this.btnLogout.Size = new System.Drawing.Size(200, 35);
+            this.btnLogout.TabIndex = 2;
+            this.btnLogout.Text = "Logout";
+            this.btnLogout.UseVisualStyleBackColor = true;
+            this.btnLogout.Click += new System.EventHandler(this.btnLogout_Click);
             // 
-            // button13
+            // btnCambiarClave
             // 
-            this.button13.Dock = System.Windows.Forms.DockStyle.Top;
-            this.button13.FlatAppearance.BorderSize = 0;
-            this.button13.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.button13.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button13.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button13.ForeColor = System.Drawing.Color.White;
-            this.button13.Location = new System.Drawing.Point(0, 35);
-            this.button13.Name = "button13";
-            this.button13.Size = new System.Drawing.Size(200, 35);
-            this.button13.TabIndex = 1;
-            this.button13.Text = "Cambiar clave";
-            this.button13.UseVisualStyleBackColor = true;
+            this.btnCambiarClave.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnCambiarClave.FlatAppearance.BorderSize = 0;
+            this.btnCambiarClave.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.btnCambiarClave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCambiarClave.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCambiarClave.ForeColor = System.Drawing.Color.White;
+            this.btnCambiarClave.Location = new System.Drawing.Point(0, 35);
+            this.btnCambiarClave.Name = "btnCambiarClave";
+            this.btnCambiarClave.Size = new System.Drawing.Size(200, 35);
+            this.btnCambiarClave.TabIndex = 1;
+            this.btnCambiarClave.Text = "Cambiar clave";
+            this.btnCambiarClave.UseVisualStyleBackColor = true;
+            this.btnCambiarClave.Click += new System.EventHandler(this.btnCambiarClave_Click);
             // 
-            // button14
+            // btnReLogin
             // 
-            this.button14.Dock = System.Windows.Forms.DockStyle.Top;
-            this.button14.FlatAppearance.BorderSize = 0;
-            this.button14.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.button14.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button14.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button14.ForeColor = System.Drawing.Color.White;
-            this.button14.Location = new System.Drawing.Point(0, 0);
-            this.button14.Name = "button14";
-            this.button14.Size = new System.Drawing.Size(200, 35);
-            this.button14.TabIndex = 0;
-            this.button14.Text = "Re_Login";
-            this.button14.UseVisualStyleBackColor = true;
+            this.btnReLogin.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnReLogin.FlatAppearance.BorderSize = 0;
+            this.btnReLogin.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.btnReLogin.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnReLogin.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnReLogin.ForeColor = System.Drawing.Color.White;
+            this.btnReLogin.Location = new System.Drawing.Point(0, 0);
+            this.btnReLogin.Name = "btnReLogin";
+            this.btnReLogin.Size = new System.Drawing.Size(200, 35);
+            this.btnReLogin.TabIndex = 0;
+            this.btnReLogin.Text = "Re_Login";
+            this.btnReLogin.UseVisualStyleBackColor = true;
+            this.btnReLogin.Click += new System.EventHandler(this.btnReLogin_Click);
             // 
             // btnUsuario
             // 
@@ -493,9 +496,9 @@
         private System.Windows.Forms.Button button7;
         private System.Windows.Forms.Button btnBitacora;
         private System.Windows.Forms.Panel panelUsuarioSubmenu;
-        private System.Windows.Forms.Button button12;
-        private System.Windows.Forms.Button button13;
-        private System.Windows.Forms.Button button14;
+        private System.Windows.Forms.Button btnLogout;
+        private System.Windows.Forms.Button btnCambiarClave;
+        private System.Windows.Forms.Button btnReLogin;
         private System.Windows.Forms.Button btnUsuario;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Panel panel1;
