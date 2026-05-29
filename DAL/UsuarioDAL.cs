@@ -4,6 +4,7 @@ using Servicios;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Windows.Forms;
 
 namespace DAL
 {
@@ -205,7 +206,7 @@ namespace DAL
             }
             catch (Exception ex)
             {
-                throw ex;
+                MessageBox.Show(ex.Message);
             }
             finally
             {

@@ -14,9 +14,11 @@ namespace BLL
     public class UsuarioBLL
     {
         private readonly UsuarioDAL usuarioDAL;
+        private readonly BitacoraBLL bitacoraBLL;
         public UsuarioBLL()
         {
             usuarioDAL = new UsuarioDAL();
+            bitacoraBLL = new BitacoraBLL();
         }
         public LoginResultado Login(string usuario, string contraseña)
         {
@@ -80,6 +82,13 @@ namespace BLL
                 if (usuarioDAL.BuscarUsuarioPorDNI(usuarioBE.DNI) == null)
                 {
                     usuarioDAL.Registrar(usuarioBE);
+                    //Bitacora bitacora = new Bitacora();
+                    //bitacora.Login = SessionManager.Instance.Logueado().ToString();
+                    //bitacora.Modulo = "Usuarios";
+                    //bitacora.Evento = "Crear usuario exitoso";
+                    //bitacora.Criticidad = 1;
+                    
+                    //bitacoraBLL.RegistrarEvento(bitacora);
                     throw new Exception("Usuario registrado exitosamente");
                 }
                 else
@@ -166,11 +175,11 @@ namespace BLL
 
                 UsuarioBE repetido = usuarioDAL.ObtenerPorUserName(usuarioBE.Username);
                 if (repetido != null && repetido.DNI != dNI)
-                    throw new Exception("E lNombre De Usuario Ya Esta En Uso");
+                    throw new Exception("E Nombre De Usuario Ya Esta En Uso");
                 else
                 {
                     usuarioDAL.Modificar(dNI, usuarioBE);
-                    throw new Exception("ModificacionCompletaU");
+                    throw new Exception("Modificacion Completa ");
                 }
 
             }
@@ -188,11 +197,11 @@ namespace BLL
 
                     usuarioDAL.DesbloquearUsuario(user.DNI, nuevaClave);
 
-                    throw new Exception("UsuarioFueDesbloqueadoYClaveRestauradaU");
+                    throw new Exception("Usuario Fue Desbloqueado Y Clave Restaurada");
                 }
                 else
                 {
-                    throw new Exception("UsuarioNoEstaBloqueadoU");
+                    throw new Exception("Usuario No Esta Bloqueado");
                 }
             }
             catch (Exception ex)
@@ -200,5 +209,9 @@ namespace BLL
                 MessageBox.Show(ex.Message);
             }
         }
+
+        public List<UsuarioBE> ListarTodosUsuarios()=>usuarioDAL.ListarTodosLosUsuarios();
+
+        public UsuarioBE BuscarUsuarioPorDNI(string v) => usuarioDAL.BuscarUsuarioPorDNI(v);
     }
 }

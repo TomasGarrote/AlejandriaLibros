@@ -151,6 +151,7 @@
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.Size = new System.Drawing.Size(762, 161);
             this.dataGridView1.TabIndex = 21;
+            this.dataGridView1.SelectionChanged += new System.EventHandler(this.dataGridView1_SelectionChanged);
             // 
             // textBox1
             // 
@@ -318,6 +319,7 @@
             this.radioButton2.TabIndex = 41;
             this.radioButton2.Text = "Todos";
             this.radioButton2.UseVisualStyleBackColor = true;
+            this.radioButton2.CheckedChanged += new System.EventHandler(this.radioButton2_CheckedChanged);
             // 
             // panel2
             // 
