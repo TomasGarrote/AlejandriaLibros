@@ -2,8 +2,8 @@
 {
     public class Bitacora
     {
-        public int Numero { get; set; }
-        public string DNI { get; set; }
+        public int Id_Evento { get; set; }
+        public string Login { get; set; }
         public DateTime Fecha { get; set; }
         public string Modulo { get; set; }
         public string Descripcion { get; set; }

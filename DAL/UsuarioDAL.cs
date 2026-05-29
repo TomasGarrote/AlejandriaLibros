@@ -57,7 +57,38 @@ namespace DAL
 
         public UsuarioBE ObtenerPorUserName(string usuario)
         {
-            throw new NotImplementedException();
+            try
+            {
+                
+                _sqlcommand.CommandText = "select us.DNI,us.Nombre,us.Apellido,us.UserName,us.Password,us.Email,us.Bloqueado,us.Activo, p.Nombre from Usuario us " +
+                                            "inner join Perfil p on us.Perfil_ID= p.Perfil_ID where us.UserName=@username;";
+                _sqlcommand.Parameters.AddWithValue("@username", usuario);
+
+                _sqlserver.Open();
+                using (var reader = _sqlcommand.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+
+
+                        return new UsuarioBE(reader.GetString(0), reader.GetString(1), reader.GetString(2), reader.GetString(3),
+                            reader.GetString(4), reader.GetString(5), reader.GetBoolean(6), reader.GetBoolean(7), reader.GetString(8));
+
+                    }
+
+                }
+                return null;
+            }
+
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                _sqlcommand.Parameters.Clear();
+                _sqlserver.Close();
+            }
         }
 
         public void ResetearIntentos(UsuarioBE usuario)
@@ -68,6 +99,92 @@ namespace DAL
         public void SumarIntentoFallido(UsuarioBE usuario)
         {
             throw new NotImplementedException();
+        }
+
+        public UsuarioBE BuscarUsuarioPorDNI(string dNI)
+        {
+            try
+            {
+
+                _sqlcommand.CommandText = "select us.DNI,us.Nombre,us.Apellido,us.UserName,us.Password,us.Email,us.Bloqueado,us.Activo, p.Nombre from Usuario us " +
+                    "inner join Perfil p on us.Perfil_ID= p.Perfil_ID where us.DNI=@dni;";
+                _sqlcommand.Parameters.AddWithValue("@dni", dNI);
+
+                _sqlserver.Open();
+                using (var reader = _sqlcommand.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+
+
+                        return new UsuarioBE(reader.GetString(0), reader.GetString(1), reader.GetString(2), reader.GetString(3),
+                            reader.GetString(4), reader.GetString(5), reader.GetBoolean(6), reader.GetBoolean(7), reader.GetString(8));
+
+                    }
+
+                }
+                return null;
+            }
+
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                _sqlcommand.Parameters.Clear();
+                _sqlserver.Close();
+            }
+        }
+
+        public List<UsuarioBE> ListarTodosLosUsuarios()
+        {
+            try
+            {
+                _sqlcommand.CommandText = @"select us.DNI,us.Nombre,us.Apellido,us.UserName,us.Password,us.Email,us.Bloqueado,us.Activo, p.Nombre from Usuario us inner join Perfil p on us.Perfil_ID= p.Perfil_ID;";
+                _sqlserver.Open();
+                var reader = _sqlcommand.ExecuteReader();
+                var Usuariolst = new List<UsuarioBE>();
+                while (reader.Read())
+                {
+                    Usuariolst.Add(new UsuarioBE(reader.GetString(0), reader.GetString(1), reader.GetString(2), reader.GetString(3),
+                            reader.GetString(4), reader.GetString(5), reader.GetBoolean(6), reader.GetBoolean(7), reader.GetString(8)));
+                }
+                return Usuariolst;
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                _sqlcommand.Parameters.Clear();
+                _sqlserver.Close();
+            }
+        }
+
+        public void EliminarLogico(string _dni)
+        {
+            try
+            {
+                _sqlcommand.CommandText = "update Usuario set Activo = 0 where DNI=@dni;";
+                _sqlcommand.Parameters.AddWithValue("@dni", _dni);
+
+                _sqlserver.Open();
+                _sqlcommand.ExecuteNonQuery();
+
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                _sqlcommand.Parameters.Clear();
+                _sqlserver.Close();
+            }
         }
     }
 }
