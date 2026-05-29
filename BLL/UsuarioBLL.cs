@@ -164,7 +164,7 @@ namespace BLL
             else
             {
 
-                UsuarioBE repetido = usuarioDAL.ObtenerPorUsuario(usuarioBE.Username);
+                UsuarioBE repetido = usuarioDAL.ObtenerPorUserName(usuarioBE.Username);
                 if (repetido != null && repetido.DNI != dNI)
                     throw new Exception("E lNombre De Usuario Ya Esta En Uso");
                 else
@@ -184,7 +184,7 @@ namespace BLL
 
                 if (user.Bloqueado)
                 {
-                    string nuevaClave = Encriptador.EncriptarSHA256(user.DNI + user.Nombre);
+                    string nuevaClave = Encriptador.GetHash256(user.DNI + user.Nombre);
 
                     usuarioDAL.DesbloquearUsuario(user.DNI, nuevaClave);
 
