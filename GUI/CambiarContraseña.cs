@@ -25,22 +25,26 @@ namespace GUI
             {
                 ValidarCamposVacios();
                 UsuarioBLL usuarioBLL = new UsuarioBLL();
-                switch (usuarioBLL.Login(txtUsuario.Text, txtContraseña.Text))
+                
+                switch (usuarioBLL.CambiarClave(txtUsuario.Text, txtContraseña.Text, txtNuevaContraseña.Text))
                 {
                     case LoginResultado.Valido:
-                        usuarioBLL.Desloguear();
-                        usuarioBLL.CambiarClave(txtUsuario.Text, txtNuevaContraseña.Text);
-                        
                         MessageBox.Show("Contraseña cambiada con éxito!", "Éxito!", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         this.Close();
                         Login login = new Login();
                         login.Show();
                         break;
+                    case LoginResultado.ContraseñaIguales:
+                        MessageBox.Show("La nueva contraseña no puede ser igual a la anterior!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
                     case LoginResultado.UsuarioNoEncontrado:
-                        MessageBox.Show("Hay un error en Usuario o Contraseña!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Hay un error en Usuario!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
                     case LoginResultado.ContraseñaIncorrecta:
-                        MessageBox.Show("Hay un error en Usuario o Contraseña!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Hay un error en Contraseña!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+                    case LoginResultado.Bloqueado:
+                        MessageBox.Show("El usuario se encuentra bloqueado, contacte al administrador!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
                 }
             }
