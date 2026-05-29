@@ -208,5 +208,6 @@ namespace BLL
         public List<UsuarioBE> ListarTodosUsuarios()=>usuarioDAL.ListarTodosLosUsuarios();
 
         public UsuarioBE BuscarUsuarioPorDNI(string v) => usuarioDAL.BuscarUsuarioPorDNI(v);
+        public UsuarioBE BuscarUsuarioPorUserName(string user) => usuarioDAL.ObtenerPorUserName(user);
     }
 }

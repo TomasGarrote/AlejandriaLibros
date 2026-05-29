@@ -92,9 +92,22 @@ namespace GUI
                     case LoginResultado.UsuarioNoEncontrado:
                         throw new Exception("Usuario o Contraseña Incorrecta, vuelva a intentar.");
                     case LoginResultado.Valido:
-                        this.Hide();
-                        Menu menu = new Menu();
-                        menu.ShowDialog();
+                        UsuarioBE usuarioBE = usuarioBLL.BuscarUsuarioPorUserName(txtUsuario.Text);
+                        if (usuarioBE.Password == Encriptador.GetHash256(usuarioBE.DNI + usuarioBE.Nombre))
+                        {
+                            MessageBox.Show("Debes crear una nueva contrasenia", "Atención!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            usuarioBLL.Desloguear();
+                            this.Hide();
+                            CambiarContraseña cambioContraseña = new CambiarContraseña();
+                            cambioContraseña.ShowDialog();
+                        }
+                        else
+                        {
+                            this.Hide();
+                            Menu menu = new Menu();
+                            menu.ShowDialog();
+                        }
+                            
                         break;
                     case LoginResultado.Bloqueado:
                         throw new Exception("Usuario Bloqueado, contacte al administrador.");
