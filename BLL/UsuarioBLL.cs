@@ -82,13 +82,13 @@ namespace BLL
                 if (usuarioDAL.BuscarUsuarioPorDNI(usuarioBE.DNI) == null)
                 {
                     usuarioDAL.Registrar(usuarioBE);
-                    //Bitacora bitacora = new Bitacora();
-                    //bitacora.Login = SessionManager.Instance.Logueado().ToString();
-                    //bitacora.Modulo = "Usuarios";
-                    //bitacora.Evento = "Crear usuario exitoso";
-                    //bitacora.Criticidad = 1;
-                    
-                    //bitacoraBLL.RegistrarEvento(bitacora);
+                    Bitacora bitacora = new Bitacora();
+                    bitacora.Login = SessionManager.Instance.UsuarioActual().ToString();
+                    bitacora.Modulo = "Usuarios";
+                    bitacora.Evento = "Crear usuario exitoso";
+                    bitacora.Criticidad = 1;
+
+                    bitacoraBLL.RegistrarEvento(bitacora);
                     throw new Exception("Usuario registrado exitosamente");
                 }
                 else
