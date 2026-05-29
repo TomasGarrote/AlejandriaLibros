@@ -24,9 +24,23 @@ namespace GUI
         {
             InitializeComponent();
             usuarioBLL = new UsuarioBLL();
-            lblTextoTabla.Text = $"[Usuarios Activos] + {usuarioBLL.ListarUsuariosActivos().Count}";
+            lblTextoTabla.Text = "[Usuarios Activos]";
             MostrarUsuarios(dataGridView1, usuarioBLL.ListarUsuariosActivos());
+            MostrarCantidadUsuarios();
             ConfigurarGrillaSeleccionFila(dataGridView1);
+            ReiniciarBotones();
+        }
+
+        private void MostrarCantidadUsuarios()
+        {
+            if (radioButton1.Checked)
+            {
+                lblCantidadUsers.Text = $"Cantidad de Usuarios: {usuarioBLL.ListarUsuariosActivos().Count}";
+            }
+            else
+            {
+                lblCantidadUsers.Text = $"Cantidad de Usuarios: {usuarioBLL.ListarTodosUsuarios().Count}";
+            }
         }
 
         private void radioButton1_CheckedChanged(object sender, EventArgs e)
@@ -35,10 +49,12 @@ namespace GUI
             {
                 lblTextoTabla.Text = "[Usuarios Activos]";
                 MostrarUsuarios(dataGridView1, usuarioBLL.ListarUsuariosActivos() as List<UsuarioBE>);
+                MostrarCantidadUsuarios();
             }
             else
             {
                 lblTextoTabla.Text = "[Todos los Usuarios]";
+                MostrarCantidadUsuarios();
             }
 
         }
@@ -111,6 +127,14 @@ namespace GUI
             foreach (Control b in controls)
             {
                 b.Enabled = !b.Enabled;
+                if (b.Name == "btnAplicar" || b.Name == "btnCancelar")
+                {
+                    b.BackColor = Color.Green;
+                }
+                else
+                {
+                    b.BackColor = Color.Maroon;
+                }
             }
         }
 
@@ -125,13 +149,14 @@ namespace GUI
                         usuarioBLL.RegistrarUsuario(new UsuarioBE(txtDni.Text,txtNom.Text,txtApe.Text,txtUsuario.Text,Encriptador.GetHash256(txtDni.Text + txtNom.Text), txtEmail.Text,false,true,txtRol.Text));
                         ReiniciarBotones();
                         MostrarUsuarios(dataGridView1, usuarioBLL.ListarUsuariosActivos());
-                            lblTextoTabla.Text = $"[Usuarios Activos] + {usuarioBLL.ListarUsuariosActivos().Count}";
+                            MostrarCantidadUsuarios();
                         }
                             break;
                     case UserAction.Delete:
                         usuarioBLL.EliminarLogico((dataGridView1.SelectedRows[0].DataBoundItem as UsuarioBE).DNI);
                         ReiniciarBotones();
                         MostrarUsuarios(dataGridView1, usuarioBLL.ListarUsuariosActivos());
+                        MostrarCantidadUsuarios();
                         break;
                     case UserAction.Modify:
                         if (ValidarCamposVacios(txtNom, txtApe, txtDni, txtUsuario, txtEmail, txtRol) && ValidarEntradaUsuario())
@@ -307,11 +332,17 @@ namespace GUI
 
             btnAplicar.Enabled = false;
             btnCancelar.Enabled = false;
+            btnAplicar.BackColor = Color.Maroon;
+            btnCancelar.BackColor = Color.Maroon;
 
             button1.Enabled = true;
             button2.Enabled = true;
             button3.Enabled = true;
             button4.Enabled = true;
+            button1.BackColor = Color.Green;
+            button2.BackColor = Color.Green;
+            button3.BackColor = Color.Green;
+            button4.BackColor = Color.Green;
 
             //txtNom.Enabled = false;
             //txtApe.Enabled = false;
