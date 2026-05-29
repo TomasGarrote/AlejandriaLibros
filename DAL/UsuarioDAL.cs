@@ -299,7 +299,7 @@ namespace DAL
         {
             try
             {
-                _sqlcommand.CommandText = @"UPDATE Usuario SET Bloqueado = 0, Password = @password, IntentoFallido = 0 WHERE DNI = @dni;";
+                _sqlcommand.CommandText = @"UPDATE Usuario SET Bloqueado = 0, Password = @password, Intentos = 0 WHERE DNI = @dni;";
 
                 _sqlcommand.Parameters.AddWithValue("@dni", dNI);
                 _sqlcommand.Parameters.AddWithValue("@password", nuevaClave);
@@ -333,6 +333,29 @@ namespace DAL
             {
 
                 throw;
+            }
+            finally
+            {
+                _sqlcommand.Parameters.Clear();
+                _sqlserver.Close();
+            }
+        }
+
+        public void ActivarUsuario(string dNI)
+        {
+            try
+            {
+                _sqlcommand.CommandText = "update Usuario set Activo = 1 where DNI=@dni;";
+                _sqlcommand.Parameters.AddWithValue("@dni", dNI);
+
+                _sqlserver.Open();
+                _sqlcommand.ExecuteNonQuery();
+
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
             }
             finally
             {

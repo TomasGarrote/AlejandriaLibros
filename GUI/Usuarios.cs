@@ -61,7 +61,7 @@ namespace GUI
 
         private void btnCerrar_Click(object sender, EventArgs e)
         {
-            this.Close();
+            this.Hide();
             Menu menu = new Menu();
             menu.Show();
         }
@@ -155,14 +155,26 @@ namespace GUI
                     case UserAction.Delete:
                         usuarioBLL.EliminarLogico((dataGridView1.SelectedRows[0].DataBoundItem as UsuarioBE).DNI);
                         ReiniciarBotones();
-                        MostrarUsuarios(dataGridView1, usuarioBLL.ListarUsuariosActivos());
+                        if (radioButton1.Checked)
+                        {
+                            MostrarUsuarios(dataGridView1, usuarioBLL.ListarUsuariosActivos());
+                        }
+                        else
+                        {
+                            MostrarUsuarios(dataGridView1, usuarioBLL.ListarTodosUsuarios());
+
+                        }
+
                         MostrarCantidadUsuarios();
+
+                        MessageBox.Show("Usuario Fue Eliminado", "Alerta!", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         break;
                     case UserAction.Modify:
                         if (ValidarCamposVacios(txtNom, txtApe, txtDni, txtUsuario, txtEmail, txtRol) && ValidarEntradaUsuario())
                         {
                             usuarioBLL.Modificar((dataGridView1.SelectedRows[0].DataBoundItem as UsuarioBE).DNI, new UsuarioBE(txtDni.Text, txtNom.Text, txtApe.Text, txtUsuario.Text, string.Empty, txtEmail.Text, default, default, txtRol.Text));
                             ReiniciarBotones();
+                            MessageBox.Show("Usuario Fue Modificado", "Alerta!", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             MostrarUsuarios(dataGridView1, usuarioBLL.ListarUsuariosActivos());
                         }
                         break;
@@ -170,6 +182,21 @@ namespace GUI
                         usuarioBLL.DesbloquearUsuario(dataGridView1.SelectedRows[0].DataBoundItem as UsuarioBE);
                         ReiniciarBotones();
                         MostrarUsuarios(dataGridView1, usuarioBLL.ListarUsuariosActivos());
+                        MessageBox.Show("Usuario Fue Desbloqueado Y Clave Restaurada", "Alerta!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        break;
+                    case UserAction.Activate:
+                        usuarioBLL.EliminarLogico((dataGridView1.SelectedRows[0].DataBoundItem as UsuarioBE).DNI);
+                        ReiniciarBotones();
+                        if (radioButton1.Checked)
+                        {
+                            MostrarUsuarios(dataGridView1, usuarioBLL.ListarUsuariosActivos());
+                        }
+                        else
+                        {
+                            MostrarUsuarios(dataGridView1, usuarioBLL.ListarTodosUsuarios());
+
+                        }
+                        MessageBox.Show("Usuario Fue Activado", "Alerta!", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         break;
                     case UserAction.Consult:
                         break;
@@ -184,25 +211,9 @@ namespace GUI
                 MessageBox.Show(ex.Message); 
             }
         }
-        public void MostrarUsuarios(DataGridView dgv, object obj)
-        {
-            dgv.DataSource = null;
-            dgv.DataSource = obj;
-            if (obj is List<UsuarioBE> lista)
-            {
-                for (int i = 0; i < lista.Count && i < dgv.Rows.Count; i++)
-                {
-                    if (lista[i].Bloqueado)
-                    {
-                        dgv.Rows[i].DefaultCellStyle.ForeColor = Color.Red;
-                    }
-                    else
-                    {
-                        dgv.Rows[i].DefaultCellStyle.ForeColor = Color.Black;
-                    }
-                }
-            }
-        }
+        public void MostrarUsuarios(DataGridView dgv, object obj) { dgv.DataSource = null; dgv.DataSource = obj; }
+            
+
         private bool ValidarCamposVacios(params Control[] controles)
         {
             StringBuilder mensaje = new StringBuilder();
@@ -306,8 +317,20 @@ namespace GUI
         {
             if (dataGridView1.SelectedRows.Count > 0)
             {
-                userAction = UserAction.Delete;
-                textBox1.Text = "Modo eliminar";
+                UsuarioBE us = usuarioBLL.BuscarUsuarioPorDNI(dataGridView1.SelectedRows[0].Cells[0].Value.ToString());
+                if (!us.Activo)
+                {
+                    userAction = UserAction.Activate;
+                    textBox1.Text = "Modo activar";
+                }
+                else
+                {
+                    userAction = UserAction.Delete;
+                    textBox1.Text = "Modo eliminar";
+
+                }
+
+                
                 EnabledControls(button1, button2, button3, button4, btnAplicar, btnCancelar, button7, panel2, panModificarUsuario);
             }
         }
@@ -375,6 +398,21 @@ namespace GUI
                     txtUsuario.Text = user.Username;
                     txtEmail.Text = user.Email;
                     txtRol.Text = user.Rol;
+                }
+            }
+        }
+
+        private void dataGridView1_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (e.RowIndex >= 0 && dataGridView1.Rows[e.RowIndex].DataBoundItem is UsuarioBE usuario)
+            { 
+                if (usuario.Bloqueado)
+                {
+                    e.CellStyle.ForeColor = Color.Red;
+                }
+                else
+                {
+                    e.CellStyle.ForeColor = Color.Black;
                 }
             }
         }
