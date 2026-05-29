@@ -27,17 +27,6 @@ namespace BLL
             }
         }
 
-        public List<Bitacora> ListarEventos()
-        {
-            try
-            {
-                return DAL.ListarEventos();
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("No se pudieron obtener los eventos.", ex);
-            }
-        }
 
         public List<Bitacora> FiltrarEventos(string nombre, string apellido, string login, string modulo, string evento, DateTime desde, DateTime hasta, int? criticidad)
         {

@@ -35,46 +35,6 @@ namespace DAL
             }
         }
 
-        public List<Bitacora> ListarEventos()
-        {
-            List<Bitacora> lista = new List<Bitacora>();
-            try
-            {
-                _sqlcommand.CommandText = @"SELECT b.Id_Evento, b.Login, b.Fecha, b.Modulo, 
-                                            b.Evento, b.Criticidad
-                                            FROM Bitacora b
-                                            INNER JOIN Usuario u ON b.Login = u.UserName
-                                            WHERE b.Fecha >= DATEADD(day, -3, GETDATE())
-                                            ORDER BY b.Fecha DESC, b.Id_Evento DESC";
-                _sqlcommand.Parameters.Clear();
-                _sqlserver.Open();
-
-                using (SqlDataReader reader = _sqlcommand.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        lista.Add(new Bitacora
-                        {
-                            Id_Evento = reader.GetInt32(0),
-                            Login = reader.GetString(1),
-                            Fecha = reader.GetDateTime(2),
-                            Modulo = reader.GetString(3),
-                            Evento = reader.GetString(4),
-                            Criticidad = reader.GetInt32(5)
-                        });
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Error al listar los eventos.", ex);
-            }
-            finally
-            {
-                _sqlserver.Close();
-            }
-            return lista;
-        }
 
         public List<Bitacora> FiltrarEventos(string nombre, string apellido, string login, string modulo, string evento, DateTime desde, DateTime hasta, int? criticidad)
         {
