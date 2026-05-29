@@ -15,10 +15,8 @@ namespace DAL
         {
             try
             {
-                _sqlcommand.CommandText = @"INSERT INTO Usuario (DNI, Nombre, Apellido, UserName, Password, Email, Bloqueado, Activo, IntentoFallido, Perfil_Id)
-                                            SELECT @dni, @nombre, @apellido, @username, @password, @email, 0, 1, 0, p.Perfil_ID
-                                            FROM Perfil p
-                                            WHERE p.Nombre = @rol;";
+                _sqlcommand.CommandText = @"INSERT INTO Usuario (DNI, Nombre, Apellido, UserName, Password, Email, Bloqueado, Activo, Rol)
+                                            VALUES (@dni, @nombre, @apellido, @username, @password, @email, 0, 1, @rol);";
 
                 _sqlcommand.Parameters.AddWithValue("@dni", entity.DNI);
                 _sqlcommand.Parameters.AddWithValue("@nombre", entity.Nombre);
@@ -57,8 +55,7 @@ namespace DAL
             try
             {
                 
-                _sqlcommand.CommandText = "select us.DNI,us.Nombre,us.Apellido,us.UserName,us.Password,us.Email,us.Bloqueado,us.Activo, p.Nombre from Usuario us " +
-                                            "inner join Perfil p on us.Perfil_ID= p.Perfil_ID where us.UserName=@username;";
+                _sqlcommand.CommandText = @"SELECT DNI, Nombre, Apellido, UserName, Password, Email, Bloqueado, Activo, Rol FROM Usuario WHERE UserName = @username;"; ;
                 _sqlcommand.Parameters.AddWithValue("@username", usuario);
 
                 _sqlserver.Open();
@@ -103,8 +100,7 @@ namespace DAL
             try
             {
 
-                _sqlcommand.CommandText = "select us.DNI,us.Nombre,us.Apellido,us.UserName,us.Password,us.Email,us.Bloqueado,us.Activo, p.Nombre from Usuario us " +
-                    "inner join Perfil p on us.Perfil_ID= p.Perfil_ID where us.DNI=@dni;";
+                _sqlcommand.CommandText = @"SELECT DNI, Nombre, Apellido, UserName, Password, Email, Bloqueado, Activo, Rol FROM Usuario WHERE DNI = @dni;";
                 _sqlcommand.Parameters.AddWithValue("@dni", dNI);
 
                 _sqlserver.Open();
@@ -138,7 +134,7 @@ namespace DAL
         {
             try
             {
-                _sqlcommand.CommandText = @"select us.DNI,us.Nombre,us.Apellido,us.UserName,us.Password,us.Email,us.Bloqueado,us.Activo, p.Nombre from Usuario us inner join Perfil p on us.Perfil_ID= p.Perfil_ID;";
+                _sqlcommand.CommandText = @"SELECT DNI, Nombre, Apellido, UserName, Password, Email, Bloqueado, Activo, Rol FROM Usuario;";
                 _sqlserver.Open();
                 var reader = _sqlcommand.ExecuteReader();
                 var Usuariolst = new List<UsuarioBE>();
@@ -172,6 +168,60 @@ namespace DAL
                 _sqlcommand.ExecuteNonQuery();
 
 
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                _sqlcommand.Parameters.Clear();
+                _sqlserver.Close();
+            }
+        }
+
+        public void Modificar(object dni, UsuarioBE UserNew)
+        {
+            try
+            {
+                _sqlcommand.CommandText = @"UPDATE Usuario SET DNI = @dninuevo, Nombre = @nombre, Apellido = @apellido, UserName = @username, Email = @email, Rol = @rol
+                                            WHERE DNI = @dni;";
+                _sqlcommand.Parameters.AddWithValue("@dni", dni);
+                _sqlcommand.Parameters.AddWithValue("@dninuevo", UserNew.DNI);
+                _sqlcommand.Parameters.AddWithValue("@nombre", UserNew.Nombre);
+                _sqlcommand.Parameters.AddWithValue("@apellido", UserNew.Apellido);
+                _sqlcommand.Parameters.AddWithValue("@username", UserNew.Username);
+                _sqlcommand.Parameters.AddWithValue("@email", UserNew.Email);
+                _sqlcommand.Parameters.AddWithValue("@rol", UserNew.Rol);
+
+                _sqlserver.Open();
+
+                _sqlcommand.ExecuteNonQuery();
+
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                _sqlcommand.Parameters.Clear();
+                _sqlserver.Close();
+            }
+        }
+
+        public void DesbloquearUsuario(string dNI, string nuevaClave)
+        {
+            try
+            {
+                _sqlcommand.CommandText = @"UPDATE Usuario SET Bloqueado = 0, Password = @password, IntentoFallido = 0 WHERE DNI = @dni;";
+
+                _sqlcommand.Parameters.AddWithValue("@dni", dNI);
+                _sqlcommand.Parameters.AddWithValue("@password", nuevaClave);
+
+                _sqlserver.Open();
+                _sqlcommand.ExecuteNonQuery();
             }
             catch (Exception ex)
             {

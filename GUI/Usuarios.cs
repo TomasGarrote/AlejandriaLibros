@@ -8,6 +8,7 @@ using System.Drawing;
 using System.Linq;
 using System.Net;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -24,6 +25,8 @@ namespace GUI
             InitializeComponent();
             usuarioBLL = new UsuarioBLL();
             lblTextoTabla.Text = "[Usuarios Activos]";
+            MostrarUsuarios(dataGridView1, usuarioBLL.ListarUsuariosActivos());
+            ConfigurarGrillaSeleccionFila(dataGridView1);
         }
 
         private void radioButton1_CheckedChanged(object sender, EventArgs e)
@@ -82,8 +85,6 @@ namespace GUI
                 txtEmail.BackColor = Color.White;
                 txtUsuario.BackColor = Color.White;
                 txtRol.BackColor = Color.White;
-                cmbActivo.BackColor = Color.White;
-                cmbBloqueado.BackColor = Color.White;
             }
             else
             {
@@ -93,8 +94,6 @@ namespace GUI
                 txtEmail.BackColor = Color.Gray;
                 txtUsuario.BackColor = Color.Gray;
                 txtRol.BackColor = Color.Gray;
-                cmbActivo.BackColor = Color.Gray;
-                cmbBloqueado.BackColor = Color.Gray;
             }
         }
                 
@@ -104,7 +103,7 @@ namespace GUI
             userAction = UserAction.Add;
             textBox1.Text = "Modo Añadir";
             EnabledControls(button1, button2, button3, button4, btnAplicar, btnCancelar, button7, panel2, panModificarUsuario, panel3);
-            //usuarioBLL.RegistrarUsuario(new UsuarioBE());
+            
         }
         private void EnabledControls(params Control[] controls)
         {
@@ -121,18 +120,29 @@ namespace GUI
                 switch (userAction)
                 {
                     case UserAction.Add:
+                        if (ValidarCamposVacios(txtDni,txtApe,txtNom,txtEmail,txtRol,txtUsuario)) { 
                         usuarioBLL.RegistrarUsuario(new UsuarioBE(txtDni.Text,txtNom.Text,txtApe.Text,txtUsuario.Text,Encriptador.EncriptarSHA256(txtDni.Text + txtNom.Text), txtEmail.Text,false,true,txtRol.Text));
-                        EnabledControls(button1, button2, button3, button4, btnAplicar, btnCancelar, button7, panel2, panModificarUsuario, panel3);
+                        ReiniciarBotones();
                         MostrarUsuarios(dataGridView1, usuarioBLL.ListarUsuariosActivos());
-                        break;
+                        }
+                            break;
                     case UserAction.Delete:
                         usuarioBLL.EliminarLogico((dataGridView1.SelectedRows[0].DataBoundItem as UsuarioBE).DNI);
-                        EnabledControls(button1, button2, button3, button4, btnAplicar, btnCancelar, button7, panel2, panModificarUsuario, panel3);
+                        ReiniciarBotones();
                         MostrarUsuarios(dataGridView1, usuarioBLL.ListarUsuariosActivos());
                         break;
                     case UserAction.Modify:
+                        if (ValidarCamposVacios(txtNom, txtApe, txtDni, txtUsuario, txtEmail, txtRol) && ValidarEntradaUsuario())
+                        {
+                            usuarioBLL.Modificar((dataGridView1.SelectedRows[0].DataBoundItem as UsuarioBE).DNI, new UsuarioBE(txtDni.Text, txtNom.Text, txtApe.Text, txtUsuario.Text, string.Empty, txtEmail.Text, default, default, txtRol.Text));
+                            ReiniciarBotones();
+                            MostrarUsuarios(dataGridView1, usuarioBLL.ListarUsuariosActivos());
+                        }
                         break;
                     case UserAction.UnBlock:
+                        usuarioBLL.DesbloquearUsuario(dataGridView1.SelectedRows[0].DataBoundItem as UsuarioBE);
+                        ReiniciarBotones();
+                        MostrarUsuarios(dataGridView1, usuarioBLL.ListarUsuariosActivos());
                         break;
                     case UserAction.Consult:
                         break;
@@ -166,6 +176,84 @@ namespace GUI
                 }
             }
         }
+        private bool ValidarCamposVacios(params Control[] controles)
+        {
+            StringBuilder mensaje = new StringBuilder();
+            bool hayVacios = false;
+            Control primerInvalido = null;
+
+            foreach (Control c in controles)
+            {
+                string nombreCampo = c.Tag?.ToString() ?? c.Name;
+
+                if (c is TextBox txt && string.IsNullOrWhiteSpace(txt.Text))
+                {
+                    mensaje.AppendLine("El Campo " + " " + nombreCampo + " " + "Esta Vacio");
+                    if (primerInvalido == null) primerInvalido = txt;
+                    hayVacios = true;
+                }
+                else if (c is ComboBox cb && cb.SelectedIndex == -1)
+                {
+                    mensaje.AppendLine("El Campo" + " " + nombreCampo+ " " + "No Fue Seleccionado");
+                    if (primerInvalido == null) primerInvalido = cb;
+                    hayVacios = true;
+                }
+            }
+
+            if (hayVacios)
+            {
+                MessageBox.Show(mensaje.ToString(), "Faltan Completar Campo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                primerInvalido?.Focus(); // Enfocar el primer campo con error
+            }
+
+            return !hayVacios; // true si está todo bien
+        }
+
+        private bool ValidarEntradaUsuario()
+        {
+            StringBuilder errores = new StringBuilder();
+
+           
+            if (!Regex.IsMatch(txtNom.Text.Trim(), @"^[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ\s]+$"))
+                errores.AppendLine("El Campo Nombre");
+
+            if (!Regex.IsMatch(txtApe.Text.Trim(), @"^[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ\s]+$"))
+                errores.AppendLine("E lCampo Apellido");
+
+            
+            if (!Regex.IsMatch(txtDni.Text.Trim(), @"^\d{8}$"))
+                errores.AppendLine("El Campo DNI");
+
+            if (!(userAction == UserAction.Add))
+            {
+                
+                if (string.IsNullOrWhiteSpace(txtUsuario.Text) || txtUsuario.Text.Length < 4)
+                    errores.AppendLine("El Nombre Usuario");
+            }
+           
+            if (!Regex.IsMatch(txtEmail.Text.Trim(), @"^[^@\s]+@[^@\s]+\.[^@\s]+$"))
+                errores.AppendLine("El Correo Electronico");
+
+           
+            if (string.IsNullOrWhiteSpace(txtRol.Text))
+                errores.AppendLine("Debe Seleccionar");
+
+            
+            if (errores.Length > 0)
+            {
+                MessageBox.Show(errores.ToString(), "Error Entrada Datos", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+            }
+
+            return true;
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            userAction = UserAction.Modify;
+            EnabledControls(button1, button2, button3, button4, btnAplicar, btnCancelar, button7, panel2, panModificarUsuario);
+            MostrarUsuarios(dataGridView1, usuarioBLL.ListarUsuariosActivos());
+        }
 
         private void panel1_MouseDown(object sender, MouseEventArgs e)
         {
@@ -175,6 +263,73 @@ namespace GUI
                 posX = e.X;
                 posY = e.Y;
             }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            if(dataGridView1.SelectedRows.Count > 0)
+            {
+                userAction = UserAction.UnBlock;
+                textBox1.Text = "Modo desbloquear";
+                EnabledControls(button1, button2, button3, button4, btnAplicar, btnCancelar, button7, panel2, panModificarUsuario);
+            }
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            if (dataGridView1.SelectedRows.Count > 0)
+            {
+                userAction = UserAction.Delete;
+                textBox1.Text = "Modo eliminar";
+                EnabledControls(button1, button2, button3, button4, btnAplicar, btnCancelar, button7, panel2, panModificarUsuario);
+            }
+        }
+
+        private void btnCancelar_Click(object sender, EventArgs e)
+        {
+            ReiniciarBotones();
+        }
+
+        private void ReiniciarBotones()
+        {
+            txtNom.Clear();
+            txtApe.Clear();
+            txtDni.Clear();
+            txtEmail.Clear();
+            txtRol.Clear();
+            txtUsuario.Clear();
+
+            panel2.Enabled = true;
+            panel3.Enabled = true;
+            panModificarUsuario.Enabled = false;
+
+            btnAplicar.Enabled = false;
+            btnCancelar.Enabled = false;
+
+            button1.Enabled = true;
+            button2.Enabled = true;
+            button3.Enabled = true;
+            button4.Enabled = true;
+
+            //txtNom.Enabled = false;
+            //txtApe.Enabled = false;
+            //txtDni.Enabled = false;
+            //txtEmail.Enabled = false;
+            //txtRol.Enabled = false;
+            //txtUsuario.Enabled = false;
+
+            textBox1.Text = "Modo consulta";
+
+            userAction = UserAction.Consult;
+
+        }
+
+        private void ConfigurarGrillaSeleccionFila(DataGridView dgv)
+        {
+            dgv.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgv.MultiSelect = false;
+            dgv.ReadOnly = true;
+            dgv.AllowUserToAddRows = false;
         }
     }
 }
