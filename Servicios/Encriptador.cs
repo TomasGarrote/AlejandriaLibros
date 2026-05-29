@@ -6,7 +6,7 @@ namespace Servicios
     public class Encriptador
     {
         //IRREVERSIBLE
-        public static string EncriptarSHA256(string texto)
+        public static string GetHash256(string texto)
         {
             using (SHA256 sha256 = SHA256.Create())
             {

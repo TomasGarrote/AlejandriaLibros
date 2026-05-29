@@ -126,6 +126,7 @@ namespace GUI
         {
             this.Hide();
             Usuarios usuarios = new Usuarios();
+            usuarios.Show();
         }
 
         private void BarraTitulo_MouseUp(object sender, MouseEventArgs e)

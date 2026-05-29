@@ -9,7 +9,10 @@ namespace DAL
 {
     public class UsuarioDAL:AbstractDAL<UsuarioBE>
     {
-        public UsuarioDAL() : base() { }
+        public UsuarioDAL() : base()
+        {
+            
+        }
 
         public void Registrar(UsuarioBE entity)
         {
@@ -24,7 +27,7 @@ namespace DAL
                 _sqlcommand.Parameters.AddWithValue("@username", entity.Username);
                 _sqlcommand.Parameters.AddWithValue("@password", entity.Password);
                 _sqlcommand.Parameters.AddWithValue("@email", entity.Email);
-                _sqlcommand.Parameters.AddWithValue("@rol", entity.Rol);
+                _sqlcommand.Parameters.AddWithValue("@Rol", entity.Rol);
 
                 _sqlserver.Open();
                 _sqlcommand.ExecuteNonQuery();
@@ -50,7 +53,7 @@ namespace DAL
             throw new NotImplementedException();
         }
 
-        public UsuarioBE ObtenerPorUsuario(string usuario)
+        public UsuarioBE ObtenerPorUserName(string usuario)
         {
             try
             {
@@ -85,12 +88,12 @@ namespace DAL
             }
         }
 
-        public void ResetearIntentos(string username)
+        public void ResetearIntentos(UsuarioBE usuario)
         {
             throw new NotImplementedException();
         }
 
-        public void SumarIntento(string username)
+        public void SumarIntentoFallido(UsuarioBE usuario)
         {
             throw new NotImplementedException();
         }
@@ -226,6 +229,29 @@ namespace DAL
             catch (Exception ex)
             {
                 throw ex;
+            }
+            finally
+            {
+                _sqlcommand.Parameters.Clear();
+                _sqlserver.Close();
+            }
+        }
+
+        public void CambiarClave(string usuario, string nuevaContra)
+        {
+            try
+            {
+                _sqlcommand.CommandText = "update Usuario set Password = @nuevaPassword where UserName=@usuario;";
+                _sqlcommand.Parameters.AddWithValue("@usuario", usuario);
+                _sqlcommand.Parameters.AddWithValue("@nuevaPassword", nuevaContra);
+
+                _sqlserver.Open();
+                _sqlcommand.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+
+                throw;
             }
             finally
             {

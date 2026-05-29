@@ -22,19 +22,19 @@ namespace BLL
         {
 			try
 			{
-                ManagerDeSesion.Instance.Logueado();
+                SessionManager.Instance.Logueado();
                 if(usuarioDAL == null)
                 {
                     throw new Exception("No se pudo conectar a la base de datos.");
                 }
-                UsuarioBE usuarioBE = usuarioDAL.ObtenerPorUsuario(usuario);
+                UsuarioBE usuarioBE = usuarioDAL.ObtenerPorUserName(usuario);
                 if (usuarioBE != null)
                 {
                     if (usuarioBE.Bloqueado) return LoginResultado.Bloqueado;
 
-                    if(usuarioBE.Password != Encriptador.DesencriptarAES(contraseña))
+                    if(usuarioBE.Password != Encriptador.GetHash256(contraseña))
                     {
-                        usuarioDAL.SumarIntento(usuarioBE.Username);
+                        usuarioDAL.SumarIntentoFallido(usuarioBE);
 
                         if (usuarioDAL.ObtenerIntentosFallidos(usuarioBE.DNI) >= 3)
                         {
@@ -45,8 +45,8 @@ namespace BLL
                     }
                     else
                     {
-                        ManagerDeSesion.Instance.Loguear(usuarioBE.Username);
-                        usuarioDAL.ResetearIntentos(usuarioBE.Username);
+                        SessionManager.Instance.Loguear(usuarioBE.Username);
+                        //usuarioDAL.ResetearIntentos(usuarioBE);
                         return LoginResultado.Valido;
                     }
                 }
@@ -63,7 +63,7 @@ namespace BLL
         {
             try
             {
-                ManagerDeSesion.Instance.Desloguear();
+                SessionManager.Instance.Desloguear();
             }
             catch (Exception ex)
             {
@@ -135,6 +135,25 @@ namespace BLL
 
                 throw ex;
             }
+        }
+
+        public void CambiarClave(string usuario, string nuevaContra)
+        {
+            try
+            {
+                UsuarioBE user = usuarioDAL.ObtenerPorUserName(usuario);
+                if(user.Password == Encriptador.GetHash256(nuevaContra))
+                {
+                    throw new Exception("La nueva contraseña no puede ser igual a la anterior");
+                }
+                usuarioDAL.CambiarClave(usuario, Encriptador.GetHash256(nuevaContra));
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            
         }
 
         public void Modificar(string dNI, UsuarioBE usuarioBE)

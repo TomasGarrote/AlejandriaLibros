@@ -54,6 +54,8 @@
             this.btnAplicar = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.btnLimpiar = new System.Windows.Forms.Button();
+            this.btnImprimir = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dtgvBitacora)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnCerrar)).BeginInit();
@@ -277,6 +279,8 @@
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
+            this.panel2.Controls.Add(this.btnImprimir);
+            this.panel2.Controls.Add(this.btnLimpiar);
             this.panel2.Controls.Add(this.btnAplicar);
             this.panel2.Controls.Add(this.lblApellido);
             this.panel2.Controls.Add(this.lblEvento);
@@ -301,7 +305,7 @@
             // 
             // btnAplicar
             // 
-            this.btnAplicar.Location = new System.Drawing.Point(626, 132);
+            this.btnAplicar.Location = new System.Drawing.Point(327, 131);
             this.btnAplicar.Name = "btnAplicar";
             this.btnAplicar.Size = new System.Drawing.Size(121, 23);
             this.btnAplicar.TabIndex = 17;
@@ -331,7 +335,27 @@
             this.label1.TabIndex = 20;
             this.label1.Text = "Bitacora";
             // 
-            // Bitacora
+            // btnLimpiar
+            // 
+            this.btnLimpiar.Location = new System.Drawing.Point(106, 130);
+            this.btnLimpiar.Name = "btnLimpiar";
+            this.btnLimpiar.Size = new System.Drawing.Size(120, 23);
+            this.btnLimpiar.TabIndex = 18;
+            this.btnLimpiar.Text = "Limpiar";
+            this.btnLimpiar.UseVisualStyleBackColor = true;
+            this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click);
+            // 
+            // btnImprimir
+            // 
+            this.btnImprimir.Location = new System.Drawing.Point(626, 130);
+            this.btnImprimir.Name = "btnImprimir";
+            this.btnImprimir.Size = new System.Drawing.Size(121, 23);
+            this.btnImprimir.TabIndex = 19;
+            this.btnImprimir.Text = "Imprimir";
+            this.btnImprimir.UseVisualStyleBackColor = true;
+            this.btnImprimir.Click += new System.EventHandler(this.btnImprimir_Click);
+            // 
+            // FormBitacora
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -343,7 +367,7 @@
             this.Controls.Add(this.dtgvBitacora);
             this.Controls.Add(this.pictureBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Name = "Bitacora";
+            this.Name = "FormBitacora";
             this.Text = "Bitacora";
             ((System.ComponentModel.ISupportInitialize)(this.dtgvBitacora)).EndInit();
             this.panel1.ResumeLayout(false);
@@ -385,5 +409,7 @@
         private System.Windows.Forms.PictureBox btnMinimizar;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnAplicar;
+        private System.Windows.Forms.Button btnImprimir;
+        private System.Windows.Forms.Button btnLimpiar;
     }
 }
