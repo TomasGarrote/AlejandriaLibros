@@ -8,6 +8,7 @@ namespace Servicios
     {
         Add,
         Delete,
+        Activate,
         Modify,
         UnBlock,
         Consult,

@@ -130,12 +130,10 @@ namespace BLL
                 if (user.Activo)
                 {
                     usuarioDAL.EliminarLogico(dNI);
-                    throw new Exception("Usuario Fue Eliminado");
-
                 }
                 else
                 {
-                    throw new Exception("El Usuario Ya Esta Eliminado");
+                    usuarioDAL.ActivarUsuario(dNI);
                 }
 
             }
@@ -179,7 +177,6 @@ namespace BLL
                 else
                 {
                     usuarioDAL.Modificar(dNI, usuarioBE);
-                    throw new Exception("Modificacion Completa ");
                 }
 
             }
@@ -196,8 +193,6 @@ namespace BLL
                     string nuevaClave = Encriptador.GetHash256(user.DNI + user.Nombre);
 
                     usuarioDAL.DesbloquearUsuario(user.DNI, nuevaClave);
-
-                    throw new Exception("Usuario Fue Desbloqueado Y Clave Restaurada");
                 }
                 else
                 {
