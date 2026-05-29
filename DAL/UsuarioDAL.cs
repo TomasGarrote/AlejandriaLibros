@@ -69,7 +69,7 @@ namespace DAL
         {
             try
             {
-                _sqlcommand.CommandText = @"SELECT IntentosFallidos FROM Usuario WHERE DNI = @dni;"; ;
+                _sqlcommand.CommandText = @"SELECT Intentos FROM Usuario WHERE DNI = @dni;"; ;
                 _sqlcommand.Parameters.AddWithValue("@dni", dNI);
 
                 _sqlserver.Open();
@@ -135,7 +135,7 @@ namespace DAL
         {
             try
             {
-                _sqlcommand.CommandText = @"update Usuario set IntentosFallidos = 0 where DNI=@dni;";
+                _sqlcommand.CommandText = @"update Usuario set Intentos = 0 where DNI=@dni;";
                 _sqlcommand.Parameters.AddWithValue("@dni", usuario.DNI);
 
                 _sqlserver.Open();
@@ -159,7 +159,7 @@ namespace DAL
             {
                 int intentos = ObtenerIntentosFallidos(usuario.DNI);
 
-                _sqlcommand.CommandText = @"update Usuario set IntentosFallidos = @intentos where DNI=@dni;";
+                _sqlcommand.CommandText = @"update Usuario set Intentos = @intentos where DNI=@dni;";
                 _sqlcommand.Parameters.AddWithValue("@dni", usuario.DNI);
                 _sqlcommand.Parameters.AddWithValue("@intentos", intentos+1);
 
