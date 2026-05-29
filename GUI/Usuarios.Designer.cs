@@ -35,11 +35,6 @@
             this.btnMinimizar = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.DNI = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.apellido = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.login = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.rol = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.txtDni = new System.Windows.Forms.TextBox();
@@ -54,8 +49,6 @@
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
             this.radioButton1 = new System.Windows.Forms.RadioButton();
             this.radioButton2 = new System.Windows.Forms.RadioButton();
             this.panel2 = new System.Windows.Forms.Panel();
@@ -68,10 +61,8 @@
             this.button4 = new System.Windows.Forms.Button();
             this.btnAplicar = new System.Windows.Forms.Button();
             this.btnCancelar = new System.Windows.Forms.Button();
-            this.button7 = new System.Windows.Forms.Button();
             this.panModificarUsuario = new System.Windows.Forms.Panel();
-            this.cmbActivo = new System.Windows.Forms.ComboBox();
-            this.cmbBloqueado = new System.Windows.Forms.ComboBox();
+            this.button7 = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnCerrar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnMaximizar)).BeginInit();
@@ -155,47 +146,11 @@
             this.dataGridView1.AllowUserToResizeColumns = false;
             this.dataGridView1.AllowUserToResizeRows = false;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.DNI,
-            this.apellido,
-            this.nombre,
-            this.login,
-            this.rol});
             this.dataGridView1.Location = new System.Drawing.Point(3, 34);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.Size = new System.Drawing.Size(762, 161);
             this.dataGridView1.TabIndex = 21;
-            // 
-            // DNI
-            // 
-            this.DNI.HeaderText = "DNI";
-            this.DNI.Name = "DNI";
-            this.DNI.ReadOnly = true;
-            // 
-            // apellido
-            // 
-            this.apellido.HeaderText = "Apellidos";
-            this.apellido.Name = "apellido";
-            this.apellido.ReadOnly = true;
-            // 
-            // nombre
-            // 
-            this.nombre.HeaderText = "Nombres";
-            this.nombre.Name = "nombre";
-            this.nombre.ReadOnly = true;
-            // 
-            // login
-            // 
-            this.login.HeaderText = "Usuario";
-            this.login.Name = "login";
-            this.login.ReadOnly = true;
-            // 
-            // rol
-            // 
-            this.rol.HeaderText = "Rol";
-            this.rol.Name = "rol";
-            this.rol.ReadOnly = true;
             // 
             // textBox1
             // 
@@ -223,6 +178,7 @@
             this.txtDni.Name = "txtDni";
             this.txtDni.Size = new System.Drawing.Size(167, 20);
             this.txtDni.TabIndex = 24;
+            this.txtDni.Tag = "DNI";
             // 
             // txtApe
             // 
@@ -231,6 +187,7 @@
             this.txtApe.Name = "txtApe";
             this.txtApe.Size = new System.Drawing.Size(167, 20);
             this.txtApe.TabIndex = 25;
+            this.txtApe.Tag = "Apellido";
             // 
             // txtNom
             // 
@@ -239,6 +196,7 @@
             this.txtNom.Name = "txtNom";
             this.txtNom.Size = new System.Drawing.Size(167, 20);
             this.txtNom.TabIndex = 26;
+            this.txtNom.Tag = "Nombre";
             // 
             // txtEmail
             // 
@@ -247,6 +205,7 @@
             this.txtEmail.Name = "txtEmail";
             this.txtEmail.Size = new System.Drawing.Size(167, 20);
             this.txtEmail.TabIndex = 27;
+            this.txtEmail.Tag = "Email";
             // 
             // txtRol
             // 
@@ -255,6 +214,7 @@
             this.txtRol.Name = "txtRol";
             this.txtRol.Size = new System.Drawing.Size(167, 20);
             this.txtRol.TabIndex = 28;
+            this.txtRol.Tag = "Rol";
             // 
             // txtUsuario
             // 
@@ -263,6 +223,7 @@
             this.txtUsuario.Name = "txtUsuario";
             this.txtUsuario.Size = new System.Drawing.Size(167, 20);
             this.txtUsuario.TabIndex = 29;
+            this.txtUsuario.Tag = "Login";
             // 
             // label2
             // 
@@ -329,28 +290,6 @@
             this.label7.Size = new System.Drawing.Size(43, 16);
             this.label7.TabIndex = 37;
             this.label7.Text = "Login:";
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.ForeColor = System.Drawing.SystemColors.Control;
-            this.label8.Location = new System.Drawing.Point(15, 171);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(77, 16);
-            this.label8.TabIndex = 38;
-            this.label8.Text = "Bloqueado:";
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.ForeColor = System.Drawing.SystemColors.Control;
-            this.label9.Location = new System.Drawing.Point(45, 197);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(47, 16);
-            this.label9.TabIndex = 39;
-            this.label9.Text = "Activo:";
             // 
             // radioButton1
             // 
@@ -438,6 +377,7 @@
             this.button2.TabIndex = 46;
             this.button2.Text = "Desbloquear";
             this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // button3
             // 
@@ -447,6 +387,7 @@
             this.button3.TabIndex = 47;
             this.button3.Text = "Modificar";
             this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // button4
             // 
@@ -456,6 +397,7 @@
             this.button4.TabIndex = 48;
             this.button4.Text = "Activar/Desactivar";
             this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
             // btnAplicar
             // 
@@ -479,22 +421,10 @@
             this.btnCancelar.TabIndex = 50;
             this.btnCancelar.Text = "Cancelar";
             this.btnCancelar.UseVisualStyleBackColor = false;
-            // 
-            // button7
-            // 
-            this.button7.Location = new System.Drawing.Point(864, 443);
-            this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(123, 41);
-            this.button7.TabIndex = 51;
-            this.button7.Text = "Crear";
-            this.button7.UseVisualStyleBackColor = true;
+            this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
             // 
             // panModificarUsuario
             // 
-            this.panModificarUsuario.Controls.Add(this.cmbActivo);
-            this.panModificarUsuario.Controls.Add(this.cmbBloqueado);
-            this.panModificarUsuario.Controls.Add(this.label9);
-            this.panModificarUsuario.Controls.Add(this.label8);
             this.panModificarUsuario.Controls.Add(this.label7);
             this.panModificarUsuario.Controls.Add(this.label6);
             this.panModificarUsuario.Controls.Add(this.label5);
@@ -510,33 +440,18 @@
             this.panModificarUsuario.Enabled = false;
             this.panModificarUsuario.Location = new System.Drawing.Point(74, 383);
             this.panModificarUsuario.Name = "panModificarUsuario";
-            this.panModificarUsuario.Size = new System.Drawing.Size(283, 230);
+            this.panModificarUsuario.Size = new System.Drawing.Size(283, 179);
             this.panModificarUsuario.TabIndex = 52;
             this.panModificarUsuario.EnabledChanged += new System.EventHandler(this.panModificarUsuario_EnabledChanged);
             // 
-            // cmbActivo
+            // button7
             // 
-            this.cmbActivo.BackColor = System.Drawing.Color.Gray;
-            this.cmbActivo.FormattingEnabled = true;
-            this.cmbActivo.Items.AddRange(new object[] {
-            "Activo",
-            "Inactivo"});
-            this.cmbActivo.Location = new System.Drawing.Point(98, 196);
-            this.cmbActivo.Name = "cmbActivo";
-            this.cmbActivo.Size = new System.Drawing.Size(167, 21);
-            this.cmbActivo.TabIndex = 41;
-            // 
-            // cmbBloqueado
-            // 
-            this.cmbBloqueado.BackColor = System.Drawing.Color.Gray;
-            this.cmbBloqueado.FormattingEnabled = true;
-            this.cmbBloqueado.Items.AddRange(new object[] {
-            "Desbloqueado",
-            "Bloqueado"});
-            this.cmbBloqueado.Location = new System.Drawing.Point(98, 169);
-            this.cmbBloqueado.Name = "cmbBloqueado";
-            this.cmbBloqueado.Size = new System.Drawing.Size(167, 21);
-            this.cmbBloqueado.TabIndex = 40;
+            this.button7.Location = new System.Drawing.Point(864, 443);
+            this.button7.Name = "button7";
+            this.button7.Size = new System.Drawing.Size(123, 41);
+            this.button7.TabIndex = 51;
+            this.button7.Text = "SALIR";
+            this.button7.UseVisualStyleBackColor = true;
             // 
             // Usuarios
             // 
@@ -601,28 +516,19 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Label label9;
         private System.Windows.Forms.RadioButton radioButton1;
         private System.Windows.Forms.RadioButton radioButton2;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Label lblTextoTabla;
         private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.DataGridViewTextBoxColumn DNI;
-        private System.Windows.Forms.DataGridViewTextBoxColumn apellido;
-        private System.Windows.Forms.DataGridViewTextBoxColumn nombre;
-        private System.Windows.Forms.DataGridViewTextBoxColumn login;
-        private System.Windows.Forms.DataGridViewTextBoxColumn rol;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Button btnAplicar;
         private System.Windows.Forms.Button btnCancelar;
-        private System.Windows.Forms.Button button7;
         private System.Windows.Forms.Panel panModificarUsuario;
-        private System.Windows.Forms.ComboBox cmbActivo;
-        private System.Windows.Forms.ComboBox cmbBloqueado;
+        private System.Windows.Forms.Button button7;
     }
 }

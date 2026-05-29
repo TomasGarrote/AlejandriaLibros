@@ -3,6 +3,7 @@ using Servicios;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -95,10 +96,10 @@ namespace BLL
         private void ValidarCaracteresUsuario(UsuarioBE usuario)
         {
 
-            if (!Regex.IsMatch(usuario.Email, @"^[^@\s]+@[^@\s]+\.[^@\s]+$")) throw new Exception("ElFormatoDelEmailEsIncorrectoU");
-            if (!Regex.IsMatch(usuario.DNI, @"^\d{8}$")) throw new Exception("ElFormatoDelDNIEsIncorrectoU");
+            if (!Regex.IsMatch(usuario.Email, @"^[^@\s]+@[^@\s]+\.[^@\s]+$")) throw new Exception("El Formato Del Email Es Incorrecto");
+            if (!Regex.IsMatch(usuario.DNI, @"^\d{8}$")) throw new Exception("El Formato Del DNI Es Incorrecto");
             if (!Regex.IsMatch(usuario.Nombre, @"^.{3,}$") || !Regex.IsMatch(usuario.Nombre, @"^.{3,}$"))
-                throw new Exception("ElFormatoDelNomOApeEsIncorrectoU");
+                throw new Exception("El Formato Del Nombre o Apellido Es Incorrecto");
 
         }
 
@@ -153,6 +154,51 @@ namespace BLL
                 throw ex;
             }
             
+        }
+
+        public void Modificar(string dNI, UsuarioBE usuarioBE)
+        {
+            UsuarioBE existente = usuarioDAL.BuscarUsuarioPorDNI(usuarioBE.DNI);
+            if (existente != null && existente.DNI != dNI)
+                throw new Exception("Ya Existe User Con Ese DNI");
+            else
+            {
+
+                UsuarioBE repetido = usuarioDAL.ObtenerPorUserName(usuarioBE.Username);
+                if (repetido != null && repetido.DNI != dNI)
+                    throw new Exception("E lNombre De Usuario Ya Esta En Uso");
+                else
+                {
+                    usuarioDAL.Modificar(dNI, usuarioBE);
+                    throw new Exception("ModificacionCompletaU");
+                }
+
+            }
+        }
+
+        public void DesbloquearUsuario(UsuarioBE usuarioBE)
+        {
+            try
+            {
+                UsuarioBE user = usuarioDAL.BuscarUsuarioPorDNI(usuarioBE.DNI);
+
+                if (user.Bloqueado)
+                {
+                    string nuevaClave = Encriptador.GetHash256(user.DNI + user.Nombre);
+
+                    usuarioDAL.DesbloquearUsuario(user.DNI, nuevaClave);
+
+                    throw new Exception("UsuarioFueDesbloqueadoYClaveRestauradaU");
+                }
+                else
+                {
+                    throw new Exception("UsuarioNoEstaBloqueadoU");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
     }
 }
