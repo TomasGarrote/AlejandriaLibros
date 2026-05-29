@@ -179,9 +179,9 @@ namespace GUI
                         }
                         break;
                     case UserAction.UnBlock:
-                        usuarioBLL.DesbloquearUsuario(dataGridView1.SelectedRows[0].DataBoundItem as UsuarioBE);
                         ReiniciarBotones();
                         MostrarUsuarios(dataGridView1, usuarioBLL.ListarUsuariosActivos());
+                        usuarioBLL.DesbloquearUsuario(dataGridView1.SelectedRows[0].DataBoundItem as UsuarioBE);
                         MessageBox.Show("Usuario Fue Desbloqueado Y Clave Restaurada", "Alerta!", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         break;
                     case UserAction.Activate:
