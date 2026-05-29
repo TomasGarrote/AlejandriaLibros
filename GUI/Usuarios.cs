@@ -121,7 +121,7 @@ namespace GUI
                 switch (userAction)
                 {
                     case UserAction.Add:
-                        usuarioBLL.RegistrarUsuario(new UsuarioBE(txtDni.Text,txtNom.Text,txtApe.Text,txtUsuario.Text,Encriptador.EncriptarSHA256(txtDni.Text + txtNom.Text), txtEmail.Text,false,true,txtRol.Text));
+                        usuarioBLL.RegistrarUsuario(new UsuarioBE(txtDni.Text,txtNom.Text,txtApe.Text,txtUsuario.Text,Encriptador.GetHash256(txtDni.Text + txtNom.Text), txtEmail.Text,false,true,txtRol.Text));
                         EnabledControls(button1, button2, button3, button4, btnAplicar, btnCancelar, button7, panel2, panModificarUsuario, panel3);
                         MostrarUsuarios(dataGridView1, usuarioBLL.ListarUsuariosActivos());
                         break;
