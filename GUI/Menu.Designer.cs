@@ -59,6 +59,8 @@
             this.btnAdmin = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panelContenedor = new System.Windows.Forms.Panel();
+            this.btnCambiarIdioma = new System.Windows.Forms.Button();
+            this.panel10 = new System.Windows.Forms.Panel();
             this.BarraTitulo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnCerrar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnMaximizar)).BeginInit();
@@ -135,12 +137,14 @@
             this.MenuVertical.Dock = System.Windows.Forms.DockStyle.Left;
             this.MenuVertical.Location = new System.Drawing.Point(0, 43);
             this.MenuVertical.Name = "MenuVertical";
-            this.MenuVertical.Size = new System.Drawing.Size(200, 537);
+            this.MenuVertical.Size = new System.Drawing.Size(200, 615);
             this.MenuVertical.TabIndex = 1;
             // 
             // panelUsuarioSubmenu
             // 
             this.panelUsuarioSubmenu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
+            this.panelUsuarioSubmenu.Controls.Add(this.panel10);
+            this.panelUsuarioSubmenu.Controls.Add(this.btnCambiarIdioma);
             this.panelUsuarioSubmenu.Controls.Add(this.panel3);
             this.panelUsuarioSubmenu.Controls.Add(this.panel2);
             this.panelUsuarioSubmenu.Controls.Add(this.panel1);
@@ -150,7 +154,7 @@
             this.panelUsuarioSubmenu.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelUsuarioSubmenu.Location = new System.Drawing.Point(0, 402);
             this.panelUsuarioSubmenu.Name = "panelUsuarioSubmenu";
-            this.panelUsuarioSubmenu.Size = new System.Drawing.Size(200, 113);
+            this.panelUsuarioSubmenu.Size = new System.Drawing.Size(200, 152);
             this.panelUsuarioSubmenu.TabIndex = 5;
             this.panelUsuarioSubmenu.Visible = false;
             // 
@@ -452,16 +456,41 @@
             this.panelContenedor.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelContenedor.Location = new System.Drawing.Point(200, 43);
             this.panelContenedor.Name = "panelContenedor";
-            this.panelContenedor.Size = new System.Drawing.Size(837, 537);
+            this.panelContenedor.Size = new System.Drawing.Size(837, 615);
             this.panelContenedor.TabIndex = 2;
             this.panelContenedor.Paint += new System.Windows.Forms.PaintEventHandler(this.panelContenedor_Paint);
+            // 
+            // btnCambiarIdioma
+            // 
+            this.btnCambiarIdioma.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnCambiarIdioma.FlatAppearance.BorderSize = 0;
+            this.btnCambiarIdioma.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.btnCambiarIdioma.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCambiarIdioma.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCambiarIdioma.ForeColor = System.Drawing.Color.White;
+            this.btnCambiarIdioma.Location = new System.Drawing.Point(0, 105);
+            this.btnCambiarIdioma.Name = "btnCambiarIdioma";
+            this.btnCambiarIdioma.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.btnCambiarIdioma.Size = new System.Drawing.Size(200, 35);
+            this.btnCambiarIdioma.TabIndex = 8;
+            this.btnCambiarIdioma.Text = "Cambiar idioma";
+            this.btnCambiarIdioma.UseVisualStyleBackColor = true;
+            this.btnCambiarIdioma.Click += new System.EventHandler(this.btnCambiarIdioma_Click);
+            // 
+            // panel10
+            // 
+            this.panel10.BackColor = System.Drawing.Color.Maroon;
+            this.panel10.Location = new System.Drawing.Point(12, 105);
+            this.panel10.Name = "panel10";
+            this.panel10.Size = new System.Drawing.Size(5, 35);
+            this.panel10.TabIndex = 9;
             // 
             // Menu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Maroon;
-            this.ClientSize = new System.Drawing.Size(1037, 580);
+            this.ClientSize = new System.Drawing.Size(1037, 658);
             this.Controls.Add(this.panelContenedor);
             this.Controls.Add(this.MenuVertical);
             this.Controls.Add(this.BarraTitulo);
@@ -513,6 +542,8 @@
         private System.Windows.Forms.PictureBox btnMinimizar;
         private System.Windows.Forms.PictureBox btnCerrar;
         private System.Windows.Forms.PictureBox btnMaximizar;
+        private System.Windows.Forms.Button btnCambiarIdioma;
+        private System.Windows.Forms.Panel panel10;
     }
 }
 

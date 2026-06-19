@@ -152,6 +152,11 @@ namespace GUI
             cambiarContraseña.Show();
         }
 
+        private void btnCambiarIdioma_Click(object sender, EventArgs e)
+        {
+
+        }
+
         private void BarraTitulo_MouseUp(object sender, MouseEventArgs e)
         {
             arrastrando = false;
