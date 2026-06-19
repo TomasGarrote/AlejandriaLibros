@@ -30,14 +30,14 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormBitacora));
             this.dtgvBitacora = new System.Windows.Forms.DataGridView();
-            this.lblNombre = new System.Windows.Forms.Label();
-            this.lblApellido = new System.Windows.Forms.Label();
-            this.lblLogin = new System.Windows.Forms.Label();
-            this.lblModulo = new System.Windows.Forms.Label();
-            this.lblFechaInicio = new System.Windows.Forms.Label();
-            this.lblFechaFinal = new System.Windows.Forms.Label();
-            this.lblEvento = new System.Windows.Forms.Label();
-            this.lblCriticidad = new System.Windows.Forms.Label();
+            this.lblNombreB = new System.Windows.Forms.Label();
+            this.lblApellidoB = new System.Windows.Forms.Label();
+            this.lblLoginB = new System.Windows.Forms.Label();
+            this.lblModuloB = new System.Windows.Forms.Label();
+            this.lblFechaInicioB = new System.Windows.Forms.Label();
+            this.lblFechaFinalB = new System.Windows.Forms.Label();
+            this.lblEventoB = new System.Windows.Forms.Label();
+            this.lblCriticidadB = new System.Windows.Forms.Label();
             this.txtNombre = new System.Windows.Forms.TextBox();
             this.txtApellido = new System.Windows.Forms.TextBox();
             this.cmbLogin = new System.Windows.Forms.ComboBox();
@@ -51,11 +51,11 @@
             this.btnMaximizar = new System.Windows.Forms.PictureBox();
             this.btnMinimizar = new System.Windows.Forms.PictureBox();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.btnImprimir = new System.Windows.Forms.Button();
-            this.btnLimpiar = new System.Windows.Forms.Button();
-            this.btnAplicar = new System.Windows.Forms.Button();
+            this.btnImprimirB = new System.Windows.Forms.Button();
+            this.btnLimpiarB = new System.Windows.Forms.Button();
+            this.btnAplicarB = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.label1 = new System.Windows.Forms.Label();
+            this.lblBitacora = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.dtgvBitacora)).BeginInit();
             this.panel1.SuspendLayout();
@@ -76,93 +76,93 @@
             this.dtgvBitacora.Size = new System.Drawing.Size(876, 238);
             this.dtgvBitacora.TabIndex = 0;
             // 
-            // lblNombre
+            // lblNombreB
             // 
-            this.lblNombre.AutoSize = true;
-            this.lblNombre.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblNombre.ForeColor = System.Drawing.SystemColors.Control;
-            this.lblNombre.Location = new System.Drawing.Point(42, 24);
-            this.lblNombre.Name = "lblNombre";
-            this.lblNombre.Size = new System.Drawing.Size(66, 16);
-            this.lblNombre.TabIndex = 1;
-            this.lblNombre.Text = "Nombre:";
+            this.lblNombreB.AutoSize = true;
+            this.lblNombreB.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblNombreB.ForeColor = System.Drawing.SystemColors.Control;
+            this.lblNombreB.Location = new System.Drawing.Point(42, 24);
+            this.lblNombreB.Name = "lblNombreB";
+            this.lblNombreB.Size = new System.Drawing.Size(66, 16);
+            this.lblNombreB.TabIndex = 1;
+            this.lblNombreB.Text = "Nombre:";
             // 
-            // lblApellido
+            // lblApellidoB
             // 
-            this.lblApellido.AutoSize = true;
-            this.lblApellido.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblApellido.ForeColor = System.Drawing.SystemColors.Control;
-            this.lblApellido.Location = new System.Drawing.Point(264, 27);
-            this.lblApellido.Name = "lblApellido";
-            this.lblApellido.Size = new System.Drawing.Size(69, 16);
-            this.lblApellido.TabIndex = 2;
-            this.lblApellido.Text = "Apellido:";
+            this.lblApellidoB.AutoSize = true;
+            this.lblApellidoB.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblApellidoB.ForeColor = System.Drawing.SystemColors.Control;
+            this.lblApellidoB.Location = new System.Drawing.Point(264, 27);
+            this.lblApellidoB.Name = "lblApellidoB";
+            this.lblApellidoB.Size = new System.Drawing.Size(69, 16);
+            this.lblApellidoB.TabIndex = 2;
+            this.lblApellidoB.Text = "Apellido:";
             // 
-            // lblLogin
+            // lblLoginB
             // 
-            this.lblLogin.AutoSize = true;
-            this.lblLogin.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblLogin.ForeColor = System.Drawing.SystemColors.Control;
-            this.lblLogin.Location = new System.Drawing.Point(59, 68);
-            this.lblLogin.Name = "lblLogin";
-            this.lblLogin.Size = new System.Drawing.Size(49, 16);
-            this.lblLogin.TabIndex = 3;
-            this.lblLogin.Text = "Login:";
+            this.lblLoginB.AutoSize = true;
+            this.lblLoginB.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblLoginB.ForeColor = System.Drawing.SystemColors.Control;
+            this.lblLoginB.Location = new System.Drawing.Point(59, 68);
+            this.lblLoginB.Name = "lblLoginB";
+            this.lblLoginB.Size = new System.Drawing.Size(49, 16);
+            this.lblLoginB.TabIndex = 3;
+            this.lblLoginB.Text = "Login:";
             // 
-            // lblModulo
+            // lblModuloB
             // 
-            this.lblModulo.AutoSize = true;
-            this.lblModulo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblModulo.ForeColor = System.Drawing.SystemColors.Control;
-            this.lblModulo.Location = new System.Drawing.Point(46, 96);
-            this.lblModulo.Name = "lblModulo";
-            this.lblModulo.Size = new System.Drawing.Size(62, 16);
-            this.lblModulo.TabIndex = 4;
-            this.lblModulo.Text = "Modulo:";
+            this.lblModuloB.AutoSize = true;
+            this.lblModuloB.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblModuloB.ForeColor = System.Drawing.SystemColors.Control;
+            this.lblModuloB.Location = new System.Drawing.Point(46, 96);
+            this.lblModuloB.Name = "lblModuloB";
+            this.lblModuloB.Size = new System.Drawing.Size(62, 16);
+            this.lblModuloB.TabIndex = 4;
+            this.lblModuloB.Text = "Modulo:";
             // 
-            // lblFechaInicio
+            // lblFechaInicioB
             // 
-            this.lblFechaInicio.AutoSize = true;
-            this.lblFechaInicio.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblFechaInicio.ForeColor = System.Drawing.SystemColors.Control;
-            this.lblFechaInicio.Location = new System.Drawing.Point(238, 69);
-            this.lblFechaInicio.Name = "lblFechaInicio";
-            this.lblFechaInicio.Size = new System.Drawing.Size(95, 16);
-            this.lblFechaInicio.TabIndex = 5;
-            this.lblFechaInicio.Text = "Fecha inicio:";
+            this.lblFechaInicioB.AutoSize = true;
+            this.lblFechaInicioB.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblFechaInicioB.ForeColor = System.Drawing.SystemColors.Control;
+            this.lblFechaInicioB.Location = new System.Drawing.Point(238, 69);
+            this.lblFechaInicioB.Name = "lblFechaInicioB";
+            this.lblFechaInicioB.Size = new System.Drawing.Size(95, 16);
+            this.lblFechaInicioB.TabIndex = 5;
+            this.lblFechaInicioB.Text = "Fecha inicio:";
             // 
-            // lblFechaFinal
+            // lblFechaFinalB
             // 
-            this.lblFechaFinal.AutoSize = true;
-            this.lblFechaFinal.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblFechaFinal.ForeColor = System.Drawing.SystemColors.Control;
-            this.lblFechaFinal.Location = new System.Drawing.Point(541, 68);
-            this.lblFechaFinal.Name = "lblFechaFinal";
-            this.lblFechaFinal.Size = new System.Drawing.Size(87, 16);
-            this.lblFechaFinal.TabIndex = 6;
-            this.lblFechaFinal.Text = "Fecha final:";
+            this.lblFechaFinalB.AutoSize = true;
+            this.lblFechaFinalB.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblFechaFinalB.ForeColor = System.Drawing.SystemColors.Control;
+            this.lblFechaFinalB.Location = new System.Drawing.Point(541, 68);
+            this.lblFechaFinalB.Name = "lblFechaFinalB";
+            this.lblFechaFinalB.Size = new System.Drawing.Size(87, 16);
+            this.lblFechaFinalB.TabIndex = 6;
+            this.lblFechaFinalB.Text = "Fecha final:";
             // 
-            // lblEvento
+            // lblEventoB
             // 
-            this.lblEvento.AutoSize = true;
-            this.lblEvento.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblEvento.ForeColor = System.Drawing.SystemColors.Control;
-            this.lblEvento.Location = new System.Drawing.Point(274, 96);
-            this.lblEvento.Name = "lblEvento";
-            this.lblEvento.Size = new System.Drawing.Size(59, 16);
-            this.lblEvento.TabIndex = 7;
-            this.lblEvento.Text = "Evento:";
+            this.lblEventoB.AutoSize = true;
+            this.lblEventoB.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblEventoB.ForeColor = System.Drawing.SystemColors.Control;
+            this.lblEventoB.Location = new System.Drawing.Point(274, 96);
+            this.lblEventoB.Name = "lblEventoB";
+            this.lblEventoB.Size = new System.Drawing.Size(59, 16);
+            this.lblEventoB.TabIndex = 7;
+            this.lblEventoB.Text = "Evento:";
             // 
-            // lblCriticidad
+            // lblCriticidadB
             // 
-            this.lblCriticidad.AutoSize = true;
-            this.lblCriticidad.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblCriticidad.ForeColor = System.Drawing.SystemColors.Control;
-            this.lblCriticidad.Location = new System.Drawing.Point(551, 96);
-            this.lblCriticidad.Name = "lblCriticidad";
-            this.lblCriticidad.Size = new System.Drawing.Size(77, 16);
-            this.lblCriticidad.TabIndex = 8;
-            this.lblCriticidad.Text = "Criticidad:";
+            this.lblCriticidadB.AutoSize = true;
+            this.lblCriticidadB.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCriticidadB.ForeColor = System.Drawing.SystemColors.Control;
+            this.lblCriticidadB.Location = new System.Drawing.Point(551, 96);
+            this.lblCriticidadB.Name = "lblCriticidadB";
+            this.lblCriticidadB.Size = new System.Drawing.Size(77, 16);
+            this.lblCriticidadB.TabIndex = 8;
+            this.lblCriticidadB.Text = "Criticidad:";
             // 
             // txtNombre
             // 
@@ -283,59 +283,59 @@
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.Color.Maroon;
-            this.panel2.Controls.Add(this.btnImprimir);
-            this.panel2.Controls.Add(this.btnLimpiar);
-            this.panel2.Controls.Add(this.btnAplicar);
-            this.panel2.Controls.Add(this.lblApellido);
-            this.panel2.Controls.Add(this.lblEvento);
-            this.panel2.Controls.Add(this.lblCriticidad);
+            this.panel2.Controls.Add(this.btnImprimirB);
+            this.panel2.Controls.Add(this.btnLimpiarB);
+            this.panel2.Controls.Add(this.btnAplicarB);
+            this.panel2.Controls.Add(this.lblApellidoB);
+            this.panel2.Controls.Add(this.lblEventoB);
+            this.panel2.Controls.Add(this.lblCriticidadB);
             this.panel2.Controls.Add(this.dtpFechaFinal);
-            this.panel2.Controls.Add(this.lblFechaFinal);
+            this.panel2.Controls.Add(this.lblFechaFinalB);
             this.panel2.Controls.Add(this.dtpFechaInicio);
-            this.panel2.Controls.Add(this.lblFechaInicio);
+            this.panel2.Controls.Add(this.lblFechaInicioB);
             this.panel2.Controls.Add(this.txtNombre);
             this.panel2.Controls.Add(this.txtApellido);
             this.panel2.Controls.Add(this.cmbCriticidad);
-            this.panel2.Controls.Add(this.lblModulo);
-            this.panel2.Controls.Add(this.lblNombre);
+            this.panel2.Controls.Add(this.lblModuloB);
+            this.panel2.Controls.Add(this.lblNombreB);
             this.panel2.Controls.Add(this.cmbLogin);
             this.panel2.Controls.Add(this.cmbEvento);
-            this.panel2.Controls.Add(this.lblLogin);
+            this.panel2.Controls.Add(this.lblLoginB);
             this.panel2.Controls.Add(this.cmbModulo);
             this.panel2.Location = new System.Drawing.Point(120, 417);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(886, 168);
             this.panel2.TabIndex = 18;
             // 
-            // btnImprimir
+            // btnImprimirB
             // 
-            this.btnImprimir.Location = new System.Drawing.Point(634, 121);
-            this.btnImprimir.Name = "btnImprimir";
-            this.btnImprimir.Size = new System.Drawing.Size(121, 23);
-            this.btnImprimir.TabIndex = 19;
-            this.btnImprimir.Text = "Imprimir";
-            this.btnImprimir.UseVisualStyleBackColor = true;
-            this.btnImprimir.Click += new System.EventHandler(this.btnImprimir_Click);
+            this.btnImprimirB.Location = new System.Drawing.Point(634, 121);
+            this.btnImprimirB.Name = "btnImprimirB";
+            this.btnImprimirB.Size = new System.Drawing.Size(121, 23);
+            this.btnImprimirB.TabIndex = 19;
+            this.btnImprimirB.Text = "Imprimir";
+            this.btnImprimirB.UseVisualStyleBackColor = true;
+            this.btnImprimirB.Click += new System.EventHandler(this.btnImprimir_Click);
             // 
-            // btnLimpiar
+            // btnLimpiarB
             // 
-            this.btnLimpiar.Location = new System.Drawing.Point(114, 121);
-            this.btnLimpiar.Name = "btnLimpiar";
-            this.btnLimpiar.Size = new System.Drawing.Size(120, 23);
-            this.btnLimpiar.TabIndex = 18;
-            this.btnLimpiar.Text = "Limpiar";
-            this.btnLimpiar.UseVisualStyleBackColor = true;
-            this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click);
+            this.btnLimpiarB.Location = new System.Drawing.Point(114, 121);
+            this.btnLimpiarB.Name = "btnLimpiarB";
+            this.btnLimpiarB.Size = new System.Drawing.Size(120, 23);
+            this.btnLimpiarB.TabIndex = 18;
+            this.btnLimpiarB.Text = "Limpiar";
+            this.btnLimpiarB.UseVisualStyleBackColor = true;
+            this.btnLimpiarB.Click += new System.EventHandler(this.btnLimpiar_Click);
             // 
-            // btnAplicar
+            // btnAplicarB
             // 
-            this.btnAplicar.Location = new System.Drawing.Point(335, 122);
-            this.btnAplicar.Name = "btnAplicar";
-            this.btnAplicar.Size = new System.Drawing.Size(121, 23);
-            this.btnAplicar.TabIndex = 17;
-            this.btnAplicar.Text = "Aplicar";
-            this.btnAplicar.UseVisualStyleBackColor = true;
-            this.btnAplicar.Click += new System.EventHandler(this.btnAplicar_Click);
+            this.btnAplicarB.Location = new System.Drawing.Point(335, 122);
+            this.btnAplicarB.Name = "btnAplicarB";
+            this.btnAplicarB.Size = new System.Drawing.Size(121, 23);
+            this.btnAplicarB.TabIndex = 17;
+            this.btnAplicarB.Text = "Aplicar";
+            this.btnAplicarB.UseVisualStyleBackColor = true;
+            this.btnAplicarB.Click += new System.EventHandler(this.btnAplicar_Click);
             // 
             // pictureBox1
             // 
@@ -348,22 +348,22 @@
             this.pictureBox1.TabIndex = 19;
             this.pictureBox1.TabStop = false;
             // 
-            // label1
+            // lblBitacora
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.SystemColors.Control;
-            this.label1.Location = new System.Drawing.Point(375, 3);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(130, 33);
-            this.label1.TabIndex = 20;
-            this.label1.Text = "Bitacora";
+            this.lblBitacora.AutoSize = true;
+            this.lblBitacora.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblBitacora.ForeColor = System.Drawing.SystemColors.Control;
+            this.lblBitacora.Location = new System.Drawing.Point(375, 3);
+            this.lblBitacora.Name = "lblBitacora";
+            this.lblBitacora.Size = new System.Drawing.Size(130, 33);
+            this.lblBitacora.TabIndex = 20;
+            this.lblBitacora.Text = "Bitacora";
             // 
             // panel3
             // 
             this.panel3.BackColor = System.Drawing.Color.Maroon;
             this.panel3.Controls.Add(this.dtgvBitacora);
-            this.panel3.Controls.Add(this.label1);
+            this.panel3.Controls.Add(this.lblBitacora);
             this.panel3.Location = new System.Drawing.Point(120, 118);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(886, 281);
@@ -382,6 +382,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "FormBitacora";
             this.Text = "Bitacora";
+            this.Load += new System.EventHandler(this.FormBitacora_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dtgvBitacora)).EndInit();
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.btnCerrar)).EndInit();
@@ -399,14 +400,14 @@
         #endregion
 
         private System.Windows.Forms.DataGridView dtgvBitacora;
-        private System.Windows.Forms.Label lblNombre;
-        private System.Windows.Forms.Label lblApellido;
-        private System.Windows.Forms.Label lblLogin;
-        private System.Windows.Forms.Label lblModulo;
-        private System.Windows.Forms.Label lblFechaInicio;
-        private System.Windows.Forms.Label lblFechaFinal;
-        private System.Windows.Forms.Label lblEvento;
-        private System.Windows.Forms.Label lblCriticidad;
+        private System.Windows.Forms.Label lblNombreB;
+        private System.Windows.Forms.Label lblApellidoB;
+        private System.Windows.Forms.Label lblLoginB;
+        private System.Windows.Forms.Label lblModuloB;
+        private System.Windows.Forms.Label lblFechaInicioB;
+        private System.Windows.Forms.Label lblFechaFinalB;
+        private System.Windows.Forms.Label lblEventoB;
+        private System.Windows.Forms.Label lblCriticidadB;
         private System.Windows.Forms.TextBox txtNombre;
         private System.Windows.Forms.TextBox txtApellido;
         private System.Windows.Forms.ComboBox cmbLogin;
@@ -421,10 +422,10 @@
         private System.Windows.Forms.PictureBox btnCerrar;
         private System.Windows.Forms.PictureBox btnMaximizar;
         private System.Windows.Forms.PictureBox btnMinimizar;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button btnAplicar;
-        private System.Windows.Forms.Button btnImprimir;
-        private System.Windows.Forms.Button btnLimpiar;
+        private System.Windows.Forms.Label lblBitacora;
+        private System.Windows.Forms.Button btnAplicarB;
+        private System.Windows.Forms.Button btnImprimirB;
+        private System.Windows.Forms.Button btnLimpiarB;
         private System.Windows.Forms.Panel panel3;
     }
 }

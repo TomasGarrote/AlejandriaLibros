@@ -1,15 +1,17 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Net;
 using System.Text;
 using System.Xml;
-using Newtonsoft.Json;
+
 
 namespace Servicios
 {
-    internal class LanguageManager:IObserved
+    public class LanguageManager : IObserved
     {
-        private List<IObserver> _observers;                                                                                                                           //private ResourceManager _manager;
+        private List<IObserver> _observers;
         private static LanguageManager _lenguageManager;
         private DefaultLenguage _language;
         private Dictionary<string, string> _jsonidioma;
@@ -22,7 +24,16 @@ namespace Servicios
                 return _lenguageManager;
             }
         }
+        public string CodigoIdiomaActual
+        {
+            get
+            {
+                if (_language == null)
+                    return "es";
 
+                return _language.Idioma;
+            }
+        }
 
         private LanguageManager()
         {
@@ -52,103 +63,61 @@ namespace Servicios
         }
 
 
-        private void CargarJsonIdioma()
-        {
-            try
-            {
-                string jsonget = File.ReadAllText(GetJsonRute("ConfigLenguage"));
-                _language = JsonConvert.DeserializeObject<DefaultLenguage>(jsonget);
-
-                string readjson = File.ReadAllText(GetJsonRute(_language.Idioma));
-
-                _jsonidioma = JsonConvert.DeserializeObject<Dictionary<string, string>>(readjson);
-
-                NotificarObservadores();
-
-            }
-            catch (Exception ex)
-            {
-
-                throw ex;
-            }
-        }
-
-        public void CambiarIdiomaPredeterminado(string culturename = "es")
-        {
-
-            string jsonruta = GetJsonRute("ConfigLenguage");
-
-            //No hace falta validar si el archivo EXISTE porque de todas formas lo va a crear SI NO EXISTE
-            var defaultlenguage = new DefaultLenguage();
-            defaultlenguage.Idioma = culturename;
-            //Escribe el archivo con el nuevo idioma
-            string jsonserialize = JsonConvert.SerializeObject(defaultlenguage, Formatting.Indented);
-            File.WriteAllText(jsonruta, jsonserialize);
-
-            CargarJsonIdioma();
-
-
-
-        }
-        public void CargarIdiomaPredeterminado()
-        {
-            try
-            {
-
-                if (File.Exists(GetJsonRute("ConfigLenguage")))
-                {
-
-                    CargarJsonIdioma();
-                }
-                else
-                {
-                    CambiarIdiomaPredeterminado("es");
-                }
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-
-
-        }
-
         public CultureInfo GetCurrentLanguage()
         {
-            try
-            {
-                if (_language == null) throw new Exception(LanguageManager.Instance.GetTraduction("NoSeHaCargadoElIdiomaPredeterminadoLM"));
-                return new CultureInfo(_language.Idioma);
+            if (_language == null)
+                return new CultureInfo("es");
 
-            }
-            catch (Exception ex)
-            {
-
-                throw ex;
-            }
+            return new CultureInfo(
+                _language.Idioma);
         }
 
         public string GetTraduction(string key)
         {
-            try
-            {
-                if (_jsonidioma == null) throw new Exception(LanguageManager.Instance.GetTraduction("NoEstaIniciadoElIdiomaLM"));
-                if (!_jsonidioma.Any(x => x.Key == key)) return string.Empty;
-                return _jsonidioma[key];
+            if (_jsonidioma == null)
+                return key;
 
-            }
-            catch (Exception ex)
-            {
+            if (!_jsonidioma.ContainsKey(key))
+                return key;
 
-                throw ex;
-            }
+            return _jsonidioma[key];
         }
         private string GetJsonRute(string name)
         {
             string directory = AppDomain.CurrentDomain.BaseDirectory;
-            string jsonruta = Path.Combine(directory, "..", "..", "..", "..", "Security and Services", "Idiomas", $"{name}.json");
+            string jsonruta = Path.GetFullPath(
+    Path.Combine(
+        directory,
+        "..",
+        "..",
+        "..",
+        "Servicios",
+        "Idiomas",
+        $"{name}.json"));
+
+
             return jsonruta;
 
         }
-    } 
+        public void CargarIdioma(string codigoIdioma)
+        {
+            string readjson =
+                File.ReadAllText(
+                    GetJsonRute(codigoIdioma));
+
+            _jsonidioma =
+                JsonConvert.DeserializeObject
+                <Dictionary<string, string>>
+                (readjson);
+
+            _language = new DefaultLenguage
+            {
+                Idioma = codigoIdioma
+            };
+
+            NotificarObservadores();
+        }
+    
     }
+}
+    

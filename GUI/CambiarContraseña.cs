@@ -12,7 +12,7 @@ using System.Windows.Forms;
 
 namespace GUI
 {
-    public partial class CambiarContraseña : Form
+    public partial class CambiarContraseña : Form,IObserver
     {
         public CambiarContraseña()
         {
@@ -140,6 +140,22 @@ namespace GUI
             {
                 e.Handled = true;
             }
+        }
+
+        public void Actualizar(LanguageManager lenguaje)
+        {
+            lblUsuarioFCC.Text = lenguaje.GetTraduction("lblUsuarioFCC");
+            lblContraseñaActual.Text = lenguaje.GetTraduction("lblContraseñaActual");
+            lblContraseñaFCC.Text = lenguaje.GetTraduction("lblContraseñaFCC");
+
+            btnGuardarContra.Text = lenguaje.GetTraduction("btnGuardarContra");
+            linkVolver.Text = lenguaje.GetTraduction("linkVolver");
+        }
+
+        private void CambiarContraseña_Load(object sender, EventArgs e)
+        {
+            LanguageManager.Instance.AgregarObservador(this);
+            Actualizar(LanguageManager.Instance);
         }
     }
 }

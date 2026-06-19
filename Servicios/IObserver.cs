@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Servicios
 {
-    internal interface IObserver
+    public interface IObserver
     {
         void Actualizar(LanguageManager lenguaje);
     }

@@ -12,7 +12,7 @@ using Servicios;
 
 namespace GUI
 {
-    public partial class Login : Form
+    public partial class Login : Form,IObserver
     {
         int posX, posY;
         bool arrastrando = false;
@@ -102,6 +102,13 @@ namespace GUI
                     case LoginResultado.UsuarioNoEncontrado:
                         throw new Exception("Usuario Incorrecto, vuelva a intentar.");
                     case LoginResultado.Valido:
+                        IdiomaBLL idiomaBLL = new IdiomaBLL();
+
+                        string idioma =
+                            idiomaBLL.ObtenerIdioma(
+                                SessionManager.Instance.UsuarioActual());
+
+                        LanguageManager.Instance.CargarIdioma(idioma);
                         this.Hide();
                         Menu menu = new Menu();
                         menu.ShowDialog();    
@@ -153,7 +160,6 @@ namespace GUI
                 e.Handled = true;
             }
         }
-
         private void panel1_MouseDown(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
@@ -162,6 +168,19 @@ namespace GUI
                 posX = e.X;
                 posY = e.Y;
             }
+        }
+
+        private void Login_Load(object sender, EventArgs e)
+        {
+            //LanguageManager.Instance.AgregarObservador(this);
+
+            //LanguageManager.Instance.CargarIdioma("es");
+        }
+
+
+        public void Actualizar(LanguageManager lenguaje)
+        {
+            throw new NotImplementedException();
         }
     }
 }

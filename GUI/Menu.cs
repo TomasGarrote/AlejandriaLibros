@@ -1,4 +1,5 @@
-﻿using Servicios;
+﻿using BLL;
+using Servicios;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -11,7 +12,7 @@ using System.Windows.Forms;
 
 namespace GUI
 {
-    public partial class Menu : Form
+    public partial class Menu : Form, IObserver
     {
         int posX, posY;
         bool arrastrando = false;
@@ -67,6 +68,8 @@ namespace GUI
         private void Menu_Load(object sender, EventArgs e)
         {
             customMenu();
+            LanguageManager.Instance.AgregarObservador(this);
+            Actualizar(LanguageManager.Instance);
         }
 
         private void btnAdmin_Click_1(object sender, EventArgs e)
@@ -133,13 +136,17 @@ namespace GUI
         {
             if(SessionManager.Instance != null )
             {
-                MessageBox.Show("Ya hay una sesión iniciada. Por favor, cierre sesión antes de intentar iniciar una nueva.", "Informacion", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(LanguageManager.Instance.GetTraduction("YaHaySesionActiva"), LanguageManager.Instance.GetTraduction("Informacion"), MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
         private void btnLogout_Click(object sender, EventArgs e)
         {
+            IdiomaBLL idiomaBLL = new IdiomaBLL();
+
+            idiomaBLL.GuardarIdioma( SessionManager.Instance.UsuarioActual(),LanguageManager.Instance.CodigoIdiomaActual);
             SessionManager.Instance.Desloguear();
+
             this.Hide();
             Login login = new Login();
             login.Show();
@@ -152,9 +159,42 @@ namespace GUI
             cambiarContraseña.Show();
         }
 
+        private void btnPerfiles_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnBackUp_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnRestore_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            CambiarIdioma cambiarContraseña = new CambiarIdioma();
+            cambiarContraseña.Show();
+        }
+
         private void BarraTitulo_MouseUp(object sender, MouseEventArgs e)
         {
             arrastrando = false;
+        }
+
+        public void Actualizar(LanguageManager lenguaje)
+        {
+            btnAdmin.Text = LanguageManager.Instance.GetTraduction("btnAdmin");
+            btnUsuario.Text = LanguageManager.Instance.GetTraduction("btnUsuarios");
+            btnPerfiles.Text = LanguageManager.Instance.GetTraduction("btnPerfiles");
+            btnBackUp.Text = LanguageManager.Instance.GetTraduction("btnBackUp");
+            btnRestore.Text = LanguageManager.Instance.GetTraduction("btnRestore");
+            btnBitacora.Text = LanguageManager.Instance.GetTraduction("btnBitacora");
+            btnDigitoVerificador.Text = LanguageManager.Instance.GetTraduction("btnDigitoVerificador");
+            btnMaestro.Text = LanguageManager.Instance.GetTraduction("btnMaestro");
+            btnUsuario.Text = LanguageManager.Instance.GetTraduction("btnUsuario");
+            btnReLogin.Text = LanguageManager.Instance.GetTraduction("btnReLogin");
+            btnCambiarClave.Text = LanguageManager.Instance.GetTraduction("btnCambiarClave");
+            btnLogout.Text = LanguageManager.Instance.GetTraduction("btnLogout");
         }
     }
 }
