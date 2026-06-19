@@ -84,9 +84,19 @@ namespace GUI
 
         private void linkVolver_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            this.Close();
-            Login login = new Login();
-            login.Show();
+            if(SessionManager.Instance.UsuarioActual != null)
+            {
+                this.Close();
+                Menu menu = new Menu();
+                menu.Show();
+            }
+            else
+            {
+                this.Close();
+                Login login = new Login();
+                login.Show();
+            }
+                
         }
 
         private void pbMostrarClave_Click(object sender, EventArgs e)
