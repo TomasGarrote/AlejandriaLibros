@@ -40,8 +40,8 @@
             this.txtNuevaContraseña = new System.Windows.Forms.TextBox();
             this.lblContraseñaFCC = new System.Windows.Forms.Label();
             this.btnGuardarContra = new System.Windows.Forms.Button();
-            this.linkVolver = new System.Windows.Forms.LinkLabel();
             this.pbMostrarClave = new System.Windows.Forms.PictureBox();
+            this.linkVolver = new System.Windows.Forms.LinkLabel();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnCerrar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnMinimizar)).BeginInit();
@@ -177,19 +177,6 @@
             this.btnGuardarContra.UseVisualStyleBackColor = false;
             this.btnGuardarContra.Click += new System.EventHandler(this.btnGuardarContra_Click);
             // 
-            // linkVolver
-            // 
-            this.linkVolver.AutoSize = true;
-            this.linkVolver.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.linkVolver.LinkColor = System.Drawing.Color.MediumTurquoise;
-            this.linkVolver.Location = new System.Drawing.Point(120, 441);
-            this.linkVolver.Name = "linkVolver";
-            this.linkVolver.Size = new System.Drawing.Size(101, 18);
-            this.linkVolver.TabIndex = 16;
-            this.linkVolver.TabStop = true;
-            this.linkVolver.Text = "Volver a Login";
-            this.linkVolver.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkVolver_LinkClicked);
-            // 
             // pbMostrarClave
             // 
             this.pbMostrarClave.Cursor = System.Windows.Forms.Cursors.Hand;
@@ -201,6 +188,19 @@
             this.pbMostrarClave.TabIndex = 17;
             this.pbMostrarClave.TabStop = false;
             this.pbMostrarClave.Click += new System.EventHandler(this.pbMostrarClave_Click);
+            // 
+            // linkVolver
+            // 
+            this.linkVolver.AutoSize = true;
+            this.linkVolver.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.linkVolver.LinkColor = System.Drawing.Color.MediumTurquoise;
+            this.linkVolver.Location = new System.Drawing.Point(144, 444);
+            this.linkVolver.Name = "linkVolver";
+            this.linkVolver.Size = new System.Drawing.Size(49, 18);
+            this.linkVolver.TabIndex = 16;
+            this.linkVolver.TabStop = true;
+            this.linkVolver.Text = "Volver";
+            this.linkVolver.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkVolver_LinkClicked);
             // 
             // CambiarContraseña
             // 
@@ -246,7 +246,7 @@
         private System.Windows.Forms.TextBox txtNuevaContraseña;
         private System.Windows.Forms.Label lblContraseñaFCC;
         private System.Windows.Forms.Button btnGuardarContra;
-        private System.Windows.Forms.LinkLabel linkVolver;
         private System.Windows.Forms.PictureBox pbMostrarClave;
+        private System.Windows.Forms.LinkLabel linkVolver;
     }
 }
