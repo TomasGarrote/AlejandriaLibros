@@ -14,7 +14,7 @@ using System.Windows.Forms;
 
 namespace GUI
 {
-    public partial class Usuarios : Form
+    public partial class Usuarios : Form,IObserver
     {
         int posX, posY;
         bool arrastrando = false;
@@ -34,7 +34,7 @@ namespace GUI
 
         private void MostrarCantidadUsuarios()
         {
-            if (radioButton1.Checked)
+            if (rbActivos.Checked)
             {
                 lblCantidadUsers.Text = $"Cantidad de Usuarios: {usuarioBLL.ListarUsuariosActivos().Count}";
             }
@@ -46,7 +46,7 @@ namespace GUI
 
         private void radioButton1_CheckedChanged(object sender, EventArgs e)
         {
-            if (radioButton1.Checked)
+            if (rbActivos.Checked)
             {
                 lblTextoTabla.Text = "[Usuarios Activos]";
                 MostrarUsuarios(dataGridView1, usuarioBLL.ListarUsuariosActivos() as List<UsuarioBE>);
@@ -150,7 +150,7 @@ namespace GUI
                     case UserAction.Delete:
                         usuarioBLL.EliminarLogico((dataGridView1.SelectedRows[0].DataBoundItem as UsuarioBE).DNI);
                         ReiniciarBotones();
-                        if (radioButton1.Checked)
+                        if (rbActivos.Checked)
                         {
                             MostrarUsuarios(dataGridView1, usuarioBLL.ListarUsuariosActivos());
                         }
@@ -178,7 +178,7 @@ namespace GUI
                     case UserAction.UnBlock:
                         ReiniciarBotones();
                         usuarioBLL.DesbloquearUsuario(dataGridView1.SelectedRows[0].DataBoundItem as UsuarioBE);
-                        if (radioButton1.Checked)
+                        if (rbActivos.Checked)
                         {
                             MostrarUsuarios(dataGridView1, usuarioBLL.ListarUsuariosActivos());
                         }
@@ -193,7 +193,7 @@ namespace GUI
                     case UserAction.Activate:
                         usuarioBLL.EliminarLogico((dataGridView1.SelectedRows[0].DataBoundItem as UsuarioBE).DNI);
                         ReiniciarBotones();
-                        if (radioButton1.Checked)
+                        if (rbActivos.Checked)
                         {
                             MostrarUsuarios(dataGridView1, usuarioBLL.ListarUsuariosActivos());
                         }
@@ -295,7 +295,7 @@ namespace GUI
         private void button3_Click(object sender, EventArgs e)
         {
             userAction = UserAction.Modify;
-            EnabledControls(btnCrear, btnDesbloquear, btnModificar, btnActDes, btnAplicar, btnCancelar, button7, pnFiltrado, panModificarUsuario,txtDni);
+            EnabledControls(btnCrear, btnDesbloquear, btnModificar, btnActDes, btnAplicar, btnCancelar, btnSalir, pnFiltrado, panModificarUsuario,txtDni);
             MostrarUsuarios(dataGridView1, usuarioBLL.ListarUsuariosActivos());
         }
 
@@ -398,7 +398,7 @@ namespace GUI
         {
             userAction = UserAction.Add;
             textBox1.Text = "Modo Añadir";
-            EnabledControls(btnCrear, btnDesbloquear, btnModificar, btnActDes, btnAplicar, btnCancelar, button7, pnFiltrado, panModificarUsuario, panel3);
+            EnabledControls(btnCrear, btnDesbloquear, btnModificar, btnActDes, btnAplicar, btnCancelar, btnSalir, pnFiltrado, panModificarUsuario, panel3);
         }
 
         private void btnDesbloquear_Click(object sender, EventArgs e)
@@ -407,14 +407,14 @@ namespace GUI
             {
                 userAction = UserAction.UnBlock;
                 textBox1.Text = "Modo desbloquear";
-                EnabledControls(btnCrear, btnDesbloquear, btnModificar, btnActDes, btnAplicar, btnCancelar, button7, pnFiltrado);
+                EnabledControls(btnCrear, btnDesbloquear, btnModificar, btnActDes, btnAplicar, btnCancelar, btnSalir, pnFiltrado);
             }
         }
 
         private void btnModificar_Click(object sender, EventArgs e)
         {
             userAction = UserAction.Modify;
-            EnabledControls(btnCrear, btnDesbloquear, btnModificar, btnActDes, btnAplicar, btnCancelar, button7, pnFiltrado, panModificarUsuario, txtDni);
+            EnabledControls(btnCrear, btnDesbloquear, btnModificar, btnActDes, btnAplicar, btnCancelar, btnSalir, pnFiltrado, panModificarUsuario, txtDni);
             MostrarUsuarios(dataGridView1, usuarioBLL.ListarUsuariosActivos());
         }
 
@@ -433,13 +433,14 @@ namespace GUI
                     userAction = UserAction.Delete;
                     textBox1.Text = "Modo eliminar";
                 }
-                EnabledControls(btnCrear, btnDesbloquear, btnModificar, btnActDes, btnAplicar, btnCancelar, button7, pnFiltrado, panModificarUsuario);
+                EnabledControls(btnCrear, btnDesbloquear, btnModificar, btnActDes, btnAplicar, btnCancelar, btnSalir, pnFiltrado, panModificarUsuario);
             }
         }
 
         private void Usuarios_Load(object sender, EventArgs e)
         {
-
+            LanguageManager.Instance.AgregarObservador(this);
+            Actualizar(LanguageManager.Instance);
         }
 
         private void ConfigurarGrillaSeleccionFila(DataGridView dgv)
@@ -448,6 +449,31 @@ namespace GUI
             dgv.MultiSelect = false;
             dgv.ReadOnly = true;
             dgv.AllowUserToAddRows = false;
+        }
+
+        public void Actualizar(LanguageManager lenguaje)
+        {
+
+            lblTextoTabla.Text = lenguaje.GetTraduction("lblTextoTabla");
+            lblCantidadUsers.Text = lenguaje.GetTraduction("lblCantidadUsers");
+            lblApe.Text = lenguaje.GetTraduction("lblApe");
+            lblNombre.Text = lenguaje.GetTraduction("lblNombre");
+            lblEmail.Text = lenguaje.GetTraduction("lblEmail");
+            lblRol.Text = lenguaje.GetTraduction("lblRol");
+            lblUsuarioFU.Text = lenguaje.GetTraduction("lblUsuarioFU");
+            lblMsj.Text = lenguaje.GetTraduction("lblMsj");
+            lblOpciones.Text = lenguaje.GetTraduction("lblOpciones");
+
+            btnCrear.Text = lenguaje.GetTraduction("btnCrear");
+            btnDesbloquear.Text = lenguaje.GetTraduction("btnDesbloquear");
+            btnModificar.Text = lenguaje.GetTraduction("btnModificar");
+            btnActDes.Text = lenguaje.GetTraduction("btnActDes");
+            btnAplicar.Text = lenguaje.GetTraduction("btnAplicar");
+            btnCancelar.Text = lenguaje.GetTraduction("btnCancelar");
+            btnSalir.Text = lenguaje.GetTraduction("btnSalir");
+
+            rbTodos.Text = lenguaje.GetTraduction("rbTodos");
+            rbActivos.Text = lenguaje.GetTraduction("rbActivos");
         }
     }
 }

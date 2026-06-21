@@ -42,7 +42,7 @@
             this.btnCambiarClave = new System.Windows.Forms.Button();
             this.btnReLogin = new System.Windows.Forms.Button();
             this.btnUsuario = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnMaestro = new System.Windows.Forms.Button();
             this.panelAdminSubmenu = new System.Windows.Forms.Panel();
             this.panel9 = new System.Windows.Forms.Panel();
             this.panel8 = new System.Windows.Forms.Panel();
@@ -50,15 +50,17 @@
             this.panel6 = new System.Windows.Forms.Panel();
             this.panel5 = new System.Windows.Forms.Panel();
             this.panel4 = new System.Windows.Forms.Panel();
-            this.button7 = new System.Windows.Forms.Button();
+            this.btnDigitoVerificador = new System.Windows.Forms.Button();
             this.btnBitacora = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
+            this.btnRestore = new System.Windows.Forms.Button();
+            this.btnBackUp = new System.Windows.Forms.Button();
+            this.btnPerfiles = new System.Windows.Forms.Button();
             this.btnUsuarios = new System.Windows.Forms.Button();
             this.btnAdmin = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panelContenedor = new System.Windows.Forms.Panel();
+            this.btnCambiarIdioma = new System.Windows.Forms.Button();
+            this.panel10 = new System.Windows.Forms.Panel();
             this.BarraTitulo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnCerrar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnMaximizar)).BeginInit();
@@ -128,19 +130,21 @@
             this.MenuVertical.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
             this.MenuVertical.Controls.Add(this.panelUsuarioSubmenu);
             this.MenuVertical.Controls.Add(this.btnUsuario);
-            this.MenuVertical.Controls.Add(this.button1);
+            this.MenuVertical.Controls.Add(this.btnMaestro);
             this.MenuVertical.Controls.Add(this.panelAdminSubmenu);
             this.MenuVertical.Controls.Add(this.btnAdmin);
             this.MenuVertical.Controls.Add(this.pictureBox1);
             this.MenuVertical.Dock = System.Windows.Forms.DockStyle.Left;
             this.MenuVertical.Location = new System.Drawing.Point(0, 43);
             this.MenuVertical.Name = "MenuVertical";
-            this.MenuVertical.Size = new System.Drawing.Size(200, 537);
+            this.MenuVertical.Size = new System.Drawing.Size(200, 615);
             this.MenuVertical.TabIndex = 1;
             // 
             // panelUsuarioSubmenu
             // 
             this.panelUsuarioSubmenu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
+            this.panelUsuarioSubmenu.Controls.Add(this.panel10);
+            this.panelUsuarioSubmenu.Controls.Add(this.btnCambiarIdioma);
             this.panelUsuarioSubmenu.Controls.Add(this.panel3);
             this.panelUsuarioSubmenu.Controls.Add(this.panel2);
             this.panelUsuarioSubmenu.Controls.Add(this.panel1);
@@ -150,7 +154,7 @@
             this.panelUsuarioSubmenu.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelUsuarioSubmenu.Location = new System.Drawing.Point(0, 402);
             this.panelUsuarioSubmenu.Name = "panelUsuarioSubmenu";
-            this.panelUsuarioSubmenu.Size = new System.Drawing.Size(200, 113);
+            this.panelUsuarioSubmenu.Size = new System.Drawing.Size(200, 152);
             this.panelUsuarioSubmenu.TabIndex = 5;
             this.panelUsuarioSubmenu.Visible = false;
             // 
@@ -242,20 +246,20 @@
             this.btnUsuario.UseVisualStyleBackColor = true;
             this.btnUsuario.Click += new System.EventHandler(this.btnUsuario_Click_1);
             // 
-            // button1
+            // btnMaestro
             // 
-            this.button1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.button1.FlatAppearance.BorderSize = 0;
-            this.button1.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Maroon;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.ForeColor = System.Drawing.Color.White;
-            this.button1.Location = new System.Drawing.Point(0, 332);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(200, 35);
-            this.button1.TabIndex = 3;
-            this.button1.Text = "Maestros";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btnMaestro.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnMaestro.FlatAppearance.BorderSize = 0;
+            this.btnMaestro.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Maroon;
+            this.btnMaestro.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnMaestro.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnMaestro.ForeColor = System.Drawing.Color.White;
+            this.btnMaestro.Location = new System.Drawing.Point(0, 332);
+            this.btnMaestro.Name = "btnMaestro";
+            this.btnMaestro.Size = new System.Drawing.Size(200, 35);
+            this.btnMaestro.TabIndex = 3;
+            this.btnMaestro.Text = "Maestros";
+            this.btnMaestro.UseVisualStyleBackColor = true;
             // 
             // panelAdminSubmenu
             // 
@@ -266,11 +270,11 @@
             this.panelAdminSubmenu.Controls.Add(this.panel6);
             this.panelAdminSubmenu.Controls.Add(this.panel5);
             this.panelAdminSubmenu.Controls.Add(this.panel4);
-            this.panelAdminSubmenu.Controls.Add(this.button7);
+            this.panelAdminSubmenu.Controls.Add(this.btnDigitoVerificador);
             this.panelAdminSubmenu.Controls.Add(this.btnBitacora);
-            this.panelAdminSubmenu.Controls.Add(this.button5);
-            this.panelAdminSubmenu.Controls.Add(this.button4);
-            this.panelAdminSubmenu.Controls.Add(this.button3);
+            this.panelAdminSubmenu.Controls.Add(this.btnRestore);
+            this.panelAdminSubmenu.Controls.Add(this.btnBackUp);
+            this.panelAdminSubmenu.Controls.Add(this.btnPerfiles);
             this.panelAdminSubmenu.Controls.Add(this.btnUsuarios);
             this.panelAdminSubmenu.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelAdminSubmenu.Location = new System.Drawing.Point(0, 114);
@@ -327,20 +331,20 @@
             this.panel4.Size = new System.Drawing.Size(5, 35);
             this.panel4.TabIndex = 7;
             // 
-            // button7
+            // btnDigitoVerificador
             // 
-            this.button7.Dock = System.Windows.Forms.DockStyle.Top;
-            this.button7.FlatAppearance.BorderSize = 0;
-            this.button7.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.button7.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button7.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button7.ForeColor = System.Drawing.Color.White;
-            this.button7.Location = new System.Drawing.Point(0, 175);
-            this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(200, 35);
-            this.button7.TabIndex = 5;
-            this.button7.Text = "Dig. Ver.";
-            this.button7.UseVisualStyleBackColor = true;
+            this.btnDigitoVerificador.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnDigitoVerificador.FlatAppearance.BorderSize = 0;
+            this.btnDigitoVerificador.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.btnDigitoVerificador.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnDigitoVerificador.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnDigitoVerificador.ForeColor = System.Drawing.Color.White;
+            this.btnDigitoVerificador.Location = new System.Drawing.Point(0, 175);
+            this.btnDigitoVerificador.Name = "btnDigitoVerificador";
+            this.btnDigitoVerificador.Size = new System.Drawing.Size(200, 35);
+            this.btnDigitoVerificador.TabIndex = 5;
+            this.btnDigitoVerificador.Text = "Dig. Ver.";
+            this.btnDigitoVerificador.UseVisualStyleBackColor = true;
             // 
             // btnBitacora
             // 
@@ -358,50 +362,53 @@
             this.btnBitacora.UseVisualStyleBackColor = true;
             this.btnBitacora.Click += new System.EventHandler(this.btnBitacora_Click);
             // 
-            // button5
+            // btnRestore
             // 
-            this.button5.Dock = System.Windows.Forms.DockStyle.Top;
-            this.button5.FlatAppearance.BorderSize = 0;
-            this.button5.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.button5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button5.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button5.ForeColor = System.Drawing.Color.White;
-            this.button5.Location = new System.Drawing.Point(0, 105);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(200, 35);
-            this.button5.TabIndex = 3;
-            this.button5.Text = "Restore";
-            this.button5.UseVisualStyleBackColor = true;
+            this.btnRestore.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnRestore.FlatAppearance.BorderSize = 0;
+            this.btnRestore.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.btnRestore.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnRestore.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnRestore.ForeColor = System.Drawing.Color.White;
+            this.btnRestore.Location = new System.Drawing.Point(0, 105);
+            this.btnRestore.Name = "btnRestore";
+            this.btnRestore.Size = new System.Drawing.Size(200, 35);
+            this.btnRestore.TabIndex = 3;
+            this.btnRestore.Text = "Restore";
+            this.btnRestore.UseVisualStyleBackColor = true;
+            this.btnRestore.Click += new System.EventHandler(this.btnRestore_Click);
             // 
-            // button4
+            // btnBackUp
             // 
-            this.button4.Dock = System.Windows.Forms.DockStyle.Top;
-            this.button4.FlatAppearance.BorderSize = 0;
-            this.button4.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button4.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button4.ForeColor = System.Drawing.Color.White;
-            this.button4.Location = new System.Drawing.Point(0, 70);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(200, 35);
-            this.button4.TabIndex = 2;
-            this.button4.Text = "Backup";
-            this.button4.UseVisualStyleBackColor = true;
+            this.btnBackUp.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnBackUp.FlatAppearance.BorderSize = 0;
+            this.btnBackUp.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.btnBackUp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnBackUp.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnBackUp.ForeColor = System.Drawing.Color.White;
+            this.btnBackUp.Location = new System.Drawing.Point(0, 70);
+            this.btnBackUp.Name = "btnBackUp";
+            this.btnBackUp.Size = new System.Drawing.Size(200, 35);
+            this.btnBackUp.TabIndex = 2;
+            this.btnBackUp.Text = "Backup";
+            this.btnBackUp.UseVisualStyleBackColor = true;
+            this.btnBackUp.Click += new System.EventHandler(this.btnBackUp_Click);
             // 
-            // button3
+            // btnPerfiles
             // 
-            this.button3.Dock = System.Windows.Forms.DockStyle.Top;
-            this.button3.FlatAppearance.BorderSize = 0;
-            this.button3.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button3.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button3.ForeColor = System.Drawing.Color.White;
-            this.button3.Location = new System.Drawing.Point(0, 35);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(200, 35);
-            this.button3.TabIndex = 1;
-            this.button3.Text = "Perfiles";
-            this.button3.UseVisualStyleBackColor = true;
+            this.btnPerfiles.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnPerfiles.FlatAppearance.BorderSize = 0;
+            this.btnPerfiles.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.btnPerfiles.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnPerfiles.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnPerfiles.ForeColor = System.Drawing.Color.White;
+            this.btnPerfiles.Location = new System.Drawing.Point(0, 35);
+            this.btnPerfiles.Name = "btnPerfiles";
+            this.btnPerfiles.Size = new System.Drawing.Size(200, 35);
+            this.btnPerfiles.TabIndex = 1;
+            this.btnPerfiles.Text = "Perfiles";
+            this.btnPerfiles.UseVisualStyleBackColor = true;
+            this.btnPerfiles.Click += new System.EventHandler(this.btnPerfiles_Click);
             // 
             // btnUsuarios
             // 
@@ -452,16 +459,41 @@
             this.panelContenedor.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelContenedor.Location = new System.Drawing.Point(200, 43);
             this.panelContenedor.Name = "panelContenedor";
-            this.panelContenedor.Size = new System.Drawing.Size(837, 537);
+            this.panelContenedor.Size = new System.Drawing.Size(837, 615);
             this.panelContenedor.TabIndex = 2;
             this.panelContenedor.Paint += new System.Windows.Forms.PaintEventHandler(this.panelContenedor_Paint);
+            // 
+            // btnCambiarIdioma
+            // 
+            this.btnCambiarIdioma.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnCambiarIdioma.FlatAppearance.BorderSize = 0;
+            this.btnCambiarIdioma.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.btnCambiarIdioma.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCambiarIdioma.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCambiarIdioma.ForeColor = System.Drawing.Color.White;
+            this.btnCambiarIdioma.Location = new System.Drawing.Point(0, 105);
+            this.btnCambiarIdioma.Name = "btnCambiarIdioma";
+            this.btnCambiarIdioma.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.btnCambiarIdioma.Size = new System.Drawing.Size(200, 35);
+            this.btnCambiarIdioma.TabIndex = 8;
+            this.btnCambiarIdioma.Text = "Cambiar idioma";
+            this.btnCambiarIdioma.UseVisualStyleBackColor = true;
+            this.btnCambiarIdioma.Click += new System.EventHandler(this.btnCambiarIdioma_Click);
+            // 
+            // panel10
+            // 
+            this.panel10.BackColor = System.Drawing.Color.Maroon;
+            this.panel10.Location = new System.Drawing.Point(12, 105);
+            this.panel10.Name = "panel10";
+            this.panel10.Size = new System.Drawing.Size(5, 35);
+            this.panel10.TabIndex = 9;
             // 
             // Menu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Maroon;
-            this.ClientSize = new System.Drawing.Size(1037, 580);
+            this.ClientSize = new System.Drawing.Size(1037, 658);
             this.Controls.Add(this.panelContenedor);
             this.Controls.Add(this.MenuVertical);
             this.Controls.Add(this.BarraTitulo);
@@ -488,19 +520,19 @@
         private System.Windows.Forms.Panel panelContenedor;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Panel panelAdminSubmenu;
-        private System.Windows.Forms.Button button5;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button btnRestore;
+        private System.Windows.Forms.Button btnBackUp;
+        private System.Windows.Forms.Button btnPerfiles;
         private System.Windows.Forms.Button btnUsuarios;
         private System.Windows.Forms.Button btnAdmin;
-        private System.Windows.Forms.Button button7;
+        private System.Windows.Forms.Button btnDigitoVerificador;
         private System.Windows.Forms.Button btnBitacora;
         private System.Windows.Forms.Panel panelUsuarioSubmenu;
         private System.Windows.Forms.Button btnLogout;
         private System.Windows.Forms.Button btnCambiarClave;
         private System.Windows.Forms.Button btnReLogin;
         private System.Windows.Forms.Button btnUsuario;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnMaestro;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Panel panel2;
@@ -513,6 +545,8 @@
         private System.Windows.Forms.PictureBox btnMinimizar;
         private System.Windows.Forms.PictureBox btnCerrar;
         private System.Windows.Forms.PictureBox btnMaximizar;
+        private System.Windows.Forms.Button btnCambiarIdioma;
+        private System.Windows.Forms.Panel panel10;
     }
 }
 

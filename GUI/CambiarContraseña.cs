@@ -12,7 +12,7 @@ using System.Windows.Forms;
 
 namespace GUI
 {
-    public partial class CambiarContraseña : Form
+    public partial class CambiarContraseña : Form,IObserver
     {
         public CambiarContraseña()
         {
@@ -84,9 +84,19 @@ namespace GUI
 
         private void linkVolver_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            this.Close();
-            Login login = new Login();
-            login.Show();
+            if(SessionManager.Instance.UsuarioActual != null)
+            {
+                this.Close();
+                Menu menu = new Menu();
+                menu.Show();
+            }
+            else
+            {
+                this.Close();
+                Login login = new Login();
+                login.Show();
+            }
+                
         }
 
         private void pbMostrarClave_Click(object sender, EventArgs e)
@@ -140,6 +150,22 @@ namespace GUI
             {
                 e.Handled = true;
             }
+        }
+
+        public void Actualizar(LanguageManager lenguaje)
+        {
+            lblUsuarioFCC.Text = lenguaje.GetTraduction("lblUsuarioFCC");
+            lblContraseñaActual.Text = lenguaje.GetTraduction("lblContraseñaActual");
+            lblContraseñaFCC.Text = lenguaje.GetTraduction("lblContraseñaFCC");
+
+            btnGuardarContra.Text = lenguaje.GetTraduction("btnGuardarContra");
+            linkVolver.Text = lenguaje.GetTraduction("linkVolver");
+        }
+
+        private void CambiarContraseña_Load(object sender, EventArgs e)
+        {
+            LanguageManager.Instance.AgregarObservador(this);
+            Actualizar(LanguageManager.Instance);
         }
     }
 }

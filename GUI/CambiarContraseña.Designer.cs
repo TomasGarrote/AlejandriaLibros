@@ -35,13 +35,13 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.txtContraseña = new System.Windows.Forms.TextBox();
             this.txtUsuario = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
+            this.lblContraseñaActual = new System.Windows.Forms.Label();
+            this.lblUsuarioFCC = new System.Windows.Forms.Label();
             this.txtNuevaContraseña = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
+            this.lblContraseñaFCC = new System.Windows.Forms.Label();
             this.btnGuardarContra = new System.Windows.Forms.Button();
-            this.linkVolver = new System.Windows.Forms.LinkLabel();
             this.pbMostrarClave = new System.Windows.Forms.PictureBox();
+            this.linkVolver = new System.Windows.Forms.LinkLabel();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnCerrar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnMinimizar)).BeginInit();
@@ -117,27 +117,27 @@
             this.txtUsuario.TabIndex = 11;
             this.txtUsuario.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtUsuario_KeyPress);
             // 
-            // label2
+            // lblContraseñaActual
             // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.Color.White;
-            this.label2.Location = new System.Drawing.Point(58, 219);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(208, 24);
-            this.label2.TabIndex = 10;
-            this.label2.Text = "Contraseña actual:";
+            this.lblContraseñaActual.AutoSize = true;
+            this.lblContraseñaActual.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblContraseñaActual.ForeColor = System.Drawing.Color.White;
+            this.lblContraseñaActual.Location = new System.Drawing.Point(58, 219);
+            this.lblContraseñaActual.Name = "lblContraseñaActual";
+            this.lblContraseñaActual.Size = new System.Drawing.Size(208, 24);
+            this.lblContraseñaActual.TabIndex = 10;
+            this.lblContraseñaActual.Text = "Contraseña actual:";
             // 
-            // label1
+            // lblUsuarioFCC
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(58, 140);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(86, 24);
-            this.label1.TabIndex = 9;
-            this.label1.Text = "Usuario:";
+            this.lblUsuarioFCC.AutoSize = true;
+            this.lblUsuarioFCC.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblUsuarioFCC.ForeColor = System.Drawing.Color.White;
+            this.lblUsuarioFCC.Location = new System.Drawing.Point(58, 140);
+            this.lblUsuarioFCC.Name = "lblUsuarioFCC";
+            this.lblUsuarioFCC.Size = new System.Drawing.Size(86, 24);
+            this.lblUsuarioFCC.TabIndex = 9;
+            this.lblUsuarioFCC.Text = "Usuario:";
             // 
             // txtNuevaContraseña
             // 
@@ -150,16 +150,16 @@
             this.txtNuevaContraseña.TabIndex = 14;
             this.txtNuevaContraseña.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtNuevaContraseña_KeyPress);
             // 
-            // label3
+            // lblContraseñaFCC
             // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.ForeColor = System.Drawing.Color.White;
-            this.label3.Location = new System.Drawing.Point(58, 300);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(135, 24);
-            this.label3.TabIndex = 13;
-            this.label3.Text = "Contraseña:";
+            this.lblContraseñaFCC.AutoSize = true;
+            this.lblContraseñaFCC.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblContraseñaFCC.ForeColor = System.Drawing.Color.White;
+            this.lblContraseñaFCC.Location = new System.Drawing.Point(58, 300);
+            this.lblContraseñaFCC.Name = "lblContraseñaFCC";
+            this.lblContraseñaFCC.Size = new System.Drawing.Size(135, 24);
+            this.lblContraseñaFCC.TabIndex = 13;
+            this.lblContraseñaFCC.Text = "Contraseña:";
             // 
             // btnGuardarContra
             // 
@@ -177,19 +177,6 @@
             this.btnGuardarContra.UseVisualStyleBackColor = false;
             this.btnGuardarContra.Click += new System.EventHandler(this.btnGuardarContra_Click);
             // 
-            // linkVolver
-            // 
-            this.linkVolver.AutoSize = true;
-            this.linkVolver.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.linkVolver.LinkColor = System.Drawing.Color.MediumTurquoise;
-            this.linkVolver.Location = new System.Drawing.Point(120, 441);
-            this.linkVolver.Name = "linkVolver";
-            this.linkVolver.Size = new System.Drawing.Size(101, 18);
-            this.linkVolver.TabIndex = 16;
-            this.linkVolver.TabStop = true;
-            this.linkVolver.Text = "Volver a Login";
-            this.linkVolver.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkVolver_LinkClicked);
-            // 
             // pbMostrarClave
             // 
             this.pbMostrarClave.Cursor = System.Windows.Forms.Cursors.Hand;
@@ -202,6 +189,19 @@
             this.pbMostrarClave.TabStop = false;
             this.pbMostrarClave.Click += new System.EventHandler(this.pbMostrarClave_Click);
             // 
+            // linkVolver
+            // 
+            this.linkVolver.AutoSize = true;
+            this.linkVolver.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.linkVolver.LinkColor = System.Drawing.Color.MediumTurquoise;
+            this.linkVolver.Location = new System.Drawing.Point(144, 444);
+            this.linkVolver.Name = "linkVolver";
+            this.linkVolver.Size = new System.Drawing.Size(49, 18);
+            this.linkVolver.TabIndex = 16;
+            this.linkVolver.TabStop = true;
+            this.linkVolver.Text = "Volver";
+            this.linkVolver.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkVolver_LinkClicked);
+            // 
             // CambiarContraseña
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -212,16 +212,17 @@
             this.Controls.Add(this.linkVolver);
             this.Controls.Add(this.btnGuardarContra);
             this.Controls.Add(this.txtNuevaContraseña);
-            this.Controls.Add(this.label3);
+            this.Controls.Add(this.lblContraseñaFCC);
             this.Controls.Add(this.txtContraseña);
             this.Controls.Add(this.txtUsuario);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.lblContraseñaActual);
+            this.Controls.Add(this.lblUsuarioFCC);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "CambiarContraseña";
             this.Text = "CambiarContraseña";
+            this.Load += new System.EventHandler(this.CambiarContraseña_Load);
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.btnCerrar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnMinimizar)).EndInit();
@@ -240,12 +241,12 @@
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.TextBox txtContraseña;
         private System.Windows.Forms.TextBox txtUsuario;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lblContraseñaActual;
+        private System.Windows.Forms.Label lblUsuarioFCC;
         private System.Windows.Forms.TextBox txtNuevaContraseña;
-        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label lblContraseñaFCC;
         private System.Windows.Forms.Button btnGuardarContra;
-        private System.Windows.Forms.LinkLabel linkVolver;
         private System.Windows.Forms.PictureBox pbMostrarClave;
+        private System.Windows.Forms.LinkLabel linkVolver;
     }
 }

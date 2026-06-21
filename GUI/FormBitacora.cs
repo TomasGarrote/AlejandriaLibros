@@ -10,7 +10,7 @@ using iText = iTextSharp.text;
 
 namespace GUI
 {
-    public partial class FormBitacora : Form
+    public partial class FormBitacora : Form,IObserver
     {
         int posX, posY;
         bool arrastrando = false;
@@ -378,6 +378,29 @@ namespace GUI
                 txtNombre.Text = string.Empty;
                 txtApellido.Text = string.Empty;
             }
+        }
+
+        private void FormBitacora_Load(object sender, EventArgs e)
+        {
+            LanguageManager.Instance.AgregarObservador(this);
+            Actualizar(LanguageManager.Instance);
+        }
+
+        public void Actualizar(LanguageManager lenguaje)
+        {
+            lblBitacora.Text = lenguaje.GetTraduction("lblBitacora");
+            lblNombreB.Text = lenguaje.GetTraduction("lblNombreB");
+            lblApellidoB.Text = lenguaje.GetTraduction("lblApellidoB");
+            lblLoginB.Text = lenguaje.GetTraduction("lblLoginB");
+            lblFechaInicioB.Text = lenguaje.GetTraduction("lblFechaInicioB");
+            lblFechaFinalB.Text = lenguaje.GetTraduction("lblFechaFinalB");
+            lblModuloB.Text = lenguaje.GetTraduction("lblModuloB");
+            lblEventoB.Text = lenguaje.GetTraduction("lblEventoB");
+            lblCriticidadB.Text = lenguaje.GetTraduction("lblCriticidadB");
+
+            btnLimpiarB.Text = lenguaje.GetTraduction("btnLimpiarB");
+            btnAplicarB.Text = lenguaje.GetTraduction("btnAplicarB");
+            btnImprimirB.Text = lenguaje.GetTraduction("btnImprimirB");
         }
     }
 }

@@ -36,7 +36,7 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.textBox1 = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
+            this.lblMsj = new System.Windows.Forms.Label();
             this.txtDni = new System.Windows.Forms.TextBox();
             this.txtApe = new System.Windows.Forms.TextBox();
             this.txtNom = new System.Windows.Forms.TextBox();
@@ -44,13 +44,13 @@
             this.txtRol = new System.Windows.Forms.TextBox();
             this.txtUsuario = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.radioButton1 = new System.Windows.Forms.RadioButton();
-            this.radioButton2 = new System.Windows.Forms.RadioButton();
+            this.lblApe = new System.Windows.Forms.Label();
+            this.lblNombre = new System.Windows.Forms.Label();
+            this.lblEmail = new System.Windows.Forms.Label();
+            this.lblRol = new System.Windows.Forms.Label();
+            this.lblUsuarioFU = new System.Windows.Forms.Label();
+            this.rbActivos = new System.Windows.Forms.RadioButton();
+            this.rbTodos = new System.Windows.Forms.RadioButton();
             this.pnFiltrado = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
             this.lblTextoTabla = new System.Windows.Forms.Label();
@@ -62,19 +62,19 @@
             this.btnAplicar = new System.Windows.Forms.Button();
             this.btnCancelar = new System.Windows.Forms.Button();
             this.panModificarUsuario = new System.Windows.Forms.Panel();
-            this.button7 = new System.Windows.Forms.Button();
+            this.btnSalir = new System.Windows.Forms.Button();
             this.panel4 = new System.Windows.Forms.Panel();
             this.panel5 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.panel6 = new System.Windows.Forms.Panel();
-            this.panel7 = new System.Windows.Forms.Panel();
-            this.panel8 = new System.Windows.Forms.Panel();
-            this.panel9 = new System.Windows.Forms.Panel();
-            this.panel10 = new System.Windows.Forms.Panel();
-            this.panel11 = new System.Windows.Forms.Panel();
             this.panel12 = new System.Windows.Forms.Panel();
+            this.panel11 = new System.Windows.Forms.Panel();
+            this.panel10 = new System.Windows.Forms.Panel();
+            this.panel9 = new System.Windows.Forms.Panel();
+            this.panel8 = new System.Windows.Forms.Panel();
+            this.panel7 = new System.Windows.Forms.Panel();
+            this.panel6 = new System.Windows.Forms.Panel();
             this.panel13 = new System.Windows.Forms.Panel();
-            this.label8 = new System.Windows.Forms.Label();
+            this.lblOpciones = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnCerrar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnMaximizar)).BeginInit();
@@ -182,16 +182,16 @@
             this.textBox1.Text = "Modo consulta";
             this.textBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // label1
+            // lblMsj
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.SystemColors.Control;
-            this.label1.Location = new System.Drawing.Point(88, 7);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(100, 25);
-            this.label1.TabIndex = 23;
-            this.label1.Text = "Mensaje:";
+            this.lblMsj.AutoSize = true;
+            this.lblMsj.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblMsj.ForeColor = System.Drawing.SystemColors.Control;
+            this.lblMsj.Location = new System.Drawing.Point(88, 7);
+            this.lblMsj.Name = "lblMsj";
+            this.lblMsj.Size = new System.Drawing.Size(100, 25);
+            this.lblMsj.TabIndex = 23;
+            this.lblMsj.Text = "Mensaje:";
             // 
             // txtDni
             // 
@@ -258,96 +258,96 @@
             this.label2.TabIndex = 32;
             this.label2.Text = "DNI:";
             // 
-            // label3
+            // lblApe
             // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.ForeColor = System.Drawing.SystemColors.Control;
-            this.label3.Location = new System.Drawing.Point(17, 41);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(77, 16);
-            this.label3.TabIndex = 33;
-            this.label3.Text = "Apellidos:";
+            this.lblApe.AutoSize = true;
+            this.lblApe.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblApe.ForeColor = System.Drawing.SystemColors.Control;
+            this.lblApe.Location = new System.Drawing.Point(17, 41);
+            this.lblApe.Name = "lblApe";
+            this.lblApe.Size = new System.Drawing.Size(77, 16);
+            this.lblApe.TabIndex = 33;
+            this.lblApe.Text = "Apellidos:";
             // 
-            // label4
+            // lblNombre
             // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.ForeColor = System.Drawing.SystemColors.Control;
-            this.label4.Location = new System.Drawing.Point(20, 67);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(74, 16);
-            this.label4.TabIndex = 34;
-            this.label4.Text = "Nombres:";
+            this.lblNombre.AutoSize = true;
+            this.lblNombre.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblNombre.ForeColor = System.Drawing.SystemColors.Control;
+            this.lblNombre.Location = new System.Drawing.Point(20, 67);
+            this.lblNombre.Name = "lblNombre";
+            this.lblNombre.Size = new System.Drawing.Size(74, 16);
+            this.lblNombre.TabIndex = 34;
+            this.lblNombre.Text = "Nombres:";
             // 
-            // label5
+            // lblEmail
             // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.ForeColor = System.Drawing.SystemColors.Control;
-            this.label5.Location = new System.Drawing.Point(44, 96);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(50, 16);
-            this.label5.TabIndex = 35;
-            this.label5.Text = "Email:";
+            this.lblEmail.AutoSize = true;
+            this.lblEmail.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblEmail.ForeColor = System.Drawing.SystemColors.Control;
+            this.lblEmail.Location = new System.Drawing.Point(44, 96);
+            this.lblEmail.Name = "lblEmail";
+            this.lblEmail.Size = new System.Drawing.Size(50, 16);
+            this.lblEmail.TabIndex = 35;
+            this.lblEmail.Text = "Email:";
             // 
-            // label6
+            // lblRol
             // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.ForeColor = System.Drawing.SystemColors.Control;
-            this.label6.Location = new System.Drawing.Point(59, 119);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(35, 16);
-            this.label6.TabIndex = 36;
-            this.label6.Text = "Rol:";
+            this.lblRol.AutoSize = true;
+            this.lblRol.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblRol.ForeColor = System.Drawing.SystemColors.Control;
+            this.lblRol.Location = new System.Drawing.Point(59, 119);
+            this.lblRol.Name = "lblRol";
+            this.lblRol.Size = new System.Drawing.Size(35, 16);
+            this.lblRol.TabIndex = 36;
+            this.lblRol.Text = "Rol:";
             // 
-            // label7
+            // lblUsuarioFU
             // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.ForeColor = System.Drawing.SystemColors.Control;
-            this.label7.Location = new System.Drawing.Point(45, 145);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(49, 16);
-            this.label7.TabIndex = 37;
-            this.label7.Text = "Login:";
+            this.lblUsuarioFU.AutoSize = true;
+            this.lblUsuarioFU.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblUsuarioFU.ForeColor = System.Drawing.SystemColors.Control;
+            this.lblUsuarioFU.Location = new System.Drawing.Point(45, 145);
+            this.lblUsuarioFU.Name = "lblUsuarioFU";
+            this.lblUsuarioFU.Size = new System.Drawing.Size(49, 16);
+            this.lblUsuarioFU.TabIndex = 37;
+            this.lblUsuarioFU.Text = "Login:";
             // 
-            // radioButton1
+            // rbActivos
             // 
-            this.radioButton1.AutoSize = true;
-            this.radioButton1.Checked = true;
-            this.radioButton1.FlatAppearance.CheckedBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
-            this.radioButton1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radioButton1.ForeColor = System.Drawing.SystemColors.Control;
-            this.radioButton1.Location = new System.Drawing.Point(14, 13);
-            this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(78, 24);
-            this.radioButton1.TabIndex = 40;
-            this.radioButton1.TabStop = true;
-            this.radioButton1.Text = "Activos";
-            this.radioButton1.UseVisualStyleBackColor = true;
-            this.radioButton1.CheckedChanged += new System.EventHandler(this.radioButton1_CheckedChanged);
+            this.rbActivos.AutoSize = true;
+            this.rbActivos.Checked = true;
+            this.rbActivos.FlatAppearance.CheckedBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
+            this.rbActivos.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rbActivos.ForeColor = System.Drawing.SystemColors.Control;
+            this.rbActivos.Location = new System.Drawing.Point(14, 13);
+            this.rbActivos.Name = "rbActivos";
+            this.rbActivos.Size = new System.Drawing.Size(78, 24);
+            this.rbActivos.TabIndex = 40;
+            this.rbActivos.TabStop = true;
+            this.rbActivos.Text = "Activos";
+            this.rbActivos.UseVisualStyleBackColor = true;
+            this.rbActivos.CheckedChanged += new System.EventHandler(this.radioButton1_CheckedChanged);
             // 
-            // radioButton2
+            // rbTodos
             // 
-            this.radioButton2.AutoSize = true;
-            this.radioButton2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radioButton2.ForeColor = System.Drawing.SystemColors.Control;
-            this.radioButton2.Location = new System.Drawing.Point(138, 13);
-            this.radioButton2.Name = "radioButton2";
-            this.radioButton2.Size = new System.Drawing.Size(71, 24);
-            this.radioButton2.TabIndex = 41;
-            this.radioButton2.Text = "Todos";
-            this.radioButton2.UseVisualStyleBackColor = true;
-            this.radioButton2.CheckedChanged += new System.EventHandler(this.radioButton2_CheckedChanged);
+            this.rbTodos.AutoSize = true;
+            this.rbTodos.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rbTodos.ForeColor = System.Drawing.SystemColors.Control;
+            this.rbTodos.Location = new System.Drawing.Point(138, 13);
+            this.rbTodos.Name = "rbTodos";
+            this.rbTodos.Size = new System.Drawing.Size(71, 24);
+            this.rbTodos.TabIndex = 41;
+            this.rbTodos.Text = "Todos";
+            this.rbTodos.UseVisualStyleBackColor = true;
+            this.rbTodos.CheckedChanged += new System.EventHandler(this.radioButton2_CheckedChanged);
             // 
             // pnFiltrado
             // 
             this.pnFiltrado.BackColor = System.Drawing.Color.Maroon;
             this.pnFiltrado.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pnFiltrado.Controls.Add(this.radioButton1);
-            this.pnFiltrado.Controls.Add(this.radioButton2);
+            this.pnFiltrado.Controls.Add(this.rbActivos);
+            this.pnFiltrado.Controls.Add(this.rbTodos);
             this.pnFiltrado.Location = new System.Drawing.Point(335, 96);
             this.pnFiltrado.Name = "pnFiltrado";
             this.pnFiltrado.Size = new System.Drawing.Size(225, 50);
@@ -485,11 +485,11 @@
             // 
             this.panModificarUsuario.BackColor = System.Drawing.Color.Maroon;
             this.panModificarUsuario.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panModificarUsuario.Controls.Add(this.label7);
-            this.panModificarUsuario.Controls.Add(this.label6);
-            this.panModificarUsuario.Controls.Add(this.label5);
-            this.panModificarUsuario.Controls.Add(this.label4);
-            this.panModificarUsuario.Controls.Add(this.label3);
+            this.panModificarUsuario.Controls.Add(this.lblUsuarioFU);
+            this.panModificarUsuario.Controls.Add(this.lblRol);
+            this.panModificarUsuario.Controls.Add(this.lblEmail);
+            this.panModificarUsuario.Controls.Add(this.lblNombre);
+            this.panModificarUsuario.Controls.Add(this.lblApe);
             this.panModificarUsuario.Controls.Add(this.label2);
             this.panModificarUsuario.Controls.Add(this.txtUsuario);
             this.panModificarUsuario.Controls.Add(this.txtRol);
@@ -504,27 +504,27 @@
             this.panModificarUsuario.TabIndex = 52;
             this.panModificarUsuario.EnabledChanged += new System.EventHandler(this.panModificarUsuario_EnabledChanged);
             // 
-            // button7
+            // btnSalir
             // 
-            this.button7.BackColor = System.Drawing.Color.Transparent;
-            this.button7.FlatAppearance.BorderSize = 0;
-            this.button7.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Maroon;
-            this.button7.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button7.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button7.ForeColor = System.Drawing.SystemColors.Control;
-            this.button7.Location = new System.Drawing.Point(1, 371);
-            this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(154, 41);
-            this.button7.TabIndex = 51;
-            this.button7.Text = "SALIR";
-            this.button7.UseVisualStyleBackColor = false;
-            this.button7.Visible = false;
+            this.btnSalir.BackColor = System.Drawing.Color.Transparent;
+            this.btnSalir.FlatAppearance.BorderSize = 0;
+            this.btnSalir.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Maroon;
+            this.btnSalir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSalir.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSalir.ForeColor = System.Drawing.SystemColors.Control;
+            this.btnSalir.Location = new System.Drawing.Point(1, 371);
+            this.btnSalir.Name = "btnSalir";
+            this.btnSalir.Size = new System.Drawing.Size(154, 41);
+            this.btnSalir.TabIndex = 51;
+            this.btnSalir.Text = "SALIR";
+            this.btnSalir.UseVisualStyleBackColor = false;
+            this.btnSalir.Visible = false;
             // 
             // panel4
             // 
             this.panel4.BackColor = System.Drawing.Color.Maroon;
             this.panel4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel4.Controls.Add(this.label1);
+            this.panel4.Controls.Add(this.lblMsj);
             this.panel4.Controls.Add(this.textBox1);
             this.panel4.Location = new System.Drawing.Point(560, 373);
             this.panel4.Name = "panel4";
@@ -552,7 +552,7 @@
             this.panel2.Controls.Add(this.panel8);
             this.panel2.Controls.Add(this.panel7);
             this.panel2.Controls.Add(this.panel6);
-            this.panel2.Controls.Add(this.button7);
+            this.panel2.Controls.Add(this.btnSalir);
             this.panel2.Controls.Add(this.btnCancelar);
             this.panel2.Controls.Add(this.btnAplicar);
             this.panel2.Controls.Add(this.btnActDes);
@@ -566,54 +566,6 @@
             this.panel2.Size = new System.Drawing.Size(164, 600);
             this.panel2.TabIndex = 55;
             // 
-            // panel6
-            // 
-            this.panel6.BackColor = System.Drawing.Color.Maroon;
-            this.panel6.Location = new System.Drawing.Point(154, 125);
-            this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(10, 41);
-            this.panel6.TabIndex = 52;
-            // 
-            // panel7
-            // 
-            this.panel7.BackColor = System.Drawing.Color.Maroon;
-            this.panel7.Location = new System.Drawing.Point(154, 166);
-            this.panel7.Name = "panel7";
-            this.panel7.Size = new System.Drawing.Size(10, 41);
-            this.panel7.TabIndex = 53;
-            // 
-            // panel8
-            // 
-            this.panel8.BackColor = System.Drawing.Color.Maroon;
-            this.panel8.Location = new System.Drawing.Point(154, 207);
-            this.panel8.Name = "panel8";
-            this.panel8.Size = new System.Drawing.Size(10, 41);
-            this.panel8.TabIndex = 54;
-            // 
-            // panel9
-            // 
-            this.panel9.BackColor = System.Drawing.Color.Maroon;
-            this.panel9.Location = new System.Drawing.Point(154, 248);
-            this.panel9.Name = "panel9";
-            this.panel9.Size = new System.Drawing.Size(10, 41);
-            this.panel9.TabIndex = 55;
-            // 
-            // panel10
-            // 
-            this.panel10.BackColor = System.Drawing.Color.Maroon;
-            this.panel10.Location = new System.Drawing.Point(154, 289);
-            this.panel10.Name = "panel10";
-            this.panel10.Size = new System.Drawing.Size(10, 41);
-            this.panel10.TabIndex = 56;
-            // 
-            // panel11
-            // 
-            this.panel11.BackColor = System.Drawing.Color.Maroon;
-            this.panel11.Location = new System.Drawing.Point(154, 330);
-            this.panel11.Name = "panel11";
-            this.panel11.Size = new System.Drawing.Size(10, 41);
-            this.panel11.TabIndex = 57;
-            // 
             // panel12
             // 
             this.panel12.BackColor = System.Drawing.Color.Maroon;
@@ -623,25 +575,73 @@
             this.panel12.TabIndex = 58;
             this.panel12.Visible = false;
             // 
+            // panel11
+            // 
+            this.panel11.BackColor = System.Drawing.Color.Maroon;
+            this.panel11.Location = new System.Drawing.Point(154, 330);
+            this.panel11.Name = "panel11";
+            this.panel11.Size = new System.Drawing.Size(10, 41);
+            this.panel11.TabIndex = 57;
+            // 
+            // panel10
+            // 
+            this.panel10.BackColor = System.Drawing.Color.Maroon;
+            this.panel10.Location = new System.Drawing.Point(154, 289);
+            this.panel10.Name = "panel10";
+            this.panel10.Size = new System.Drawing.Size(10, 41);
+            this.panel10.TabIndex = 56;
+            // 
+            // panel9
+            // 
+            this.panel9.BackColor = System.Drawing.Color.Maroon;
+            this.panel9.Location = new System.Drawing.Point(154, 248);
+            this.panel9.Name = "panel9";
+            this.panel9.Size = new System.Drawing.Size(10, 41);
+            this.panel9.TabIndex = 55;
+            // 
+            // panel8
+            // 
+            this.panel8.BackColor = System.Drawing.Color.Maroon;
+            this.panel8.Location = new System.Drawing.Point(154, 207);
+            this.panel8.Name = "panel8";
+            this.panel8.Size = new System.Drawing.Size(10, 41);
+            this.panel8.TabIndex = 54;
+            // 
+            // panel7
+            // 
+            this.panel7.BackColor = System.Drawing.Color.Maroon;
+            this.panel7.Location = new System.Drawing.Point(154, 166);
+            this.panel7.Name = "panel7";
+            this.panel7.Size = new System.Drawing.Size(10, 41);
+            this.panel7.TabIndex = 53;
+            // 
+            // panel6
+            // 
+            this.panel6.BackColor = System.Drawing.Color.Maroon;
+            this.panel6.Location = new System.Drawing.Point(154, 125);
+            this.panel6.Name = "panel6";
+            this.panel6.Size = new System.Drawing.Size(10, 41);
+            this.panel6.TabIndex = 52;
+            // 
             // panel13
             // 
             this.panel13.BackColor = System.Drawing.Color.Maroon;
-            this.panel13.Controls.Add(this.label8);
+            this.panel13.Controls.Add(this.lblOpciones);
             this.panel13.Location = new System.Drawing.Point(912, 122);
             this.panel13.Name = "panel13";
             this.panel13.Size = new System.Drawing.Size(164, 49);
             this.panel13.TabIndex = 55;
             // 
-            // label8
+            // lblOpciones
             // 
-            this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.ForeColor = System.Drawing.SystemColors.Control;
-            this.label8.Location = new System.Drawing.Point(31, 11);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(106, 24);
-            this.label8.TabIndex = 44;
-            this.label8.Text = "Opciones:";
+            this.lblOpciones.AutoSize = true;
+            this.lblOpciones.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblOpciones.ForeColor = System.Drawing.SystemColors.Control;
+            this.lblOpciones.Location = new System.Drawing.Point(31, 11);
+            this.lblOpciones.Name = "lblOpciones";
+            this.lblOpciones.Size = new System.Drawing.Size(106, 24);
+            this.lblOpciones.TabIndex = 44;
+            this.lblOpciones.Text = "Opciones:";
             // 
             // Usuarios
             // 
@@ -694,7 +694,7 @@
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lblMsj;
         private System.Windows.Forms.TextBox txtDni;
         private System.Windows.Forms.TextBox txtApe;
         private System.Windows.Forms.TextBox txtNom;
@@ -702,13 +702,13 @@
         private System.Windows.Forms.TextBox txtRol;
         private System.Windows.Forms.TextBox txtUsuario;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.RadioButton radioButton1;
-        private System.Windows.Forms.RadioButton radioButton2;
+        private System.Windows.Forms.Label lblApe;
+        private System.Windows.Forms.Label lblNombre;
+        private System.Windows.Forms.Label lblEmail;
+        private System.Windows.Forms.Label lblRol;
+        private System.Windows.Forms.Label lblUsuarioFU;
+        private System.Windows.Forms.RadioButton rbActivos;
+        private System.Windows.Forms.RadioButton rbTodos;
         private System.Windows.Forms.Panel pnFiltrado;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Label lblTextoTabla;
@@ -720,7 +720,7 @@
         private System.Windows.Forms.Button btnAplicar;
         private System.Windows.Forms.Button btnCancelar;
         private System.Windows.Forms.Panel panModificarUsuario;
-        private System.Windows.Forms.Button button7;
+        private System.Windows.Forms.Button btnSalir;
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.Panel panel5;
         private System.Windows.Forms.Panel panel2;
@@ -732,6 +732,6 @@
         private System.Windows.Forms.Panel panel8;
         private System.Windows.Forms.Panel panel7;
         private System.Windows.Forms.Panel panel13;
-        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label lblOpciones;
     }
 }
