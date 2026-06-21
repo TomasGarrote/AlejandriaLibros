@@ -171,6 +171,12 @@
     <Compile Include="CambiarContraseña.Designer.cs">
       <DependentUpon>CambiarContraseña.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmGestionPerfil.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmGestionPerfil.Designer.cs">
+      <DependentUpon>frmGestionPerfil.cs</DependentUpon>
+    </Compile>
     <Compile Include="Login.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -197,6 +203,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="CambiarContraseña.resx">
       <DependentUpon>CambiarContraseña.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmGestionPerfil.resx">
+      <DependentUpon>frmGestionPerfil.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Login.resx">
       <DependentUpon>Login.cs</DependentUpon>
