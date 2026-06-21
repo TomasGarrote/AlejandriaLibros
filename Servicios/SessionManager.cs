@@ -1,17 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Servicios
+﻿namespace Servicios
 {
     public class SessionManager
     {
         private static SessionManager _instance;
-        private string _usuarioLogueado;
+
+        // CAMBIO: Ahora guardamos el objeto completo de la entidad de usuario
+        private Usuario _usuarioLogueado;
+
         private SessionManager()
         {
             _usuarioLogueado = null;
         }
+
         public static SessionManager Instance
         {
             get
@@ -23,7 +23,9 @@ namespace Servicios
                 return _instance;
             }
         }
-        public void Loguear(string usuario)
+
+        // CAMBIO: Al loguear recibimos la entidad completa de negocio
+        public void Loguear(Usuario usuario)
         {
             if (Logueado())
             {
@@ -31,6 +33,7 @@ namespace Servicios
             }
             _usuarioLogueado = usuario;
         }
+
         public void Desloguear()
         {
             if (!Logueado())
@@ -39,11 +42,14 @@ namespace Servicios
             }
             _usuarioLogueado = null;
         }
+
         public bool Logueado()
         {
             return _usuarioLogueado != null;
         }
-        public string UsuarioActual()
+
+        // CAMBIO: Retorna el objeto UsuarioBE para poder leer sus permisos desde las GUI
+        public Usuario UsuarioActual()
         {
             if (!Logueado())
             {

@@ -140,9 +140,9 @@ namespace DAL
             return logins;
         }
 
-        public UsuarioBE ObtenerUsuarioPorLogin(string login)
+        public Usuario ObtenerUsuarioPorLogin(string login)
         {
-            UsuarioBE usuario = null;
+            Usuario usuario = null;
             try
             {
                 _sqlcommand.CommandText = @"SELECT DNI, Nombre, Apellido, UserName 
@@ -156,7 +156,7 @@ namespace DAL
                 {
                     if (reader.Read())
                     {
-                        usuario = new UsuarioBE
+                        usuario = new Usuario
                         {
                             DNI = reader.GetString(0),
                             Nombre = reader.GetString(1),

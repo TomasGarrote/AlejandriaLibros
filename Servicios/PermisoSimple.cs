@@ -21,5 +21,9 @@ namespace Servicios
         {
             return new List<ComponentePermiso>(); // Devuelve lista vacía siempre
         }
+        public override bool TienePermiso(string nombrePermiso)
+        {
+            return this.Nombre != null && this.Nombre.Equals(nombrePermiso, StringComparison.OrdinalIgnoreCase);
+        }
     }
 }

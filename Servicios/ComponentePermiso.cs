@@ -7,9 +7,11 @@ namespace Servicios
     {
         public string Nombre { get; set; }
 
-      
         public abstract void AgregarHijo(ComponentePermiso hijo);
         public abstract void QuitarHijo(ComponentePermiso hijo);
         public abstract List<ComponentePermiso> ObtenerHijos();
+
+       
+        public abstract bool TienePermiso(string nombrePermiso);
     }
 }

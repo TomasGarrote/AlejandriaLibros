@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Servicios
 {
-    public class UsuarioBE
+    public class Usuario
     {
         public string DNI { get; set; }
         public string Nombre { get; set; }
@@ -20,9 +20,9 @@ namespace Servicios
         public bool Activo { get; set; }
         public string Rol { get; set; }
 
-        public UsuarioBE() { }
-
-        public UsuarioBE(string dNI, string nombre, string apellido, string nombreUsuario, string password, string email, bool bloqueado, bool activo, string nombre_rol)
+        public Usuario() { }
+   
+        public Usuario(string dNI, string nombre, string apellido, string nombreUsuario, string password, string email, bool bloqueado, bool activo, string nombre_rol)
         {
             DNI = dNI;
             Nombre = nombre;
@@ -33,6 +33,21 @@ namespace Servicios
             Bloqueado = bloqueado;
             Activo = activo;
             Rol = nombre_rol;
+        }
+
+        [Browsable(false)]
+        public List<ComponentePermiso> Permisos { get; set; } = new List<ComponentePermiso>();
+        public bool TienePermiso(string nombrePermiso)
+        {
+            if (Permisos == null) return false;
+
+            foreach (var componente in Permisos)
+            {
+              
+                if (componente.TienePermiso(nombrePermiso))
+                    return true;
+            }
+            return false;
         }
     }
 }

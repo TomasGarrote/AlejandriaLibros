@@ -9,14 +9,14 @@ using System.Windows.Forms;
 
 namespace DAL
 {
-    public class UsuarioDAL:AbstractDAL<UsuarioBE>
+    public class UsuarioDAL:AbstractDAL<Usuario>
     {
         public UsuarioDAL() : base()
         {
             
         }
 
-        public void Registrar(UsuarioBE entity)
+        public void Registrar(Usuario entity)
         {
             try
             {
@@ -97,7 +97,7 @@ namespace DAL
 
         }
 
-        public UsuarioBE ObtenerPorUserName(string usuario)
+        public Usuario ObtenerPorUserName(string usuario)
         {
             try
             {
@@ -112,7 +112,7 @@ namespace DAL
                     {
 
 
-                        return new UsuarioBE(reader.GetString(0), reader.GetString(1), reader.GetString(2), reader.GetString(3),
+                        return new Usuario(reader.GetString(0), reader.GetString(1), reader.GetString(2), reader.GetString(3),
                             reader.GetString(4), reader.GetString(5), reader.GetBoolean(6), reader.GetBoolean(7), reader.GetString(8));
 
                     }
@@ -132,7 +132,7 @@ namespace DAL
             }
         }
 
-        public void ResetearIntentos(UsuarioBE usuario)
+        public void ResetearIntentos(Usuario usuario)
         {
             try
             {
@@ -154,7 +154,7 @@ namespace DAL
             }
         }
 
-        public void SumarIntentoFallido(UsuarioBE usuario)
+        public void SumarIntentoFallido(Usuario usuario)
         {
             try
             {
@@ -179,7 +179,7 @@ namespace DAL
             }
         }
 
-        public UsuarioBE BuscarUsuarioPorDNI(string dNI)
+        public Usuario BuscarUsuarioPorDNI(string dNI)
         {
             try
             {
@@ -194,7 +194,7 @@ namespace DAL
                     {
 
 
-                        return new UsuarioBE(reader.GetString(0), reader.GetString(1), reader.GetString(2), reader.GetString(3),
+                        return new Usuario(reader.GetString(0), reader.GetString(1), reader.GetString(2), reader.GetString(3),
                             reader.GetString(4), reader.GetString(5), reader.GetBoolean(6), reader.GetBoolean(7), reader.GetString(8));
 
                     }
@@ -214,17 +214,17 @@ namespace DAL
             }
         }
 
-        public List<UsuarioBE> ListarTodosLosUsuarios()
+        public List<Usuario> ListarTodosLosUsuarios()
         {
             try
             {
                 _sqlcommand.CommandText = @"SELECT DNI, Nombre, Apellido, UserName, Password, Email, Bloqueado, Activo, Rol FROM Usuario;";
                 _sqlserver.Open();
                 var reader = _sqlcommand.ExecuteReader();
-                var Usuariolst = new List<UsuarioBE>();
+                var Usuariolst = new List<Usuario>();
                 while (reader.Read())
                 {
-                    Usuariolst.Add(new UsuarioBE(reader.GetString(0), reader.GetString(1), reader.GetString(2), reader.GetString(3),
+                    Usuariolst.Add(new Usuario(reader.GetString(0), reader.GetString(1), reader.GetString(2), reader.GetString(3),
                             reader.GetString(4), reader.GetString(5), reader.GetBoolean(6), reader.GetBoolean(7), reader.GetString(8)));
                 }
                 return Usuariolst;
@@ -264,7 +264,7 @@ namespace DAL
             }
         }
 
-        public void Modificar(object dni, UsuarioBE UserNew)
+        public void Modificar(object dni, Usuario UserNew)
         {
             try
             {

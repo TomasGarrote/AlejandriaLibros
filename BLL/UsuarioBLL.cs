@@ -22,19 +22,25 @@ namespace BLL
         }
         public LoginResultado Login(string usuario, string contraseña)
         {
-			try
-			{
-                SessionManager.Instance.Logueado();
-                if(usuarioDAL == null)
+            try
+            {
+                
+                if (SessionManager.Instance.Logueado())
+                {
+                    throw new Exception("Ya hay un usuario logueado en el sistema.");
+                }
+
+                if (usuarioDAL == null)
                 {
                     throw new Exception("No se pudo conectar a la base de datos.");
                 }
-                UsuarioBE usuarioBE = usuarioDAL.ObtenerPorUserName(usuario);
+
+                Usuario usuarioBE = usuarioDAL.ObtenerPorUserName(usuario);
                 if (usuarioBE != null)
                 {
                     if (usuarioBE.Bloqueado) return LoginResultado.Bloqueado;
 
-                    if(usuarioBE.Password != Encriptador.GetHash256(contraseña))
+                    if (usuarioBE.Password != Encriptador.GetHash256(contraseña))
                     {
                         usuarioDAL.SumarIntentoFallido(usuarioBE);
 
@@ -47,11 +53,26 @@ namespace BLL
                     }
                     else
                     {
-                        SessionManager.Instance.Loguear(usuarioBE.Username);
-                        //usuarioDAL.ResetearIntentos(usuarioBE);
+                        
+                        BLL.PerfilBLL perfilBLL = new BLL.PerfilBLL();
+
+                        var todosLosPerfiles = perfilBLL.ObtenerPerfiles();
+
+                        var perfilUsuario = todosLosPerfiles.FirstOrDefault(p => p.Nombre == usuarioBE.Rol);
+
+                        if (perfilUsuario != null)
+                        {
+                       
+                            usuarioBE.Permisos.Add(perfilUsuario);
+                        }
+
+                     
+                        SessionManager.Instance.Loguear(usuarioBE);
+
+                  
 
                         Bitacora bitacora = new Bitacora();
-                        bitacora.Login = SessionManager.Instance.UsuarioActual().ToString();
+                        bitacora.Login = SessionManager.Instance.UsuarioActual().Username;
                         bitacora.Modulo = "Usuarios";
                         bitacora.Evento = "Login exitoso";
                         bitacora.Criticidad = 1;
@@ -62,9 +83,9 @@ namespace BLL
                 }
                 return LoginResultado.UsuarioNoEncontrado;
             }
-			catch (Exception ex)
-			{
-                ex.Message.ToString();
+            catch (Exception ex)
+            {
+            
                 throw new Exception(ex.Message);
             }
         }
@@ -91,7 +112,7 @@ namespace BLL
             }
         }
 
-        public void RegistrarUsuario(UsuarioBE usuarioBE)
+        public void RegistrarUsuario(Usuario usuarioBE)
         {
             try
             {
@@ -119,7 +140,7 @@ namespace BLL
                 MessageBox.Show(ex.Message);
             }
         }
-        private void ValidarCaracteresUsuario(UsuarioBE usuario)
+        private void ValidarCaracteresUsuario(Usuario usuario)
         {
 
             if (!Regex.IsMatch(usuario.Email, @"^[^@\s]+@[^@\s]+\.[^@\s]+$")) throw new Exception("El Formato Del Email Es Incorrecto");
@@ -129,20 +150,20 @@ namespace BLL
 
         }
 
-        public List<UsuarioBE> ListarUsuariosActivos()
+        public List<Usuario> ListarUsuariosActivos()
         {
             var todos = usuarioDAL.ListarTodosLosUsuarios();
 
             var activos = todos.Where(u => u.Activo).ToList();
 
-            return activos as List<UsuarioBE>;
+            return activos as List<Usuario>;
         }
 
         public void EliminarLogico(string dNI)
         {
             try
             {
-                UsuarioBE user = usuarioDAL.BuscarUsuarioPorDNI(dNI);
+                Usuario user = usuarioDAL.BuscarUsuarioPorDNI(dNI);
 
                 if (user.Activo)
                 {
@@ -179,7 +200,7 @@ namespace BLL
         {
             try
             {
-                UsuarioBE user = usuarioDAL.ObtenerPorUserName(usuario);
+                Usuario user = usuarioDAL.ObtenerPorUserName(usuario);
 
                 if (user == null) return LoginResultado.UsuarioNoEncontrado;
                 if (user.Password == Encriptador.GetHash256(nuevaContra)) return LoginResultado.ContraseñaIguales;
@@ -206,15 +227,15 @@ namespace BLL
             
         }
 
-        public void Modificar(string dNI, UsuarioBE usuarioBE)
+        public void Modificar(string dNI, Usuario usuarioBE)
         {
-            UsuarioBE existente = usuarioDAL.BuscarUsuarioPorDNI(usuarioBE.DNI);
+            Usuario existente = usuarioDAL.BuscarUsuarioPorDNI(usuarioBE.DNI);
             if (existente != null && existente.DNI != dNI)
                 throw new Exception("Ya Existe User Con Ese DNI");
             else
             {
 
-                UsuarioBE repetido = usuarioDAL.ObtenerPorUserName(usuarioBE.Username);
+                Usuario repetido = usuarioDAL.ObtenerPorUserName(usuarioBE.Username);
                 if (repetido != null && repetido.DNI != dNI)
                     throw new Exception("E Nombre De Usuario Ya Esta En Uso");
                 else
@@ -231,11 +252,11 @@ namespace BLL
             }
         }
 
-        public void DesbloquearUsuario(UsuarioBE usuarioBE)
+        public void DesbloquearUsuario(Usuario usuarioBE)
         {
             try
             {
-                UsuarioBE user = usuarioDAL.BuscarUsuarioPorDNI(usuarioBE.DNI);
+                Usuario user = usuarioDAL.BuscarUsuarioPorDNI(usuarioBE.DNI);
 
                 if (user.Bloqueado)
                 {
@@ -261,14 +282,14 @@ namespace BLL
             }
         }
 
-        public List<UsuarioBE> ListarTodosUsuarios()=>usuarioDAL.ListarTodosLosUsuarios();
+        public List<Usuario> ListarTodosUsuarios()=>usuarioDAL.ListarTodosLosUsuarios();
 
-        public UsuarioBE BuscarUsuarioPorDNI(string v) => usuarioDAL.BuscarUsuarioPorDNI(v);
-        public UsuarioBE BuscarUsuarioPorUserName(string user) => usuarioDAL.ObtenerPorUserName(user);
+        public Usuario BuscarUsuarioPorDNI(string v) => usuarioDAL.BuscarUsuarioPorDNI(v);
+        public Usuario BuscarUsuarioPorUserName(string user) => usuarioDAL.ObtenerPorUserName(user);
 
         public bool ValidarNuevoUsuario(string user, string contra)
         {
-            UsuarioBE usuario = usuarioDAL.ObtenerPorUserName(user);
+            Usuario usuario = usuarioDAL.ObtenerPorUserName(user);
             if (usuario != null)
             {
                 if(usuario.Password == Encriptador.GetHash256(usuario.DNI + usuario.Nombre))

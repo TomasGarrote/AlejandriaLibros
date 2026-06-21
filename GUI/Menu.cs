@@ -120,9 +120,12 @@ namespace GUI
 
         private void btnBitacora_Click(object sender, EventArgs e)
         {
-            this.Hide();
             FormBitacora bitacora = new FormBitacora();
-            bitacora.Show();
+
+            // 3. CAMBIAMOS .Show() por .ShowDialog()
+            // Esto congela el Menú y abre la Bitácora arriba. 
+            // Si la Bitácora se cierra (por falta de permisos o por el usuario), el código continúa acá abajo.
+            bitacora.ShowDialog();
         }
 
         private void btnUsuarios_Click(object sender, EventArgs e)
@@ -140,17 +143,24 @@ namespace GUI
             }
         }
 
+        private void btnCambiarIdioma_Click(object sender, EventArgs e)
+        {
+           
+        }
         private void btnLogout_Click(object sender, EventArgs e)
         {
             IdiomaBLL idiomaBLL = new IdiomaBLL();
 
-            idiomaBLL.GuardarIdioma( SessionManager.Instance.UsuarioActual(),LanguageManager.Instance.CodigoIdiomaActual);
+            string username = SessionManager.Instance.UsuarioActual().Username;
+            idiomaBLL.GuardarIdioma(username, LanguageManager.Instance.CodigoIdiomaActual);
+
             SessionManager.Instance.Desloguear();
 
             this.Hide();
             Login login = new Login();
             login.Show();
         }
+        
 
         private void btnCambiarClave_Click(object sender, EventArgs e)
         {
@@ -161,7 +171,12 @@ namespace GUI
 
         private void btnPerfiles_Click(object sender, EventArgs e)
         {
+            frmGestionPerfiles perfil = new frmGestionPerfiles("admin");
 
+            // 3. CAMBIAMOS .Show() por .ShowDialog()
+            // Esto congela el Menú y abre la Bitácora arriba. 
+            // Si la Bitácora se cierra (por falta de permisos o por el usuario), el código continúa acá abajo.
+            perfil.ShowDialog();
         }
 
         private void btnBackUp_Click(object sender, EventArgs e)
