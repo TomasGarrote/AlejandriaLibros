@@ -1,4 +1,5 @@
-﻿using DAL;
+﻿
+using DAL;
 using Servicios;
 using System;
 using System.Collections.Generic;
@@ -381,7 +382,7 @@ namespace BLL
         // AUXILIARES PRIVADOS
         // ══════════════════════════════════════════════
 
-      
+
 
         private bool ContieneHijoRecursivo(Familia padre, string nombreHijoBuscar)
         {
