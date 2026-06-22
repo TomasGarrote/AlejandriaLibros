@@ -139,10 +139,7 @@ namespace GUI
             }
         }
 
-        private void btnCambiarIdioma_Click(object sender, EventArgs e)
-        {
-           
-        }
+       
         private void btnLogout_Click(object sender, EventArgs e)
         {
             IdiomaBLL idiomaBLL = new IdiomaBLL();
@@ -169,9 +166,6 @@ namespace GUI
         {
             frmGestionPerfiles perfil = new frmGestionPerfiles("admin");
 
-            // 3. CAMBIAMOS .Show() por .ShowDialog()
-            // Esto congela el Menú y abre la Bitácora arriba. 
-            // Si la Bitácora se cierra (por falta de permisos o por el usuario), el código continúa acá abajo.
             perfil.ShowDialog();
         }
 
@@ -191,7 +185,9 @@ namespace GUI
 
         private void btnCambiarIdioma_Click(object sender, EventArgs e)
         {
-            
+            this.Hide();
+            CambiarIdioma cambiarContraseña = new CambiarIdioma();
+            cambiarContraseña.Show();
         }
 
         public void Actualizar(LanguageManager lenguaje)
