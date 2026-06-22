@@ -36,6 +36,7 @@ namespace BLL
             var todosLosPermisos = _dal.ObtenerPermisos();
             if (componentePadre == null) return todosLosPermisos;
 
+            // Solo excluir los permisos DIRECTOS, no los heredados de subfamilias
             var permisosDirectos = new HashSet<string>();
             foreach (var hijo in componentePadre.ListaHijos.OfType<PermisoSimple>())
             {
@@ -53,19 +54,42 @@ namespace BLL
 
             if (padre == null) return todasLasFamilias;
 
-            var permisosAsignados = new HashSet<string>();
             var familiasAsignadas = new HashSet<string>();
-            ObtenerEstructuraPlana(padre, permisosAsignados, familiasAsignadas);
+            ObtenerEstructuraPlana(padre, new HashSet<string>(), familiasAsignadas);
 
             return todasLasFamilias.Where(f => f.Nombre != nombrePadre && !familiasAsignadas.Contains(f.Nombre)).ToList();
         }
 
+        // ══════════════════════════════════════════════
+        // RECARGA DE PERMISOS DE USUARIO EN SESIÓN
+        // ══════════════════════════════════════════════
+
+        public void RecargarPermisosUsuarioEnSesion()
+        {
+            try
+            {
+                if (!SessionManager.Instance.Logueado()) return;
+
+                Usuario usuarioActual = SessionManager.Instance.UsuarioActual();
+                var perfiles = ObtenerPerfiles();
+                var perfilUsuario = perfiles.FirstOrDefault(p => p.Nombre == usuarioActual.Rol);
+
+                if (perfilUsuario != null)
+                {
+                    usuarioActual.Permisos.Clear();
+                    usuarioActual.Permisos.Add(perfilUsuario);
+                }
+            }
+            catch { }
+        }
+
+        // ══════════════════════════════════════════════
+        // ACCIONES DE CREACIÓN Y BAJA CON BITÁCORA
+        // ══════════════════════════════════════════════
 
         public void CrearPermiso(string nombre, string usuario)
         {
-           
-            var nuevoPermiso = new PermisoSimple { Nombre = nombre };
-            _dal.GuardarPermiso(nuevoPermiso);
+            _dal.GuardarPermiso(new PermisoSimple { Nombre = nombre });
             RegistrarEnBitacora(usuario, $"Crear permiso simple: {nombre}", 1);
         }
 
@@ -73,97 +97,55 @@ namespace BLL
         {
             _dal.EliminarPermiso(nombre);
             RegistrarEnBitacora(usuario, $"Eliminar permiso simple: {nombre}", 1);
+            RecargarPermisosUsuarioEnSesion();
         }
 
         public void CrearFamilia(string nombre, string usuario)
         {
-          
-            var nuevaFamilia = new Familia { Nombre = nombre, EsRol = false };
-            _dal.GuardarFamilia(nuevaFamilia);
+            _dal.GuardarFamilia(new Familia { Nombre = nombre, EsRol = false });
             RegistrarEnBitacora(usuario, $"Crear familia: {nombre}", 1);
         }
 
         public void CrearPerfil(string nombre, string usuario)
         {
-          
-            var nuevoPerfil = new Familia { Nombre = nombre, EsRol = true };
-            _dal.GuardarFamilia(nuevoPerfil);
+            _dal.GuardarFamilia(new Familia { Nombre = nombre, EsRol = true });
             RegistrarEnBitacora(usuario, $"Crear perfil (Rol): {nombre}", 1);
         }
 
         public void EliminarFamiliaOPerfil(string nombre, string usuario)
         {
-            try
+            var familia = _dal.ObtenerFamiliasYPerfiles().FirstOrDefault(f => f.Nombre == nombre);
+            if (familia != null)
             {
-            
-                var todosLosComponentes = _dal.ObtenerFamiliasYPerfiles();
-                var target = todosLosComponentes.FirstOrDefault(f => f.Nombre == nombre);
-
-                if (target == null)
-                {
-                    throw new Exception($"El componente '{nombre}' no existe en el sistema.");
-                }
-
-          
-                if (target.EsRol)
-                {
-                   
-                    if (_dal.ElPerfilEstaAsignadoAUsuarios(target.Nombre))
-                    {
-                        throw new Exception($"No se puede eliminar el perfil '{target.Nombre}' porque está asignado a usuarios activos en el sistema. Desvincule a los usuarios primero.");
-                    }
-                }
-                else
-                {
-                   
-                    if (_dal.LaFamiliaEstaEnUsoComoHijo(target.Nombre))
-                    {
-                        throw new Exception($"No se puede eliminar la familia '{target.Nombre}' porque está siendo utilizada como subcomponente de otra familia o perfil.");
-                    }
-                }
-
-              
-                _dal.EliminarFamilia(target);
+                _dal.EliminarFamilia(familia);
                 RegistrarEnBitacora(usuario, $"Eliminar contenedor jerárquico: {nombre}", 1);
-            }
-            catch (Exception ex)
-            {
-               
-                RegistrarEnBitacora(usuario, $"ERROR al intentar eliminar '{nombre}': {ex.Message}", 3);
-                throw new Exception(ex.Message);
+                RecargarPermisosUsuarioEnSesion();
             }
         }
 
         public void QuitarHijos(string nombrePadre, List<string> hijos, bool esPermisoSimple, string usuario)
         {
-            try
+            var padre = _dal.ObtenerFamiliasYPerfiles().FirstOrDefault(f => f.Nombre == nombrePadre);
+            if (padre == null) return;
+
+            foreach (var nombreHijo in hijos)
             {
-                var todosLosComponentes = _dal.ObtenerFamiliasYPerfiles();
-                var padre = todosLosComponentes.FirstOrDefault(f => f.Nombre == nombrePadre);
-
-                if (padre == null)
+                var hijoAQuitar = padre.ListaHijos.FirstOrDefault(h => h.Nombre == nombreHijo);
+                if (hijoAQuitar != null)
                 {
-                    throw new Exception($"No se encontró el contenedor padre '{nombrePadre}'.");
-                }
-
-               
-                padre.ListaHijos.RemoveAll(h => hijos.Contains(h.Nombre) &&
-                    ((esPermisoSimple && h is PermisoSimple) || (!esPermisoSimple && h is Familia)));
-
-                
-                _dal.GuardarRelaciones(padre);
-
-                foreach (var hijo in hijos)
-                {
-                    string tipoNodo = esPermisoSimple ? "Permiso Simple" : "Subfamilia";
-                    RegistrarEnBitacora(usuario, $"Desvincular {tipoNodo} '{hijo}' del contenedor '{nombrePadre}'", 1);
+                    padre.QuitarHijo(hijoAQuitar);
                 }
             }
-            catch (Exception ex)
+
+            _dal.GuardarRelaciones(padre);
+
+            foreach (var hijo in hijos)
             {
-                RegistrarEnBitacora(usuario, $"ERROR en QuitarHijos de '{nombrePadre}': {ex.Message}", 3);
-                throw new Exception("Error operativo al desvincular los componentes: " + ex.Message);
+                string tipoNodo = esPermisoSimple ? "Permiso Simple" : "Subfamilia";
+                RegistrarEnBitacora(usuario, $"Desvincular {tipoNodo} '{hijo}' del contenedor '{nombrePadre}'", 1);
             }
+
+            RecargarPermisosUsuarioEnSesion();
         }
 
         public void EliminarPermisoRedundanteDeNodoContenedor(string nombreContenedorRaiz, List<string> permisosComponentes, string usuario)
@@ -176,19 +158,24 @@ namespace BLL
 
                 foreach (var permiso in permisosComponentes)
                 {
-                    string contenedorDirectoNombre = BuscarContenedorDirectoDelPermiso(raiz, permiso);
-                    if (!string.IsNullOrEmpty(contenedorDirectoNombre))
+                    string contenedorDirecto = BuscarContenedorDirectoDelPermiso(raiz, permiso);
+                    if (!string.IsNullOrEmpty(contenedorDirecto))
                     {
-                        var contenedorDirectoObj = todosLosComponentes.FirstOrDefault(f => f.Nombre == contenedorDirectoNombre);
-                        if (contenedorDirectoObj != null)
+                        var contenedor = todosLosComponentes.FirstOrDefault(f => f.Nombre == contenedorDirecto);
+                        if (contenedor != null)
                         {
-                            contenedorDirectoObj.ListaHijos.RemoveAll(h => h.Nombre == permiso && h is PermisoSimple);
-                            _dal.GuardarRelaciones(contenedorDirectoObj);
-
-                            RegistrarEnBitacora(usuario, $"Mitigación de redundancia: Remoción del permiso '{permiso}' en subnodo '{contenedorDirectoNombre}'", 2);
+                            var permisoAQuitar = contenedor.ListaHijos.FirstOrDefault(h => h.Nombre == permiso && h is PermisoSimple);
+                            if (permisoAQuitar != null)
+                            {
+                                contenedor.QuitarHijo(permisoAQuitar);
+                                _dal.GuardarRelaciones(contenedor);
+                            }
                         }
+                        RegistrarEnBitacora(usuario, $"Mitigación de redundancia: Remoción del permiso '{permiso}' en subnodo '{contenedorDirecto}'", 2);
                     }
                 }
+
+                RecargarPermisosUsuarioEnSesion();
             }
             catch (Exception ex)
             {
@@ -197,27 +184,9 @@ namespace BLL
             }
         }
 
-        public void EliminarPermisoDeContenedorEspecifico(string nombreContenedor, string permiso, string usuario)
-        {
-            try
-            {
-                var todosLosComponentes = _dal.ObtenerFamiliasYPerfiles();
-                var contenedor = todosLosComponentes.FirstOrDefault(f => f.Nombre == nombreContenedor);
-
-                if (contenedor != null)
-                {
-                    contenedor.ListaHijos.RemoveAll(h => h.Nombre == permiso && h is PermisoSimple);
-                    _dal.GuardarRelaciones(contenedor);
-
-                    RegistrarEnBitacora(usuario, $"Resolución Horizontal: Remoción automática de '{permiso}' en el subnodo '{nombreContenedor}' para unificar accesos.", 2);
-                }
-            }
-            catch (Exception ex)
-            {
-                RegistrarEnBitacora(usuario, $"ERROR en EliminarPermisoDeContenedorEspecifico: {ex.Message}", 1);
-                throw new Exception("Error operativo al purgar el permiso: " + ex.Message);
-            }
-        }
+        // ══════════════════════════════════════════════
+        // ASIGNACIÓN ESTRUCTURAL Y VALIDACIONES
+        // ══════════════════════════════════════════════
 
         public ResultadoAsignacion AsignarComponentesHijos(string nombrePadre, List<string> nombresHijos, bool esPermisoSimple, string identificadorUsuario)
         {
@@ -228,7 +197,6 @@ namespace BLL
             var componentePadre = todosLosComponentes.FirstOrDefault(f => f.Nombre == nombrePadre);
 
             if (componentePadre == null) return resultado;
-
 
             foreach (var nombreHijo in nombresHijos)
             {
@@ -271,6 +239,7 @@ namespace BLL
 
                 if (esPermisoSimple)
                 {
+                    // Control de redundancia directa
                     if (permisosActualesPadre.Contains(nombreHijo))
                     {
                         resultado.Estado = EstadoAsignacion.ConflictoPermisos;
@@ -279,12 +248,13 @@ namespace BLL
                         return resultado;
                     }
 
-                    string conflictoHorizontal = VerificarConflictoHorizontal(todosLosComponentes, componentePadre, nombreHijo);
-                    if (!string.IsNullOrEmpty(conflictoHorizontal))
+                    // Control de redundancia horizontal
+                    string mensajeConflictoHorizontal = VerificarConflictoHorizontal(todosLosComponentes, componentePadre, nombreHijo);
+                    if (!string.IsNullOrEmpty(mensajeConflictoHorizontal))
                     {
                         resultado.Estado = EstadoAsignacion.ConflictoPermisos;
                         resultado.PermisosConflictivos.Add(nombreHijo);
-                        resultado.OrigenConflicto[nombreHijo] = conflictoHorizontal;
+                        resultado.OrigenConflicto[nombreHijo] = mensajeConflictoHorizontal;
                         return resultado;
                     }
                 }
@@ -327,30 +297,57 @@ namespace BLL
 
             if (resultado.Estado == EstadoAsignacion.ConflictoPermisos) return resultado;
 
-      
+            // Impactar base de datos si todo pasa validaciones
             foreach (var nombreHijo in nombresHijos)
             {
                 if (esPermisoSimple)
                 {
-                    componentePadre.AgregarHijo(new PermisoSimple { Nombre = nombreHijo });
+                    var permisoHijo = new PermisoSimple { Nombre = nombreHijo };
+                    componentePadre.AgregarHijo(permisoHijo);
                 }
                 else
                 {
-                    var subFam = todosLosComponentes.FirstOrDefault(f => f.Nombre == nombreHijo);
-                    if (subFam != null) componentePadre.AgregarHijo(subFam);
+                    var subFamilia = todosLosComponentes.FirstOrDefault(f => f.Nombre == nombreHijo);
+                    if (subFamilia != null)
+                    {
+                        componentePadre.AgregarHijo(subFamilia);
+                    }
                 }
 
                 string tipoNodo = esPermisoSimple ? "Permiso Simple" : "Subfamilia";
                 RegistrarEnBitacora(identificadorUsuario, $"Asignación exitosa de {tipoNodo} '{nombreHijo}' a la raíz '{nombrePadre}'", 1);
             }
 
-          
             _dal.GuardarRelaciones(componentePadre);
+            RecargarPermisosUsuarioEnSesion();
 
             return resultado;
         }
 
+        public void EliminarPermisoDeContenedorEspecifico(string nombreContenedor, string nombrePermiso, string usuario)
+        {
+            try
+            {
+                var todosLosComponentes = _dal.ObtenerFamiliasYPerfiles();
+                var contenedor = todosLosComponentes.FirstOrDefault(f => f.Nombre == nombreContenedor);
 
+                if (contenedor != null)
+                {
+                    var permisoAQuitar = contenedor.ListaHijos.FirstOrDefault(h => h.Nombre == nombrePermiso && h is PermisoSimple);
+                    if (permisoAQuitar != null)
+                    {
+                        contenedor.QuitarHijo(permisoAQuitar);
+                        _dal.GuardarRelaciones(contenedor);
+                        RegistrarEnBitacora(usuario, $"Desvinculación forzada por redundancia: Permiso '{nombrePermiso}' removido de '{nombreContenedor}'", 2);
+                    }
+                }
+                RecargarPermisosUsuarioEnSesion();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error al remover el permiso específico del contenedor: {ex.Message}", ex);
+            }
+        }
         private string VerificarConflictoHorizontal(List<Familia> todosLosComponentes, Familia nodoDestino, string permisoBuscar)
         {
             var ancestrosRaiz = todosLosComponentes.Where(posiblePadre => ContieneHijoRecursivo(posiblePadre, nodoDestino.Nombre)).ToList();
@@ -364,6 +361,7 @@ namespace BLL
                     if (TienePermisoHeredado(hijoFam, permisoBuscar))
                     {
                         string contenedorDirecto = BuscarContenedorDirectoDelPermiso(hijoFam, permisoBuscar) ?? hijoFam.Nombre;
+                        // Retorna el formato detallado de 6 partes que tu GUI procesa con .Split('|')
                         return $"CONFLICTO_HORIZONTAL_DETALLADO|{permisoBuscar}|{nodoDestino.Nombre}|{ancestro.Nombre}|{hijoFam.Nombre}|{contenedorDirecto}";
                     }
                 }
@@ -378,6 +376,12 @@ namespace BLL
             }
             return null;
         }
+
+        // ══════════════════════════════════════════════
+        // AUXILIARES PRIVADOS
+        // ══════════════════════════════════════════════
+
+      
 
         private bool ContieneHijoRecursivo(Familia padre, string nombreHijoBuscar)
         {

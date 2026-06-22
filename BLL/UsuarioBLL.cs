@@ -220,7 +220,6 @@ namespace BLL
                     usuarioDAL.Modificar(dNI, usuarioBE);
 
                     Bitacora bitacora = new Bitacora();
-                    // FIX: Cambiado .ToString() por .Username
                     bitacora.Login = SessionManager.Instance.UsuarioActual().Username;
                     bitacora.Modulo = "Usuarios";
                     bitacora.Evento = "Modificar Usuario exitoso";
@@ -243,7 +242,6 @@ namespace BLL
                     usuarioDAL.DesbloquearUsuario(user.DNI, nuevaClave);
 
                     Bitacora bitacora = new Bitacora();
-                    // FIX: Cambiado .ToString() por .Username
                     bitacora.Login = SessionManager.Instance.UsuarioActual().Username;
                     bitacora.Modulo = "Usuarios";
                     bitacora.Evento = "Desbloquear Usuario exitoso";

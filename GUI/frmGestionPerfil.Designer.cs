@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmGestionPerfiles));
             this.txtNombrePermiso = new System.Windows.Forms.TextBox();
             this.btnCrearPermiso = new System.Windows.Forms.Button();
             this.dgvPermisos = new System.Windows.Forms.DataGridView();
@@ -65,21 +66,29 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.panelPerfiles = new System.Windows.Forms.Panel();
+            this.label13 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
             this.BtnQuitarPermisoPerfil = new System.Windows.Forms.Button();
             this.BtnAsignarPermisoPerfil = new System.Windows.Forms.Button();
             this.clbPermisosAsigPerfil = new System.Windows.Forms.CheckedListBox();
             this.clbPermisosDispPerfil = new System.Windows.Forms.CheckedListBox();
             this.label3 = new System.Windows.Forms.Label();
             this.treeView1 = new System.Windows.Forms.TreeView();
-            this.label9 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
-            this.label12 = new System.Windows.Forms.Label();
-            this.label13 = new System.Windows.Forms.Label();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.btnCerrar = new System.Windows.Forms.PictureBox();
+            this.btnMaximizar = new System.Windows.Forms.PictureBox();
+            this.btnMinimizar = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPermisos)).BeginInit();
             this.panelPermisos.SuspendLayout();
             this.panelFamilias.SuspendLayout();
             this.panelPerfiles.SuspendLayout();
+            this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.btnCerrar)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnMaximizar)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnMinimizar)).BeginInit();
             this.SuspendLayout();
             // 
             // txtNombrePermiso
@@ -301,7 +310,7 @@
             // 
             this.RbPermisos.AutoSize = true;
             this.RbPermisos.Checked = true;
-            this.RbPermisos.Location = new System.Drawing.Point(913, 20);
+            this.RbPermisos.Location = new System.Drawing.Point(1063, 83);
             this.RbPermisos.Name = "RbPermisos";
             this.RbPermisos.Size = new System.Drawing.Size(67, 17);
             this.RbPermisos.TabIndex = 25;
@@ -313,7 +322,7 @@
             // RbFamilias
             // 
             this.RbFamilias.AutoSize = true;
-            this.RbFamilias.Location = new System.Drawing.Point(913, 44);
+            this.RbFamilias.Location = new System.Drawing.Point(1063, 106);
             this.RbFamilias.Name = "RbFamilias";
             this.RbFamilias.Size = new System.Drawing.Size(62, 17);
             this.RbFamilias.TabIndex = 26;
@@ -324,7 +333,7 @@
             // RbPerfiles
             // 
             this.RbPerfiles.AutoSize = true;
-            this.RbPerfiles.Location = new System.Drawing.Point(913, 71);
+            this.RbPerfiles.Location = new System.Drawing.Point(1063, 129);
             this.RbPerfiles.Name = "RbPerfiles";
             this.RbPerfiles.Size = new System.Drawing.Size(59, 17);
             this.RbPerfiles.TabIndex = 27;
@@ -459,6 +468,51 @@
             this.panelPerfiles.Size = new System.Drawing.Size(457, 551);
             this.panelPerfiles.TabIndex = 30;
             // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(268, 379);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(136, 13);
+            this.label13.TabIndex = 33;
+            this.label13.Text = "Permisos asignados al perfil";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(256, 189);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(164, 13);
+            this.label12.TabIndex = 32;
+            this.label12.Text = "Permisos disponibles para el perfil";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(256, 20);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(131, 13);
+            this.label11.TabIndex = 31;
+            this.label11.Text = "Familias asignadas al perfil";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(109, 72);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(80, 13);
+            this.label10.TabIndex = 30;
+            this.label10.Text = "Lista de perfiles";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(69, 218);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(159, 13);
+            this.label9.TabIndex = 29;
+            this.label9.Text = "Familias disponibles para el perfil";
+            // 
             // BtnQuitarPermisoPerfil
             // 
             this.BtnQuitarPermisoPerfil.Location = new System.Drawing.Point(271, 495);
@@ -511,56 +565,63 @@
             this.treeView1.Size = new System.Drawing.Size(121, 97);
             this.treeView1.TabIndex = 31;
             // 
-            // label9
+            // panel1
             // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(69, 218);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(159, 13);
-            this.label9.TabIndex = 29;
-            this.label9.Text = "Familias disponibles para el perfil";
+            this.panel1.BackColor = System.Drawing.Color.Maroon;
+            this.panel1.Controls.Add(this.btnCerrar);
+            this.panel1.Controls.Add(this.btnMaximizar);
+            this.panel1.Controls.Add(this.btnMinimizar);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(1190, 41);
+            this.panel1.TabIndex = 32;
             // 
-            // label10
+            // btnCerrar
             // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(109, 72);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(80, 13);
-            this.label10.TabIndex = 30;
-            this.label10.Text = "Lista de perfiles";
+            this.btnCerrar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnCerrar.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnCerrar.Image = ((System.Drawing.Image)(resources.GetObject("btnCerrar.Image")));
+            this.btnCerrar.Location = new System.Drawing.Point(1162, 3);
+            this.btnCerrar.Name = "btnCerrar";
+            this.btnCerrar.Size = new System.Drawing.Size(25, 35);
+            this.btnCerrar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.btnCerrar.TabIndex = 8;
+            this.btnCerrar.TabStop = false;
+            this.btnCerrar.Click += new System.EventHandler(this.btnCerrar_Click);
             // 
-            // label11
+            // btnMaximizar
             // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(256, 20);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(131, 13);
-            this.label11.TabIndex = 31;
-            this.label11.Text = "Familias asignadas al perfil";
+            this.btnMaximizar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnMaximizar.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnMaximizar.Image = ((System.Drawing.Image)(resources.GetObject("btnMaximizar.Image")));
+            this.btnMaximizar.Location = new System.Drawing.Point(1131, 3);
+            this.btnMaximizar.Name = "btnMaximizar";
+            this.btnMaximizar.Size = new System.Drawing.Size(25, 35);
+            this.btnMaximizar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.btnMaximizar.TabIndex = 7;
+            this.btnMaximizar.TabStop = false;
+            this.btnMaximizar.Click += new System.EventHandler(this.btnMaximizar_Click);
             // 
-            // label12
+            // btnMinimizar
             // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(256, 189);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(164, 13);
-            this.label12.TabIndex = 32;
-            this.label12.Text = "Permisos disponibles para el perfil";
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(268, 379);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(136, 13);
-            this.label13.TabIndex = 33;
-            this.label13.Text = "Permisos asignados al perfil";
+            this.btnMinimizar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnMinimizar.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnMinimizar.Image = ((System.Drawing.Image)(resources.GetObject("btnMinimizar.Image")));
+            this.btnMinimizar.Location = new System.Drawing.Point(1100, 3);
+            this.btnMinimizar.Name = "btnMinimizar";
+            this.btnMinimizar.Size = new System.Drawing.Size(25, 35);
+            this.btnMinimizar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.btnMinimizar.TabIndex = 6;
+            this.btnMinimizar.TabStop = false;
+            this.btnMinimizar.Click += new System.EventHandler(this.btnMinimizar_Click);
             // 
             // frmGestionPerfiles
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1190, 753);
+            this.Controls.Add(this.panel1);
             this.Controls.Add(this.treeView1);
             this.Controls.Add(this.panelPerfiles);
             this.Controls.Add(this.panelFamilias);
@@ -577,6 +638,10 @@
             this.panelFamilias.PerformLayout();
             this.panelPerfiles.ResumeLayout(false);
             this.panelPerfiles.PerformLayout();
+            this.panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.btnCerrar)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnMaximizar)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnMinimizar)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -632,5 +697,9 @@
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.PictureBox btnCerrar;
+        private System.Windows.Forms.PictureBox btnMaximizar;
+        private System.Windows.Forms.PictureBox btnMinimizar;
     }
 }

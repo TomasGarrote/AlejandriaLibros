@@ -26,7 +26,6 @@ namespace GUI
             _bll = new PerfilBLL();
             _login = login;
 
-         
             RbPermisos.CheckedChanged += RbPermisos_CheckedChanged;
             RbFamilias.CheckedChanged += RbFamilias_CheckedChanged_1;
             RbPerfiles.CheckedChanged += RbPerfiles_CheckedChanged;
@@ -52,13 +51,18 @@ namespace GUI
             int xDelCentro = (contenedorAncho - panelAncho) / 2;
             int yDelCentro = (contenedorAlto - panelAlto) / 2;
 
-            if (yDelCentro < 60) yDelCentro = 60;
+            if (yDelCentro < 140) yDelCentro = 140;
 
             Point posicionCentral = new Point(xDelCentro, yDelCentro);
 
             panelPermisos.Location = posicionCentral;
             panelFamilias.Location = posicionCentral;
             panelPerfiles.Location = posicionCentral;
+        }
+
+        private void FrmGestionPerfiles_SizeChanged(object sender, EventArgs e)
+        {
+            CentrarPanelesContenedores();
         }
 
         private void ActualizarTreeViewConsulta(Familia componenteRaiz)
@@ -73,11 +77,6 @@ namespace GUI
             }
 
             treeView1.EndUpdate();
-        }
-
-        private void FrmGestionPerfiles_SizeChanged(object sender, EventArgs e)
-        {
-            CentrarPanelesContenedores();
         }
 
         private void CargarDatosFormulario()
@@ -131,7 +130,6 @@ namespace GUI
             }
         }
 
-
         private void CargarComponentesPermisos()
         {
             dgvPermisos.DataSource = null;
@@ -146,7 +144,6 @@ namespace GUI
         {
             string nombre = txtNombrePermiso.Text.Trim();
 
-        
             if (string.IsNullOrEmpty(nombre))
             {
                 MessageBox.Show("Por favor, ingrese un nombre para el nuevo permiso.", "Campo Requerido", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -178,7 +175,6 @@ namespace GUI
             }
             catch (Exception ex) { MessageBox.Show(ex.Message); }
         }
-
 
         private void CargarComponentesFamilias()
         {
@@ -234,7 +230,6 @@ namespace GUI
         {
             string nombre = txtNombreFamilia.Text.Trim();
 
-  
             if (string.IsNullOrEmpty(nombre))
             {
                 MessageBox.Show("Por favor, ingrese un nombre para la nueva familia.", "Campo Requerido", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -266,18 +261,13 @@ namespace GUI
                 {
                     string detalleError = res.OrigenConflicto[permiso];
 
-           
                     if (detalleError != null && detalleError.Contains("Redundancia detectada"))
                     {
-                  
-                        MostrarPanelResolucionConflictos(_familiaSeleccionada.Nombre, permiso, _familiaSeleccionada.Nombre, (estrategia) =>
+                        MostrarModalResolucionHeredada(_familiaSeleccionada.Nombre, permiso, permiso, (estrategia) =>
                         {
                             if (estrategia == "RESOLVER")
                             {
-                           
                                 _bll.EliminarPermisoRedundanteDeNodoContenedor(_familiaSeleccionada.Nombre, new List<string> { permiso }, _login);
-
-                        
                                 var reintento = _bll.AsignarComponentesHijos(_familiaSeleccionada.Nombre, new List<string> { permiso }, true, _login);
                                 if (reintento.Estado == EstadoAsignacion.Ok)
                                 {
@@ -289,7 +279,6 @@ namespace GUI
                         return;
                     }
 
-      
                     if (detalleError != null && detalleError.StartsWith("CONFLICTO_HORIZONTAL_DETALLADO|"))
                     {
                         var partes = detalleError.Split('|');
@@ -299,7 +288,7 @@ namespace GUI
                         string ramaColat = partes[4];
                         string contenedorDirecto = partes[5];
 
-                        MostrarPanelResolucionHorizontal(ancestro, ramaColat, contenedorDirecto, nodoDest, perm, (estrategia) =>
+                        MostrarModalResolucionHorizontal(ancestro, ramaColat, contenedorDirecto, nodoDest, perm, (estrategia) =>
                         {
                             if (estrategia == "RESOLVER")
                             {
@@ -315,7 +304,6 @@ namespace GUI
                         return;
                     }
 
-                  
                     MessageBox.Show(detalleError, "Validación de Permisos", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
@@ -325,89 +313,6 @@ namespace GUI
             MessageBox.Show("Permisos asignados correctamente.", "Éxito");
         }
 
-        private void MostrarPanelResolucionHorizontal(string ancestro, string ramaColateral, string contenedorDirecto, string nodoDestino, string permiso, Action<string> callback)
-        {
-            panelFamilias.Enabled = false;
-
-            Panel pnlModal = new Panel
-            {
-                Name = "pnlModalHorizontal",
-                Size = new Size(560, 340),
-                BackColor = Color.FromArgb(253, 244, 244),
-                BorderStyle = BorderStyle.FixedSingle
-            };
-            pnlModal.Location = new Point((this.ClientSize.Width - pnlModal.Width) / 2, (this.ClientSize.Height - pnlModal.Height) / 2);
-
-            var lblTitulo = new Label
-            {
-                Text = "ALERTA: CONFLICTO DE REDUNDANCIA HORIZONTAL",
-                Location = new Point(15, 15),
-                Size = new Size(530, 25),
-                Font = new Font("Segoe UI", 10F, FontStyle.Bold),
-                ForeColor = Color.Firebrick
-            };
-
-            string textoExplicativo =
-                $"Estás intentando asignar el permiso '{permiso}' a la familia '{nodoDestino}'.\n\n" +
-                $"¿Por qué no es posible de forma directa?:\n" +
-                $"Ambas ramas confluyen en el ancestro común '{ancestro}'. El permiso que buscás agregar YA está siendo heredado a través de la rama paralela '{ramaColateral}' (específicamente dentro de '{contenedorDirecto}').\n\n" +
-                $"Asignarlo aquí generaría accesos redundantes en la estructura.";
-
-            var lblDescripcion = new Label
-            {
-                Text = textoExplicativo,
-                Location = new Point(15, 45),
-                Size = new Size(530, 120),
-                Font = new Font("Segoe UI", 9F),
-                ForeColor = Color.FromArgb(40, 40, 40)
-            };
-
-            var rbtnResolver = new RadioButton
-            {
-                Text = $"Resolver automáticamente (Quitar permiso de '{contenedorDirecto}' y asignarlo a '{nodoDestino}')",
-                Location = new Point(20, 180),
-                Size = new Size(520, 30),
-                Font = new Font("Segoe UI", 9F, FontStyle.Bold),
-                Checked = true
-            };
-
-            var rbtnCancelar = new RadioButton
-            {
-                Text = "Cancelar la operación (Mantener estructura actual)",
-                Location = new Point(20, 215),
-                Size = new Size(520, 30),
-                Font = new Font("Segoe UI", 9F)
-            };
-
-            var btnEjecutar = new Button
-            {
-                Text = "Procesar Cambio",
-                Location = new Point(200, 270),
-                Size = new Size(160, 35),
-                Font = new Font("Segoe UI", 9F, FontStyle.Bold),
-                BackColor = Color.Firebrick,
-                ForeColor = Color.White,
-                FlatStyle = FlatStyle.Flat
-            };
-
-            btnEjecutar.Click += (s, e) =>
-            {
-                string estrategia = rbtnResolver.Checked ? "RESOLVER" : "CANCELAR";
-                this.Controls.Remove(pnlModal);
-                pnlModal.Dispose();
-                panelFamilias.Enabled = true;
-                callback?.Invoke(estrategia);
-            };
-
-            pnlModal.Controls.Add(lblTitulo);
-            pnlModal.Controls.Add(lblDescripcion);
-            pnlModal.Controls.Add(rbtnResolver);
-            pnlModal.Controls.Add(rbtnCancelar);
-            pnlModal.Controls.Add(btnEjecutar);
-
-            this.Controls.Add(pnlModal);
-            pnlModal.BringToFront();
-        }
         private void BtnQuitarPermisos_Click(object sender, EventArgs e)
         {
             if (_familiaSeleccionada == null) return;
@@ -437,9 +342,10 @@ namespace GUI
                     {
                         var partes = claveConflicto.Split('|');
                         var permisosConflictivos = partes[1].Split(',').ToList();
+                        string subFamiliaConflictiva = partes[2];
                         string nodoDondeYaExiste = partes[3];
 
-                        MostrarPanelResolucionConflictos(nodoDondeYaExiste, subfamiliaHijo, partes[1], (estrategia) =>
+                        MostrarModalResolucionHeredada(nodoDondeYaExiste, subFamiliaConflictiva, partes[1], (estrategia) =>
                         {
                             if (estrategia == "RESOLVER")
                             {
@@ -475,7 +381,6 @@ namespace GUI
             MessageBox.Show("Subfamilias removidas.", "Éxito");
         }
 
-     
         private void BtnEliminarFamilia_Click(object sender, EventArgs e)
         {
             if (_familiaSeleccionada == null) return;
@@ -483,7 +388,6 @@ namespace GUI
 
             try
             {
-            
                 _bll.EliminarFamiliaOPerfil(_familiaSeleccionada.Nombre, _login);
 
                 string nombreEliminado = _familiaSeleccionada.Nombre;
@@ -494,12 +398,9 @@ namespace GUI
             }
             catch (Exception ex)
             {
-         
                 MessageBox.Show(ex.Message, "Restricción de Integridad Jerárquica", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
-
-  
 
         private void CargarComponentesPerfiles()
         {
@@ -555,7 +456,6 @@ namespace GUI
         {
             string nombre = txtNombrePerfil.Text.Trim();
 
-   
             if (string.IsNullOrEmpty(nombre))
             {
                 MessageBox.Show("Por favor, ingrese un nombre para el nuevo perfil.", "Campo Requerido", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -590,29 +490,24 @@ namespace GUI
                     if (detalleError != null && detalleError.StartsWith("CONFLICTO_REDUNDANCIA_HEREDADA|"))
                     {
                         var partes = detalleError.Split('|');
-                        string listaPermisos = partes[1];
+                        var permisosConflictivos = partes[1].Split(',').ToList();
                         string subFamiliaConflictiva = partes[2];
-                        string nodoResponsable = partes[3];
+                        string nodoDondeYaExiste = partes[3];
 
-                        MostrarPanelResolucionConflictos(subFamiliaConflictiva, listaPermisos, nodoResponsable, (estrategia) =>
+                        MostrarModalResolucionHeredada(nodoDondeYaExiste, subFamiliaConflictiva, partes[1], (estrategia) =>
                         {
                             if (estrategia == "RESOLVER")
                             {
-                                var permisosAQuitar = listaPermisos.Split(',').ToList();
-                                foreach (var perm in permisosAQuitar)
-                                {
-                                    _bll.EliminarPermisoRedundanteDeNodoContenedor(nodoResponsable, new List<string> { perm }, _login);
-                                }
-
+                                _bll.EliminarPermisoRedundanteDeNodoContenedor(_perfilSeleccionado.Nombre, permisosConflictivos, _login);
                                 var reintento = _bll.AsignarComponentesHijos(_perfilSeleccionado.Nombre, new List<string> { subFamiliaConflictiva }, false, _login);
                                 if (reintento.Estado == EstadoAsignacion.Ok)
                                 {
-                                    MessageBox.Show($"Familia '{subFamiliaConflictiva}' integrada al perfil con éxito.", "Éxito");
+                                    MessageBox.Show($"Familia '{subFamiliaConflictiva}' integrada al perfil con éxito tras purgar redundancias.", "Éxito");
                                 }
                             }
                             CargarDatosFormulario();
                         });
-                        return; 
+                        return;
                     }
 
                     MessageBox.Show(detalleError, "Validación de Estructura en Perfil", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -649,18 +544,13 @@ namespace GUI
                 {
                     string detalleError = res.OrigenConflicto[permiso];
 
-               
                     if (detalleError != null && detalleError.Contains("Redundancia detectada"))
                     {
-                     
-                        MostrarPanelResolucionConflictos(_perfilSeleccionado.Nombre, permiso, _perfilSeleccionado.Nombre, (estrategia) =>
+                        MostrarModalResolucionHeredada(_perfilSeleccionado.Nombre, permiso, permiso, (estrategia) =>
                         {
                             if (estrategia == "RESOLVER")
                             {
-                             
                                 _bll.EliminarPermisoRedundanteDeNodoContenedor(_perfilSeleccionado.Nombre, new List<string> { permiso }, _login);
-
-                              
                                 var reintento = _bll.AsignarComponentesHijos(_perfilSeleccionado.Nombre, new List<string> { permiso }, true, _login);
                                 if (reintento.Estado == EstadoAsignacion.Ok)
                                 {
@@ -681,7 +571,7 @@ namespace GUI
                         string ramaColat = partes[4];
                         string contenedorDirecto = partes[5];
 
-                        MostrarPanelResolucionHorizontal(ancestro, ramaColat, contenedorDirecto, nodoDest, perm, (estrategia) =>
+                        MostrarModalResolucionHorizontal(ancestro, ramaColat, contenedorDirecto, nodoDest, perm, (estrategia) =>
                         {
                             if (estrategia == "RESOLVER")
                             {
@@ -697,7 +587,6 @@ namespace GUI
                         return;
                     }
 
-                   
                     MessageBox.Show(detalleError, "Validación de Permisos en Perfil", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
@@ -725,7 +614,6 @@ namespace GUI
 
             try
             {
-               
                 _bll.EliminarFamiliaOPerfil(_perfilSeleccionado.Nombre, _login);
 
                 string nombreEliminado = _perfilSeleccionado.Nombre;
@@ -736,16 +624,126 @@ namespace GUI
             }
             catch (Exception ex)
             {
-            
                 MessageBox.Show(ex.Message, "Restricción de Asignación de Usuarios", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
-   
-
-        private void MostrarPanelResolucionConflictos(string nodoDondeYaExiste, string hijo, string permisos, Action<string> callback)
+        private void MostrarModalResolucionHorizontal(string ancestro, string ramaColateral, string contenedorDirecto, string nodoDestino, string permiso, Action<string> callback)
         {
-            panelFamilias.Enabled = false;
+            Control panelActivo = RbPerfiles.Checked ? (Control)panelPerfiles : (Control)panelFamilias;
+            panelActivo.Enabled = false;
+
+            Panel pnlModal = new Panel
+            {
+                Name = "pnlModalHorizontal",
+                Size = new Size(600, 390),
+                BackColor = Color.FromArgb(255, 244, 244),
+                BorderStyle = BorderStyle.FixedSingle
+            };
+            pnlModal.Location = new Point((this.ClientSize.Width - pnlModal.Width) / 2, (this.ClientSize.Height - pnlModal.Height) / 2);
+
+            var lblTitulo = new Label
+            {
+                Text = "ALERTA CRÍTICA: REDUNDANCIA HORIZONTAL DE PERMISOS",
+                Location = new Point(15, 15),
+                Size = new Size(570, 25),
+                Font = new Font("Segoe UI", 10F, FontStyle.Bold),
+                ForeColor = Color.Firebrick
+            };
+
+            string textoExplicativo = "";
+
+            if (RbFamilias.Checked)
+            {
+                string familiaActual = _familiaSeleccionada != null ? _familiaSeleccionada.Nombre : nodoDestino;
+
+                textoExplicativo =
+                    $"Acción: Intentás asignar el permiso '{permiso}' a la familia '{familiaActual}'.\n\n" +
+                    $"[RECHAZADO POR INTEGRIDAD INDIRECTA]:\n" +
+                    $"Esta asignación no es viable porque generaría una redundancia en un Perfil / Rol superior (como '{ancestro}').\n\n" +
+                    $"¿Por qué sucede? El rol superior ya hereda este acceso por otra rama paralela independiente (rama: '{ramaColateral}', a través de '{contenedorDirecto}').\n\n" +
+                    $"No se permite que un mismo rol reciba el permiso '{permiso}' por dos vías simultáneas.";
+            }
+            else
+            {
+                string perfilActual = _perfilSeleccionado != null ? _perfilSeleccionado.Nombre : nodoDestino;
+
+                if (ancestro == perfilActual)
+                {
+                    textoExplicativo =
+                        $"Acción: Intentás asignar el permiso '{permiso}' en la raíz del perfil '{perfilActual}'.\n\n" +
+                        $"[RECHAZADO POR REDUNDANCIA DIRECTA]:\n" +
+                        $"El perfil '{perfilActual}' YA posee y hereda este permiso de manera limpia a través de su familia interna '{contenedorDirecto}'. No se requiere duplicarlo en la raíz.";
+                }
+                else
+                {
+                    textoExplicativo =
+                        $"Acción: Intentás asignar el permiso '{permiso}' al perfil '{perfilActual}'.\n\n" +
+                        $"[RECHAZADO POR CONFLICTO HORIZONTAL]:\n" +
+                        $"Existe una colisión estructural en el árbol. El rol superior '{ancestro}' ya contiene dicho acceso en la rama '{ramaColateral}'.";
+                }
+            }
+
+            var lblDescripcion = new Label
+            {
+                Text = textoExplicativo,
+                Location = new Point(15, 45),
+                Size = new Size(570, 170),
+                Font = new Font("Segoe UI", 9F),
+                ForeColor = Color.FromArgb(50, 50, 50)
+            };
+
+            var rbtnResolver = new RadioButton
+            {
+                Text = $"Resolver automáticamente (Quitar permiso redundante de '{contenedorDirecto}' y mantenerlo en '{nodoDestino}')",
+                Location = new Point(20, 230),
+                Size = new Size(560, 30),
+                Font = new Font("Segoe UI", 9F, FontStyle.Bold),
+                Checked = true
+            };
+
+            var rbtnCancelar = new RadioButton
+            {
+                Text = "Cancelar la operación (Mantener estructura limpia sin modificaciones)",
+                Location = new Point(20, 265),
+                Size = new Size(560, 30),
+                Font = new Font("Segoe UI", 9F)
+            };
+
+            var btnEjecutar = new Button
+            {
+                Text = "Procesar Cambio",
+                Location = new Point(220, 320),
+                Size = new Size(160, 35),
+                Font = new Font("Segoe UI", 9F, FontStyle.Bold),
+                BackColor = Color.Firebrick,
+                ForeColor = Color.White,
+                FlatStyle = FlatStyle.Flat
+            };
+
+            btnEjecutar.Click += (s, e) =>
+            {
+                string estrategia = rbtnResolver.Checked ? "RESOLVER" : "CANCELAR";
+                this.Controls.Remove(pnlModal);
+                pnlModal.Dispose();
+                panelActivo.Enabled = true;
+                callback?.Invoke(estrategia);
+            };
+
+            pnlModal.Controls.Add(lblTitulo);
+            pnlModal.Controls.Add(lblDescripcion);
+            pnlModal.Controls.Add(rbtnResolver);
+            pnlModal.Controls.Add(rbtnCancelar);
+            pnlModal.Controls.Add(btnEjecutar);
+
+            this.Controls.Add(pnlModal);
+            pnlModal.BringToFront();
+        }
+
+        private void MostrarModalResolucionHeredada(string nodoDondeYaExiste, string hijo, string permisos, Action<string> callback)
+        {
+            Control panelActivo = RbPerfiles.Checked ? (Control)panelPerfiles : (Control)panelFamilias;
+            panelActivo.Enabled = false;
 
             Panel pnlModal = new Panel
             {
@@ -754,7 +752,6 @@ namespace GUI
                 BackColor = Color.FromArgb(245, 245, 245),
                 BorderStyle = BorderStyle.FixedSingle
             };
-
             pnlModal.Location = new Point((this.ClientSize.Width - pnlModal.Width) / 2, (this.ClientSize.Height - pnlModal.Height) / 2);
 
             var lblTitulo = new Label
@@ -768,8 +765,8 @@ namespace GUI
 
             var lblDescripcion = new Label
             {
-                Text = $"La subfamilia '{hijo}' que intenta añadir incluye los permisos [{permisos}].\n" +
-                       $"Estos ya existen en '{nodoDondeYaExiste}'.\n\n" +
+                Text = $"El componente '{hijo}' que intentás vincular incluye o colisiona con los permisos: [{permisos}].\n" +
+                       $"Estos accesos ya se encuentran presentes en la raíz de '{nodoDondeYaExiste}'.\n\n" +
                        $"¿Qué deseas hacer?",
                 Location = new Point(15, 45),
                 Size = new Size(470, 75),
@@ -779,16 +776,16 @@ namespace GUI
 
             var rbtnResolver = new RadioButton
             {
-                Text = $"Eliminar los permisos de '{nodoDondeYaExiste}' y asignar '{hijo}'",
+                Text = $"Optimizar estructura (Quitar redundancias de los subnodos y unificar)",
                 Location = new Point(20, 135),
                 Size = new Size(460, 25),
-                Font = new Font("Segoe UI", 9F),
+                Font = new Font("Segoe UI", 9F, FontStyle.Bold),
                 Checked = true
             };
 
             var rbtnCancelar = new RadioButton
             {
-                Text = "Cancelar la operación (no hacer cambios)",
+                Text = "Cancelar la operación (No realizar modificaciones)",
                 Location = new Point(20, 165),
                 Size = new Size(460, 25),
                 Font = new Font("Segoe UI", 9F)
@@ -810,7 +807,7 @@ namespace GUI
                 string estrategia = rbtnResolver.Checked ? "RESOLVER" : "CANCELAR";
                 this.Controls.Remove(pnlModal);
                 pnlModal.Dispose();
-                panelFamilias.Enabled = true;
+                panelActivo.Enabled = true;
                 callback?.Invoke(estrategia);
             };
 
@@ -829,7 +826,6 @@ namespace GUI
             if (RbPermisos.Checked) SincronizarVisibilidadPaneles();
         }
 
-    
         private void RbFamilias_CheckedChanged_1(object sender, EventArgs e)
         {
             if (RbFamilias.Checked) SincronizarVisibilidadPaneles();
@@ -838,6 +834,26 @@ namespace GUI
         private void RbPerfiles_CheckedChanged(object sender, EventArgs e)
         {
             if (RbPerfiles.Checked) SincronizarVisibilidadPaneles();
+        }
+
+        private void btnCerrar_Click(object sender, EventArgs e)
+        {
+            Menu menu = new Menu();
+            menu.Show();
+            this.Close();
+        }
+
+        private void btnMaximizar_Click(object sender, EventArgs e)
+        {
+            if (this.WindowState == FormWindowState.Normal)
+                this.WindowState = FormWindowState.Maximized;
+            else
+                this.WindowState = FormWindowState.Normal;
+        }
+
+        private void btnMinimizar_Click(object sender, EventArgs e)
+        {
+            this.WindowState = FormWindowState.Minimized;
         }
     }
 }
