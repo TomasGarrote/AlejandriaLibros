@@ -37,7 +37,7 @@ namespace BLL
             var todosLosPermisos = _dal.ObtenerPermisos();
             if (componentePadre == null) return todosLosPermisos;
 
-            // Solo excluir los permisos DIRECTOS, no los heredados de subfamilias
+           
             var permisosDirectos = new HashSet<string>();
             foreach (var hijo in componentePadre.ListaHijos.OfType<PermisoSimple>())
             {
@@ -61,9 +61,6 @@ namespace BLL
             return todasLasFamilias.Where(f => f.Nombre != nombrePadre && !familiasAsignadas.Contains(f.Nombre)).ToList();
         }
 
-        // ══════════════════════════════════════════════
-        // RECARGA DE PERMISOS DE USUARIO EN SESIÓN
-        // ══════════════════════════════════════════════
 
         public void RecargarPermisosUsuarioEnSesion()
         {
@@ -83,10 +80,6 @@ namespace BLL
             }
             catch { }
         }
-
-        // ══════════════════════════════════════════════
-        // ACCIONES DE CREACIÓN Y BAJA CON BITÁCORA
-        // ══════════════════════════════════════════════
 
         public void CrearPermiso(string nombre, string usuario)
         {
@@ -184,10 +177,6 @@ namespace BLL
                 throw new Exception("Error operativo al purgar los componentes redundantes: " + ex.Message);
             }
         }
-
-        // ══════════════════════════════════════════════
-        // ASIGNACIÓN ESTRUCTURAL Y VALIDACIONES
-        // ══════════════════════════════════════════════
 
         public ResultadoAsignacion AsignarComponentesHijos(string nombrePadre, List<string> nombresHijos, bool esPermisoSimple, string identificadorUsuario)
         {
@@ -298,7 +287,6 @@ namespace BLL
 
             if (resultado.Estado == EstadoAsignacion.ConflictoPermisos) return resultado;
 
-            // Impactar base de datos si todo pasa validaciones
             foreach (var nombreHijo in nombresHijos)
             {
                 if (esPermisoSimple)
@@ -362,7 +350,7 @@ namespace BLL
                     if (TienePermisoHeredado(hijoFam, permisoBuscar))
                     {
                         string contenedorDirecto = BuscarContenedorDirectoDelPermiso(hijoFam, permisoBuscar) ?? hijoFam.Nombre;
-                        // Retorna el formato detallado de 6 partes que tu GUI procesa con .Split('|')
+                 
                         return $"CONFLICTO_HORIZONTAL_DETALLADO|{permisoBuscar}|{nodoDestino.Nombre}|{ancestro.Nombre}|{hijoFam.Nombre}|{contenedorDirecto}";
                     }
                 }
@@ -377,11 +365,6 @@ namespace BLL
             }
             return null;
         }
-
-        // ══════════════════════════════════════════════
-        // AUXILIARES PRIVADOS
-        // ══════════════════════════════════════════════
-
 
 
         private bool ContieneHijoRecursivo(Familia padre, string nombreHijoBuscar)
@@ -493,5 +476,6 @@ namespace BLL
                 }
             }
         }
+
     }
 }

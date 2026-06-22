@@ -148,16 +148,16 @@
             this.lstFamilias.FormattingEnabled = true;
             this.lstFamilias.Location = new System.Drawing.Point(21, 37);
             this.lstFamilias.Name = "lstFamilias";
-            this.lstFamilias.Size = new System.Drawing.Size(156, 95);
+            this.lstFamilias.Size = new System.Drawing.Size(189, 95);
             this.lstFamilias.TabIndex = 7;
             this.lstFamilias.SelectedIndexChanged += new System.EventHandler(this.LstFamilias_SelectedIndexChanged);
             // 
             // clbPermisosDisp
             // 
             this.clbPermisosDisp.FormattingEnabled = true;
-            this.clbPermisosDisp.Location = new System.Drawing.Point(33, 420);
+            this.clbPermisosDisp.Location = new System.Drawing.Point(21, 420);
             this.clbPermisosDisp.Name = "clbPermisosDisp";
-            this.clbPermisosDisp.Size = new System.Drawing.Size(120, 94);
+            this.clbPermisosDisp.Size = new System.Drawing.Size(189, 94);
             this.clbPermisosDisp.TabIndex = 8;
             // 
             // btnAsignarPermisos
@@ -195,7 +195,7 @@
             this.clbPermisosAsig.FormattingEnabled = true;
             this.clbPermisosAsig.Location = new System.Drawing.Point(21, 259);
             this.clbPermisosAsig.Name = "clbPermisosAsig";
-            this.clbPermisosAsig.Size = new System.Drawing.Size(156, 94);
+            this.clbPermisosAsig.Size = new System.Drawing.Size(189, 94);
             this.clbPermisosAsig.TabIndex = 12;
             // 
             // clbSubfamiliasDisp

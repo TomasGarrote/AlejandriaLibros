@@ -4,7 +4,7 @@
     {
         private static SessionManager _instance;
 
-        // CAMBIO: Ahora guardamos el objeto completo de la entidad de usuario
+       
         private Usuario _usuarioLogueado;
 
         private SessionManager()
@@ -24,7 +24,7 @@
             }
         }
 
-        // CAMBIO: Al loguear recibimos la entidad completa de negocio
+       
         public void Loguear(Usuario usuario)
         {
             if (Logueado())
@@ -48,7 +48,6 @@
             return _usuarioLogueado != null;
         }
 
-        // CAMBIO: Retorna el objeto UsuarioBE para poder leer sus permisos desde las GUI
         public Usuario UsuarioActual()
         {
             if (!Logueado())

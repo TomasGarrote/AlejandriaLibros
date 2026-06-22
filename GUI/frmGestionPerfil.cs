@@ -46,13 +46,12 @@ namespace GUI
 
         private void ValidarPermisos()
         {
+          
             Usuario usuarioActual = SessionManager.Instance.UsuarioActual();
-
             if (!usuarioActual.TienePermiso("Ver Perfiles"))
             {
                 MessageBox.Show("No tiene permisos para acceder a la Gestión de Usuarios y Perfiles.", "Acceso Denegado", MessageBoxButtons.OK, MessageBoxIcon.Stop);
 
-         
                 if (Application.OpenForms["Menu"] != null)
                 {
                     Application.OpenForms["Menu"].Show();
@@ -68,11 +67,19 @@ namespace GUI
                 return;
             }
 
-            
+           
+            ActualizarEstadoBotonesSegunPermisos();
+        }
+
+        private void ActualizarEstadoBotonesSegunPermisos()
+        {
+            Usuario usuarioActual = SessionManager.Instance.UsuarioActual();
+
+            // Sección PERMISOS
             btnCrearPermiso.Enabled = usuarioActual.TienePermiso("Crear Permiso");
             btnEliminarPermiso.Enabled = usuarioActual.TienePermiso("Eliminar Permiso");
 
-          
+            // Sección FAMILIAS
             btnCrearFamilia.Enabled = usuarioActual.TienePermiso("Crear Familia");
             btnEliminarFamilia.Enabled = usuarioActual.TienePermiso("Eliminar Familia");
             btnAsignarPermisos.Enabled = usuarioActual.TienePermiso("Asignar Permiso Familia");
@@ -80,7 +87,7 @@ namespace GUI
             btnAsignarSubfamilia.Enabled = usuarioActual.TienePermiso("Asignar Subfamilia");
             btnQuitarSubfamilia.Enabled = usuarioActual.TienePermiso("Quitar Subfamilia");
 
-         
+            // Sección PERFILES
             btnCrearPerfil.Enabled = usuarioActual.TienePermiso("Crear Perfil");
             btnEliminarPerfil.Enabled = usuarioActual.TienePermiso("Eliminar Perfil");
             btnAsignarFamiliaPerfil.Enabled = usuarioActual.TienePermiso("Asignar Familia Perfil");
@@ -127,6 +134,7 @@ namespace GUI
             treeView1.EndUpdate();
         }
 
+
         private void CargarDatosFormulario()
         {
             try
@@ -147,10 +155,17 @@ namespace GUI
                     : _perfiles.FirstOrDefault();
 
                 SincronizarVisibilidadPaneles();
+
+                // NUEVO
+                RefrescarSeguridad();
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error al sincronizar datos del repositorio: " + ex.Message, "Error Operacional", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(
+                    "Error al sincronizar datos del repositorio: " + ex.Message,
+                    "Error Operacional",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
             }
         }
 
@@ -871,17 +886,30 @@ namespace GUI
 
         private void RbPermisos_CheckedChanged(object sender, EventArgs e)
         {
-            if (RbPermisos.Checked) SincronizarVisibilidadPaneles();
+            if (RbPermisos.Checked)
+            {
+            
+                ActualizarEstadoBotonesSegunPermisos();
+                SincronizarVisibilidadPaneles();
+            }
         }
 
         private void RbFamilias_CheckedChanged_1(object sender, EventArgs e)
         {
-            if (RbFamilias.Checked) SincronizarVisibilidadPaneles();
+            if (RbFamilias.Checked)
+            {
+                ActualizarEstadoBotonesSegunPermisos();
+                SincronizarVisibilidadPaneles();
+            }
         }
 
         private void RbPerfiles_CheckedChanged(object sender, EventArgs e)
         {
-            if (RbPerfiles.Checked) SincronizarVisibilidadPaneles();
+            if (RbPerfiles.Checked)
+            {
+                ActualizarEstadoBotonesSegunPermisos();
+                SincronizarVisibilidadPaneles();
+            }
         }
 
         private void btnCerrar_Click(object sender, EventArgs e)
@@ -909,6 +937,36 @@ namespace GUI
         private void btnMinimizar_Click(object sender, EventArgs e)
         {
             this.WindowState = FormWindowState.Minimized;
+        }
+
+
+
+        private void RefrescarSeguridad()
+        {
+            ActualizarEstadoBotonesSegunPermisos();
+
+            Usuario usuarioActual = SessionManager.Instance.UsuarioActual();
+
+            if (!usuarioActual.TienePermiso("Ver Perfiles"))
+            {
+                MessageBox.Show(
+                    "Sus permisos fueron modificados. Ya no posee acceso a esta pantalla.",
+                    "Permisos actualizados",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning);
+
+                if (Application.OpenForms["Menu"] != null)
+                {
+                    Application.OpenForms["Menu"].Show();
+                }
+                else
+                {
+                    Menu menu = new Menu();
+                    menu.Show();
+                }
+
+                this.Close();
+            }
         }
     }
 }
