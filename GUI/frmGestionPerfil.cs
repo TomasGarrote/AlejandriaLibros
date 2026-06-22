@@ -12,6 +12,7 @@ namespace GUI
     {
         private readonly PerfilBLL _bll;
         private readonly string _login;
+        private readonly Menu _menuPadre;
 
         private List<PermisoSimple> _permisos = new List<PermisoSimple>();
         private List<Familia> _familias = new List<Familia>();
@@ -25,6 +26,9 @@ namespace GUI
             InitializeComponent();
             _bll = new PerfilBLL();
             _login = login;
+
+       
+            ValidarPermisos();
 
             RbPermisos.CheckedChanged += RbPermisos_CheckedChanged;
             RbFamilias.CheckedChanged += RbFamilias_CheckedChanged_1;
@@ -40,6 +44,50 @@ namespace GUI
             CargarDatosFormulario();
         }
 
+        private void ValidarPermisos()
+        {
+            Usuario usuarioActual = SessionManager.Instance.UsuarioActual();
+
+            if (!usuarioActual.TienePermiso("Ver Perfiles"))
+            {
+                MessageBox.Show("No tiene permisos para acceder a la Gestión de Usuarios y Perfiles.", "Acceso Denegado", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+
+         
+                if (Application.OpenForms["Menu"] != null)
+                {
+                    Application.OpenForms["Menu"].Show();
+                }
+                else
+                {
+                    Menu menu = new Menu();
+                    menu.Show();
+                }
+
+                this.DialogResult = DialogResult.Cancel;
+                this.Close();
+                return;
+            }
+
+            
+            btnCrearPermiso.Enabled = usuarioActual.TienePermiso("Crear Permiso");
+            btnEliminarPermiso.Enabled = usuarioActual.TienePermiso("Eliminar Permiso");
+
+          
+            btnCrearFamilia.Enabled = usuarioActual.TienePermiso("Crear Familia");
+            btnEliminarFamilia.Enabled = usuarioActual.TienePermiso("Eliminar Familia");
+            btnAsignarPermisos.Enabled = usuarioActual.TienePermiso("Asignar Permiso Familia");
+            btnQuitarPermisos.Enabled = usuarioActual.TienePermiso("Quitar Permiso Familia");
+            btnAsignarSubfamilia.Enabled = usuarioActual.TienePermiso("Asignar Subfamilia");
+            btnQuitarSubfamilia.Enabled = usuarioActual.TienePermiso("Quitar Subfamilia");
+
+         
+            btnCrearPerfil.Enabled = usuarioActual.TienePermiso("Crear Perfil");
+            btnEliminarPerfil.Enabled = usuarioActual.TienePermiso("Eliminar Perfil");
+            btnAsignarFamiliaPerfil.Enabled = usuarioActual.TienePermiso("Asignar Familia Perfil");
+            btnQuitarFamiliaPerfil.Enabled = usuarioActual.TienePermiso("Quitar Familia Perfil");
+            BtnAsignarPermisoPerfil.Enabled = usuarioActual.TienePermiso("Asignar Permiso Perfil");
+            BtnQuitarPermisoPerfil.Enabled = usuarioActual.TienePermiso("Quitar Permiso Perfil");
+        }
         private void CentrarPanelesContenedores()
         {
             int contenedorAncho = this.ClientSize.Width;
@@ -838,8 +886,15 @@ namespace GUI
 
         private void btnCerrar_Click(object sender, EventArgs e)
         {
-            Menu menu = new Menu();
-            menu.Show();
+            if (Application.OpenForms["Menu"] != null)
+            {
+                Application.OpenForms["Menu"].Show();
+            }
+            else
+            {
+                Menu menu = new Menu();
+                menu.Show();
+            }
             this.Close();
         }
 

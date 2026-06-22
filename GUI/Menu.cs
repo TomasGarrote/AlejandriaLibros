@@ -120,8 +120,9 @@ namespace GUI
 
         private void btnBitacora_Click(object sender, EventArgs e)
         {
-            FormBitacora bitacora = new FormBitacora();
-            bitacora.ShowDialog();
+            this.Hide();
+            FormBitacora formBitacora = new FormBitacora();
+            formBitacora.Show();
         }
 
         private void btnUsuarios_Click(object sender, EventArgs e)
@@ -164,9 +165,11 @@ namespace GUI
 
         private void btnPerfiles_Click(object sender, EventArgs e)
         {
-            frmGestionPerfiles perfil = new frmGestionPerfiles("admin");
+            this.Hide();
+            string username = SessionManager.Instance.UsuarioActual().Username;
 
-            perfil.ShowDialog();
+            frmGestionPerfiles gestionPerfiles = new frmGestionPerfiles(username);
+            gestionPerfiles.Show();
         }
 
         private void btnBackUp_Click(object sender, EventArgs e)

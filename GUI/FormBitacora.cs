@@ -184,8 +184,15 @@ namespace GUI
 
         private void btnCerrar_Click(object sender, EventArgs e)
         {
-            Menu menu = new Menu();
-            menu.Show();
+            if (Application.OpenForms["Menu"] != null)
+            {
+                Application.OpenForms["Menu"].Show();
+            }
+            else
+            {
+                Menu menu = new Menu();
+                menu.Show();
+            }
             this.Close();
         }
 
@@ -387,21 +394,38 @@ namespace GUI
             LanguageManager.Instance.AgregarObservador(this);
             Actualizar(LanguageManager.Instance);
 
+            ValidarPermisos();
+        }
+
+        private void ValidarPermisos()
+        {
+   
             Usuario usuarioActual = SessionManager.Instance.UsuarioActual();
 
             if (!usuarioActual.TienePermiso("Ver Bitacora"))
             {
                 MessageBox.Show("No tiene permisos para acceder a la Bitácora.", "Acceso Denegado", MessageBoxButtons.OK, MessageBoxIcon.Stop);
 
-              
+                if (Application.OpenForms["Menu"] != null)
+                {
+                    Application.OpenForms["Menu"].Show();
+                }
+                else
+                {
+                    Menu menu = new Menu();
+                    menu.Show();
+                }
+
                 this.DialogResult = DialogResult.Cancel;
                 this.Close();
                 return;
             }
 
+            btnAplicarB.Enabled = usuarioActual.TienePermiso("Filtrar Bitacora");
+            btnLimpiarB.Enabled = usuarioActual.TienePermiso("Limpiar Bitacora");
             btnImprimirB.Enabled = usuarioActual.TienePermiso("Imprimir Bitacora");
         }
- 
+
         public void Actualizar(LanguageManager lenguaje)
         {
             lblBitacora.Text = lenguaje.GetTraduction("lblBitacora");
