@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Servicios
 {
-    public class IdiomaBE
+    public class Idioma
     {
         public string DNI { get; set; }
         public string CodigoIdioma { get; set; }

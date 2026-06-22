@@ -182,14 +182,16 @@ namespace GUI
 
         private void btnRestore_Click(object sender, EventArgs e)
         {
-            this.Hide();
-            CambiarIdioma cambiarContraseña = new CambiarIdioma();
-            cambiarContraseña.Show();
         }
 
         private void BarraTitulo_MouseUp(object sender, MouseEventArgs e)
         {
             arrastrando = false;
+        }
+
+        private void btnCambiarIdioma_Click(object sender, EventArgs e)
+        {
+            
         }
 
         public void Actualizar(LanguageManager lenguaje)
