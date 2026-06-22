@@ -121,10 +121,6 @@ namespace GUI
         private void btnBitacora_Click(object sender, EventArgs e)
         {
             FormBitacora bitacora = new FormBitacora();
-
-            // 3. CAMBIAMOS .Show() por .ShowDialog()
-            // Esto congela el Menú y abre la Bitácora arriba. 
-            // Si la Bitácora se cierra (por falta de permisos o por el usuario), el código continúa acá abajo.
             bitacora.ShowDialog();
         }
 
