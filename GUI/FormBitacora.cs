@@ -20,6 +20,8 @@ namespace GUI
             InitializeComponent();
             bll = new BitacoraBLL();
 
+            this.Load += FormBitacora_Load;
+
             dtpFechaFinal.Value = DateTime.Now;
             dtpFechaInicio.Value = DateTime.Now.AddDays(-3);
 
@@ -60,7 +62,7 @@ namespace GUI
         {
             try
             {
-                UsuarioBE u = bll.ObtenerUsuarioPorLogin(login);
+                Usuario u = bll.ObtenerUsuarioPorLogin(login);
                 if (u != null)
                 {
                     txtNombre.Text = u.Nombre;
@@ -384,8 +386,22 @@ namespace GUI
         {
             LanguageManager.Instance.AgregarObservador(this);
             Actualizar(LanguageManager.Instance);
-        }
 
+            Usuario usuarioActual = SessionManager.Instance.UsuarioActual();
+
+            if (!usuarioActual.TienePermiso("Ver Bitacora"))
+            {
+                MessageBox.Show("No tiene permisos para acceder a la Bitácora.", "Acceso Denegado", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+
+              
+                this.DialogResult = DialogResult.Cancel;
+                this.Close();
+                return;
+            }
+
+            btnImprimirB.Enabled = usuarioActual.TienePermiso("Imprimir Bitacora");
+        }
+ 
         public void Actualizar(LanguageManager lenguaje)
         {
             lblBitacora.Text = lenguaje.GetTraduction("lblBitacora");

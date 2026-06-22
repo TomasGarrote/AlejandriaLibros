@@ -85,8 +85,8 @@ namespace GUI
                 ValidarCamposVacios();
                 UsuarioBLL usuarioBLL = new UsuarioBLL();
 
-                if (usuarioBLL.ValidarNuevoUsuario(txtUsuario.Text, txtContraseña.Text)) 
-                { 
+                if (usuarioBLL.ValidarNuevoUsuario(txtUsuario.Text, txtContraseña.Text))
+                {
                     MessageBox.Show("Debes crear una nueva contrasenia", "Informacion", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     this.Hide();
                     CambiarContraseña cambioContraseña = new CambiarContraseña();
@@ -98,20 +98,20 @@ namespace GUI
                 {
                     case LoginResultado.ContraseñaIncorrecta:
                         throw new Exception("Contraseña Incorrecta, vuelva a intentar.");
-                        
+
                     case LoginResultado.UsuarioNoEncontrado:
                         throw new Exception("Usuario Incorrecto, vuelva a intentar.");
                     case LoginResultado.Valido:
                         IdiomaBLL idiomaBLL = new IdiomaBLL();
 
-                        string idioma =
-                            idiomaBLL.ObtenerIdioma(
-                                SessionManager.Instance.UsuarioActual());
+                      
+                        string username = SessionManager.Instance.UsuarioActual().Username;
+                        string idioma = idiomaBLL.ObtenerIdioma(username);
 
                         LanguageManager.Instance.CargarIdioma(idioma);
                         this.Hide();
                         Menu menu = new Menu();
-                        menu.ShowDialog();    
+                        menu.ShowDialog();
                         break;
                     case LoginResultado.Bloqueado:
                         throw new Exception("Usuario Bloqueado, contacte al administrador.");

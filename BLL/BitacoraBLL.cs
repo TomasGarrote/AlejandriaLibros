@@ -57,7 +57,7 @@ namespace BLL
             }
         }
 
-        public UsuarioBE ObtenerUsuarioPorLogin(string login)
+        public Usuario ObtenerUsuarioPorLogin(string login)
         {
             try
             {

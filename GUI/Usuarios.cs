@@ -49,7 +49,7 @@ namespace GUI
             if (rbActivos.Checked)
             {
                 lblTextoTabla.Text = "[Usuarios Activos]";
-                MostrarUsuarios(dataGridView1, usuarioBLL.ListarUsuariosActivos() as List<UsuarioBE>);
+                MostrarUsuarios(dataGridView1, usuarioBLL.ListarUsuariosActivos() as List<Usuario>);
                 MostrarCantidadUsuarios();
             }
             else
@@ -141,14 +141,14 @@ namespace GUI
                 {
                     case UserAction.Add:
                         if (ValidarCamposVacios(txtDni,txtApe,txtNom,txtEmail,txtRol,txtUsuario)) {
-                            usuarioBLL.RegistrarUsuario(new UsuarioBE(txtDni.Text,txtNom.Text,txtApe.Text,txtUsuario.Text,Encriptador.GetHash256(txtDni.Text + txtNom.Text), txtEmail.Text,false,true,txtRol.Text));
+                            usuarioBLL.RegistrarUsuario(new Usuario(txtDni.Text,txtNom.Text,txtApe.Text,txtUsuario.Text,Encriptador.GetHash256(txtDni.Text + txtNom.Text), txtEmail.Text,false,true,txtRol.Text));
                             ReiniciarBotones();
                             MostrarUsuarios(dataGridView1, usuarioBLL.ListarUsuariosActivos());
                             MostrarCantidadUsuarios();
                         }
                             break;
                     case UserAction.Delete:
-                        usuarioBLL.EliminarLogico((dataGridView1.SelectedRows[0].DataBoundItem as UsuarioBE).DNI);
+                        usuarioBLL.EliminarLogico((dataGridView1.SelectedRows[0].DataBoundItem as Usuario).DNI);
                         ReiniciarBotones();
                         if (rbActivos.Checked)
                         {
@@ -168,7 +168,7 @@ namespace GUI
                         txtDni.ReadOnly = true;
                         if (ValidarCamposVacios(txtNom, txtApe, txtDni, txtUsuario, txtEmail, txtRol) && ValidarEntradaUsuario())
                         {
-                            usuarioBLL.Modificar((dataGridView1.SelectedRows[0].DataBoundItem as UsuarioBE).DNI, new UsuarioBE(txtDni.Text, txtNom.Text, txtApe.Text, txtUsuario.Text, string.Empty, txtEmail.Text, default, default, txtRol.Text));
+                            usuarioBLL.Modificar((dataGridView1.SelectedRows[0].DataBoundItem as Usuario).DNI, new Usuario(txtDni.Text, txtNom.Text, txtApe.Text, txtUsuario.Text, string.Empty, txtEmail.Text, default, default, txtRol.Text));
                             txtDni.ReadOnly = false;
                             ReiniciarBotones();
                             MessageBox.Show("Usuario Fue Modificado", "Alerta!", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -177,7 +177,7 @@ namespace GUI
                         break;
                     case UserAction.UnBlock:
                         ReiniciarBotones();
-                        usuarioBLL.DesbloquearUsuario(dataGridView1.SelectedRows[0].DataBoundItem as UsuarioBE);
+                        usuarioBLL.DesbloquearUsuario(dataGridView1.SelectedRows[0].DataBoundItem as Usuario);
                         if (rbActivos.Checked)
                         {
                             MostrarUsuarios(dataGridView1, usuarioBLL.ListarUsuariosActivos());
@@ -191,7 +191,7 @@ namespace GUI
                         MessageBox.Show("Usuario Fue Desbloqueado Y Clave Restaurada", "Alerta!", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         break;
                     case UserAction.Activate:
-                        usuarioBLL.EliminarLogico((dataGridView1.SelectedRows[0].DataBoundItem as UsuarioBE).DNI);
+                        usuarioBLL.EliminarLogico((dataGridView1.SelectedRows[0].DataBoundItem as Usuario).DNI);
                         ReiniciarBotones();
                         if (rbActivos.Checked)
                         {
@@ -359,7 +359,7 @@ namespace GUI
 
         private void radioButton2_CheckedChanged(object sender, EventArgs e)
         {
-            MostrarUsuarios(dataGridView1, usuarioBLL.ListarTodosUsuarios() as List<UsuarioBE>);
+            MostrarUsuarios(dataGridView1, usuarioBLL.ListarTodosUsuarios() as List<Usuario>);
         }
 
         private void dataGridView1_SelectionChanged(object sender, EventArgs e)
@@ -368,7 +368,7 @@ namespace GUI
             {
                 if (dataGridView1.SelectedRows.Count > 0)
                 {
-                    UsuarioBE user = usuarioBLL.BuscarUsuarioPorDNI(dataGridView1.SelectedRows[0].Cells[0].Value.ToString());
+                    Usuario user = usuarioBLL.BuscarUsuarioPorDNI(dataGridView1.SelectedRows[0].Cells[0].Value.ToString());
                     txtDni.Text = user.DNI;
                     txtNom.Text = user.Nombre;
                     txtApe.Text = user.Apellido;
@@ -381,7 +381,7 @@ namespace GUI
 
         private void dataGridView1_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
-            if (e.RowIndex >= 0 && dataGridView1.Rows[e.RowIndex].DataBoundItem is UsuarioBE usuario)
+            if (e.RowIndex >= 0 && dataGridView1.Rows[e.RowIndex].DataBoundItem is Usuario usuario)
             { 
                 if (usuario.Bloqueado)
                 {
@@ -422,7 +422,7 @@ namespace GUI
         {
             if (dataGridView1.SelectedRows.Count > 0)
             {
-                UsuarioBE us = usuarioBLL.BuscarUsuarioPorDNI(dataGridView1.SelectedRows[0].Cells[0].Value.ToString());
+                Usuario us = usuarioBLL.BuscarUsuarioPorDNI(dataGridView1.SelectedRows[0].Cells[0].Value.ToString());
                 if (!us.Activo)
                 {
                     userAction = UserAction.Activate;
