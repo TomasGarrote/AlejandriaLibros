@@ -27,20 +27,25 @@ namespace GUI
             _bll = new PerfilBLL();
             _login = login;
 
-       
             ValidarPermisos();
 
             RbPermisos.CheckedChanged += RbPermisos_CheckedChanged;
             RbFamilias.CheckedChanged += RbFamilias_CheckedChanged_1;
             RbPerfiles.CheckedChanged += RbPerfiles_CheckedChanged;
 
-            this.Controls.Add(panelPermisos);
-            this.Controls.Add(panelFamilias);
-            this.Controls.Add(panelPerfiles);
+            // !!! CORRECCIÓN AQUÍ: Asegurate de usar los que empiezan con 'pnl'
+            // Si las líneas de abajo ya existen con 'pnl' en tu código, verificalas.
+            // Si existen con 'panel', cambialas por 'pnl'.
+            if (!this.Controls.Contains(pnlPermisos)) this.Controls.Add(pnlPermisos);
+            if (!this.Controls.Contains(pnlFamilias)) this.Controls.Add(pnlFamilias);
+            if (!this.Controls.Contains(pnlPerfiles)) this.Controls.Add(pnlPerfiles);
+            
 
             this.SizeChanged += FrmGestionPerfiles_SizeChanged;
-            CentrarPanelesContenedores();
 
+            // Forzar el estado inicial correcto
+            RbPermisos.Checked = true;
+            SincronizarVisibilidadPaneles();
             CargarDatosFormulario();
         }
 
@@ -98,21 +103,26 @@ namespace GUI
         private void CentrarPanelesContenedores()
         {
             int contenedorAncho = this.ClientSize.Width;
-            int contenedorAlto = this.ClientSize.Height;
 
-            int panelAncho = panelFamilias.Width;
-            int panelAlto = panelFamilias.Height;
+            // 1. Identificar cuál panel 'pnl' está activo
+            Panel panelActivo = null;
+            if (RbPermisos.Checked) panelActivo = pnlPermisos;
+            else if (RbFamilias.Checked) panelActivo = pnlFamilias;
+            else if (RbPerfiles.Checked) panelActivo = pnlPerfiles;
 
-            int xDelCentro = (contenedorAncho - panelAncho) / 2;
-            int yDelCentro = (contenedorAlto - panelAlto) / 2;
+            if (panelActivo != null)
+            {
+                // 2. Centrado horizontal idéntico (se mantiene perfecto)
+                int xDelCentro = (contenedorAncho) / 2;
 
-            if (yDelCentro < 140) yDelCentro = 140;
+                // 3. NUEVA ALINEACIÓN VERTICAL: 
+                // Tomamos el borde inferior de panel4 y le sumamos un margen de separación (ej. 20 píxeles)
+                int margenSeparacion = 20;
+                int yAlineada = panel4.Top - 10;
 
-            Point posicionCentral = new Point(xDelCentro, yDelCentro);
-
-            panelPermisos.Location = posicionCentral;
-            panelFamilias.Location = posicionCentral;
-            panelPerfiles.Location = posicionCentral;
+                // 4. Aplicamos la posición final (centrado horizontal, alineado vertical a panel4)
+                panelActivo.Location = new Point(xDelCentro, yAlineada);
+            }
         }
 
         private void FrmGestionPerfiles_SizeChanged(object sender, EventArgs e)
@@ -171,10 +181,15 @@ namespace GUI
 
         private void SincronizarVisibilidadPaneles()
         {
-            panelPermisos.Visible = RbPermisos.Checked;
-            panelFamilias.Visible = RbFamilias.Checked;
-            panelPerfiles.Visible = RbPerfiles.Checked;
+            // 1. Sincronizar la visibilidad de los paneles 'pnl' correctos
+            pnlPermisos.Visible = RbPermisos.Checked;
+            pnlFamilias.Visible = RbFamilias.Checked;
+            pnlPerfiles.Visible = RbPerfiles.Checked;
 
+            // 2. Forzar a que el panel que quedó visible se acomode en el centro
+            CentrarPanelesContenedores();
+
+            // 3. Cargar los componentes correspondientes en el TreeView
             if (RbPermisos.Checked)
             {
                 treeView1.Visible = false;
@@ -967,6 +982,11 @@ namespace GUI
 
                 this.Close();
             }
+        }
+
+        private void frmGestionPerfiles_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -61,7 +61,6 @@
             this.panelFamilias = new System.Windows.Forms.Panel();
             this.label8 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -69,7 +68,6 @@
             this.label13 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.BtnQuitarPermisoPerfil = new System.Windows.Forms.Button();
             this.BtnAsignarPermisoPerfil = new System.Windows.Forms.Button();
@@ -81,6 +79,25 @@
             this.btnCerrar = new System.Windows.Forms.PictureBox();
             this.btnMaximizar = new System.Windows.Forms.PictureBox();
             this.btnMinimizar = new System.Windows.Forms.PictureBox();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.pnlOpciones = new System.Windows.Forms.Panel();
+            this.panel6 = new System.Windows.Forms.Panel();
+            this.lblBitacora = new System.Windows.Forms.Label();
+            this.panel7 = new System.Windows.Forms.Panel();
+            this.label6 = new System.Windows.Forms.Label();
+            this.panel8 = new System.Windows.Forms.Panel();
+            this.label10 = new System.Windows.Forms.Label();
+            this.panel9 = new System.Windows.Forms.Panel();
+            this.label14 = new System.Windows.Forms.Label();
+            this.panel10 = new System.Windows.Forms.Panel();
+            this.label15 = new System.Windows.Forms.Label();
+            this.pnlPermisos = new System.Windows.Forms.Panel();
+            this.pnlPerfiles = new System.Windows.Forms.Panel();
+            this.pnlFamilias = new System.Windows.Forms.Panel();
+            this.label16 = new System.Windows.Forms.Label();
+            this.panel5 = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPermisos)).BeginInit();
             this.panelPermisos.SuspendLayout();
             this.panelFamilias.SuspendLayout();
@@ -89,18 +106,30 @@
             ((System.ComponentModel.ISupportInitialize)(this.btnCerrar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnMaximizar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnMinimizar)).BeginInit();
+            this.panel2.SuspendLayout();
+            this.panel3.SuspendLayout();
+            this.panel4.SuspendLayout();
+            this.pnlOpciones.SuspendLayout();
+            this.panel6.SuspendLayout();
+            this.panel7.SuspendLayout();
+            this.panel8.SuspendLayout();
+            this.panel9.SuspendLayout();
+            this.panel10.SuspendLayout();
+            this.pnlPermisos.SuspendLayout();
+            this.pnlPerfiles.SuspendLayout();
+            this.pnlFamilias.SuspendLayout();
             this.SuspendLayout();
             // 
             // txtNombrePermiso
             // 
-            this.txtNombrePermiso.Location = new System.Drawing.Point(312, 30);
+            this.txtNombrePermiso.Location = new System.Drawing.Point(302, 50);
             this.txtNombrePermiso.Name = "txtNombrePermiso";
             this.txtNombrePermiso.Size = new System.Drawing.Size(130, 20);
             this.txtNombrePermiso.TabIndex = 0;
             // 
             // btnCrearPermiso
             // 
-            this.btnCrearPermiso.Location = new System.Drawing.Point(312, 65);
+            this.btnCrearPermiso.Location = new System.Drawing.Point(302, 85);
             this.btnCrearPermiso.Name = "btnCrearPermiso";
             this.btnCrearPermiso.Size = new System.Drawing.Size(130, 23);
             this.btnCrearPermiso.TabIndex = 2;
@@ -111,14 +140,14 @@
             // dgvPermisos
             // 
             this.dgvPermisos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvPermisos.Location = new System.Drawing.Point(3, 7);
+            this.dgvPermisos.Location = new System.Drawing.Point(11, 11);
             this.dgvPermisos.Name = "dgvPermisos";
-            this.dgvPermisos.Size = new System.Drawing.Size(240, 150);
+            this.dgvPermisos.Size = new System.Drawing.Size(261, 150);
             this.dgvPermisos.TabIndex = 3;
             // 
             // btnEliminarPermiso
             // 
-            this.btnEliminarPermiso.Location = new System.Drawing.Point(312, 94);
+            this.btnEliminarPermiso.Location = new System.Drawing.Point(302, 114);
             this.btnEliminarPermiso.Name = "btnEliminarPermiso";
             this.btnEliminarPermiso.Size = new System.Drawing.Size(130, 23);
             this.btnEliminarPermiso.TabIndex = 4;
@@ -128,16 +157,16 @@
             // 
             // txtNombreFamilia
             // 
-            this.txtNombreFamilia.Location = new System.Drawing.Point(53, 138);
+            this.txtNombreFamilia.Location = new System.Drawing.Point(300, 50);
             this.txtNombreFamilia.Name = "txtNombreFamilia";
-            this.txtNombreFamilia.Size = new System.Drawing.Size(100, 20);
+            this.txtNombreFamilia.Size = new System.Drawing.Size(131, 20);
             this.txtNombreFamilia.TabIndex = 5;
             // 
             // btnCrearFamilia
             // 
-            this.btnCrearFamilia.Location = new System.Drawing.Point(53, 164);
+            this.btnCrearFamilia.Location = new System.Drawing.Point(300, 85);
             this.btnCrearFamilia.Name = "btnCrearFamilia";
-            this.btnCrearFamilia.Size = new System.Drawing.Size(100, 23);
+            this.btnCrearFamilia.Size = new System.Drawing.Size(131, 23);
             this.btnCrearFamilia.TabIndex = 6;
             this.btnCrearFamilia.Text = "Crear familia";
             this.btnCrearFamilia.UseVisualStyleBackColor = true;
@@ -146,25 +175,25 @@
             // lstFamilias
             // 
             this.lstFamilias.FormattingEnabled = true;
-            this.lstFamilias.Location = new System.Drawing.Point(21, 37);
+            this.lstFamilias.Location = new System.Drawing.Point(11, 13);
             this.lstFamilias.Name = "lstFamilias";
-            this.lstFamilias.Size = new System.Drawing.Size(189, 95);
+            this.lstFamilias.Size = new System.Drawing.Size(263, 147);
             this.lstFamilias.TabIndex = 7;
             this.lstFamilias.SelectedIndexChanged += new System.EventHandler(this.LstFamilias_SelectedIndexChanged);
             // 
             // clbPermisosDisp
             // 
             this.clbPermisosDisp.FormattingEnabled = true;
-            this.clbPermisosDisp.Location = new System.Drawing.Point(21, 420);
+            this.clbPermisosDisp.Location = new System.Drawing.Point(19, 204);
             this.clbPermisosDisp.Name = "clbPermisosDisp";
             this.clbPermisosDisp.Size = new System.Drawing.Size(189, 94);
             this.clbPermisosDisp.TabIndex = 8;
             // 
             // btnAsignarPermisos
             // 
-            this.btnAsignarPermisos.Location = new System.Drawing.Point(33, 516);
+            this.btnAsignarPermisos.Location = new System.Drawing.Point(19, 304);
             this.btnAsignarPermisos.Name = "btnAsignarPermisos";
-            this.btnAsignarPermisos.Size = new System.Drawing.Size(120, 23);
+            this.btnAsignarPermisos.Size = new System.Drawing.Size(189, 23);
             this.btnAsignarPermisos.TabIndex = 9;
             this.btnAsignarPermisos.Text = "Asignar";
             this.btnAsignarPermisos.UseVisualStyleBackColor = true;
@@ -172,9 +201,9 @@
             // 
             // btnQuitarPermisos
             // 
-            this.btnQuitarPermisos.Location = new System.Drawing.Point(21, 359);
+            this.btnQuitarPermisos.Location = new System.Drawing.Point(241, 304);
             this.btnQuitarPermisos.Name = "btnQuitarPermisos";
-            this.btnQuitarPermisos.Size = new System.Drawing.Size(156, 23);
+            this.btnQuitarPermisos.Size = new System.Drawing.Size(200, 23);
             this.btnQuitarPermisos.TabIndex = 10;
             this.btnQuitarPermisos.Text = "Quitar";
             this.btnQuitarPermisos.UseVisualStyleBackColor = true;
@@ -182,9 +211,9 @@
             // 
             // btnAsignarSubfamilia
             // 
-            this.btnAsignarSubfamilia.Location = new System.Drawing.Point(233, 379);
+            this.btnAsignarSubfamilia.Location = new System.Drawing.Point(19, 140);
             this.btnAsignarSubfamilia.Name = "btnAsignarSubfamilia";
-            this.btnAsignarSubfamilia.Size = new System.Drawing.Size(165, 23);
+            this.btnAsignarSubfamilia.Size = new System.Drawing.Size(189, 23);
             this.btnAsignarSubfamilia.TabIndex = 11;
             this.btnAsignarSubfamilia.Text = "Asignar";
             this.btnAsignarSubfamilia.UseVisualStyleBackColor = true;
@@ -193,32 +222,32 @@
             // clbPermisosAsig
             // 
             this.clbPermisosAsig.FormattingEnabled = true;
-            this.clbPermisosAsig.Location = new System.Drawing.Point(21, 259);
+            this.clbPermisosAsig.Location = new System.Drawing.Point(241, 204);
             this.clbPermisosAsig.Name = "clbPermisosAsig";
-            this.clbPermisosAsig.Size = new System.Drawing.Size(189, 94);
+            this.clbPermisosAsig.Size = new System.Drawing.Size(200, 94);
             this.clbPermisosAsig.TabIndex = 12;
             // 
             // clbSubfamiliasDisp
             // 
             this.clbSubfamiliasDisp.FormattingEnabled = true;
-            this.clbSubfamiliasDisp.Location = new System.Drawing.Point(233, 279);
+            this.clbSubfamiliasDisp.Location = new System.Drawing.Point(19, 40);
             this.clbSubfamiliasDisp.Name = "clbSubfamiliasDisp";
-            this.clbSubfamiliasDisp.Size = new System.Drawing.Size(165, 94);
+            this.clbSubfamiliasDisp.Size = new System.Drawing.Size(189, 94);
             this.clbSubfamiliasDisp.TabIndex = 13;
             // 
             // clbSubfamiliasAsig
             // 
             this.clbSubfamiliasAsig.FormattingEnabled = true;
-            this.clbSubfamiliasAsig.Location = new System.Drawing.Point(233, 81);
+            this.clbSubfamiliasAsig.Location = new System.Drawing.Point(241, 40);
             this.clbSubfamiliasAsig.Name = "clbSubfamiliasAsig";
-            this.clbSubfamiliasAsig.Size = new System.Drawing.Size(165, 94);
+            this.clbSubfamiliasAsig.Size = new System.Drawing.Size(200, 94);
             this.clbSubfamiliasAsig.TabIndex = 14;
             // 
             // btnQuitarSubfamilia
             // 
-            this.btnQuitarSubfamilia.Location = new System.Drawing.Point(233, 181);
+            this.btnQuitarSubfamilia.Location = new System.Drawing.Point(241, 140);
             this.btnQuitarSubfamilia.Name = "btnQuitarSubfamilia";
-            this.btnQuitarSubfamilia.Size = new System.Drawing.Size(165, 23);
+            this.btnQuitarSubfamilia.Size = new System.Drawing.Size(200, 23);
             this.btnQuitarSubfamilia.TabIndex = 15;
             this.btnQuitarSubfamilia.Text = "Quitar";
             this.btnQuitarSubfamilia.UseVisualStyleBackColor = true;
@@ -226,9 +255,9 @@
             // 
             // btnEliminarFamilia
             // 
-            this.btnEliminarFamilia.Location = new System.Drawing.Point(53, 193);
+            this.btnEliminarFamilia.Location = new System.Drawing.Point(300, 114);
             this.btnEliminarFamilia.Name = "btnEliminarFamilia";
-            this.btnEliminarFamilia.Size = new System.Drawing.Size(100, 23);
+            this.btnEliminarFamilia.Size = new System.Drawing.Size(131, 23);
             this.btnEliminarFamilia.TabIndex = 16;
             this.btnEliminarFamilia.Text = "Eliminar";
             this.btnEliminarFamilia.UseVisualStyleBackColor = true;
@@ -236,16 +265,16 @@
             // 
             // txtNombrePerfil
             // 
-            this.txtNombrePerfil.Location = new System.Drawing.Point(89, 7);
+            this.txtNombrePerfil.Location = new System.Drawing.Point(298, 48);
             this.txtNombrePerfil.Name = "txtNombrePerfil";
-            this.txtNombrePerfil.Size = new System.Drawing.Size(100, 20);
+            this.txtNombrePerfil.Size = new System.Drawing.Size(131, 20);
             this.txtNombrePerfil.TabIndex = 17;
             // 
             // btnCrearPerfil
             // 
-            this.btnCrearPerfil.Location = new System.Drawing.Point(89, 34);
+            this.btnCrearPerfil.Location = new System.Drawing.Point(299, 83);
             this.btnCrearPerfil.Name = "btnCrearPerfil";
-            this.btnCrearPerfil.Size = new System.Drawing.Size(100, 23);
+            this.btnCrearPerfil.Size = new System.Drawing.Size(130, 23);
             this.btnCrearPerfil.TabIndex = 18;
             this.btnCrearPerfil.Text = "Crear perfil";
             this.btnCrearPerfil.UseVisualStyleBackColor = true;
@@ -254,53 +283,53 @@
             // lstPerfiles
             // 
             this.lstPerfiles.FormattingEnabled = true;
-            this.lstPerfiles.Location = new System.Drawing.Point(89, 88);
+            this.lstPerfiles.Location = new System.Drawing.Point(12, 12);
             this.lstPerfiles.Name = "lstPerfiles";
-            this.lstPerfiles.Size = new System.Drawing.Size(120, 95);
+            this.lstPerfiles.Size = new System.Drawing.Size(261, 147);
             this.lstPerfiles.TabIndex = 19;
             this.lstPerfiles.SelectedIndexChanged += new System.EventHandler(this.LstPerfiles_SelectedIndexChanged);
             // 
             // clbFamiliasDispPerfil
             // 
             this.clbFamiliasDispPerfil.FormattingEnabled = true;
-            this.clbFamiliasDispPerfil.Location = new System.Drawing.Point(89, 249);
+            this.clbFamiliasDispPerfil.Location = new System.Drawing.Point(22, 40);
             this.clbFamiliasDispPerfil.Name = "clbFamiliasDispPerfil";
-            this.clbFamiliasDispPerfil.Size = new System.Drawing.Size(120, 94);
+            this.clbFamiliasDispPerfil.Size = new System.Drawing.Size(188, 94);
             this.clbFamiliasDispPerfil.TabIndex = 20;
             // 
             // btnAsignarFamiliaPerfil
             // 
-            this.btnAsignarFamiliaPerfil.Location = new System.Drawing.Point(89, 345);
+            this.btnAsignarFamiliaPerfil.Location = new System.Drawing.Point(22, 139);
             this.btnAsignarFamiliaPerfil.Name = "btnAsignarFamiliaPerfil";
-            this.btnAsignarFamiliaPerfil.Size = new System.Drawing.Size(120, 23);
+            this.btnAsignarFamiliaPerfil.Size = new System.Drawing.Size(188, 23);
             this.btnAsignarFamiliaPerfil.TabIndex = 21;
-            this.btnAsignarFamiliaPerfil.Text = "Asignar";
+            this.btnAsignarFamiliaPerfil.Text = "Asignar familia";
             this.btnAsignarFamiliaPerfil.UseVisualStyleBackColor = true;
             this.btnAsignarFamiliaPerfil.Click += new System.EventHandler(this.BtnAsignarFamiliaPerfil_Click);
             // 
             // clbFamiliasAsigPerfil
             // 
             this.clbFamiliasAsigPerfil.FormattingEnabled = true;
-            this.clbFamiliasAsigPerfil.Location = new System.Drawing.Point(259, 40);
+            this.clbFamiliasAsigPerfil.Location = new System.Drawing.Point(245, 40);
             this.clbFamiliasAsigPerfil.Name = "clbFamiliasAsigPerfil";
-            this.clbFamiliasAsigPerfil.Size = new System.Drawing.Size(120, 94);
+            this.clbFamiliasAsigPerfil.Size = new System.Drawing.Size(196, 94);
             this.clbFamiliasAsigPerfil.TabIndex = 22;
             // 
             // btnQuitarFamiliaPerfil
             // 
-            this.btnQuitarFamiliaPerfil.Location = new System.Drawing.Point(282, 140);
+            this.btnQuitarFamiliaPerfil.Location = new System.Drawing.Point(245, 139);
             this.btnQuitarFamiliaPerfil.Name = "btnQuitarFamiliaPerfil";
-            this.btnQuitarFamiliaPerfil.Size = new System.Drawing.Size(75, 23);
+            this.btnQuitarFamiliaPerfil.Size = new System.Drawing.Size(196, 23);
             this.btnQuitarFamiliaPerfil.TabIndex = 23;
-            this.btnQuitarFamiliaPerfil.Text = "Quitar";
+            this.btnQuitarFamiliaPerfil.Text = "Quitar familia";
             this.btnQuitarFamiliaPerfil.UseVisualStyleBackColor = true;
             this.btnQuitarFamiliaPerfil.Click += new System.EventHandler(this.BtnQuitarFamiliaPerfil_Click);
             // 
             // btnEliminarPerfil
             // 
-            this.btnEliminarPerfil.Location = new System.Drawing.Point(89, 188);
+            this.btnEliminarPerfil.Location = new System.Drawing.Point(299, 112);
             this.btnEliminarPerfil.Name = "btnEliminarPerfil";
-            this.btnEliminarPerfil.Size = new System.Drawing.Size(120, 23);
+            this.btnEliminarPerfil.Size = new System.Drawing.Size(131, 23);
             this.btnEliminarPerfil.TabIndex = 24;
             this.btnEliminarPerfil.Text = "Eliminar";
             this.btnEliminarPerfil.UseVisualStyleBackColor = true;
@@ -310,9 +339,11 @@
             // 
             this.RbPermisos.AutoSize = true;
             this.RbPermisos.Checked = true;
-            this.RbPermisos.Location = new System.Drawing.Point(1063, 83);
+            this.RbPermisos.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RbPermisos.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.RbPermisos.Location = new System.Drawing.Point(15, 12);
             this.RbPermisos.Name = "RbPermisos";
-            this.RbPermisos.Size = new System.Drawing.Size(67, 17);
+            this.RbPermisos.Size = new System.Drawing.Size(90, 22);
             this.RbPermisos.TabIndex = 25;
             this.RbPermisos.TabStop = true;
             this.RbPermisos.Text = "Permisos";
@@ -322,9 +353,11 @@
             // RbFamilias
             // 
             this.RbFamilias.AutoSize = true;
-            this.RbFamilias.Location = new System.Drawing.Point(1063, 106);
+            this.RbFamilias.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RbFamilias.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.RbFamilias.Location = new System.Drawing.Point(159, 12);
             this.RbFamilias.Name = "RbFamilias";
-            this.RbFamilias.Size = new System.Drawing.Size(62, 17);
+            this.RbFamilias.Size = new System.Drawing.Size(81, 22);
             this.RbFamilias.TabIndex = 26;
             this.RbFamilias.Text = "Familias";
             this.RbFamilias.UseVisualStyleBackColor = true;
@@ -333,9 +366,11 @@
             // RbPerfiles
             // 
             this.RbPerfiles.AutoSize = true;
-            this.RbPerfiles.Location = new System.Drawing.Point(1063, 129);
+            this.RbPerfiles.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RbPerfiles.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.RbPerfiles.Location = new System.Drawing.Point(306, 12);
             this.RbPerfiles.Name = "RbPerfiles";
-            this.RbPerfiles.Size = new System.Drawing.Size(59, 17);
+            this.RbPerfiles.Size = new System.Drawing.Size(75, 22);
             this.RbPerfiles.TabIndex = 27;
             this.RbPerfiles.Text = "Perfiles";
             this.RbPerfiles.UseVisualStyleBackColor = true;
@@ -343,12 +378,14 @@
             // 
             // panelPermisos
             // 
+            this.panelPermisos.BackColor = System.Drawing.Color.Maroon;
+            this.panelPermisos.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panelPermisos.Controls.Add(this.label1);
             this.panelPermisos.Controls.Add(this.dgvPermisos);
             this.panelPermisos.Controls.Add(this.txtNombrePermiso);
             this.panelPermisos.Controls.Add(this.btnCrearPermiso);
             this.panelPermisos.Controls.Add(this.btnEliminarPermiso);
-            this.panelPermisos.Location = new System.Drawing.Point(13, 12);
+            this.panelPermisos.Location = new System.Drawing.Point(13, 51);
             this.panelPermisos.Name = "panelPermisos";
             this.panelPermisos.Size = new System.Drawing.Size(460, 172);
             this.panelPermisos.TabIndex = 28;
@@ -356,24 +393,23 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(259, 32);
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.label1.Location = new System.Drawing.Point(335, 27);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(47, 13);
+            this.label1.Size = new System.Drawing.Size(66, 18);
             this.label1.TabIndex = 5;
             this.label1.Text = "Nombre:";
             // 
             // panelFamilias
             // 
+            this.panelFamilias.BackColor = System.Drawing.Color.Maroon;
+            this.panelFamilias.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panelFamilias.Controls.Add(this.label8);
             this.panelFamilias.Controls.Add(this.label7);
-            this.panelFamilias.Controls.Add(this.label6);
             this.panelFamilias.Controls.Add(this.label5);
             this.panelFamilias.Controls.Add(this.label4);
-            this.panelFamilias.Controls.Add(this.label2);
             this.panelFamilias.Controls.Add(this.clbSubfamiliasAsig);
-            this.panelFamilias.Controls.Add(this.txtNombreFamilia);
-            this.panelFamilias.Controls.Add(this.btnCrearFamilia);
-            this.panelFamilias.Controls.Add(this.lstFamilias);
             this.panelFamilias.Controls.Add(this.clbPermisosDisp);
             this.panelFamilias.Controls.Add(this.btnAsignarPermisos);
             this.panelFamilias.Controls.Add(this.btnQuitarPermisos);
@@ -381,143 +417,138 @@
             this.panelFamilias.Controls.Add(this.clbPermisosAsig);
             this.panelFamilias.Controls.Add(this.clbSubfamiliasDisp);
             this.panelFamilias.Controls.Add(this.btnQuitarSubfamilia);
-            this.panelFamilias.Controls.Add(this.btnEliminarFamilia);
-            this.panelFamilias.Location = new System.Drawing.Point(479, 19);
+            this.panelFamilias.Location = new System.Drawing.Point(13, 278);
             this.panelFamilias.Name = "panelFamilias";
-            this.panelFamilias.Size = new System.Drawing.Size(417, 611);
+            this.panelFamilias.Size = new System.Drawing.Size(460, 354);
             this.panelFamilias.TabIndex = 29;
             // 
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(6, 230);
+            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.label8.Location = new System.Drawing.Point(238, 186);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(152, 26);
+            this.label8.Size = new System.Drawing.Size(135, 16);
             this.label8.TabIndex = 21;
-            this.label8.Text = "Permisos asignados a la familia\r\nseleccionada\r\n";
+            this.label8.Text = "Permisos Asignados:";
             this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(42, 404);
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.label7.Location = new System.Drawing.Point(16, 185);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(104, 13);
+            this.label7.Size = new System.Drawing.Size(142, 16);
             this.label7.TabIndex = 20;
-            this.label7.Text = "Permisos disponibles";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(61, 21);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(81, 13);
-            this.label6.TabIndex = 19;
-            this.label6.Text = "Lista de familias";
+            this.label7.Text = "Permisos Disponibles:";
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(263, 47);
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.label5.Location = new System.Drawing.Point(238, 19);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(122, 26);
+            this.label5.Size = new System.Drawing.Size(129, 16);
             this.label5.TabIndex = 18;
-            this.label5.Text = "Familias asignadas \r\na la familia seleccionada";
+            this.label5.Text = "Familias Asignadas:";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(263, 259);
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.label4.Location = new System.Drawing.Point(19, 19);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(101, 13);
+            this.label4.Size = new System.Drawing.Size(139, 16);
             this.label4.TabIndex = 17;
-            this.label4.Text = "Familias disponibiles";
+            this.label4.Text = "Familias Disponibiles:";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(3, 141);
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.label2.Location = new System.Drawing.Point(333, 25);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(47, 13);
+            this.label2.Size = new System.Drawing.Size(66, 18);
             this.label2.TabIndex = 6;
             this.label2.Text = "Nombre:";
             // 
             // panelPerfiles
             // 
+            this.panelPerfiles.BackColor = System.Drawing.Color.Maroon;
+            this.panelPerfiles.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panelPerfiles.Controls.Add(this.label13);
             this.panelPerfiles.Controls.Add(this.label12);
             this.panelPerfiles.Controls.Add(this.label11);
-            this.panelPerfiles.Controls.Add(this.label10);
             this.panelPerfiles.Controls.Add(this.label9);
             this.panelPerfiles.Controls.Add(this.BtnQuitarPermisoPerfil);
             this.panelPerfiles.Controls.Add(this.BtnAsignarPermisoPerfil);
             this.panelPerfiles.Controls.Add(this.clbPermisosAsigPerfil);
             this.panelPerfiles.Controls.Add(this.clbPermisosDispPerfil);
-            this.panelPerfiles.Controls.Add(this.label3);
-            this.panelPerfiles.Controls.Add(this.txtNombrePerfil);
-            this.panelPerfiles.Controls.Add(this.btnCrearPerfil);
-            this.panelPerfiles.Controls.Add(this.lstPerfiles);
             this.panelPerfiles.Controls.Add(this.clbFamiliasDispPerfil);
             this.panelPerfiles.Controls.Add(this.btnAsignarFamiliaPerfil);
             this.panelPerfiles.Controls.Add(this.clbFamiliasAsigPerfil);
-            this.panelPerfiles.Controls.Add(this.btnEliminarPerfil);
             this.panelPerfiles.Controls.Add(this.btnQuitarFamiliaPerfil);
-            this.panelPerfiles.Location = new System.Drawing.Point(16, 190);
+            this.panelPerfiles.Location = new System.Drawing.Point(13, 277);
             this.panelPerfiles.Name = "panelPerfiles";
-            this.panelPerfiles.Size = new System.Drawing.Size(457, 551);
+            this.panelPerfiles.Size = new System.Drawing.Size(460, 354);
             this.panelPerfiles.TabIndex = 30;
             // 
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(268, 379);
+            this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label13.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.label13.Location = new System.Drawing.Point(242, 184);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(136, 13);
+            this.label13.Size = new System.Drawing.Size(135, 16);
             this.label13.TabIndex = 33;
-            this.label13.Text = "Permisos asignados al perfil";
+            this.label13.Text = "Permisos Asignados:";
             // 
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(256, 189);
+            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label12.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.label12.Location = new System.Drawing.Point(19, 185);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(164, 13);
+            this.label12.Size = new System.Drawing.Size(142, 16);
             this.label12.TabIndex = 32;
-            this.label12.Text = "Permisos disponibles para el perfil";
+            this.label12.Text = "Permisos Disponibles:";
             // 
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(256, 20);
+            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label11.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.label11.Location = new System.Drawing.Point(242, 17);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(131, 13);
+            this.label11.Size = new System.Drawing.Size(129, 16);
             this.label11.TabIndex = 31;
-            this.label11.Text = "Familias asignadas al perfil";
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(109, 72);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(80, 13);
-            this.label10.TabIndex = 30;
-            this.label10.Text = "Lista de perfiles";
+            this.label11.Text = "Familias Asignadas:";
             // 
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(69, 218);
+            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.label9.Location = new System.Drawing.Point(19, 17);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(159, 13);
+            this.label9.Size = new System.Drawing.Size(136, 16);
             this.label9.TabIndex = 29;
-            this.label9.Text = "Familias disponibles para el perfil";
+            this.label9.Text = "Familias Disponibles:";
             // 
             // BtnQuitarPermisoPerfil
             // 
-            this.BtnQuitarPermisoPerfil.Location = new System.Drawing.Point(271, 495);
+            this.BtnQuitarPermisoPerfil.Location = new System.Drawing.Point(245, 304);
             this.BtnQuitarPermisoPerfil.Name = "BtnQuitarPermisoPerfil";
-            this.BtnQuitarPermisoPerfil.Size = new System.Drawing.Size(120, 23);
+            this.BtnQuitarPermisoPerfil.Size = new System.Drawing.Size(196, 23);
             this.BtnQuitarPermisoPerfil.TabIndex = 28;
             this.BtnQuitarPermisoPerfil.Text = "Quitar permiso";
             this.BtnQuitarPermisoPerfil.UseVisualStyleBackColor = true;
@@ -525,9 +556,9 @@
             // 
             // BtnAsignarPermisoPerfil
             // 
-            this.BtnAsignarPermisoPerfil.Location = new System.Drawing.Point(282, 308);
+            this.BtnAsignarPermisoPerfil.Location = new System.Drawing.Point(22, 306);
             this.BtnAsignarPermisoPerfil.Name = "BtnAsignarPermisoPerfil";
-            this.BtnAsignarPermisoPerfil.Size = new System.Drawing.Size(109, 23);
+            this.BtnAsignarPermisoPerfil.Size = new System.Drawing.Size(188, 23);
             this.BtnAsignarPermisoPerfil.TabIndex = 27;
             this.BtnAsignarPermisoPerfil.Text = "Asignar permiso";
             this.BtnAsignarPermisoPerfil.UseVisualStyleBackColor = true;
@@ -536,33 +567,35 @@
             // clbPermisosAsigPerfil
             // 
             this.clbPermisosAsigPerfil.FormattingEnabled = true;
-            this.clbPermisosAsigPerfil.Location = new System.Drawing.Point(259, 395);
+            this.clbPermisosAsigPerfil.Location = new System.Drawing.Point(245, 204);
             this.clbPermisosAsigPerfil.Name = "clbPermisosAsigPerfil";
-            this.clbPermisosAsigPerfil.Size = new System.Drawing.Size(161, 94);
+            this.clbPermisosAsigPerfil.Size = new System.Drawing.Size(196, 94);
             this.clbPermisosAsigPerfil.TabIndex = 26;
             // 
             // clbPermisosDispPerfil
             // 
             this.clbPermisosDispPerfil.FormattingEnabled = true;
-            this.clbPermisosDispPerfil.Location = new System.Drawing.Point(259, 208);
+            this.clbPermisosDispPerfil.Location = new System.Drawing.Point(22, 206);
             this.clbPermisosDispPerfil.Name = "clbPermisosDispPerfil";
-            this.clbPermisosDispPerfil.Size = new System.Drawing.Size(161, 94);
+            this.clbPermisosDispPerfil.Size = new System.Drawing.Size(188, 94);
             this.clbPermisosDispPerfil.TabIndex = 25;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(36, 10);
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.label3.Location = new System.Drawing.Point(328, 25);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(47, 13);
+            this.label3.Size = new System.Drawing.Size(66, 18);
             this.label3.TabIndex = 17;
             this.label3.Text = "Nombre:";
             // 
             // treeView1
             // 
-            this.treeView1.Location = new System.Drawing.Point(926, 160);
+            this.treeView1.Location = new System.Drawing.Point(28, 123);
             this.treeView1.Name = "treeView1";
-            this.treeView1.Size = new System.Drawing.Size(121, 97);
+            this.treeView1.Size = new System.Drawing.Size(402, 472);
             this.treeView1.TabIndex = 31;
             // 
             // panel1
@@ -574,7 +607,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1190, 41);
+            this.panel1.Size = new System.Drawing.Size(1047, 41);
             this.panel1.TabIndex = 32;
             // 
             // btnCerrar
@@ -582,7 +615,7 @@
             this.btnCerrar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCerrar.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnCerrar.Image = ((System.Drawing.Image)(resources.GetObject("btnCerrar.Image")));
-            this.btnCerrar.Location = new System.Drawing.Point(1162, 3);
+            this.btnCerrar.Location = new System.Drawing.Point(1019, 3);
             this.btnCerrar.Name = "btnCerrar";
             this.btnCerrar.Size = new System.Drawing.Size(25, 35);
             this.btnCerrar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -595,7 +628,7 @@
             this.btnMaximizar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnMaximizar.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnMaximizar.Image = ((System.Drawing.Image)(resources.GetObject("btnMaximizar.Image")));
-            this.btnMaximizar.Location = new System.Drawing.Point(1131, 3);
+            this.btnMaximizar.Location = new System.Drawing.Point(988, 3);
             this.btnMaximizar.Name = "btnMaximizar";
             this.btnMaximizar.Size = new System.Drawing.Size(25, 35);
             this.btnMaximizar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -608,7 +641,7 @@
             this.btnMinimizar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnMinimizar.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnMinimizar.Image = ((System.Drawing.Image)(resources.GetObject("btnMinimizar.Image")));
-            this.btnMinimizar.Location = new System.Drawing.Point(1100, 3);
+            this.btnMinimizar.Location = new System.Drawing.Point(957, 3);
             this.btnMinimizar.Name = "btnMinimizar";
             this.btnMinimizar.Size = new System.Drawing.Size(25, 35);
             this.btnMinimizar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -616,21 +649,229 @@
             this.btnMinimizar.TabStop = false;
             this.btnMinimizar.Click += new System.EventHandler(this.btnMinimizar_Click);
             // 
+            // panel2
+            // 
+            this.panel2.BackColor = System.Drawing.Color.Maroon;
+            this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel2.Controls.Add(this.lstPerfiles);
+            this.panel2.Controls.Add(this.btnEliminarPerfil);
+            this.panel2.Controls.Add(this.txtNombrePerfil);
+            this.panel2.Controls.Add(this.btnCrearPerfil);
+            this.panel2.Controls.Add(this.label3);
+            this.panel2.Location = new System.Drawing.Point(13, 51);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(460, 172);
+            this.panel2.TabIndex = 33;
+            // 
+            // panel3
+            // 
+            this.panel3.BackColor = System.Drawing.Color.Maroon;
+            this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel3.Controls.Add(this.lstFamilias);
+            this.panel3.Controls.Add(this.txtNombreFamilia);
+            this.panel3.Controls.Add(this.btnEliminarFamilia);
+            this.panel3.Controls.Add(this.btnCrearFamilia);
+            this.panel3.Controls.Add(this.label2);
+            this.panel3.Location = new System.Drawing.Point(13, 51);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(460, 172);
+            this.panel3.TabIndex = 34;
+            // 
+            // panel4
+            // 
+            this.panel4.BackColor = System.Drawing.Color.Maroon;
+            this.panel4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel4.Controls.Add(this.label16);
+            this.panel4.Controls.Add(this.pnlOpciones);
+            this.panel4.Controls.Add(this.treeView1);
+            this.panel4.Controls.Add(this.panel5);
+            this.panel4.Location = new System.Drawing.Point(22, 67);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(460, 620);
+            this.panel4.TabIndex = 35;
+            // 
+            // pnlOpciones
+            // 
+            this.pnlOpciones.BackColor = System.Drawing.Color.Maroon;
+            this.pnlOpciones.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.pnlOpciones.Controls.Add(this.RbPerfiles);
+            this.pnlOpciones.Controls.Add(this.RbFamilias);
+            this.pnlOpciones.Controls.Add(this.RbPermisos);
+            this.pnlOpciones.Location = new System.Drawing.Point(29, 17);
+            this.pnlOpciones.Name = "pnlOpciones";
+            this.pnlOpciones.Size = new System.Drawing.Size(403, 52);
+            this.pnlOpciones.TabIndex = 32;
+            // 
+            // panel6
+            // 
+            this.panel6.BackColor = System.Drawing.Color.Maroon;
+            this.panel6.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel6.Controls.Add(this.lblBitacora);
+            this.panel6.Location = new System.Drawing.Point(13, 11);
+            this.panel6.Name = "panel6";
+            this.panel6.Size = new System.Drawing.Size(460, 41);
+            this.panel6.TabIndex = 36;
+            // 
+            // lblBitacora
+            // 
+            this.lblBitacora.AutoSize = true;
+            this.lblBitacora.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblBitacora.ForeColor = System.Drawing.SystemColors.Control;
+            this.lblBitacora.Location = new System.Drawing.Point(161, 3);
+            this.lblBitacora.Name = "lblBitacora";
+            this.lblBitacora.Size = new System.Drawing.Size(121, 33);
+            this.lblBitacora.TabIndex = 21;
+            this.lblBitacora.Text = "Perfiles";
+            // 
+            // panel7
+            // 
+            this.panel7.BackColor = System.Drawing.Color.Maroon;
+            this.panel7.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel7.Controls.Add(this.label6);
+            this.panel7.Location = new System.Drawing.Point(13, 11);
+            this.panel7.Name = "panel7";
+            this.panel7.Size = new System.Drawing.Size(460, 41);
+            this.panel7.TabIndex = 37;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.ForeColor = System.Drawing.SystemColors.Control;
+            this.label6.Location = new System.Drawing.Point(154, 3);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(146, 33);
+            this.label6.TabIndex = 21;
+            this.label6.Text = "Permisos";
+            // 
+            // panel8
+            // 
+            this.panel8.BackColor = System.Drawing.Color.Maroon;
+            this.panel8.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel8.Controls.Add(this.label10);
+            this.panel8.Location = new System.Drawing.Point(13, 11);
+            this.panel8.Name = "panel8";
+            this.panel8.Size = new System.Drawing.Size(460, 41);
+            this.panel8.TabIndex = 38;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.ForeColor = System.Drawing.SystemColors.Control;
+            this.label10.Location = new System.Drawing.Point(161, 3);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(134, 33);
+            this.label10.TabIndex = 21;
+            this.label10.Text = "Familias";
+            // 
+            // panel9
+            // 
+            this.panel9.BackColor = System.Drawing.Color.Maroon;
+            this.panel9.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel9.Controls.Add(this.label14);
+            this.panel9.Location = new System.Drawing.Point(13, 238);
+            this.panel9.Name = "panel9";
+            this.panel9.Size = new System.Drawing.Size(460, 41);
+            this.panel9.TabIndex = 39;
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label14.ForeColor = System.Drawing.SystemColors.Control;
+            this.label14.Location = new System.Drawing.Point(109, 3);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(238, 33);
+            this.label14.TabIndex = 21;
+            this.label14.Text = "Gestion Perfiles";
+            // 
+            // panel10
+            // 
+            this.panel10.BackColor = System.Drawing.Color.Maroon;
+            this.panel10.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel10.Controls.Add(this.label15);
+            this.panel10.Location = new System.Drawing.Point(13, 238);
+            this.panel10.Name = "panel10";
+            this.panel10.Size = new System.Drawing.Size(460, 41);
+            this.panel10.TabIndex = 38;
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label15.ForeColor = System.Drawing.SystemColors.Control;
+            this.label15.Location = new System.Drawing.Point(105, 3);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(251, 33);
+            this.label15.TabIndex = 21;
+            this.label15.Text = "Gestion Familias";
+            // 
+            // pnlPermisos
+            // 
+            this.pnlPermisos.Controls.Add(this.panel7);
+            this.pnlPermisos.Controls.Add(this.panelPermisos);
+            this.pnlPermisos.Location = new System.Drawing.Point(34, 709);
+            this.pnlPermisos.Name = "pnlPermisos";
+            this.pnlPermisos.Size = new System.Drawing.Size(470, 233);
+            this.pnlPermisos.TabIndex = 40;
+            // 
+            // pnlPerfiles
+            // 
+            this.pnlPerfiles.Controls.Add(this.panel9);
+            this.pnlPerfiles.Controls.Add(this.panel6);
+            this.pnlPerfiles.Controls.Add(this.panel2);
+            this.pnlPerfiles.Controls.Add(this.panelPerfiles);
+            this.pnlPerfiles.Location = new System.Drawing.Point(510, 56);
+            this.pnlPerfiles.Name = "pnlPerfiles";
+            this.pnlPerfiles.Size = new System.Drawing.Size(484, 647);
+            this.pnlPerfiles.TabIndex = 41;
+            // 
+            // pnlFamilias
+            // 
+            this.pnlFamilias.Controls.Add(this.panel10);
+            this.pnlFamilias.Controls.Add(this.panel8);
+            this.pnlFamilias.Controls.Add(this.panel3);
+            this.pnlFamilias.Controls.Add(this.panelFamilias);
+            this.pnlFamilias.Location = new System.Drawing.Point(510, 709);
+            this.pnlFamilias.Name = "pnlFamilias";
+            this.pnlFamilias.Size = new System.Drawing.Size(484, 645);
+            this.pnlFamilias.TabIndex = 42;
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label16.ForeColor = System.Drawing.SystemColors.Control;
+            this.label16.Location = new System.Drawing.Point(184, 81);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(88, 33);
+            this.label16.TabIndex = 22;
+            this.label16.Text = "Arbol";
+            // 
+            // panel5
+            // 
+            this.panel5.BackColor = System.Drawing.Color.DarkGray;
+            this.panel5.Location = new System.Drawing.Point(29, 123);
+            this.panel5.Name = "panel5";
+            this.panel5.Size = new System.Drawing.Size(401, 471);
+            this.panel5.TabIndex = 33;
+            // 
             // frmGestionPerfiles
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1190, 753);
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
+            this.ClientSize = new System.Drawing.Size(1047, 708);
+            this.Controls.Add(this.pnlFamilias);
+            this.Controls.Add(this.pnlPerfiles);
+            this.Controls.Add(this.pnlPermisos);
+            this.Controls.Add(this.panel4);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.treeView1);
-            this.Controls.Add(this.panelPerfiles);
-            this.Controls.Add(this.panelFamilias);
-            this.Controls.Add(this.panelPermisos);
-            this.Controls.Add(this.RbPerfiles);
-            this.Controls.Add(this.RbFamilias);
-            this.Controls.Add(this.RbPermisos);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "frmGestionPerfiles";
             this.Text = "frmGestionPerfil";
+            this.Load += new System.EventHandler(this.frmGestionPerfiles_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvPermisos)).EndInit();
             this.panelPermisos.ResumeLayout(false);
             this.panelPermisos.PerformLayout();
@@ -642,8 +883,28 @@
             ((System.ComponentModel.ISupportInitialize)(this.btnCerrar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnMaximizar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnMinimizar)).EndInit();
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
+            this.panel3.ResumeLayout(false);
+            this.panel3.PerformLayout();
+            this.panel4.ResumeLayout(false);
+            this.panel4.PerformLayout();
+            this.pnlOpciones.ResumeLayout(false);
+            this.pnlOpciones.PerformLayout();
+            this.panel6.ResumeLayout(false);
+            this.panel6.PerformLayout();
+            this.panel7.ResumeLayout(false);
+            this.panel7.PerformLayout();
+            this.panel8.ResumeLayout(false);
+            this.panel8.PerformLayout();
+            this.panel9.ResumeLayout(false);
+            this.panel9.PerformLayout();
+            this.panel10.ResumeLayout(false);
+            this.panel10.PerformLayout();
+            this.pnlPermisos.ResumeLayout(false);
+            this.pnlPerfiles.ResumeLayout(false);
+            this.pnlFamilias.ResumeLayout(false);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -682,7 +943,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.CheckedListBox clbPermisosDispPerfil;
@@ -696,10 +956,28 @@
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.PictureBox btnCerrar;
         private System.Windows.Forms.PictureBox btnMaximizar;
         private System.Windows.Forms.PictureBox btnMinimizar;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.Panel panel4;
+        private System.Windows.Forms.Panel pnlOpciones;
+        private System.Windows.Forms.Panel panel6;
+        private System.Windows.Forms.Label lblBitacora;
+        private System.Windows.Forms.Panel panel7;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Panel panel8;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Panel panel9;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Panel panel10;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.Panel pnlPermisos;
+        private System.Windows.Forms.Panel pnlPerfiles;
+        private System.Windows.Forms.Panel pnlFamilias;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.Panel panel5;
     }
 }
