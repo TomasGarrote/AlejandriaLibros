@@ -35,17 +35,12 @@ namespace GUI
             RbFamilias.CheckedChanged += RbFamilias_CheckedChanged_1;
             RbPerfiles.CheckedChanged += RbPerfiles_CheckedChanged;
 
-            // !!! CORRECCIÓN AQUÍ: Asegurate de usar los que empiezan con 'pnl'
-            // Si las líneas de abajo ya existen con 'pnl' en tu código, verificalas.
-            // Si existen con 'panel', cambialas por 'pnl'.
             if (!this.Controls.Contains(pnlPermisos)) this.Controls.Add(pnlPermisos);
             if (!this.Controls.Contains(pnlFamilias)) this.Controls.Add(pnlFamilias);
             if (!this.Controls.Contains(pnlPerfiles)) this.Controls.Add(pnlPerfiles);
-            
 
             this.SizeChanged += FrmGestionPerfiles_SizeChanged;
 
-            // Forzar el estado inicial correcto
             RbPermisos.Checked = true;
             SincronizarVisibilidadPaneles();
             CargarDatosFormulario();
@@ -106,7 +101,6 @@ namespace GUI
         {
             int contenedorAncho = this.ClientSize.Width;
 
-            // 1. Identificar cuál panel 'pnl' está activo
             Panel panelActivo = null;
             if (RbPermisos.Checked) panelActivo = pnlPermisos;
             else if (RbFamilias.Checked) panelActivo = pnlFamilias;
@@ -114,15 +108,9 @@ namespace GUI
 
             if (panelActivo != null)
             {
-                // 2. Centrado horizontal idéntico (se mantiene perfecto)
                 int xDelCentro = (contenedorAncho) / 2;
-
-                // 3. NUEVA ALINEACIÓN VERTICAL: 
-                // Tomamos el borde inferior de panel4 y le sumamos un margen de separación (ej. 20 píxeles)
-                int margenSeparacion = 20;
                 int yAlineada = panel4.Top - 10;
 
-                // 4. Aplicamos la posición final (centrado horizontal, alineado vertical a panel4)
                 panelActivo.Location = new Point(xDelCentro, yAlineada);
             }
         }
@@ -167,8 +155,6 @@ namespace GUI
                     : _perfiles.FirstOrDefault();
 
                 SincronizarVisibilidadPaneles();
-
-                // NUEVO
                 RefrescarSeguridad();
             }
             catch (Exception ex)
@@ -183,15 +169,12 @@ namespace GUI
 
         private void SincronizarVisibilidadPaneles()
         {
-            // 1. Sincronizar la visibilidad de los paneles 'pnl' correctos
             pnlPermisos.Visible = RbPermisos.Checked;
             pnlFamilias.Visible = RbFamilias.Checked;
             pnlPerfiles.Visible = RbPerfiles.Checked;
 
-            // 2. Forzar a que el panel que quedó visible se acomode en el centro
             CentrarPanelesContenedores();
 
-            // 3. Cargar los componentes correspondientes en el TreeView
             if (RbPermisos.Checked)
             {
                 treeView1.Visible = false;
