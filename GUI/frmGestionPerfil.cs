@@ -10,6 +10,8 @@ namespace GUI
 {
     public partial class frmGestionPerfiles : Form
     {
+        int posX, posY;
+        bool arrastrando = false;
         private readonly PerfilBLL _bll;
         private readonly string _login;
         private readonly Menu _menuPadre;
@@ -987,6 +989,26 @@ namespace GUI
         private void frmGestionPerfiles_Load(object sender, EventArgs e)
         {
 
+        }
+        private void BarraTitulo_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                arrastrando = true;
+                posX = e.X;
+                posY = e.Y;
+            }
+        }
+        private void BarraTitulo_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (arrastrando)
+            {
+                this.Location = new Point(this.Location.X + (e.X - posX), this.Location.Y + (e.Y - posY));
+            }
+        }
+        private void BarraTitulo_MouseUp(object sender, MouseEventArgs e)
+        {
+            arrastrando = false;
         }
     }
 }
