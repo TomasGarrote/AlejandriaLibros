@@ -103,7 +103,7 @@ namespace BLL
         public void CrearPerfil(string nombre)
         {
             _dal.GuardarFamilia(new Familia { Nombre = nombre, EsRol = true });
-            RegistrarEnBitacora(SessionManager.Instance.UsuarioActual().Username, $"Crear perfil (Rol): {nombre}", 1);
+            RegistrarEnBitacora(SessionManager.Instance.UsuarioActual().Username, $"Crear perfil: {nombre}", 1);
         }
 
         public void EliminarFamiliaOPerfil(string nombre)

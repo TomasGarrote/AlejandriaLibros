@@ -1,6 +1,5 @@
 ﻿using Servicios;
 using Microsoft.Data.SqlClient;
-using Servicios;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -9,7 +8,7 @@ namespace DAL
 {
     public class PerfilDAL : AbstractDAL<Familia>
     {
-        
+
         public List<PermisoSimple> ObtenerPermisos()
         {
             var lista = new List<PermisoSimple>();
@@ -44,7 +43,6 @@ namespace DAL
             {
                 if (_sqlserver.State != ConnectionState.Open) _sqlserver.Open();
 
-              
                 _sqlcommand.CommandText = "SELECT Nombre FROM Familia";
                 using (var reader = _sqlcommand.ExecuteReader())
                 {
@@ -88,7 +86,6 @@ namespace DAL
             var permisosHijos = new List<string>();
             var familiasHijas = new List<string>();
 
-            
             using (var cmdPermisos = new SqlCommand($"SELECT NombrePermiso FROM {tablaPermisos} WHERE {colPadre} = @Padre", _sqlserver))
             {
                 cmdPermisos.Parameters.AddWithValue("@Padre", padre.Nombre);
@@ -116,15 +113,36 @@ namespace DAL
             foreach (var nombreHijo in familiasHijas)
             {
                 var subFamilia = new Familia { Nombre = nombreHijo, EsRol = false };
-                CargarHijosComponente(subFamilia); 
+                CargarHijosComponente(subFamilia);
                 padre.AgregarHijo(subFamilia);
             }
         }
 
-      
+        private bool ExisteNombre(string nombre, string tabla)
+        {
+            using (var cmdCheck = new SqlCommand($"SELECT COUNT(*) FROM {tabla} WHERE Nombre = @Nombre", _sqlserver))
+            {
+                cmdCheck.Parameters.AddWithValue("@Nombre", nombre);
+                try
+                {
+                    if (_sqlserver.State != ConnectionState.Open) _sqlserver.Open();
+                    int count = Convert.ToInt32(cmdCheck.ExecuteScalar());
+                    return count > 0;
+                }
+                finally
+                {
+                    if (_sqlserver.State == ConnectionState.Open) _sqlserver.Close();
+                }
+            }
+        }
 
         public void GuardarPermiso(PermisoSimple permiso)
         {
+            if (ExisteNombre(permiso.Nombre, "PermisoSimple"))
+            {
+                throw new ArgumentException("El permiso con este nombre ya existe en el sistema.");
+            }
+
             _sqlcommand.CommandText = "INSERT INTO PermisoSimple (Nombre) VALUES (@Nombre)";
             _sqlcommand.Parameters.Clear();
             _sqlcommand.Parameters.AddWithValue("@Nombre", permiso.Nombre);
@@ -144,6 +162,13 @@ namespace DAL
         public void GuardarFamilia(Familia familia)
         {
             string tabla = familia.EsRol ? "Perfil" : "Familia";
+
+            if (ExisteNombre(familia.Nombre, tabla))
+            {
+                string tipoComponente = familia.EsRol ? "perfil" : "familia";
+                throw new ArgumentException($"El {tipoComponente} con este nombre ya existe en el sistema.");
+            }
+
             _sqlcommand.CommandText = $"INSERT INTO {tabla} (Nombre) VALUES (@Nombre)";
             _sqlcommand.Parameters.Clear();
             _sqlcommand.Parameters.AddWithValue("@Nombre", familia.Nombre);
@@ -170,11 +195,10 @@ namespace DAL
                 if (_sqlserver.State == ConnectionState.Open) _sqlserver.Close();
             }
         }
-     
+
 
         public bool ElPerfilEstaAsignadoAUsuarios(string nombrePerfil)
         {
-          
             _sqlcommand.CommandText = "SELECT COUNT(*) FROM dbo.Usuario WHERE Rol = @Rol";
             _sqlcommand.Parameters.Clear();
             _sqlcommand.Parameters.AddWithValue("@Rol", nombrePerfil);
@@ -194,7 +218,6 @@ namespace DAL
 
         public bool LaFamiliaEstaEnUsoComoHijo(string nombreFamilia)
         {
-           
             _sqlcommand.CommandText = @"
         SELECT COUNT(*) FROM (
             SELECT NombreHijo FROM Familia_Familia WHERE NombreHijo = @Nombre
@@ -277,7 +300,7 @@ namespace DAL
             }
         }
 
-       
+
         private void EjecutarNonQuery()
         {
             try
