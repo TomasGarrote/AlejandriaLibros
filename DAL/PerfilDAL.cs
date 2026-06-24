@@ -6,7 +6,7 @@ using System.Data;
 
 namespace DAL
 {
-    public class PerfilDAL : AbstractDAL<Familia>
+    public class PerfilDAL : AbstractDAL<ComponentePermiso>
     {
 
         public List<PermisoSimple> ObtenerPermisos()
@@ -197,48 +197,7 @@ namespace DAL
         }
 
 
-        public bool ElPerfilEstaAsignadoAUsuarios(string nombrePerfil)
-        {
-            _sqlcommand.CommandText = "SELECT COUNT(*) FROM dbo.Usuario WHERE Rol = @Rol";
-            _sqlcommand.Parameters.Clear();
-            _sqlcommand.Parameters.AddWithValue("@Rol", nombrePerfil);
 
-            try
-            {
-                if (_sqlserver.State != ConnectionState.Open) _sqlserver.Open();
-                int cantidad = (int)_sqlcommand.ExecuteScalar();
-                return cantidad > 0;
-            }
-            finally
-            {
-                if (_sqlserver.State == ConnectionState.Open) _sqlserver.Close();
-                _sqlcommand.Parameters.Clear();
-            }
-        }
-
-        public bool LaFamiliaEstaEnUsoComoHijo(string nombreFamilia)
-        {
-            _sqlcommand.CommandText = @"
-        SELECT COUNT(*) FROM (
-            SELECT NombreHijo FROM Familia_Familia WHERE NombreHijo = @Nombre
-            UNION ALL
-            SELECT NombreFamilia FROM Perfil_Familia WHERE NombreFamilia = @Nombre
-        ) AS Usos";
-            _sqlcommand.Parameters.Clear();
-            _sqlcommand.Parameters.AddWithValue("@Nombre", nombreFamilia);
-
-            try
-            {
-                if (_sqlserver.State != ConnectionState.Open) _sqlserver.Open();
-                int cantidad = (int)_sqlcommand.ExecuteScalar();
-                return cantidad > 0;
-            }
-            finally
-            {
-                if (_sqlserver.State == ConnectionState.Open) _sqlserver.Close();
-                _sqlcommand.Parameters.Clear();
-            }
-        }
 
         public void GuardarRelaciones(Familia padre)
         {
