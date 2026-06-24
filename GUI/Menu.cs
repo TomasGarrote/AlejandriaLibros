@@ -166,9 +166,7 @@ namespace GUI
         private void btnPerfiles_Click(object sender, EventArgs e)
         {
             this.Hide();
-            string username = SessionManager.Instance.UsuarioActual().Username;
-
-            frmGestionPerfiles gestionPerfiles = new frmGestionPerfiles(username);
+            frmGestionPerfiles gestionPerfiles = new frmGestionPerfiles();
             gestionPerfiles.Show();
         }
 

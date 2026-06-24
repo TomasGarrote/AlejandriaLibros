@@ -13,7 +13,6 @@ namespace GUI
         int posX, posY;
         bool arrastrando = false;
         private readonly PerfilBLL _bll;
-        private readonly string _login;
         private readonly Menu _menuPadre;
 
         private List<PermisoSimple> _permisos = new List<PermisoSimple>();
@@ -23,11 +22,11 @@ namespace GUI
         private Familia _familiaSeleccionada = null;
         private Familia _perfilSeleccionado = null;
 
-        public frmGestionPerfiles(string login)
+        public frmGestionPerfiles()
         {
             InitializeComponent();
             _bll = new PerfilBLL();
-            _login = login;
+       
 
             ValidarPermisos();
 
@@ -35,17 +34,12 @@ namespace GUI
             RbFamilias.CheckedChanged += RbFamilias_CheckedChanged_1;
             RbPerfiles.CheckedChanged += RbPerfiles_CheckedChanged;
 
-            // !!! CORRECCIÓN AQUÍ: Asegurate de usar los que empiezan con 'pnl'
-            // Si las líneas de abajo ya existen con 'pnl' en tu código, verificalas.
-            // Si existen con 'panel', cambialas por 'pnl'.
             if (!this.Controls.Contains(pnlPermisos)) this.Controls.Add(pnlPermisos);
             if (!this.Controls.Contains(pnlFamilias)) this.Controls.Add(pnlFamilias);
             if (!this.Controls.Contains(pnlPerfiles)) this.Controls.Add(pnlPerfiles);
-            
 
             this.SizeChanged += FrmGestionPerfiles_SizeChanged;
 
-            // Forzar el estado inicial correcto
             RbPermisos.Checked = true;
             SincronizarVisibilidadPaneles();
             CargarDatosFormulario();
@@ -106,7 +100,6 @@ namespace GUI
         {
             int contenedorAncho = this.ClientSize.Width;
 
-            // 1. Identificar cuál panel 'pnl' está activo
             Panel panelActivo = null;
             if (RbPermisos.Checked) panelActivo = pnlPermisos;
             else if (RbFamilias.Checked) panelActivo = pnlFamilias;
@@ -114,15 +107,9 @@ namespace GUI
 
             if (panelActivo != null)
             {
-                // 2. Centrado horizontal idéntico (se mantiene perfecto)
                 int xDelCentro = (contenedorAncho) / 2;
-
-                // 3. NUEVA ALINEACIÓN VERTICAL: 
-                // Tomamos el borde inferior de panel4 y le sumamos un margen de separación (ej. 20 píxeles)
-                int margenSeparacion = 20;
                 int yAlineada = panel4.Top - 10;
 
-                // 4. Aplicamos la posición final (centrado horizontal, alineado vertical a panel4)
                 panelActivo.Location = new Point(xDelCentro, yAlineada);
             }
         }
@@ -167,8 +154,6 @@ namespace GUI
                     : _perfiles.FirstOrDefault();
 
                 SincronizarVisibilidadPaneles();
-
-                // NUEVO
                 RefrescarSeguridad();
             }
             catch (Exception ex)
@@ -183,15 +168,12 @@ namespace GUI
 
         private void SincronizarVisibilidadPaneles()
         {
-            // 1. Sincronizar la visibilidad de los paneles 'pnl' correctos
             pnlPermisos.Visible = RbPermisos.Checked;
             pnlFamilias.Visible = RbFamilias.Checked;
             pnlPerfiles.Visible = RbPerfiles.Checked;
 
-            // 2. Forzar a que el panel que quedó visible se acomode en el centro
             CentrarPanelesContenedores();
 
-            // 3. Cargar los componentes correspondientes en el TreeView
             if (RbPermisos.Checked)
             {
                 treeView1.Visible = false;
@@ -233,7 +215,7 @@ namespace GUI
 
             try
             {
-                _bll.CrearPermiso(nombre, _login);
+                _bll.CrearPermiso(nombre);
                 txtNombrePermiso.Clear();
                 CargarDatosFormulario();
                 MessageBox.Show($"{LanguageManager.Instance.GetTraduction("Permisomsjp")} '{nombre}' {LanguageManager.Instance.GetTraduction("CreadoExitoP")}", LanguageManager.Instance.GetTraduction("ExitoP"), MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -250,7 +232,7 @@ namespace GUI
 
             try
             {
-                _bll.EliminarPermiso(nombre, _login);
+                _bll.EliminarPermiso(nombre);
                 CargarDatosFormulario();
             }
             catch (Exception ex) { MessageBox.Show(ex.Message); }
@@ -319,7 +301,7 @@ namespace GUI
 
             try
             {
-                _bll.CrearFamilia(nombre, _login);
+                _bll.CrearFamilia(nombre);
                 txtNombreFamilia.Clear();
                 CargarDatosFormulario();
                 MessageBox.Show($"{LanguageManager.Instance.GetTraduction("Familiap")} '{nombre}' {LanguageManager.Instance.GetTraduction("CreadoExitoP")}", LanguageManager.Instance.GetTraduction("ExitoP"), MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -335,7 +317,7 @@ namespace GUI
 
             foreach (var permiso in seleccionados)
             {
-                var res = _bll.AsignarComponentesHijos(_familiaSeleccionada.Nombre, new List<string> { permiso }, true, _login);
+                var res = _bll.AsignarComponentesHijos(_familiaSeleccionada.Nombre, new List<string> { permiso }, true);
 
                 if (res.Estado == EstadoAsignacion.ConflictoPermisos)
                 {
@@ -347,8 +329,8 @@ namespace GUI
                         {
                             if (estrategia == "RESOLVER")
                             {
-                                _bll.EliminarPermisoRedundanteDeNodoContenedor(_familiaSeleccionada.Nombre, new List<string> { permiso }, _login);
-                                var reintento = _bll.AsignarComponentesHijos(_familiaSeleccionada.Nombre, new List<string> { permiso }, true, _login);
+                                _bll.EliminarPermisoRedundanteDeNodoContenedor(_familiaSeleccionada.Nombre, new List<string> { permiso });
+                                var reintento = _bll.AsignarComponentesHijos(_familiaSeleccionada.Nombre, new List<string> { permiso }, true);
                                 if (reintento.Estado == EstadoAsignacion.Ok)
                                 {
                                     MessageBox.Show($"{LanguageManager.Instance.GetTraduction("Permisomsjp")} '{permiso}' {LanguageManager.Instance.GetTraduction("UcExitoEnLaRaizp")} '{_familiaSeleccionada.Nombre}' {LanguageManager.Instance.GetTraduction("RemovidoDeSubfami")}", LanguageManager.Instance.GetTraduction("ExitoP"));
@@ -372,8 +354,8 @@ namespace GUI
                         {
                             if (estrategia == "RESOLVER")
                             {
-                                _bll.EliminarPermisoDeContenedorEspecifico(contenedorDirecto, perm, _login);
-                                var reintento = _bll.AsignarComponentesHijos(nodoDest, new List<string> { perm }, true, _login);
+                                _bll.EliminarPermisoDeContenedorEspecifico(contenedorDirecto, perm);
+                                var reintento = _bll.AsignarComponentesHijos(nodoDest, new List<string> { perm }, true);
                                 if (reintento.Estado == EstadoAsignacion.Ok)
                                 {
                                     MessageBox.Show($"{LanguageManager.Instance.GetTraduction("Permisomsjp")} '{perm}' {LanguageManager.Instance.GetTraduction("AsConExitoaP")} '{nodoDest}' {LanguageManager.Instance.GetTraduction("TrasResolverRedun")}", LanguageManager.Instance.GetTraduction("TrasResolverRedun"));
@@ -399,7 +381,7 @@ namespace GUI
             var seleccionados = clbPermisosAsig.CheckedItems.Cast<PermisoSimple>().Select(p => p.Nombre).ToList();
             if (!seleccionados.Any()) return;
 
-            _bll.QuitarHijos(_familiaSeleccionada.Nombre, seleccionados, true, _login);
+            _bll.QuitarHijos(_familiaSeleccionada.Nombre, seleccionados, true);
             CargarDatosFormulario();
             MessageBox.Show(LanguageManager.Instance.GetTraduction("PermisosRemovep"), LanguageManager.Instance.GetTraduction("ExitoP"));
         }
@@ -412,7 +394,7 @@ namespace GUI
 
             foreach (var subfamiliaHijo in seleccionadas)
             {
-                var res = _bll.AsignarComponentesHijos(_familiaSeleccionada.Nombre, new List<string> { subfamiliaHijo }, false, _login);
+                var res = _bll.AsignarComponentesHijos(_familiaSeleccionada.Nombre, new List<string> { subfamiliaHijo }, false);
 
                 if (res.Estado == EstadoAsignacion.ConflictoPermisos)
                 {
@@ -429,8 +411,8 @@ namespace GUI
                         {
                             if (estrategia == "RESOLVER")
                             {
-                                _bll.EliminarPermisoRedundanteDeNodoContenedor(_familiaSeleccionada.Nombre, permisosConflictivos, _login);
-                                var reintento = _bll.AsignarComponentesHijos(_familiaSeleccionada.Nombre, new List<string> { subfamiliaHijo }, false, _login);
+                                _bll.EliminarPermisoRedundanteDeNodoContenedor(_familiaSeleccionada.Nombre, permisosConflictivos);
+                                var reintento = _bll.AsignarComponentesHijos(_familiaSeleccionada.Nombre, new List<string> { subfamiliaHijo }, false);
                                 if (reintento.Estado == EstadoAsignacion.Ok)
                                 {
                                     MessageBox.Show($"'{subfamiliaHijo}' {LanguageManager.Instance.GetTraduction("AsigCorrecmsjP")}", LanguageManager.Instance.GetTraduction("ExitoP"));
@@ -456,7 +438,7 @@ namespace GUI
             var seleccionadas = clbSubfamiliasAsig.CheckedItems.Cast<Familia>().Select(f => f.Nombre).ToList();
             if (!seleccionadas.Any()) return;
 
-            _bll.QuitarHijos(_familiaSeleccionada.Nombre, seleccionadas, false, _login);
+            _bll.QuitarHijos(_familiaSeleccionada.Nombre, seleccionadas, false);
             CargarDatosFormulario();
             MessageBox.Show(LanguageManager.Instance.GetTraduction("SubFamiliaRemovep"), LanguageManager.Instance.GetTraduction("ExitoP"));
         }
@@ -468,7 +450,7 @@ namespace GUI
 
             try
             {
-                _bll.EliminarFamiliaOPerfil(_familiaSeleccionada.Nombre, _login);
+                _bll.EliminarFamiliaOPerfil(_familiaSeleccionada.Nombre);
 
                 string nombreEliminado = _familiaSeleccionada.Nombre;
                 _familiaSeleccionada = null;
@@ -545,7 +527,7 @@ namespace GUI
 
             try
             {
-                _bll.CrearPerfil(nombre, _login);
+                _bll.CrearPerfil(nombre);
                 txtNombrePerfil.Clear();
                 CargarDatosFormulario();
                 MessageBox.Show($"{LanguageManager.Instance.GetTraduction("PerfilmsjP")} '{nombre}'{LanguageManager.Instance.GetTraduction("CreadoExitoP")}", LanguageManager.Instance.GetTraduction("ExitoP"), MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -561,7 +543,7 @@ namespace GUI
 
             foreach (var familia in seleccionados)
             {
-                var res = _bll.AsignarComponentesHijos(_perfilSeleccionado.Nombre, new List<string> { familia }, false, _login);
+                var res = _bll.AsignarComponentesHijos(_perfilSeleccionado.Nombre, new List<string> { familia }, false);
 
                 if (res.Estado == EstadoAsignacion.ConflictoPermisos)
                 {
@@ -578,8 +560,8 @@ namespace GUI
                         {
                             if (estrategia == "RESOLVER")
                             {
-                                _bll.EliminarPermisoRedundanteDeNodoContenedor(_perfilSeleccionado.Nombre, permisosConflictivos, _login);
-                                var reintento = _bll.AsignarComponentesHijos(_perfilSeleccionado.Nombre, new List<string> { subFamiliaConflictiva }, false, _login);
+                                _bll.EliminarPermisoRedundanteDeNodoContenedor(_perfilSeleccionado.Nombre, permisosConflictivos);
+                                var reintento = _bll.AsignarComponentesHijos(_perfilSeleccionado.Nombre, new List<string> { subFamiliaConflictiva }, false);
                                 if (reintento.Estado == EstadoAsignacion.Ok)
                                 {
                                     MessageBox.Show($"{LanguageManager.Instance.GetTraduction("Familiap")} '{subFamiliaConflictiva}' {LanguageManager.Instance.GetTraduction("integradaAlPerfilExitosamentep")}", LanguageManager.Instance.GetTraduction("ExitoP"));
@@ -605,7 +587,7 @@ namespace GUI
             var seleccionadas = clbFamiliasAsigPerfil.CheckedItems.Cast<Familia>().Select(f => f.Nombre).ToList();
             if (!seleccionadas.Any()) return;
 
-            _bll.QuitarHijos(_perfilSeleccionado.Nombre, seleccionadas, false, _login);
+            _bll.QuitarHijos(_perfilSeleccionado.Nombre, seleccionadas, false);
             CargarDatosFormulario();
             MessageBox.Show(LanguageManager.Instance.GetTraduction("FamiRemovep"), LanguageManager.Instance.GetTraduction("ExitoP"));
         }
@@ -618,7 +600,7 @@ namespace GUI
 
             foreach (var permiso in seleccionados)
             {
-                var res = _bll.AsignarComponentesHijos(_perfilSeleccionado.Nombre, new List<string> { permiso }, true, _login);
+                var res = _bll.AsignarComponentesHijos(_perfilSeleccionado.Nombre, new List<string> { permiso }, true);
 
                 if (res.Estado == EstadoAsignacion.ConflictoPermisos)
                 {
@@ -630,8 +612,8 @@ namespace GUI
                         {
                             if (estrategia == "RESOLVER")
                             {
-                                _bll.EliminarPermisoRedundanteDeNodoContenedor(_perfilSeleccionado.Nombre, new List<string> { permiso }, _login);
-                                var reintento = _bll.AsignarComponentesHijos(_perfilSeleccionado.Nombre, new List<string> { permiso }, true, _login);
+                                _bll.EliminarPermisoRedundanteDeNodoContenedor(_perfilSeleccionado.Nombre, new List<string> { permiso });
+                                var reintento = _bll.AsignarComponentesHijos(_perfilSeleccionado.Nombre, new List<string> { permiso }, true);
                                 if (reintento.Estado == EstadoAsignacion.Ok)
                                 {
                                     MessageBox.Show($"{LanguageManager.Instance.GetTraduction("Permisomsjp")} '{permiso}' {LanguageManager.Instance.GetTraduction("UnifiConExitoRaizFamilia")} '{_perfilSeleccionado.Nombre}' {LanguageManager.Instance.GetTraduction("YRemoveDeSusFamilp")}", LanguageManager.Instance.GetTraduction("ExitoP"));
@@ -655,8 +637,8 @@ namespace GUI
                         {
                             if (estrategia == "RESOLVER")
                             {
-                                _bll.EliminarPermisoDeContenedorEspecifico(contenedorDirecto, perm, _login);
-                                var reintento = _bll.AsignarComponentesHijos(nodoDest, new List<string> { perm }, true, _login);
+                                _bll.EliminarPermisoDeContenedorEspecifico(contenedorDirecto, perm);
+                                var reintento = _bll.AsignarComponentesHijos(nodoDest, new List<string> { perm }, true);
                                 if (reintento.Estado == EstadoAsignacion.Ok)
                                 {
                                     MessageBox.Show($"{LanguageManager.Instance.GetTraduction("Permisomsjp")} '{perm}' {LanguageManager.Instance.GetTraduction("UnificandoExtoPermisop")} '{nodoDest}'.", LanguageManager.Instance.GetTraduction("ExitoP"));
@@ -682,7 +664,7 @@ namespace GUI
             var seleccionados = clbPermisosAsigPerfil.CheckedItems.Cast<PermisoSimple>().Select(p => p.Nombre).ToList();
             if (!seleccionados.Any()) return;
 
-            _bll.QuitarHijos(_perfilSeleccionado.Nombre, seleccionados, true, _login);
+            _bll.QuitarHijos(_perfilSeleccionado.Nombre, seleccionados, true);
             CargarDatosFormulario();
             MessageBox.Show(LanguageManager.Instance.GetTraduction("PermisosRemovep"), LanguageManager.Instance.GetTraduction("ExitoP"));
         }
@@ -694,7 +676,7 @@ namespace GUI
 
             try
             {
-                _bll.EliminarFamiliaOPerfil(_perfilSeleccionado.Nombre, _login);
+                _bll.EliminarFamiliaOPerfil(_perfilSeleccionado.Nombre);
 
                 string nombreEliminado = _perfilSeleccionado.Nombre;
                 _perfilSeleccionado = null;
