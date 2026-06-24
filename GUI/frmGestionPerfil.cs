@@ -13,7 +13,6 @@ namespace GUI
         int posX, posY;
         bool arrastrando = false;
         private readonly PerfilBLL _bll;
-        private readonly string _login;
         private readonly Menu _menuPadre;
 
         private List<PermisoSimple> _permisos = new List<PermisoSimple>();
@@ -23,11 +22,11 @@ namespace GUI
         private Familia _familiaSeleccionada = null;
         private Familia _perfilSeleccionado = null;
 
-        public frmGestionPerfiles(string login)
+        public frmGestionPerfiles()
         {
             InitializeComponent();
             _bll = new PerfilBLL();
-            _login = login;
+       
 
             ValidarPermisos();
 
@@ -216,7 +215,7 @@ namespace GUI
 
             try
             {
-                _bll.CrearPermiso(nombre, _login);
+                _bll.CrearPermiso(nombre);
                 txtNombrePermiso.Clear();
                 CargarDatosFormulario();
                 MessageBox.Show($"Permiso '{nombre}' creado con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -233,7 +232,7 @@ namespace GUI
 
             try
             {
-                _bll.EliminarPermiso(nombre, _login);
+                _bll.EliminarPermiso(nombre);
                 CargarDatosFormulario();
             }
             catch (Exception ex) { MessageBox.Show(ex.Message); }
@@ -302,7 +301,7 @@ namespace GUI
 
             try
             {
-                _bll.CrearFamilia(nombre, _login);
+                _bll.CrearFamilia(nombre);
                 txtNombreFamilia.Clear();
                 CargarDatosFormulario();
                 MessageBox.Show($"Familia '{nombre}' creada con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -318,7 +317,7 @@ namespace GUI
 
             foreach (var permiso in seleccionados)
             {
-                var res = _bll.AsignarComponentesHijos(_familiaSeleccionada.Nombre, new List<string> { permiso }, true, _login);
+                var res = _bll.AsignarComponentesHijos(_familiaSeleccionada.Nombre, new List<string> { permiso }, true);
 
                 if (res.Estado == EstadoAsignacion.ConflictoPermisos)
                 {
@@ -330,8 +329,8 @@ namespace GUI
                         {
                             if (estrategia == "RESOLVER")
                             {
-                                _bll.EliminarPermisoRedundanteDeNodoContenedor(_familiaSeleccionada.Nombre, new List<string> { permiso }, _login);
-                                var reintento = _bll.AsignarComponentesHijos(_familiaSeleccionada.Nombre, new List<string> { permiso }, true, _login);
+                                _bll.EliminarPermisoRedundanteDeNodoContenedor(_familiaSeleccionada.Nombre, new List<string> { permiso });
+                                var reintento = _bll.AsignarComponentesHijos(_familiaSeleccionada.Nombre, new List<string> { permiso }, true);
                                 if (reintento.Estado == EstadoAsignacion.Ok)
                                 {
                                     MessageBox.Show($"Permiso '{permiso}' unificado con éxito en la raíz '{_familiaSeleccionada.Nombre}' y removido de las subfamilias.", "Éxito");
@@ -355,8 +354,8 @@ namespace GUI
                         {
                             if (estrategia == "RESOLVER")
                             {
-                                _bll.EliminarPermisoDeContenedorEspecifico(contenedorDirecto, perm, _login);
-                                var reintento = _bll.AsignarComponentesHijos(nodoDest, new List<string> { perm }, true, _login);
+                                _bll.EliminarPermisoDeContenedorEspecifico(contenedorDirecto, perm);
+                                var reintento = _bll.AsignarComponentesHijos(nodoDest, new List<string> { perm }, true);
                                 if (reintento.Estado == EstadoAsignacion.Ok)
                                 {
                                     MessageBox.Show($"Permiso '{perm}' asignado con éxito a '{nodoDest}' tras resolver la redundancia.", "Éxito");
@@ -382,7 +381,7 @@ namespace GUI
             var seleccionados = clbPermisosAsig.CheckedItems.Cast<PermisoSimple>().Select(p => p.Nombre).ToList();
             if (!seleccionados.Any()) return;
 
-            _bll.QuitarHijos(_familiaSeleccionada.Nombre, seleccionados, true, _login);
+            _bll.QuitarHijos(_familiaSeleccionada.Nombre, seleccionados, true);
             CargarDatosFormulario();
             MessageBox.Show("Permisos removidos.", "Éxito");
         }
@@ -395,7 +394,7 @@ namespace GUI
 
             foreach (var subfamiliaHijo in seleccionadas)
             {
-                var res = _bll.AsignarComponentesHijos(_familiaSeleccionada.Nombre, new List<string> { subfamiliaHijo }, false, _login);
+                var res = _bll.AsignarComponentesHijos(_familiaSeleccionada.Nombre, new List<string> { subfamiliaHijo }, false);
 
                 if (res.Estado == EstadoAsignacion.ConflictoPermisos)
                 {
@@ -412,8 +411,8 @@ namespace GUI
                         {
                             if (estrategia == "RESOLVER")
                             {
-                                _bll.EliminarPermisoRedundanteDeNodoContenedor(_familiaSeleccionada.Nombre, permisosConflictivos, _login);
-                                var reintento = _bll.AsignarComponentesHijos(_familiaSeleccionada.Nombre, new List<string> { subfamiliaHijo }, false, _login);
+                                _bll.EliminarPermisoRedundanteDeNodoContenedor(_familiaSeleccionada.Nombre, permisosConflictivos);
+                                var reintento = _bll.AsignarComponentesHijos(_familiaSeleccionada.Nombre, new List<string> { subfamiliaHijo }, false);
                                 if (reintento.Estado == EstadoAsignacion.Ok)
                                 {
                                     MessageBox.Show($"'{subfamiliaHijo}' asignado correctamente.", "Éxito");
@@ -439,7 +438,7 @@ namespace GUI
             var seleccionadas = clbSubfamiliasAsig.CheckedItems.Cast<Familia>().Select(f => f.Nombre).ToList();
             if (!seleccionadas.Any()) return;
 
-            _bll.QuitarHijos(_familiaSeleccionada.Nombre, seleccionadas, false, _login);
+            _bll.QuitarHijos(_familiaSeleccionada.Nombre, seleccionadas, false);
             CargarDatosFormulario();
             MessageBox.Show("Subfamilias removidas.", "Éxito");
         }
@@ -451,7 +450,7 @@ namespace GUI
 
             try
             {
-                _bll.EliminarFamiliaOPerfil(_familiaSeleccionada.Nombre, _login);
+                _bll.EliminarFamiliaOPerfil(_familiaSeleccionada.Nombre);
 
                 string nombreEliminado = _familiaSeleccionada.Nombre;
                 _familiaSeleccionada = null;
@@ -528,7 +527,7 @@ namespace GUI
 
             try
             {
-                _bll.CrearPerfil(nombre, _login);
+                _bll.CrearPerfil(nombre);
                 txtNombrePerfil.Clear();
                 CargarDatosFormulario();
                 MessageBox.Show($"Perfil '{nombre}' creado con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -544,7 +543,7 @@ namespace GUI
 
             foreach (var familia in seleccionados)
             {
-                var res = _bll.AsignarComponentesHijos(_perfilSeleccionado.Nombre, new List<string> { familia }, false, _login);
+                var res = _bll.AsignarComponentesHijos(_perfilSeleccionado.Nombre, new List<string> { familia }, false);
 
                 if (res.Estado == EstadoAsignacion.ConflictoPermisos)
                 {
@@ -561,8 +560,8 @@ namespace GUI
                         {
                             if (estrategia == "RESOLVER")
                             {
-                                _bll.EliminarPermisoRedundanteDeNodoContenedor(_perfilSeleccionado.Nombre, permisosConflictivos, _login);
-                                var reintento = _bll.AsignarComponentesHijos(_perfilSeleccionado.Nombre, new List<string> { subFamiliaConflictiva }, false, _login);
+                                _bll.EliminarPermisoRedundanteDeNodoContenedor(_perfilSeleccionado.Nombre, permisosConflictivos);
+                                var reintento = _bll.AsignarComponentesHijos(_perfilSeleccionado.Nombre, new List<string> { subFamiliaConflictiva }, false);
                                 if (reintento.Estado == EstadoAsignacion.Ok)
                                 {
                                     MessageBox.Show($"Familia '{subFamiliaConflictiva}' integrada al perfil con éxito tras purgar redundancias.", "Éxito");
@@ -588,7 +587,7 @@ namespace GUI
             var seleccionadas = clbFamiliasAsigPerfil.CheckedItems.Cast<Familia>().Select(f => f.Nombre).ToList();
             if (!seleccionadas.Any()) return;
 
-            _bll.QuitarHijos(_perfilSeleccionado.Nombre, seleccionadas, false, _login);
+            _bll.QuitarHijos(_perfilSeleccionado.Nombre, seleccionadas, false);
             CargarDatosFormulario();
             MessageBox.Show("Familias removidas.", "Éxito");
         }
@@ -601,7 +600,7 @@ namespace GUI
 
             foreach (var permiso in seleccionados)
             {
-                var res = _bll.AsignarComponentesHijos(_perfilSeleccionado.Nombre, new List<string> { permiso }, true, _login);
+                var res = _bll.AsignarComponentesHijos(_perfilSeleccionado.Nombre, new List<string> { permiso }, true);
 
                 if (res.Estado == EstadoAsignacion.ConflictoPermisos)
                 {
@@ -613,8 +612,8 @@ namespace GUI
                         {
                             if (estrategia == "RESOLVER")
                             {
-                                _bll.EliminarPermisoRedundanteDeNodoContenedor(_perfilSeleccionado.Nombre, new List<string> { permiso }, _login);
-                                var reintento = _bll.AsignarComponentesHijos(_perfilSeleccionado.Nombre, new List<string> { permiso }, true, _login);
+                                _bll.EliminarPermisoRedundanteDeNodoContenedor(_perfilSeleccionado.Nombre, new List<string> { permiso });
+                                var reintento = _bll.AsignarComponentesHijos(_perfilSeleccionado.Nombre, new List<string> { permiso }, true);
                                 if (reintento.Estado == EstadoAsignacion.Ok)
                                 {
                                     MessageBox.Show($"Permiso '{permiso}' unificado con éxito en la raíz del perfil '{_perfilSeleccionado.Nombre}' y removido de sus subfamilias.", "Éxito");
@@ -638,8 +637,8 @@ namespace GUI
                         {
                             if (estrategia == "RESOLVER")
                             {
-                                _bll.EliminarPermisoDeContenedorEspecifico(contenedorDirecto, perm, _login);
-                                var reintento = _bll.AsignarComponentesHijos(nodoDest, new List<string> { perm }, true, _login);
+                                _bll.EliminarPermisoDeContenedorEspecifico(contenedorDirecto, perm);
+                                var reintento = _bll.AsignarComponentesHijos(nodoDest, new List<string> { perm }, true);
                                 if (reintento.Estado == EstadoAsignacion.Ok)
                                 {
                                     MessageBox.Show($"Permiso '{perm}' unificado con éxito en el perfil '{nodoDest}'.", "Éxito");
@@ -665,7 +664,7 @@ namespace GUI
             var seleccionados = clbPermisosAsigPerfil.CheckedItems.Cast<PermisoSimple>().Select(p => p.Nombre).ToList();
             if (!seleccionados.Any()) return;
 
-            _bll.QuitarHijos(_perfilSeleccionado.Nombre, seleccionados, true, _login);
+            _bll.QuitarHijos(_perfilSeleccionado.Nombre, seleccionados, true);
             CargarDatosFormulario();
             MessageBox.Show("Permisos removidos.", "Éxito");
         }
@@ -677,7 +676,7 @@ namespace GUI
 
             try
             {
-                _bll.EliminarFamiliaOPerfil(_perfilSeleccionado.Nombre, _login);
+                _bll.EliminarFamiliaOPerfil(_perfilSeleccionado.Nombre);
 
                 string nombreEliminado = _perfilSeleccionado.Nombre;
                 _perfilSeleccionado = null;

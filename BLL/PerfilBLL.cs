@@ -81,43 +81,43 @@ namespace BLL
             catch { }
         }
 
-        public void CrearPermiso(string nombre, string usuario)
+        public void CrearPermiso(string nombre)
         {
             _dal.GuardarPermiso(new PermisoSimple { Nombre = nombre });
-            RegistrarEnBitacora(usuario, $"Crear permiso simple: {nombre}", 1);
+            RegistrarEnBitacora(SessionManager.Instance.UsuarioActual().Username, $"Crear permiso simple: {nombre}", 1);
         }
 
-        public void EliminarPermiso(string nombre, string usuario)
+        public void EliminarPermiso(string nombre)
         {
             _dal.EliminarPermiso(nombre);
-            RegistrarEnBitacora(usuario, $"Eliminar permiso simple: {nombre}", 1);
+            RegistrarEnBitacora(SessionManager.Instance.UsuarioActual().Username, $"Eliminar permiso simple: {nombre}", 1);
             RecargarPermisosUsuarioEnSesion();
         }
 
-        public void CrearFamilia(string nombre, string usuario)
+        public void CrearFamilia(string nombre)
         {
             _dal.GuardarFamilia(new Familia { Nombre = nombre, EsRol = false });
-            RegistrarEnBitacora(usuario, $"Crear familia: {nombre}", 1);
+            RegistrarEnBitacora(SessionManager.Instance.UsuarioActual().Username, $"Crear familia: {nombre}", 1);
         }
 
-        public void CrearPerfil(string nombre, string usuario)
+        public void CrearPerfil(string nombre)
         {
             _dal.GuardarFamilia(new Familia { Nombre = nombre, EsRol = true });
-            RegistrarEnBitacora(usuario, $"Crear perfil (Rol): {nombre}", 1);
+            RegistrarEnBitacora(SessionManager.Instance.UsuarioActual().Username, $"Crear perfil (Rol): {nombre}", 1);
         }
 
-        public void EliminarFamiliaOPerfil(string nombre, string usuario)
+        public void EliminarFamiliaOPerfil(string nombre)
         {
             var familia = _dal.ObtenerFamiliasYPerfiles().FirstOrDefault(f => f.Nombre == nombre);
             if (familia != null)
             {
                 _dal.EliminarFamilia(familia);
-                RegistrarEnBitacora(usuario, $"Eliminar contenedor jerárquico: {nombre}", 1);
+                RegistrarEnBitacora(SessionManager.Instance.UsuarioActual().Username, $"Eliminar contenedor jerárquico: {nombre}", 1);
                 RecargarPermisosUsuarioEnSesion();
             }
         }
 
-        public void QuitarHijos(string nombrePadre, List<string> hijos, bool esPermisoSimple, string usuario)
+        public void QuitarHijos(string nombrePadre, List<string> hijos, bool esPermisoSimple)
         {
             var padre = _dal.ObtenerFamiliasYPerfiles().FirstOrDefault(f => f.Nombre == nombrePadre);
             if (padre == null) return;
@@ -136,13 +136,13 @@ namespace BLL
             foreach (var hijo in hijos)
             {
                 string tipoNodo = esPermisoSimple ? "Permiso Simple" : "Subfamilia";
-                RegistrarEnBitacora(usuario, $"Desvincular {tipoNodo} '{hijo}' del contenedor '{nombrePadre}'", 1);
+                RegistrarEnBitacora(SessionManager.Instance.UsuarioActual().Username, $"Desvincular {tipoNodo} '{hijo}' del contenedor '{nombrePadre}'", 1);
             }
 
             RecargarPermisosUsuarioEnSesion();
         }
 
-        public void EliminarPermisoRedundanteDeNodoContenedor(string nombreContenedorRaiz, List<string> permisosComponentes, string usuario)
+        public void EliminarPermisoRedundanteDeNodoContenedor(string nombreContenedorRaiz, List<string> permisosComponentes)
         {
             try
             {
@@ -165,7 +165,7 @@ namespace BLL
                                 _dal.GuardarRelaciones(contenedor);
                             }
                         }
-                        RegistrarEnBitacora(usuario, $"Mitigación de redundancia: Remoción del permiso '{permiso}' en subnodo '{contenedorDirecto}'", 2);
+                        RegistrarEnBitacora(SessionManager.Instance.UsuarioActual().Username, $"Mitigación de redundancia: Remoción del permiso '{permiso}' en subnodo '{contenedorDirecto}'", 2);
                     }
                 }
 
@@ -173,12 +173,12 @@ namespace BLL
             }
             catch (Exception ex)
             {
-                RegistrarEnBitacora(usuario, $"ERROR en EliminarPermisoRedundante: {ex.Message}", 1);
+                RegistrarEnBitacora(SessionManager.Instance.UsuarioActual().Username, $"ERROR en EliminarPermisoRedundante: {ex.Message}", 1);
                 throw new Exception("Error operativo al purgar los componentes redundantes: " + ex.Message);
             }
         }
 
-        public ResultadoAsignacion AsignarComponentesHijos(string nombrePadre, List<string> nombresHijos, bool esPermisoSimple, string identificadorUsuario)
+        public ResultadoAsignacion AsignarComponentesHijos(string nombrePadre, List<string> nombresHijos, bool esPermisoSimple)
         {
             var resultado = new ResultadoAsignacion { Estado = EstadoAsignacion.Ok };
             if (!nombresHijos.Any()) return resultado;
@@ -304,7 +304,7 @@ namespace BLL
                 }
 
                 string tipoNodo = esPermisoSimple ? "Permiso Simple" : "Subfamilia";
-                RegistrarEnBitacora(identificadorUsuario, $"Asignación exitosa de {tipoNodo} '{nombreHijo}' a la raíz '{nombrePadre}'", 1);
+                RegistrarEnBitacora(SessionManager.Instance.UsuarioActual().Username, $"Asignación exitosa de {tipoNodo} '{nombreHijo}' a la raíz '{nombrePadre}'", 1);
             }
 
             _dal.GuardarRelaciones(componentePadre);
@@ -313,7 +313,7 @@ namespace BLL
             return resultado;
         }
 
-        public void EliminarPermisoDeContenedorEspecifico(string nombreContenedor, string nombrePermiso, string usuario)
+        public void EliminarPermisoDeContenedorEspecifico(string nombreContenedor, string nombrePermiso)
         {
             try
             {
@@ -327,7 +327,7 @@ namespace BLL
                     {
                         contenedor.QuitarHijo(permisoAQuitar);
                         _dal.GuardarRelaciones(contenedor);
-                        RegistrarEnBitacora(usuario, $"Desvinculación forzada por redundancia: Permiso '{nombrePermiso}' removido de '{nombreContenedor}'", 2);
+                        RegistrarEnBitacora(SessionManager.Instance.UsuarioActual().Username, $"Desvinculación forzada por redundancia: Permiso '{nombrePermiso}' removido de '{nombreContenedor}'", 2);
                     }
                 }
                 RecargarPermisosUsuarioEnSesion();
