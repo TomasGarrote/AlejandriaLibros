@@ -8,7 +8,7 @@ using System.Windows.Forms;
 
 namespace GUI
 {
-    public partial class frmGestionPerfiles : Form
+    public partial class frmGestionPerfiles : Form,IObserver
     {
         int posX, posY;
         bool arrastrando = false;
@@ -49,7 +49,7 @@ namespace GUI
         {
           
             Usuario usuarioActual = SessionManager.Instance.UsuarioActual();
-            if (!usuarioActual.TienePermiso(LanguageManager.Instance.GetTraduction("VerPerfiles")))
+            if (!usuarioActual.TienePermiso("Ver Perfiles"))
             {
                 MessageBox.Show(LanguageManager.Instance.GetTraduction("NoTienePermisosParaAcceder"), LanguageManager.Instance.GetTraduction("AccesoDenegado"), MessageBoxButtons.OK, MessageBoxIcon.Stop);
 
@@ -456,7 +456,7 @@ namespace GUI
                 _familiaSeleccionada = null;
 
                 CargarDatosFormulario();
-                MessageBox.Show($"La familia '{nombreEliminado}' se eliminó correctamente del sistema.", LanguageManager.Instance.GetTraduction("ExitoP"), MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show($"{LanguageManager.Instance.GetTraduction("LaFamiliamsjP")} '{nombreEliminado}' {LanguageManager.Instance.GetTraduction("SeEliminodelSistema")}", LanguageManager.Instance.GetTraduction("ExitoP"), MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
@@ -733,16 +733,16 @@ namespace GUI
                 if (ancestro == perfilActual)
                 {
                     textoExplicativo =
-                        $"Acción: Intentás asignar el permiso '{permiso}' en la raíz del perfil '{perfilActual}'.\n\n" +
-                        $"[RECHAZADO POR REDUNDANCIA DIRECTA]:\n" +
-                        $"El perfil '{perfilActual}' YA posee y hereda este permiso de manera limpia a través de su familia interna '{contenedorDirecto}'. No se requiere duplicarlo en la raíz.";
+                        $"{LanguageManager.Instance.GetTraduction("text9")} '{permiso}' {LanguageManager.Instance.GetTraduction("text10")} '{perfilActual}'.\n\n" +
+                        $"[{LanguageManager.Instance.GetTraduction("text11")}]:\n" +
+                        $"{LanguageManager.Instance.GetTraduction("text12")} '{perfilActual}' {LanguageManager.Instance.GetTraduction("text13")} '{contenedorDirecto}'. {LanguageManager.Instance.GetTraduction("text14")}";
                 }
                 else
                 {
                     textoExplicativo =
-                        $"Acción: Intentás asignar el permiso '{permiso}' al perfil '{perfilActual}'.\n\n" +
-                        $"[RECHAZADO POR CONFLICTO HORIZONTAL]:\n" +
-                        $"Existe una colisión estructural en el árbol. El rol superior '{ancestro}' ya contiene dicho acceso en la rama '{ramaColateral}'.";
+                        $"{LanguageManager.Instance.GetTraduction("text15")} '{permiso}' {LanguageManager.Instance.GetTraduction("text16")} '{perfilActual}'.\n\n" +
+                        $"[{LanguageManager.Instance.GetTraduction("text17")}]:\n" +
+                        $"{LanguageManager.Instance.GetTraduction("text18")} '{ancestro}' {LanguageManager.Instance.GetTraduction("text19")} '{ramaColateral}'.";
                 }
             }
 
@@ -757,7 +757,7 @@ namespace GUI
 
             var rbtnResolver = new RadioButton
             {
-                Text = $"Resolver automáticamente (Quitar permiso redundante de '{contenedorDirecto}' y mantenerlo en '{nodoDestino}')",
+                Text = $"{LanguageManager.Instance.GetTraduction("text20")} '{contenedorDirecto}' {LanguageManager.Instance.GetTraduction("text21")} '{nodoDestino}')",
                 Location = new Point(20, 230),
                 Size = new Size(560, 30),
                 Font = new Font("Segoe UI", 9F, FontStyle.Bold),
@@ -766,7 +766,7 @@ namespace GUI
 
             var rbtnCancelar = new RadioButton
             {
-                Text = "Cancelar la operación (Mantener estructura limpia sin modificaciones)",
+                Text =LanguageManager.Instance.GetTraduction("text22"),
                 Location = new Point(20, 265),
                 Size = new Size(560, 30),
                 Font = new Font("Segoe UI", 9F)
@@ -774,7 +774,7 @@ namespace GUI
 
             var btnEjecutar = new Button
             {
-                Text = "Procesar Cambio",
+                Text = LanguageManager.Instance.GetTraduction("text23"),
                 Location = new Point(220, 320),
                 Size = new Size(160, 35),
                 Font = new Font("Segoe UI", 9F, FontStyle.Bold),
@@ -785,7 +785,7 @@ namespace GUI
 
             btnEjecutar.Click += (s, e) =>
             {
-                string estrategia = rbtnResolver.Checked ? "RESOLVER" : "CANCELAR";
+                string estrategia = rbtnResolver.Checked ? "RESOLVE" : "CANCEL";
                 this.Controls.Remove(pnlModal);
                 pnlModal.Dispose();
                 panelActivo.Enabled = true;
@@ -818,7 +818,7 @@ namespace GUI
 
             var lblTitulo = new Label
             {
-                Text = "RESOLUCIÓN DE CONFLICTOS JERÁRQUICOS",
+                Text = LanguageManager.Instance.GetTraduction("text26"),
                 Location = new Point(15, 15),
                 Size = new Size(470, 20),
                 Font = new Font("Segoe UI", 10F, FontStyle.Bold),
@@ -827,9 +827,9 @@ namespace GUI
 
             var lblDescripcion = new Label
             {
-                Text = $"El componente '{hijo}' que intentás vincular incluye o colisiona con los permisos: [{permisos}].\n" +
-                       $"Estos accesos ya se encuentran presentes en la raíz de '{nodoDondeYaExiste}'.\n\n" +
-                       $"¿Qué deseas hacer?",
+                Text = $"{LanguageManager.Instance.GetTraduction("text27")} '{hijo}' {LanguageManager.Instance.GetTraduction("text28")}: [{permisos}].\n" +
+                       $"{LanguageManager.Instance.GetTraduction("text29")} '{nodoDondeYaExiste}'.\n\n" +
+                       LanguageManager.Instance.GetTraduction("text30"),
                 Location = new Point(15, 45),
                 Size = new Size(470, 75),
                 Font = new Font("Segoe UI", 9F),
@@ -838,7 +838,7 @@ namespace GUI
 
             var rbtnResolver = new RadioButton
             {
-                Text = $"Optimizar estructura (Quitar redundancias de los subnodos y unificar)",
+                Text = LanguageManager.Instance.GetTraduction("text31"),
                 Location = new Point(20, 135),
                 Size = new Size(460, 25),
                 Font = new Font("Segoe UI", 9F, FontStyle.Bold),
@@ -847,7 +847,7 @@ namespace GUI
 
             var rbtnCancelar = new RadioButton
             {
-                Text = "Cancelar la operación (No realizar modificaciones)",
+                Text =LanguageManager.Instance.GetTraduction("text32"),
                 Location = new Point(20, 165),
                 Size = new Size(460, 25),
                 Font = new Font("Segoe UI", 9F)
@@ -855,7 +855,7 @@ namespace GUI
 
             var btnEjecutar = new Button
             {
-                Text = "Confirmar",
+                Text = LanguageManager.Instance.GetTraduction("Confirmarp"),
                 Location = new Point(170, 215),
                 Size = new Size(160, 32),
                 Font = new Font("Segoe UI", 9F, FontStyle.Bold),
@@ -866,7 +866,7 @@ namespace GUI
 
             btnEjecutar.Click += (s, e) =>
             {
-                string estrategia = rbtnResolver.Checked ? "RESOLVER" : "CANCELAR";
+                string estrategia = rbtnResolver.Checked ? "RESOLVE" : "CANCEL";
                 this.Controls.Remove(pnlModal);
                 pnlModal.Dispose();
                 panelActivo.Enabled = true;
@@ -949,8 +949,8 @@ namespace GUI
             if (!usuarioActual.TienePermiso("Ver Perfiles"))
             {
                 MessageBox.Show(
-                    "Sus permisos fueron modificados. Ya no posee acceso a esta pantalla.",
-                    "Permisos actualizados",
+                    LanguageManager.Instance.GetTraduction("text33"),
+                    LanguageManager.Instance.GetTraduction("text34"),
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Warning);
 
@@ -970,7 +970,8 @@ namespace GUI
 
         private void frmGestionPerfiles_Load(object sender, EventArgs e)
         {
-
+            LanguageManager.Instance.AgregarObservador(this);
+            Actualizar(LanguageManager.Instance);
         }
         private void BarraTitulo_MouseDown(object sender, MouseEventArgs e)
         {
@@ -991,6 +992,36 @@ namespace GUI
         private void BarraTitulo_MouseUp(object sender, MouseEventArgs e)
         {
             arrastrando = false;
+        }
+
+        public void Actualizar(LanguageManager lenguaje)
+        {
+            RbPermisos.Text = LanguageManager.Instance.GetTraduction("RbPermisos");
+            RbFamilias.Text = LanguageManager.Instance.GetTraduction("RbFamilias");
+            RbPerfiles.Text = LanguageManager.Instance.GetTraduction("RbPerfiles");
+
+            lblArbol.Text = LanguageManager.Instance.GetTraduction("lblArbol");
+            lblPerfiles.Text = LanguageManager.Instance.GetTraduction("lblPerfiles");
+            lblNombreP.Text = LanguageManager.Instance.GetTraduction("lblNombreP");
+
+            btnCrearPerfil.Text = LanguageManager.Instance.GetTraduction("btnCrearPerfil");
+            btnEliminarPerfil.Text = LanguageManager.Instance.GetTraduction("btnEliminarPerfil");
+
+            lblGestionPerfiles.Text = LanguageManager.Instance.GetTraduction("lblGestionPerfiles");
+
+            lblFamiliaDisponible.Text = LanguageManager.Instance.GetTraduction("lblFamiliaDisponible");
+            lblFamiliaAsignadas.Text = LanguageManager.Instance.GetTraduction("lblFamiliaAsignadas");
+
+            lblPermisoDisponible.Text = LanguageManager.Instance.GetTraduction("lblPermisoDisponible");
+            lblAsignados.Text = LanguageManager.Instance.GetTraduction("lblAsignados");
+
+            btnAsignarFamiliaPerfil.Text = LanguageManager.Instance.GetTraduction("btnAsignarFamiliaPerfil");
+            btnQuitarFamiliaPerfil.Text = LanguageManager.Instance.GetTraduction("btnQuitarFamiliaPerfil");
+
+            BtnAsignarPermisoPerfil.Text = LanguageManager.Instance.GetTraduction("BtnAsignarPermisoPerfil");
+            BtnQuitarPermisoPerfil.Text = LanguageManager.Instance.GetTraduction("BtnQuitarPermisoPerfil");
+
+
         }
     }
 }
