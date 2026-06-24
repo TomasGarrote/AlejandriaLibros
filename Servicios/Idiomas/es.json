@@ -1,4 +1,4 @@
-{ 
+{
   //Form Menu
   "btnAdmin": "ADMIN",
   "btnUsuarios": "Usuarios",
@@ -15,6 +15,7 @@
 
   "YaHaySesionActiva": "Ya hay una sesión iniciada. Por favor, cierre sesión antes de intentar iniciar una nueva.",
   "Informacion": "Informacion",
+
   //Form Usuario
   "lblTextoTabla": "Usuarios Activos",
   "lblCantidadUsers": "Cantidad de Usuarios",
@@ -34,12 +35,14 @@
   "btnSalir": "Salir",
   "rbTodos": "Todos",
   "rbActivos": "Activos",
+
   //Form Cambiar contraserña
   "lblUsuarioFCC": "Usuario",
   "lblContraseñaActual": "Contraseña actual",
   "lblContraseñaFCC": "Contraseña",
   "btnGuardarContra": "Guardar contraseña",
   "linkVolver": "Volver a Login",
+
   //Form Bitacora
   "lblBitacora": "Bitacora",
   "lblNombreB": "Nombre",
@@ -53,7 +56,83 @@
   "btnLimpiarB": "Limpiar",
   "btnAplicarB": "Aplicar",
   "btnImprimirB": "Imprimir",
+
   //Form Cambiar Idioma
   "lblCambiarIdioma": "Cambiar Idioma",
-  "btnCambiarCI": "Cambiar"
+  "btnCambiarCI": "Cambiar",
+
+  //FormGestionPerfiles
+  "RbPermisos": "Permisos",
+  "RbFamilias": "Familias",
+  "RbPerfiles": "Perfiles",
+  "lblArbol": "Arbol",
+  "lblPerfiles": "Perfiles",
+  "lblNombreP": "Nombre",
+  "btnCrearPerfil": "Crear perfil",
+  "btnEliminarPerfil": "Eliminar",
+  "lblGestionPerfiles": "Gestion Perfiles",
+  "lblFamiliaDisponible": "Familias disponibles",
+  "lblFamiliaAsignadas": "Familias asignadas",
+  "lblPermisoDisponible": "Permiso disponible",
+  "lblAsignados": "Permiso asignado",
+  "btnAsignarFamiliaPerfil": "Asignar familia",
+  "btnQuitarFamiliaPerfil": "Quitar familia",
+  "BtnAsignarPermisoPerfil": "Asignar permiso",
+  "BtnQuitarPermisoPerfil": "Quitar permiso",
+
+  "VerPerfiles": "Ver Perfiles",
+  "NoTienePermisosParaAcceder": "No tiene permisos para acceder a la Gestión de Usuarios y Perfiles.",
+  "AccesoDenegado": "Acceso Denegado",
+  "ErrorSincrop": "Error al sincronizar datos del repositorio:",
+  "ErrorOperacionalP": "Error Operacional",
+  "IngreseUnNombreParaPermisoP": "Por favor, ingrese un nombre para el nuevo permiso.",
+  "CampoRequeridoP": "Campo Requerido",
+  "Permisomsjp": "Permiso",
+  "CreadoExitoP": "creado con éxito.",
+  "ExitoP": "Exito",
+  "ErrorP": "Error",
+  "EliminarP": "Eliminar",
+  "Confirmarp": "Confirmar",
+  "ingreseNombreFamiliaP": "Por favor, ingrese un nombre para la nueva familia.",
+  "Familiap": "Familia",
+  "UcExitoEnLaRaizp": "unificado con éxito en la raíz",
+  "RemovidoDeSubfami": "y removido de las subfamilias.",
+  "AsConExitoaP": "asignado con éxito a",
+  "TrasResolverRedun": "tras resolver la redundancia.",
+  "validacionesDePermisosmsj": "Validación de Permisos",
+  "PermisosAsignadosCorrectmsjP": "Permisos asignados correctamente.",
+  "PermisosRemovep": "Permisos removidos",
+  "AsigCorrecmsjP": "asignado correctamente.",
+  "Restriccionp": "Restricción",
+  "SubFamiliaAsigCorrectp": "Subfamilias asignadas correctamente.",
+  "SubFamiliaRemovep": "Subfamilias removidas.",
+  "EstasSeguroEliFami": "Está seguro de que desea eliminar la familia",
+  "EstasAcciQuiToRelap": "Esta acción quitará todas sus relaciones.",
+  "ConfirmarElimip": "Confirmar Eliminación",
+  "LaFamiliamsjP": "La familia",
+  "SeEliminodelSistema": "se eliminó correctamente del sistema.",
+  "RestrIntegraJerarmsjP": "Restricción de Integridad Jerárquica",
+  "ingUnNombrePerfilP": "Por favor, ingrese un nombre para el nuevo perfil.",
+  "PerfilmsjP": "Perfil",
+  "integradaAlPerfilExitosamentep": "integrada al perfil con éxito tras purgar redundancias.",
+  "ValiEstrucPerfP": "Validación de Estructura en Perfil",
+  "FamiAsigAPerfCorrecp": "Familias asignadas al perfil correctamente.",
+  "FamiRemovep": "Familias removidas.",
+  "UnifiConExitoRaizFamilia": "unificado con éxito en la raíz del perfil",
+  "YRemoveDeSusFamilp": " y removido de sus subfamilias.",
+  "UnificandoExtoPermisop": "unificado con éxito en el perfil",
+  "ValiPerPerfp": "Validación de Permisos en Perfil",
+  "PermiAsigPerfCorrectP": "Permisos asignados al perfil correctamente.",
+  "SeguEliminaPerfP": "Está seguro de que desea eliminar el perfil",
+  "ELPerfilP": "El perfil",
+  "RestAsigUsup": "Restricción de Asignación de Usuarios",
+  "AlerCritiP": "ALERTA CRÍTICA: REDUNDANCIA HORIZONTAL DE PERMISOS",
+  "textexpli1": "Acción: Intentás asignar el permiso",
+  "textexpli2": "a la familia ",
+  "text3": "RECHAZADO POR INTEGRIDAD INDIRECTA",
+  "text4": "Esta asignación no es viable porque generaría una redundancia en un Perfil / Rol superior (como",
+  "Text5": "¿Por qué sucede? El rol superior ya hereda este acceso por otra rama paralela independiente (rama:",
+  "text6": "a través de",
+  "text7": "No se permite que un mismo rol reciba el permiso",
+  "text8": "por dos vías simultáneas."
 }

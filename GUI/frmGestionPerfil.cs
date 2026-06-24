@@ -55,9 +55,9 @@ namespace GUI
         {
           
             Usuario usuarioActual = SessionManager.Instance.UsuarioActual();
-            if (!usuarioActual.TienePermiso("Ver Perfiles"))
+            if (!usuarioActual.TienePermiso(LanguageManager.Instance.GetTraduction("VerPerfiles")))
             {
-                MessageBox.Show("No tiene permisos para acceder a la Gestión de Usuarios y Perfiles.", "Acceso Denegado", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                MessageBox.Show(LanguageManager.Instance.GetTraduction("NoTienePermisosParaAcceder"), LanguageManager.Instance.GetTraduction("AccesoDenegado"), MessageBoxButtons.OK, MessageBoxIcon.Stop);
 
                 if (Application.OpenForms["Menu"] != null)
                 {
@@ -174,8 +174,8 @@ namespace GUI
             catch (Exception ex)
             {
                 MessageBox.Show(
-                    "Error al sincronizar datos del repositorio: " + ex.Message,
-                    "Error Operacional",
+                    LanguageManager.Instance.GetTraduction("ErrorSincrop") + ex.Message,
+                    LanguageManager.Instance.GetTraduction("ErrorOperacionalP"),
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
             }
@@ -226,7 +226,7 @@ namespace GUI
 
             if (string.IsNullOrEmpty(nombre))
             {
-                MessageBox.Show("Por favor, ingrese un nombre para el nuevo permiso.", "Campo Requerido", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(LanguageManager.Instance.GetTraduction("IngreseUnNombreParaPermisoP"), LanguageManager.Instance.GetTraduction("CampoRequeridoP"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 txtNombrePermiso.Focus();
                 return;
             }
@@ -236,9 +236,9 @@ namespace GUI
                 _bll.CrearPermiso(nombre, _login);
                 txtNombrePermiso.Clear();
                 CargarDatosFormulario();
-                MessageBox.Show($"Permiso '{nombre}' creado con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show($"{LanguageManager.Instance.GetTraduction("Permisomsjp")} '{nombre}' {LanguageManager.Instance.GetTraduction("CreadoExitoP")}", LanguageManager.Instance.GetTraduction("ExitoP"), MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-            catch (Exception ex) { MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error); }
+            catch (Exception ex) { MessageBox.Show(ex.Message, LanguageManager.Instance.GetTraduction("ErrorP"), MessageBoxButtons.OK, MessageBoxIcon.Error); }
         }
 
         private void BtnEliminarPermiso_Click(object sender, EventArgs e)
@@ -246,7 +246,7 @@ namespace GUI
             if (dgvPermisos.CurrentRow == null) return;
             string nombre = dgvPermisos.CurrentRow.Cells["Nombre"].Value.ToString();
 
-            if (MessageBox.Show($"¿Eliminar '{nombre}'?", "Confirmar", MessageBoxButtons.YesNo) != DialogResult.Yes) return;
+            if (MessageBox.Show($"¿{LanguageManager.Instance.GetTraduction("EliminarP")} '{nombre}'?", LanguageManager.Instance.GetTraduction("Confirmarp"), MessageBoxButtons.YesNo) != DialogResult.Yes) return;
 
             try
             {
@@ -312,7 +312,7 @@ namespace GUI
 
             if (string.IsNullOrEmpty(nombre))
             {
-                MessageBox.Show("Por favor, ingrese un nombre para la nueva familia.", "Campo Requerido", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(LanguageManager.Instance.GetTraduction("ingreseNombreFamiliaP"), LanguageManager.Instance.GetTraduction("CampoRequeridoP"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 txtNombreFamilia.Focus();
                 return;
             }
@@ -322,9 +322,9 @@ namespace GUI
                 _bll.CrearFamilia(nombre, _login);
                 txtNombreFamilia.Clear();
                 CargarDatosFormulario();
-                MessageBox.Show($"Familia '{nombre}' creada con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show($"{LanguageManager.Instance.GetTraduction("Familiap")} '{nombre}' {LanguageManager.Instance.GetTraduction("CreadoExitoP")}", LanguageManager.Instance.GetTraduction("ExitoP"), MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-            catch (Exception ex) { MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error); }
+            catch (Exception ex) { MessageBox.Show(ex.Message, LanguageManager.Instance.GetTraduction("ErrorP"), MessageBoxButtons.OK, MessageBoxIcon.Error); }
         }
 
         private void BtnAsignarPermisos_Click(object sender, EventArgs e)
@@ -351,7 +351,7 @@ namespace GUI
                                 var reintento = _bll.AsignarComponentesHijos(_familiaSeleccionada.Nombre, new List<string> { permiso }, true, _login);
                                 if (reintento.Estado == EstadoAsignacion.Ok)
                                 {
-                                    MessageBox.Show($"Permiso '{permiso}' unificado con éxito en la raíz '{_familiaSeleccionada.Nombre}' y removido de las subfamilias.", "Éxito");
+                                    MessageBox.Show($"{LanguageManager.Instance.GetTraduction("Permisomsjp")} '{permiso}' {LanguageManager.Instance.GetTraduction("UcExitoEnLaRaizp")} '{_familiaSeleccionada.Nombre}' {LanguageManager.Instance.GetTraduction("RemovidoDeSubfami")}", LanguageManager.Instance.GetTraduction("ExitoP"));
                                 }
                             }
                             CargarDatosFormulario();
@@ -376,7 +376,7 @@ namespace GUI
                                 var reintento = _bll.AsignarComponentesHijos(nodoDest, new List<string> { perm }, true, _login);
                                 if (reintento.Estado == EstadoAsignacion.Ok)
                                 {
-                                    MessageBox.Show($"Permiso '{perm}' asignado con éxito a '{nodoDest}' tras resolver la redundancia.", "Éxito");
+                                    MessageBox.Show($"{LanguageManager.Instance.GetTraduction("Permisomsjp")} '{perm}' {LanguageManager.Instance.GetTraduction("AsConExitoaP")} '{nodoDest}' {LanguageManager.Instance.GetTraduction("TrasResolverRedun")}", LanguageManager.Instance.GetTraduction("TrasResolverRedun"));
                                 }
                             }
                             CargarDatosFormulario();
@@ -384,13 +384,13 @@ namespace GUI
                         return;
                     }
 
-                    MessageBox.Show(detalleError, "Validación de Permisos", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show(detalleError, LanguageManager.Instance.GetTraduction("validacionesDePermisosmsj"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
             }
 
             CargarDatosFormulario();
-            MessageBox.Show("Permisos asignados correctamente.", "Éxito");
+            MessageBox.Show(LanguageManager.Instance.GetTraduction("PermisosAsignadosCorrectmsjP"), LanguageManager.Instance.GetTraduction("ExitoP"));
         }
 
         private void BtnQuitarPermisos_Click(object sender, EventArgs e)
@@ -401,7 +401,7 @@ namespace GUI
 
             _bll.QuitarHijos(_familiaSeleccionada.Nombre, seleccionados, true, _login);
             CargarDatosFormulario();
-            MessageBox.Show("Permisos removidos.", "Éxito");
+            MessageBox.Show(LanguageManager.Instance.GetTraduction("PermisosRemovep"), LanguageManager.Instance.GetTraduction("ExitoP"));
         }
 
         private void BtnAsignarSubfamilia_Click(object sender, EventArgs e)
@@ -433,7 +433,7 @@ namespace GUI
                                 var reintento = _bll.AsignarComponentesHijos(_familiaSeleccionada.Nombre, new List<string> { subfamiliaHijo }, false, _login);
                                 if (reintento.Estado == EstadoAsignacion.Ok)
                                 {
-                                    MessageBox.Show($"'{subfamiliaHijo}' asignado correctamente.", "Éxito");
+                                    MessageBox.Show($"'{subfamiliaHijo}' {LanguageManager.Instance.GetTraduction("AsigCorrecmsjP")}", LanguageManager.Instance.GetTraduction("ExitoP"));
                                 }
                             }
                             CargarDatosFormulario();
@@ -441,13 +441,13 @@ namespace GUI
                         return;
                     }
 
-                    MessageBox.Show(claveConflicto, "Restricción", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show(claveConflicto, LanguageManager.Instance.GetTraduction("Restriccionp"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
             }
 
             CargarDatosFormulario();
-            MessageBox.Show("Subfamilias asignadas correctamente.", "Éxito");
+            MessageBox.Show(LanguageManager.Instance.GetTraduction("SubFamiliaAsigCorrectp"), LanguageManager.Instance.GetTraduction("ExitoP"));
         }
 
         private void BtnQuitarSubfamilia_Click(object sender, EventArgs e)
@@ -458,13 +458,13 @@ namespace GUI
 
             _bll.QuitarHijos(_familiaSeleccionada.Nombre, seleccionadas, false, _login);
             CargarDatosFormulario();
-            MessageBox.Show("Subfamilias removidas.", "Éxito");
+            MessageBox.Show(LanguageManager.Instance.GetTraduction("SubFamiliaRemovep"), LanguageManager.Instance.GetTraduction("ExitoP"));
         }
 
         private void BtnEliminarFamilia_Click(object sender, EventArgs e)
         {
             if (_familiaSeleccionada == null) return;
-            if (MessageBox.Show($"¿Está seguro de que desea eliminar la familia '{_familiaSeleccionada.Nombre}'? Esta acción quitará todas sus relaciones.", "Confirmar Eliminación", MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes) return;
+            if (MessageBox.Show($"¿{LanguageManager.Instance.GetTraduction("EstasSeguroEliFami")} '{_familiaSeleccionada.Nombre}'? {LanguageManager.Instance.GetTraduction("EstasAcciQuiToRelap")}", LanguageManager.Instance.GetTraduction("ConfirmarElimip"), MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes) return;
 
             try
             {
@@ -474,11 +474,11 @@ namespace GUI
                 _familiaSeleccionada = null;
 
                 CargarDatosFormulario();
-                MessageBox.Show($"La familia '{nombreEliminado}' se eliminó correctamente del sistema.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show($"La familia '{nombreEliminado}' se eliminó correctamente del sistema.", LanguageManager.Instance.GetTraduction("ExitoP"), MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Restricción de Integridad Jerárquica", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(ex.Message, LanguageManager.Instance.GetTraduction("RestrIntegraJerarmsjP"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
@@ -538,7 +538,7 @@ namespace GUI
 
             if (string.IsNullOrEmpty(nombre))
             {
-                MessageBox.Show("Por favor, ingrese un nombre para el nuevo perfil.", "Campo Requerido", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(LanguageManager.Instance.GetTraduction("ingUnNombrePerfilP"), LanguageManager.Instance.GetTraduction("CampoRequeridoP"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 txtNombrePerfil.Focus();
                 return;
             }
@@ -548,9 +548,9 @@ namespace GUI
                 _bll.CrearPerfil(nombre, _login);
                 txtNombrePerfil.Clear();
                 CargarDatosFormulario();
-                MessageBox.Show($"Perfil '{nombre}' creado con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show($"{LanguageManager.Instance.GetTraduction("PerfilmsjP")} '{nombre}'{LanguageManager.Instance.GetTraduction("CreadoExitoP")}", LanguageManager.Instance.GetTraduction("ExitoP"), MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-            catch (Exception ex) { MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error); }
+            catch (Exception ex) { MessageBox.Show(ex.Message,LanguageManager.Instance.GetTraduction("ErrorP") , MessageBoxButtons.OK, MessageBoxIcon.Error); }
         }
 
         private void BtnAsignarFamiliaPerfil_Click(object sender, EventArgs e)
@@ -582,7 +582,7 @@ namespace GUI
                                 var reintento = _bll.AsignarComponentesHijos(_perfilSeleccionado.Nombre, new List<string> { subFamiliaConflictiva }, false, _login);
                                 if (reintento.Estado == EstadoAsignacion.Ok)
                                 {
-                                    MessageBox.Show($"Familia '{subFamiliaConflictiva}' integrada al perfil con éxito tras purgar redundancias.", "Éxito");
+                                    MessageBox.Show($"{LanguageManager.Instance.GetTraduction("Familiap")} '{subFamiliaConflictiva}' {LanguageManager.Instance.GetTraduction("integradaAlPerfilExitosamentep")}", LanguageManager.Instance.GetTraduction("ExitoP"));
                                 }
                             }
                             CargarDatosFormulario();
@@ -590,13 +590,13 @@ namespace GUI
                         return;
                     }
 
-                    MessageBox.Show(detalleError, "Validación de Estructura en Perfil", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show(detalleError, LanguageManager.Instance.GetTraduction("ValiEstrucPerfP"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
             }
 
             CargarDatosFormulario();
-            MessageBox.Show("Familias asignadas al perfil correctamente.", "Éxito");
+            MessageBox.Show(LanguageManager.Instance.GetTraduction("FamiAsigAPerfCorrecp"), LanguageManager.Instance.GetTraduction("ExitoP"));
         }
 
         private void BtnQuitarFamiliaPerfil_Click(object sender, EventArgs e)
@@ -607,7 +607,7 @@ namespace GUI
 
             _bll.QuitarHijos(_perfilSeleccionado.Nombre, seleccionadas, false, _login);
             CargarDatosFormulario();
-            MessageBox.Show("Familias removidas.", "Éxito");
+            MessageBox.Show(LanguageManager.Instance.GetTraduction("FamiRemovep"), LanguageManager.Instance.GetTraduction("ExitoP"));
         }
 
         private void BtnAsignarPermisoPerfil_Click(object sender, EventArgs e)
@@ -634,7 +634,7 @@ namespace GUI
                                 var reintento = _bll.AsignarComponentesHijos(_perfilSeleccionado.Nombre, new List<string> { permiso }, true, _login);
                                 if (reintento.Estado == EstadoAsignacion.Ok)
                                 {
-                                    MessageBox.Show($"Permiso '{permiso}' unificado con éxito en la raíz del perfil '{_perfilSeleccionado.Nombre}' y removido de sus subfamilias.", "Éxito");
+                                    MessageBox.Show($"{LanguageManager.Instance.GetTraduction("Permisomsjp")} '{permiso}' {LanguageManager.Instance.GetTraduction("UnifiConExitoRaizFamilia")} '{_perfilSeleccionado.Nombre}' {LanguageManager.Instance.GetTraduction("YRemoveDeSusFamilp")}", LanguageManager.Instance.GetTraduction("ExitoP"));
                                 }
                             }
                             CargarDatosFormulario();
@@ -659,7 +659,7 @@ namespace GUI
                                 var reintento = _bll.AsignarComponentesHijos(nodoDest, new List<string> { perm }, true, _login);
                                 if (reintento.Estado == EstadoAsignacion.Ok)
                                 {
-                                    MessageBox.Show($"Permiso '{perm}' unificado con éxito en el perfil '{nodoDest}'.", "Éxito");
+                                    MessageBox.Show($"{LanguageManager.Instance.GetTraduction("Permisomsjp")} '{perm}' {LanguageManager.Instance.GetTraduction("UnificandoExtoPermisop")} '{nodoDest}'.", LanguageManager.Instance.GetTraduction("ExitoP"));
                                 }
                             }
                             CargarDatosFormulario();
@@ -667,13 +667,13 @@ namespace GUI
                         return;
                     }
 
-                    MessageBox.Show(detalleError, "Validación de Permisos en Perfil", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show(detalleError, LanguageManager.Instance.GetTraduction("ValiPerPerfp"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
             }
 
             CargarDatosFormulario();
-            MessageBox.Show("Permisos asignados al perfil correctamente.", "Éxito");
+            MessageBox.Show(LanguageManager.Instance.GetTraduction("PermiAsigPerfCorrectP"), LanguageManager.Instance.GetTraduction("ExitoP"));
         }
 
         private void BtnQuitarPermisoPerfil_Click(object sender, EventArgs e)
@@ -684,13 +684,13 @@ namespace GUI
 
             _bll.QuitarHijos(_perfilSeleccionado.Nombre, seleccionados, true, _login);
             CargarDatosFormulario();
-            MessageBox.Show("Permisos removidos.", "Éxito");
+            MessageBox.Show(LanguageManager.Instance.GetTraduction("PermisosRemovep"), LanguageManager.Instance.GetTraduction("ExitoP"));
         }
 
         private void BtnEliminarPerfil_Click(object sender, EventArgs e)
         {
             if (_perfilSeleccionado == null) return;
-            if (MessageBox.Show($"¿Está seguro de que desea eliminar el perfil '{_perfilSeleccionado.Nombre}'?", "Confirmar Eliminación", MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes) return;
+            if (MessageBox.Show($"¿{LanguageManager.Instance.GetTraduction("SeguEliminaPerfP")} '{_perfilSeleccionado.Nombre}'?", LanguageManager.Instance.GetTraduction("ConfirmarElimip"), MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes) return;
 
             try
             {
@@ -700,11 +700,11 @@ namespace GUI
                 _perfilSeleccionado = null;
 
                 CargarDatosFormulario();
-                MessageBox.Show($"El perfil '{nombreEliminado}' se eliminó correctamente del sistema.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show($"{LanguageManager.Instance.GetTraduction("ELPerfilP")} '{nombreEliminado}' {LanguageManager.Instance.GetTraduction("SeEliminodelSistema")}", LanguageManager.Instance.GetTraduction("ExitoP"), MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Restricción de Asignación de Usuarios", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(ex.Message,LanguageManager.Instance.GetTraduction("RestAsigUsup") , MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
@@ -724,7 +724,7 @@ namespace GUI
 
             var lblTitulo = new Label
             {
-                Text = "ALERTA CRÍTICA: REDUNDANCIA HORIZONTAL DE PERMISOS",
+                Text = LanguageManager.Instance.GetTraduction("AlerCritiP"),
                 Location = new Point(15, 15),
                 Size = new Size(570, 25),
                 Font = new Font("Segoe UI", 10F, FontStyle.Bold),
@@ -738,11 +738,11 @@ namespace GUI
                 string familiaActual = _familiaSeleccionada != null ? _familiaSeleccionada.Nombre : nodoDestino;
 
                 textoExplicativo =
-                    $"Acción: Intentás asignar el permiso '{permiso}' a la familia '{familiaActual}'.\n\n" +
-                    $"[RECHAZADO POR INTEGRIDAD INDIRECTA]:\n" +
-                    $"Esta asignación no es viable porque generaría una redundancia en un Perfil / Rol superior (como '{ancestro}').\n\n" +
-                    $"¿Por qué sucede? El rol superior ya hereda este acceso por otra rama paralela independiente (rama: '{ramaColateral}', a través de '{contenedorDirecto}').\n\n" +
-                    $"No se permite que un mismo rol reciba el permiso '{permiso}' por dos vías simultáneas.";
+                    $"{LanguageManager.Instance.GetTraduction("textexpli1")} '{permiso}' {LanguageManager.Instance.GetTraduction("textexpli2")} '{familiaActual}'.\n\n" +
+                    $"[{LanguageManager.Instance.GetTraduction("text3")}]:\n" +
+                    $"{LanguageManager.Instance.GetTraduction("text4")} '{ancestro}').\n\n" +
+                    $"{LanguageManager.Instance.GetTraduction("Text5")} '{ramaColateral}', {LanguageManager.Instance.GetTraduction("text6")} '{contenedorDirecto}').\n\n" +
+                    $"{LanguageManager.Instance.GetTraduction("text7")} '{permiso}' {LanguageManager.Instance.GetTraduction("text8")}";
             }
             else
             {

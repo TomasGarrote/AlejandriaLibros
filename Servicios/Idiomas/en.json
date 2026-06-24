@@ -1,10 +1,11 @@
 {
-  "btnAdmin": "Administration",
+  // Form Menu
+  "btnAdmin": "ADMIN",
   "btnUsuarios": "Users",
   "btnPerfiles": "Profiles",
   "btnBackUp": "Backup",
   "btnRestore": "Restore",
-  "btnBitacora": "Audit Log",
+  "btnBitacora": "Log",
   "btnDigitoVerificador": "Check Digit",
   "btnMaestro": "Master",
   "btnUsuario": "User",
@@ -15,6 +16,7 @@
   "YaHaySesionActiva": "There is already an active session. Please log out before starting a new one.",
   "Informacion": "Information",
 
+  // Form User
   "lblTextoTabla": "Active Users",
   "lblCantidadUsers": "Number of Users",
   "lblApe": "Last Name",
@@ -34,13 +36,15 @@
   "rbTodos": "All",
   "rbActivos": "Active",
 
+  // Form Change Password
   "lblUsuarioFCC": "User",
   "lblContraseñaActual": "Current Password",
   "lblContraseñaFCC": "Password",
   "btnGuardarContra": "Save Password",
   "linkVolver": "Back to Login",
 
-  "lblBitacora": "Audit Log",
+  // Form Log
+  "lblBitacora": "Log",
   "lblNombreB": "First Name",
   "lblApellidoB": "Last Name",
   "lblLoginB": "Login",
@@ -48,11 +52,31 @@
   "lblFechaFinalB": "End Date",
   "lblModuloB": "Module",
   "lblEventoB": "Event",
-  "lblCriticidadB": "Criticality",
+  "lblCriticidadB": "Severity",
   "btnLimpiarB": "Clear",
   "btnAplicarB": "Apply",
   "btnImprimirB": "Print",
 
+  // Form Change Language
   "lblCambiarIdioma": "Change Language",
-  "btnCambiarCI": "Change"
+  "btnCambiarCI": "Change",
+
+  // Form Profile Management
+  "RbPermisos": "Permissions",
+  "RbFamilias": "Families",
+  "RbPerfiles": "Profiles",
+  "lblArbol": "Tree",
+  "lblPerfiles": "Profiles",
+  "lblNombreP": "Name",
+  "btnCrearPerfil": "Create Profile",
+  "btnEliminarPerfil": "Delete",
+  "lblGestionPerfiles": "Profile Management",
+  "lblFamiliaDisponible": "Available Families",
+  "lblFamiliaAsignadas": "Assigned Families",
+  "lblPermisoDisponible": "Available Permissions",
+  "lblAsignados": "Assigned Permissions",
+  "btnAsignarFamiliaPerfil": "Assign Family",
+  "btnQuitarFamiliaPerfil": "Remove Family",
+  "BtnAsignarPermisoPerfil": "Assign Permission",
+  "BtnQuitarPermisoPerfil": "Remove Permission"
 }

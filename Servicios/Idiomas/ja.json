@@ -1,10 +1,11 @@
 {
-  "btnAdmin": "管理",
+  // Form Menu
+  "btnAdmin": "管理者",
   "btnUsuarios": "ユーザー",
   "btnPerfiles": "プロフィール",
   "btnBackUp": "バックアップ",
   "btnRestore": "復元",
-  "btnBitacora": "監査ログ",
+  "btnBitacora": "ログ",
   "btnDigitoVerificador": "検証桁",
   "btnMaestro": "マスター",
   "btnUsuario": "ユーザー",
@@ -12,14 +13,15 @@
   "btnCambiarClave": "パスワード変更",
   "btnLogout": "ログアウト",
 
-  "YaHaySesionActiva": "既にアクティブなセッションがあります。新しいセッションを開始する前にログアウトしてください。",
+  "YaHaySesionActiva": "すでにアクティブなセッションがあります。新しいセッションを開始する前にログアウトしてください。",
   "Informacion": "情報",
 
+  // Form Usuario
   "lblTextoTabla": "アクティブユーザー",
   "lblCantidadUsers": "ユーザー数",
   "lblApe": "姓",
   "lblNombre": "名",
-  "lblEmail": "メール",
+  "lblEmail": "メールアドレス",
   "lblRol": "役割",
   "lblUsuarioFU": "ユーザー",
   "lblMsj": "メッセージ",
@@ -34,13 +36,15 @@
   "rbTodos": "すべて",
   "rbActivos": "有効",
 
+  // Form Cambiar contraseña
   "lblUsuarioFCC": "ユーザー",
   "lblContraseñaActual": "現在のパスワード",
   "lblContraseñaFCC": "パスワード",
   "btnGuardarContra": "パスワード保存",
   "linkVolver": "ログインに戻る",
 
-  "lblBitacora": "監査ログ",
+  // Form Bitacora
+  "lblBitacora": "ログ",
   "lblNombreB": "名",
   "lblApellidoB": "姓",
   "lblLoginB": "ログイン",
@@ -53,6 +57,26 @@
   "btnAplicarB": "適用",
   "btnImprimirB": "印刷",
 
+  // Form Cambiar Idioma
   "lblCambiarIdioma": "言語変更",
-  "btnCambiarCI": "変更"
+  "btnCambiarCI": "変更",
+
+  // Form Gestion Perfiles
+  "RbPermisos": "権限",
+  "RbFamilias": "ファミリー",
+  "RbPerfiles": "プロフィール",
+  "lblArbol": "ツリー",
+  "lblPerfiles": "プロフィール",
+  "lblNombreP": "名前",
+  "btnCrearPerfil": "プロフィール作成",
+  "btnEliminarPerfil": "削除",
+  "lblGestionPerfiles": "プロフィール管理",
+  "lblFamiliaDisponible": "利用可能なファミリー",
+  "lblFamiliaAsignadas": "割り当て済みファミリー",
+  "lblPermisoDisponible": "利用可能な権限",
+  "lblAsignados": "割り当て済み権限",
+  "btnAsignarFamiliaPerfil": "ファミリーを割り当て",
+  "btnQuitarFamiliaPerfil": "ファミリーを削除",
+  "BtnAsignarPermisoPerfil": "権限を割り当て",
+  "BtnQuitarPermisoPerfil": "権限を削除"
 }

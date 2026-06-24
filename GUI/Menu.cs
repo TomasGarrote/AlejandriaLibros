@@ -196,7 +196,7 @@ namespace GUI
         public void Actualizar(LanguageManager lenguaje)
         {
             btnAdmin.Text = LanguageManager.Instance.GetTraduction("btnAdmin");
-            btnUsuario.Text = LanguageManager.Instance.GetTraduction("btnUsuarios");
+            btnUsuarios.Text = LanguageManager.Instance.GetTraduction("btnUsuarios");
             btnPerfiles.Text = LanguageManager.Instance.GetTraduction("btnPerfiles");
             btnBackUp.Text = LanguageManager.Instance.GetTraduction("btnBackUp");
             btnRestore.Text = LanguageManager.Instance.GetTraduction("btnRestore");

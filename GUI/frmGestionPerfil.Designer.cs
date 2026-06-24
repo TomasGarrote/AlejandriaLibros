@@ -65,15 +65,15 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.panelPerfiles = new System.Windows.Forms.Panel();
-            this.label13 = new System.Windows.Forms.Label();
-            this.label12 = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
+            this.lblAsignados = new System.Windows.Forms.Label();
+            this.lblPermisoDisponible = new System.Windows.Forms.Label();
+            this.lblFamiliaAsignadas = new System.Windows.Forms.Label();
+            this.lblFamiliaDisponible = new System.Windows.Forms.Label();
             this.BtnQuitarPermisoPerfil = new System.Windows.Forms.Button();
             this.BtnAsignarPermisoPerfil = new System.Windows.Forms.Button();
             this.clbPermisosAsigPerfil = new System.Windows.Forms.CheckedListBox();
             this.clbPermisosDispPerfil = new System.Windows.Forms.CheckedListBox();
-            this.label3 = new System.Windows.Forms.Label();
+            this.lblNombreP = new System.Windows.Forms.Label();
             this.treeView1 = new System.Windows.Forms.TreeView();
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnCerrar = new System.Windows.Forms.PictureBox();
@@ -82,22 +82,22 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
             this.panel4 = new System.Windows.Forms.Panel();
+            this.lblArbol = new System.Windows.Forms.Label();
             this.pnlOpciones = new System.Windows.Forms.Panel();
+            this.panel5 = new System.Windows.Forms.Panel();
             this.panel6 = new System.Windows.Forms.Panel();
-            this.lblBitacora = new System.Windows.Forms.Label();
+            this.lblPerfiles = new System.Windows.Forms.Label();
             this.panel7 = new System.Windows.Forms.Panel();
             this.label6 = new System.Windows.Forms.Label();
             this.panel8 = new System.Windows.Forms.Panel();
             this.label10 = new System.Windows.Forms.Label();
             this.panel9 = new System.Windows.Forms.Panel();
-            this.label14 = new System.Windows.Forms.Label();
+            this.lblGestionPerfiles = new System.Windows.Forms.Label();
             this.panel10 = new System.Windows.Forms.Panel();
             this.label15 = new System.Windows.Forms.Label();
             this.pnlPermisos = new System.Windows.Forms.Panel();
             this.pnlPerfiles = new System.Windows.Forms.Panel();
             this.pnlFamilias = new System.Windows.Forms.Panel();
-            this.label16 = new System.Windows.Forms.Label();
-            this.panel5 = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPermisos)).BeginInit();
             this.panelPermisos.SuspendLayout();
             this.panelFamilias.SuspendLayout();
@@ -483,10 +483,10 @@
             // 
             this.panelPerfiles.BackColor = System.Drawing.Color.Maroon;
             this.panelPerfiles.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panelPerfiles.Controls.Add(this.label13);
-            this.panelPerfiles.Controls.Add(this.label12);
-            this.panelPerfiles.Controls.Add(this.label11);
-            this.panelPerfiles.Controls.Add(this.label9);
+            this.panelPerfiles.Controls.Add(this.lblAsignados);
+            this.panelPerfiles.Controls.Add(this.lblPermisoDisponible);
+            this.panelPerfiles.Controls.Add(this.lblFamiliaAsignadas);
+            this.panelPerfiles.Controls.Add(this.lblFamiliaDisponible);
             this.panelPerfiles.Controls.Add(this.BtnQuitarPermisoPerfil);
             this.panelPerfiles.Controls.Add(this.BtnAsignarPermisoPerfil);
             this.panelPerfiles.Controls.Add(this.clbPermisosAsigPerfil);
@@ -500,49 +500,49 @@
             this.panelPerfiles.Size = new System.Drawing.Size(460, 354);
             this.panelPerfiles.TabIndex = 30;
             // 
-            // label13
+            // lblAsignados
             // 
-            this.label13.AutoSize = true;
-            this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label13.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.label13.Location = new System.Drawing.Point(242, 184);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(135, 16);
-            this.label13.TabIndex = 33;
-            this.label13.Text = "Permisos Asignados:";
+            this.lblAsignados.AutoSize = true;
+            this.lblAsignados.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblAsignados.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.lblAsignados.Location = new System.Drawing.Point(242, 184);
+            this.lblAsignados.Name = "lblAsignados";
+            this.lblAsignados.Size = new System.Drawing.Size(135, 16);
+            this.lblAsignados.TabIndex = 33;
+            this.lblAsignados.Text = "Permisos Asignados:";
             // 
-            // label12
+            // lblPermisoDisponible
             // 
-            this.label12.AutoSize = true;
-            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.label12.Location = new System.Drawing.Point(19, 185);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(142, 16);
-            this.label12.TabIndex = 32;
-            this.label12.Text = "Permisos Disponibles:";
+            this.lblPermisoDisponible.AutoSize = true;
+            this.lblPermisoDisponible.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPermisoDisponible.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.lblPermisoDisponible.Location = new System.Drawing.Point(19, 185);
+            this.lblPermisoDisponible.Name = "lblPermisoDisponible";
+            this.lblPermisoDisponible.Size = new System.Drawing.Size(142, 16);
+            this.lblPermisoDisponible.TabIndex = 32;
+            this.lblPermisoDisponible.Text = "Permisos Disponibles:";
             // 
-            // label11
+            // lblFamiliaAsignadas
             // 
-            this.label11.AutoSize = true;
-            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.label11.Location = new System.Drawing.Point(242, 17);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(129, 16);
-            this.label11.TabIndex = 31;
-            this.label11.Text = "Familias Asignadas:";
+            this.lblFamiliaAsignadas.AutoSize = true;
+            this.lblFamiliaAsignadas.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblFamiliaAsignadas.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.lblFamiliaAsignadas.Location = new System.Drawing.Point(242, 17);
+            this.lblFamiliaAsignadas.Name = "lblFamiliaAsignadas";
+            this.lblFamiliaAsignadas.Size = new System.Drawing.Size(129, 16);
+            this.lblFamiliaAsignadas.TabIndex = 31;
+            this.lblFamiliaAsignadas.Text = "Familias Asignadas:";
             // 
-            // label9
+            // lblFamiliaDisponible
             // 
-            this.label9.AutoSize = true;
-            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.label9.Location = new System.Drawing.Point(19, 17);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(136, 16);
-            this.label9.TabIndex = 29;
-            this.label9.Text = "Familias Disponibles:";
+            this.lblFamiliaDisponible.AutoSize = true;
+            this.lblFamiliaDisponible.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblFamiliaDisponible.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.lblFamiliaDisponible.Location = new System.Drawing.Point(19, 17);
+            this.lblFamiliaDisponible.Name = "lblFamiliaDisponible";
+            this.lblFamiliaDisponible.Size = new System.Drawing.Size(136, 16);
+            this.lblFamiliaDisponible.TabIndex = 29;
+            this.lblFamiliaDisponible.Text = "Familias Disponibles:";
             // 
             // BtnQuitarPermisoPerfil
             // 
@@ -580,16 +580,16 @@
             this.clbPermisosDispPerfil.Size = new System.Drawing.Size(188, 94);
             this.clbPermisosDispPerfil.TabIndex = 25;
             // 
-            // label3
+            // lblNombreP
             // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.label3.Location = new System.Drawing.Point(328, 25);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(66, 18);
-            this.label3.TabIndex = 17;
-            this.label3.Text = "Nombre:";
+            this.lblNombreP.AutoSize = true;
+            this.lblNombreP.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblNombreP.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.lblNombreP.Location = new System.Drawing.Point(328, 25);
+            this.lblNombreP.Name = "lblNombreP";
+            this.lblNombreP.Size = new System.Drawing.Size(66, 18);
+            this.lblNombreP.TabIndex = 17;
+            this.lblNombreP.Text = "Nombre:";
             // 
             // treeView1
             // 
@@ -660,7 +660,7 @@
             this.panel2.Controls.Add(this.btnEliminarPerfil);
             this.panel2.Controls.Add(this.txtNombrePerfil);
             this.panel2.Controls.Add(this.btnCrearPerfil);
-            this.panel2.Controls.Add(this.label3);
+            this.panel2.Controls.Add(this.lblNombreP);
             this.panel2.Location = new System.Drawing.Point(13, 51);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(460, 172);
@@ -684,7 +684,7 @@
             // 
             this.panel4.BackColor = System.Drawing.Color.Maroon;
             this.panel4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel4.Controls.Add(this.label16);
+            this.panel4.Controls.Add(this.lblArbol);
             this.panel4.Controls.Add(this.pnlOpciones);
             this.panel4.Controls.Add(this.treeView1);
             this.panel4.Controls.Add(this.panel5);
@@ -692,6 +692,17 @@
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(460, 620);
             this.panel4.TabIndex = 35;
+            // 
+            // lblArbol
+            // 
+            this.lblArbol.AutoSize = true;
+            this.lblArbol.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblArbol.ForeColor = System.Drawing.SystemColors.Control;
+            this.lblArbol.Location = new System.Drawing.Point(184, 81);
+            this.lblArbol.Name = "lblArbol";
+            this.lblArbol.Size = new System.Drawing.Size(88, 33);
+            this.lblArbol.TabIndex = 22;
+            this.lblArbol.Text = "Arbol";
             // 
             // pnlOpciones
             // 
@@ -705,26 +716,34 @@
             this.pnlOpciones.Size = new System.Drawing.Size(403, 52);
             this.pnlOpciones.TabIndex = 32;
             // 
+            // panel5
+            // 
+            this.panel5.BackColor = System.Drawing.Color.DarkGray;
+            this.panel5.Location = new System.Drawing.Point(29, 123);
+            this.panel5.Name = "panel5";
+            this.panel5.Size = new System.Drawing.Size(401, 471);
+            this.panel5.TabIndex = 33;
+            // 
             // panel6
             // 
             this.panel6.BackColor = System.Drawing.Color.Maroon;
             this.panel6.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel6.Controls.Add(this.lblBitacora);
+            this.panel6.Controls.Add(this.lblPerfiles);
             this.panel6.Location = new System.Drawing.Point(13, 11);
             this.panel6.Name = "panel6";
             this.panel6.Size = new System.Drawing.Size(460, 41);
             this.panel6.TabIndex = 36;
             // 
-            // lblBitacora
+            // lblPerfiles
             // 
-            this.lblBitacora.AutoSize = true;
-            this.lblBitacora.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblBitacora.ForeColor = System.Drawing.SystemColors.Control;
-            this.lblBitacora.Location = new System.Drawing.Point(161, 3);
-            this.lblBitacora.Name = "lblBitacora";
-            this.lblBitacora.Size = new System.Drawing.Size(121, 33);
-            this.lblBitacora.TabIndex = 21;
-            this.lblBitacora.Text = "Perfiles";
+            this.lblPerfiles.AutoSize = true;
+            this.lblPerfiles.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPerfiles.ForeColor = System.Drawing.SystemColors.Control;
+            this.lblPerfiles.Location = new System.Drawing.Point(161, 3);
+            this.lblPerfiles.Name = "lblPerfiles";
+            this.lblPerfiles.Size = new System.Drawing.Size(121, 33);
+            this.lblPerfiles.TabIndex = 21;
+            this.lblPerfiles.Text = "Perfiles";
             // 
             // panel7
             // 
@@ -772,22 +791,22 @@
             // 
             this.panel9.BackColor = System.Drawing.Color.Maroon;
             this.panel9.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel9.Controls.Add(this.label14);
+            this.panel9.Controls.Add(this.lblGestionPerfiles);
             this.panel9.Location = new System.Drawing.Point(13, 238);
             this.panel9.Name = "panel9";
             this.panel9.Size = new System.Drawing.Size(460, 41);
             this.panel9.TabIndex = 39;
             // 
-            // label14
+            // lblGestionPerfiles
             // 
-            this.label14.AutoSize = true;
-            this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label14.ForeColor = System.Drawing.SystemColors.Control;
-            this.label14.Location = new System.Drawing.Point(109, 3);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(238, 33);
-            this.label14.TabIndex = 21;
-            this.label14.Text = "Gestion Perfiles";
+            this.lblGestionPerfiles.AutoSize = true;
+            this.lblGestionPerfiles.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblGestionPerfiles.ForeColor = System.Drawing.SystemColors.Control;
+            this.lblGestionPerfiles.Location = new System.Drawing.Point(109, 3);
+            this.lblGestionPerfiles.Name = "lblGestionPerfiles";
+            this.lblGestionPerfiles.Size = new System.Drawing.Size(238, 33);
+            this.lblGestionPerfiles.TabIndex = 21;
+            this.lblGestionPerfiles.Text = "Gestion Perfiles";
             // 
             // panel10
             // 
@@ -840,25 +859,6 @@
             this.pnlFamilias.Name = "pnlFamilias";
             this.pnlFamilias.Size = new System.Drawing.Size(484, 645);
             this.pnlFamilias.TabIndex = 42;
-            // 
-            // label16
-            // 
-            this.label16.AutoSize = true;
-            this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label16.ForeColor = System.Drawing.SystemColors.Control;
-            this.label16.Location = new System.Drawing.Point(184, 81);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(88, 33);
-            this.label16.TabIndex = 22;
-            this.label16.Text = "Arbol";
-            // 
-            // panel5
-            // 
-            this.panel5.BackColor = System.Drawing.Color.DarkGray;
-            this.panel5.Location = new System.Drawing.Point(29, 123);
-            this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(401, 471);
-            this.panel5.TabIndex = 33;
             // 
             // frmGestionPerfiles
             // 
@@ -945,7 +945,7 @@
         private System.Windows.Forms.Panel panelPerfiles;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label lblNombreP;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.CheckedListBox clbPermisosDispPerfil;
@@ -955,10 +955,10 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TreeView treeView1;
-        private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label lblFamiliaDisponible;
+        private System.Windows.Forms.Label lblAsignados;
+        private System.Windows.Forms.Label lblPermisoDisponible;
+        private System.Windows.Forms.Label lblFamiliaAsignadas;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.PictureBox btnCerrar;
         private System.Windows.Forms.PictureBox btnMaximizar;
@@ -968,19 +968,19 @@
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.Panel pnlOpciones;
         private System.Windows.Forms.Panel panel6;
-        private System.Windows.Forms.Label lblBitacora;
+        private System.Windows.Forms.Label lblPerfiles;
         private System.Windows.Forms.Panel panel7;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Panel panel8;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Panel panel9;
-        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Label lblGestionPerfiles;
         private System.Windows.Forms.Panel panel10;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.Panel pnlPermisos;
         private System.Windows.Forms.Panel pnlPerfiles;
         private System.Windows.Forms.Panel pnlFamilias;
-        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.Label lblArbol;
         private System.Windows.Forms.Panel panel5;
     }
 }
