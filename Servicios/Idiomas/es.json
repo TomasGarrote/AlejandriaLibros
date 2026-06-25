@@ -18,7 +18,6 @@
 
   //Form Usuario
   "lblTextoTabla": "Usuarios Activos",
-  "lblCantidadUsers": "Cantidad de Usuarios",
   "lblApe": "Apellidos",
   "lblNombre": "Nombre",
   "lblEmail": "lblEmail",
