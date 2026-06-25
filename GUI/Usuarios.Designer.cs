@@ -41,7 +41,6 @@
             this.txtApe = new System.Windows.Forms.TextBox();
             this.txtNom = new System.Windows.Forms.TextBox();
             this.txtEmail = new System.Windows.Forms.TextBox();
-            this.txtRol = new System.Windows.Forms.TextBox();
             this.txtUsuario = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.lblApe = new System.Windows.Forms.Label();
@@ -75,6 +74,7 @@
             this.panel6 = new System.Windows.Forms.Panel();
             this.panel13 = new System.Windows.Forms.Panel();
             this.lblOpciones = new System.Windows.Forms.Label();
+            this.cbRol = new System.Windows.Forms.ComboBox();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnCerrar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnMaximizar)).BeginInit();
@@ -228,15 +228,6 @@
             this.txtEmail.Size = new System.Drawing.Size(167, 20);
             this.txtEmail.TabIndex = 27;
             this.txtEmail.Tag = "Email";
-            // 
-            // txtRol
-            // 
-            this.txtRol.BackColor = System.Drawing.Color.Gray;
-            this.txtRol.Location = new System.Drawing.Point(98, 118);
-            this.txtRol.Name = "txtRol";
-            this.txtRol.Size = new System.Drawing.Size(167, 20);
-            this.txtRol.TabIndex = 28;
-            this.txtRol.Tag = "Rol";
             // 
             // txtUsuario
             // 
@@ -485,6 +476,7 @@
             // 
             this.panModificarUsuario.BackColor = System.Drawing.Color.Maroon;
             this.panModificarUsuario.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panModificarUsuario.Controls.Add(this.cbRol);
             this.panModificarUsuario.Controls.Add(this.lblUsuarioFU);
             this.panModificarUsuario.Controls.Add(this.lblRol);
             this.panModificarUsuario.Controls.Add(this.lblEmail);
@@ -492,7 +484,6 @@
             this.panModificarUsuario.Controls.Add(this.lblApe);
             this.panModificarUsuario.Controls.Add(this.label2);
             this.panModificarUsuario.Controls.Add(this.txtUsuario);
-            this.panModificarUsuario.Controls.Add(this.txtRol);
             this.panModificarUsuario.Controls.Add(this.txtEmail);
             this.panModificarUsuario.Controls.Add(this.txtNom);
             this.panModificarUsuario.Controls.Add(this.txtApe);
@@ -643,6 +634,15 @@
             this.lblOpciones.TabIndex = 44;
             this.lblOpciones.Text = "Opciones:";
             // 
+            // cbRol
+            // 
+            this.cbRol.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbRol.FormattingEnabled = true;
+            this.cbRol.Location = new System.Drawing.Point(98, 117);
+            this.cbRol.Name = "cbRol";
+            this.cbRol.Size = new System.Drawing.Size(165, 21);
+            this.cbRol.TabIndex = 56;
+            // 
             // Usuarios
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -699,7 +699,6 @@
         private System.Windows.Forms.TextBox txtApe;
         private System.Windows.Forms.TextBox txtNom;
         private System.Windows.Forms.TextBox txtEmail;
-        private System.Windows.Forms.TextBox txtRol;
         private System.Windows.Forms.TextBox txtUsuario;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label lblApe;
@@ -733,5 +732,6 @@
         private System.Windows.Forms.Panel panel7;
         private System.Windows.Forms.Panel panel13;
         private System.Windows.Forms.Label lblOpciones;
+        private System.Windows.Forms.ComboBox cbRol;
     }
 }

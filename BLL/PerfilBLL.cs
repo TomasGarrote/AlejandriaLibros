@@ -37,14 +37,27 @@ namespace BLL
             var todosLosPermisos = _dal.ObtenerPermisos();
             if (componentePadre == null) return todosLosPermisos;
 
-           
-            var permisosDirectos = new HashSet<string>();
-            foreach (var hijo in componentePadre.ListaHijos.OfType<PermisoSimple>())
+            var permisosYaIncluidos = new HashSet<string>();
+            var cola = new Queue<Familia>();
+            var visitados = new HashSet<string>();
+            cola.Enqueue(componentePadre);
+
+            while (cola.Count > 0)
             {
-                permisosDirectos.Add(hijo.Nombre);
+                var nodo = cola.Dequeue();
+                if (visitados.Contains(nodo.Nombre)) continue;
+                visitados.Add(nodo.Nombre);
+
+                foreach (var hijo in nodo.ListaHijos)
+                {
+                    if (hijo is PermisoSimple p)
+                        permisosYaIncluidos.Add(p.Nombre);
+                    else if (hijo is Familia f)
+                        cola.Enqueue(f);
+                }
             }
 
-            return todosLosPermisos.Where(p => !permisosDirectos.Contains(p.Nombre)).ToList();
+            return todosLosPermisos.Where(p => !permisosYaIncluidos.Contains(p.Nombre)).ToList();
         }
 
         public List<Familia> ObtenerFamiliasDisponibles(string nombrePadre)
@@ -109,12 +122,27 @@ namespace BLL
         public void EliminarFamiliaOPerfil(string nombre)
         {
             var familia = _dal.ObtenerFamiliasYPerfiles().FirstOrDefault(f => f.Nombre == nombre);
-            if (familia != null)
+            if (familia == null) return;
+
+            // SE VERIFICA SI EL PERFIL A ELIMINAR ESTA ASIGNADO A ALGUN USUARIO ACTUAL
+            if (familia.EsRol)
             {
-                _dal.EliminarFamilia(familia);
-                RegistrarEnBitacora(SessionManager.Instance.UsuarioActual().Username, $"Eliminar contenedor jerárquico: {nombre}", 1);
-                RecargarPermisosUsuarioEnSesion();
+                var usuariosConEstePerfil = new UsuarioBLL().ListarTodosUsuarios()
+                    .Where(u => u.Rol == nombre)
+                    .ToList();
+
+                if (usuariosConEstePerfil.Any())
+                {
+                    string lista = string.Join(", ", usuariosConEstePerfil.Select(u => u.Username));
+                    throw new Exception(
+                        $"No se puede eliminar el perfil '{nombre}' porque está asignado a los siguientes usuarios: {lista}.\n\n" +
+                        $"Primero cambiá el perfil de esos usuarios.");
+                }
             }
+
+            _dal.EliminarFamilia(familia);
+            RegistrarEnBitacora(SessionManager.Instance.UsuarioActual().Username, $"Eliminar contenedor jerárquico: {nombre}", 1);
+            RecargarPermisosUsuarioEnSesion();
         }
 
         public void QuitarHijos(string nombrePadre, List<string> hijos, bool esPermisoSimple)
