@@ -177,13 +177,14 @@ namespace GUI
 
         private void btnPerfiles_Click(object sender, EventArgs e)
         {
-            frmGestionPerfiles gestionPerfiles = new frmGestionPerfiles();
+           
             if (!SessionManager.Instance.UsuarioActual().TienePermiso("Ver Perfiles"))
             {
                 MessageBox.Show("No tiene permisos para acceder a Gestión de Perfiles.",
                     "Acceso Denegado", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                 return; 
             }
+            frmGestionPerfiles gestionPerfiles = new frmGestionPerfiles();
             this.Hide();
             gestionPerfiles.Show();
         }
