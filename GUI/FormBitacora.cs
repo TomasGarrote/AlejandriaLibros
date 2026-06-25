@@ -37,7 +37,7 @@ namespace GUI
             }
             catch (Exception)
             {
-                MessageBox.Show("No se pudo conectar a la base de datos. Verificá tu conexión.", "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(LanguageManager.Instance.GetTraduction("Bitmsj1"), LanguageManager.Instance.GetTraduction("Bitmsj2"), MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
             dtgvBitacora.SelectionChanged += DtgvBitacora_SelectionChanged;
@@ -119,7 +119,7 @@ namespace GUI
             }
             catch (Exception)
             {
-                MessageBox.Show("No se pudieron cargar los filtros. Verificá tu conexión.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(LanguageManager.Instance.GetTraduction("BitMsj3"), LanguageManager.Instance.GetTraduction("ErrorP"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             finally
             {
@@ -239,7 +239,7 @@ namespace GUI
                 {
                     txtNombre.Text = string.Empty;
                     txtApellido.Text = string.Empty;
-                    MessageBox.Show("No se encontraron registros con los filtros aplicados.", "Sin resultados", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show(LanguageManager.Instance.GetTraduction("BitMsj4"), LanguageManager.Instance.GetTraduction("BitMsj5"), MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else
                 {
@@ -248,7 +248,7 @@ namespace GUI
             }
             catch (Exception)
             {
-                MessageBox.Show("Ocurrió un error al aplicar los filtros. Intentá de nuevo.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(LanguageManager.Instance.GetTraduction("BitMsj6"), LanguageManager.Instance.GetTraduction("ErrorP"), MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
         }
@@ -257,7 +257,7 @@ namespace GUI
         {
             if (dtpFechaInicio.Value.Date > dtpFechaFinal.Value.Date)
             {
-                MessageBox.Show("La fecha de inicio no puede ser mayor a la fecha final.", "Fechas incorrectas", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(LanguageManager.Instance.GetTraduction("BitMsj7"), LanguageManager.Instance.GetTraduction("bitMsj8"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 dtpFechaInicio.Focus();
                 return false;
             }
@@ -297,7 +297,7 @@ namespace GUI
             }
             catch (Exception)
             {
-                MessageBox.Show("No se pudieron recargar los eventos.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(LanguageManager.Instance.GetTraduction("BitMjs9"), LanguageManager.Instance.GetTraduction("ErrorP"), MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
             {
@@ -310,7 +310,7 @@ namespace GUI
         {
             if (dtgvBitacora.Rows.Count == 0)
             {
-                MessageBox.Show("No hay datos para imprimir.", "Sin datos", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(LanguageManager.Instance.GetTraduction("BitMjs10"), LanguageManager.Instance.GetTraduction("BitMsj11"), MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
 
@@ -365,16 +365,16 @@ namespace GUI
                 doc.Add(tabla);
                 doc.Close();
 
-                MessageBox.Show("PDF generado correctamente.", "Listo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(LanguageManager.Instance.GetTraduction("BitMsj12"), LanguageManager.Instance.GetTraduction("BitMsj13"), MessageBoxButtons.OK, MessageBoxIcon.Information);
                 System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo(saveDialog.FileName) { UseShellExecute = true });
             }
             catch (IOException)
             {
-                MessageBox.Show("El archivo está abierto en otro programa. Cerralo e intentá de nuevo.", "Archivo en uso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(LanguageManager.Instance.GetTraduction("BitMsj14"), LanguageManager.Instance.GetTraduction("BitMsj15"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             catch (Exception)
             {
-                MessageBox.Show("No se pudo generar el PDF. Intentá de nuevo.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(LanguageManager.Instance.GetTraduction("BitMsj16"), LanguageManager.Instance.GetTraduction("ErrorP"), MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -404,7 +404,7 @@ namespace GUI
 
             if (!usuarioActual.TienePermiso("Ver Bitacora"))
             {
-                MessageBox.Show("No tiene permisos para acceder a la Bitácora.", "Acceso Denegado", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                MessageBox.Show(LanguageManager.Instance.GetTraduction("BitMsj17"), LanguageManager.Instance.GetTraduction("BitMsj18"), MessageBoxButtons.OK, MessageBoxIcon.Stop);
 
                 if (Application.OpenForms["Menu"] != null)
                 {

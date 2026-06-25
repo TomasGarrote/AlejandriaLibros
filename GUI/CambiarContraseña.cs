@@ -29,28 +29,28 @@ namespace GUI
                 switch (usuarioBLL.CambiarClave(txtUsuario.Text, txtContraseña.Text, txtNuevaContraseña.Text))
                 {
                     case LoginResultado.Valido:
-                        MessageBox.Show("Contraseña cambiada con éxito!", "Éxito!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageBox.Show(LanguageManager.Instance.GetTraduction("CamClaMsj1"), LanguageManager.Instance.GetTraduction("ExitoP"), MessageBoxButtons.OK, MessageBoxIcon.Information);
                         this.Close();
                         Login login = new Login();
                         login.Show();
                         break;
                     case LoginResultado.ContraseñaIguales:
-                        MessageBox.Show("La nueva contraseña no puede ser igual a la anterior!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show(LanguageManager.Instance.GetTraduction("CamClaMsj2"), LanguageManager.Instance.GetTraduction("ErrorP"), MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
                     case LoginResultado.UsuarioNoEncontrado:
-                        MessageBox.Show("Hay un error en Usuario!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show(LanguageManager.Instance.GetTraduction("CamClaMsj3"), LanguageManager.Instance.GetTraduction("ErrorP"), MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
                     case LoginResultado.ContraseñaIncorrecta:
-                        MessageBox.Show("Hay un error en Contraseña!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show(LanguageManager.Instance.GetTraduction("CamClaMsj4"), LanguageManager.Instance.GetTraduction("ErrorP"), MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
                     case LoginResultado.Bloqueado:
-                        MessageBox.Show("El usuario se encuentra bloqueado, contacte al administrador!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show(LanguageManager.Instance.GetTraduction("CamMsj5"), LanguageManager.Instance.GetTraduction("ErrorP"), MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, LanguageManager.Instance.GetTraduction("ErrorP"), MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             
         }
@@ -60,15 +60,15 @@ namespace GUI
             if (txtUsuario.Text == "")
             {
                 txtUsuario.Focus();
-                throw new Exception("Ingrese su Usuario!");
+                throw new Exception(LanguageManager.Instance.GetTraduction("CamMsj6"));
             }
             if (txtContraseña.Text == "")
             {
-                throw new Exception("Ingrese su Contraseña!");
+                throw new Exception(LanguageManager.Instance.GetTraduction("CamMsj7"));
             }
             if (txtNuevaContraseña.Text == "")
             {
-                throw new Exception("Ingrese una nueva Contraseña!");
+                throw new Exception(LanguageManager.Instance.GetTraduction("CamMsj8"));
             }
         }
 

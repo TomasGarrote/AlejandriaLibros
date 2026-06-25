@@ -1021,6 +1021,9 @@ namespace GUI
             BtnAsignarPermisoPerfil.Text = LanguageManager.Instance.GetTraduction("BtnAsignarPermisoPerfil");
             BtnQuitarPermisoPerfil.Text = LanguageManager.Instance.GetTraduction("BtnQuitarPermisoPerfil");
 
+            label6.Text = LanguageManager.Instance.GetTraduction("label6");
+            label10.Text= LanguageManager.Instance.GetTraduction("label10");
+            label15.Text= LanguageManager.Instance.GetTraduction("label15");
 
         }
     }

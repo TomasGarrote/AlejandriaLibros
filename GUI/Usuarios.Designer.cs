@@ -35,7 +35,7 @@
             this.btnMinimizar = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.txtBoxModo = new System.Windows.Forms.TextBox();
             this.lblMsj = new System.Windows.Forms.Label();
             this.txtDni = new System.Windows.Forms.TextBox();
             this.txtApe = new System.Windows.Forms.TextBox();
@@ -170,17 +170,17 @@
             this.dataGridView1.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridView1_CellFormatting);
             this.dataGridView1.SelectionChanged += new System.EventHandler(this.dataGridView1_SelectionChanged);
             // 
-            // textBox1
+            // txtBoxModo
             // 
-            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1.Location = new System.Drawing.Point(15, 37);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.ReadOnly = true;
-            this.textBox1.Size = new System.Drawing.Size(252, 197);
-            this.textBox1.TabIndex = 22;
-            this.textBox1.Text = "Modo consulta";
-            this.textBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtBoxModo.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtBoxModo.Location = new System.Drawing.Point(15, 37);
+            this.txtBoxModo.Multiline = true;
+            this.txtBoxModo.Name = "txtBoxModo";
+            this.txtBoxModo.ReadOnly = true;
+            this.txtBoxModo.Size = new System.Drawing.Size(252, 197);
+            this.txtBoxModo.TabIndex = 22;
+            this.txtBoxModo.Text = "Modo consulta";
+            this.txtBoxModo.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // lblMsj
             // 
@@ -525,7 +525,7 @@
             this.panel4.BackColor = System.Drawing.Color.Maroon;
             this.panel4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel4.Controls.Add(this.lblMsj);
-            this.panel4.Controls.Add(this.textBox1);
+            this.panel4.Controls.Add(this.txtBoxModo);
             this.panel4.Location = new System.Drawing.Point(560, 373);
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(280, 247);
@@ -693,7 +693,7 @@
         private System.Windows.Forms.PictureBox btnMinimizar;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox txtBoxModo;
         private System.Windows.Forms.Label lblMsj;
         private System.Windows.Forms.TextBox txtDni;
         private System.Windows.Forms.TextBox txtApe;

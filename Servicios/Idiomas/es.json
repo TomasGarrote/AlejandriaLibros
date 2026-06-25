@@ -12,6 +12,7 @@
   "btnReLogin": "Re_Login",
   "btnCambiarClave": "CambiarClave",
   "btnLogout": "Log Out",
+  "btnCambiarIdioma": "Cambiar Idioma",
 
   "YaHaySesionActiva": "Ya hay una sesión iniciada. Por favor, cierre sesión antes de intentar iniciar una nueva.",
   "Informacion": "Informacion",
@@ -20,7 +21,7 @@
   "lblTextoTabla": "Usuarios Activos",
   "lblApe": "Apellidos",
   "lblNombre": "Nombre",
-  "lblEmail": "lblEmail",
+  "lblEmail": "Email",
   "lblRol": "Rol",
   "lblUsuarioFU": "Usuario",
   "lblMsj": "Mensaje",
@@ -34,6 +35,30 @@
   "btnSalir": "Salir",
   "rbTodos": "Todos",
   "rbActivos": "Activos",
+  "lblTextoTablaUserActivos": "Usuarios Activos",
+  "lblTextoTablaUserTodos": "Todos los Usuarios",
+  "txtBoxModoConsulta": "ModoConsulta",
+  "txtBoxModoAnadir": "Modo Añadir",
+  "txtBoxModoDesbloquear": "Modo desbloquear",
+  "txtBoxModoActivar": "Modo activar",
+  "txtBoxModoEliminar": "Modo eliminar",
+  "lblCantidadUser": "Cantidad de Usuarios",
+  "UserElimi": "Usuario Fue Eliminado",
+  "Alerta": "Alerta!",
+  "UserModif": "Usuario Fue Modificado",
+  "UserDesbloqueado": "Usuario Fue Desbloqueado Y Clave Restaurada",
+  "UserActi": "Usuario Fue Activado",
+  "ElCampo": "El Campo",
+  "EstaVacio": "Esta Vacio",
+  "NoFueSelecc": "No Fue Seleccionado",
+  "FaltaCompl": "Faltan Completar Campo",
+  "CampoNombre": "El Campo Nombre",
+  "CampoApell": "El Campo Apellido",
+  "CampoDni": "El Campo DNI",
+  "ElNombreUser": "El Nombre Usuario",
+  "ElCorreoElec": "El Correo Electronico",
+  "DebeSelecionar": "Debe Seleccionar",
+  "ErrorEntradaDeDatos": "Error Entrada Datos",
 
   //Form Cambiar contraserña
   "lblUsuarioFCC": "Usuario",
@@ -41,6 +66,15 @@
   "lblContraseñaFCC": "Contraseña",
   "btnGuardarContra": "Guardar contraseña",
   "linkVolver": "Volver a Login",
+
+  "CamClaMsj1": "Contraseña cambiada con éxito!",
+  "CamClaMsj2": "La nueva contraseña no puede ser igual a la anterior!",
+  "CamClaMsj3": "Hay un error en Usuario!",
+  "CamClaMsj4": "Hay un error en Contraseña!",
+  "CamMsj5": "El usuario se encuentra bloqueado, contacte al administrador!",
+  "CamMsj6": "Ingrese su Usuario!",
+  "CamMsj7": "Ingrese su Contraseña!",
+  "CamMsj8": "Ingrese una nueva Contraseña!",
 
   //Form Bitacora
   "lblBitacora": "Bitacora",
@@ -56,9 +90,36 @@
   "btnAplicarB": "Aplicar",
   "btnImprimirB": "Imprimir",
 
+  "Bitmsj1": "No se pudo conectar a la base de datos. Verificá tu conexión.",
+  "Bitmsj2": "Error de conexión",
+  "BitMsj3": "No se pudieron cargar los filtros. Verificá tu conexión.",
+  "BitMsj4": "No se encontraron registros con los filtros aplicados.",
+  "BitMsj5": "Sin resultados",
+  "BitMsj6": "Ocurrió un error al aplicar los filtros. Intentá de nuevo.",
+  "BitMsj7": "La fecha de inicio no puede ser mayor a la fecha final.",
+  "bitMsj8": "Fechas incorrectas",
+  "BitMjs9": "No se pudieron recargar los eventos.",
+  "BitMjs10": "No hay datos para imprimir.",
+  "BitMsj11": "Sin datos",
+  "BitMsj12": "PDF generado correctamente.",
+  "BitMsj13": "Listo",
+  "BitMsj14": "El archivo está abierto en otro programa. Cerralo e intentá de nuevo.",
+  "BitMsj15": "Archivo en uso",
+  "BitMsj16": "No se pudo generar el PDF. Intentá de nuevo.",
+  "BitMsj17": "No tiene permisos para acceder a la Bitácora.",
+  "BitMsj18": "Acceso Denegado",
+
   //Form Cambiar Idioma
   "lblCambiarIdioma": "Cambiar Idioma",
   "btnCambiarCI": "Cambiar",
+  "MsjCambiarIdioma": "Idioma cambiado",
+  "MsjConfirmacion": "Confirmado",
+  "Salir": "Salir",
+
+  "Es": "Español",
+  "En": "Ingles",
+  "Ja": "Japones",
+
 
   //FormGestionPerfiles
   "RbPermisos": "Permisos",
@@ -78,6 +139,10 @@
   "btnQuitarFamiliaPerfil": "Quitar familia",
   "BtnAsignarPermisoPerfil": "Asignar permiso",
   "BtnQuitarPermisoPerfil": "Quitar permiso",
+  "label6": "Permisos",
+  "label10": "Familias",
+  "label15": "Gestion Familias",
+
 
 
   "VerPerfiles": "Ver Perfiles",
@@ -160,5 +225,42 @@
   "text31": "Optimizar estructura (Quitar redundancias de los subnodos y unificar)",
   "text32": "Cancelar la operación (No realizar modificaciones)",
   "text33": "Sus permisos fueron modificados. Ya no posee acceso a esta pantalla.",
-  "text34": "Permisos actualizados"
+  "text34": "Permisos actualizados",
+
+  //Sesion manager
+  "UserLogueado": "Ya hay un usuario logueado.",
+  "UserNoLogueado": "No hay ningún usuario logueado.",
+  //PermisoSimple
+  "PerSimText1": "No se pueden agregar componentes a un permiso simple.",
+  "PerSimText2": "No se pueden quitar componentes de un permiso simple.",
+  //UsuarioDAL
+  "UserDalText1": "No se encontró el usuario con DNI",
+  //Perfil Dal
+  "PerfilDalText1": "El permiso con este nombre ya existe en el sistema.",
+  "PerfilDalText2": "El",
+  "PerfilDalText3": "con este nombre ya existe en el sistema.",
+  //BitacoraDal
+  "BitText1": "Error al registrar el evento en la bitácora.",
+  "BitText2": "Error al filtrar los eventos.",
+  "BitText3": "Error al obtener los logins.",
+  "BitText4": "Error al obtener el usuario.",
+  //UserBLL
+  "UserBLLText1": "Ya hay un usuario logueado en el sistema.",
+  "UserBLLText2": "No se pudo conectar a la base de datos.",
+  "UserBLLText3": "El usuario ya existe",
+  "UserBLLText4": "El Formato Del Email Es Incorrecto",
+  "UserBLLText5": "El Formato Del DNI Es Incorrecto",
+  "UserBLLText6": "El Formato Del Nombre o Apellido Es Incorrecto",
+  "UserBLLText7": "Ya Existe User Con Ese DNI",
+  "UserBLLText8": "El nombre de usuario ya esta en uso",
+  "UserBLLText9": "Usuario No Esta Bloqueado",
+  //PerfillBLL
+  "PerBLLText1": "Error operativo al purgar los componentes redundantes:",
+  "PerBLLText2": "Error al remover el permiso específico del contenedor:",
+  //BitBLL
+  "BitBlltext1": "No se pudo registrar el evento en la bitácora.",
+  "BitBlltext2": "La fecha de inicio no puede ser mayor a la fecha final.",
+  "BitBlltext3": "No se pudieron filtrar los eventos.",
+  "BitBlltext4": "No se pudieron obtener los usuarios.",
+  "BitBlltext5": "No se pudo obtener el usuario."
 }

@@ -23,9 +23,9 @@ namespace GUI
         {
             var lista = new List<object>()
             {
-                new {Idioma="Spanish", Codigo="es"},
-                new {Idioma="English", Codigo="en"},
-                new {Idioma="Japanese", Codigo="ja"}
+                new {Idioma=LanguageManager.Instance.GetTraduction("Es"), Codigo="es"},
+                new {Idioma=LanguageManager.Instance.GetTraduction("En"), Codigo="en"},
+                new {Idioma=LanguageManager.Instance.GetTraduction("Ja"), Codigo="ja"}
             };
 
             cbIdiomas.DisplayMember = "Idioma";
@@ -68,9 +68,9 @@ namespace GUI
         {
             try
             {
-                btnCambiarCI.Text = lenguaje.GetTraduction("btnCambiar");
+                btnCambiarCI.Text = lenguaje.GetTraduction("btnCambiarCI");
                 lblCambiarIdioma.Text = lenguaje.GetTraduction("lblCambiarIdioma");
-
+                button1.Text = LanguageManager.Instance.GetTraduction("Salir");
 
             }
             catch (Exception ex)

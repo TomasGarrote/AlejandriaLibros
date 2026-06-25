@@ -25,7 +25,7 @@ namespace GUI
             
             InitializeComponent();
             usuarioBLL = new UsuarioBLL();
-            lblTextoTabla.Text = "[Usuarios Activos]";
+            lblTextoTabla.Text = LanguageManager.Instance.GetTraduction("lblTextoTablaUserActivos");
             MostrarUsuarios(dataGridView1, usuarioBLL.ListarUsuariosActivos());
             MostrarCantidadUsuarios();
             ConfigurarGrillaSeleccionFila(dataGridView1);
@@ -36,11 +36,11 @@ namespace GUI
         {
             if (rbActivos.Checked)
             {
-                lblCantidadUsers.Text = $"Cantidad de Usuarios: {usuarioBLL.ListarUsuariosActivos().Count}";
+                lblCantidadUsers.Text = $"{LanguageManager.Instance.GetTraduction("lblCantidadUser")}: {usuarioBLL.ListarUsuariosActivos().Count}";
             }
             else
             {
-                lblCantidadUsers.Text = $"Cantidad de Usuarios: {usuarioBLL.ListarTodosUsuarios().Count}";
+                lblCantidadUsers.Text = $"{LanguageManager.Instance.GetTraduction("lblCantidadUser")}: {usuarioBLL.ListarTodosUsuarios().Count}";
             }
         }
 
@@ -48,13 +48,13 @@ namespace GUI
         {
             if (rbActivos.Checked)
             {
-                lblTextoTabla.Text = "[Usuarios Activos]";
+                lblTextoTabla.Text = LanguageManager.Instance.GetTraduction("lblTextoTablaUserActivos");
                 MostrarUsuarios(dataGridView1, usuarioBLL.ListarUsuariosActivos() as List<Usuario>);
                 MostrarCantidadUsuarios();
             }
             else
             {
-                lblTextoTabla.Text = "[Todos los Usuarios]";
+                lblTextoTabla.Text = LanguageManager.Instance.GetTraduction("lblTextoTablaUserTodos");
                 MostrarCantidadUsuarios();
             }
 
@@ -162,7 +162,7 @@ namespace GUI
 
                         MostrarCantidadUsuarios();
 
-                        MessageBox.Show("Usuario Fue Eliminado", "Alerta!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageBox.Show(LanguageManager.Instance.GetTraduction("UserElimi"), LanguageManager.Instance.GetTraduction("Alerta"), MessageBoxButtons.OK, MessageBoxIcon.Information);
                         break;
                     case UserAction.Modify:
                         txtDni.ReadOnly = true;
@@ -171,7 +171,7 @@ namespace GUI
                             usuarioBLL.Modificar((dataGridView1.SelectedRows[0].DataBoundItem as Usuario).DNI, new Usuario(txtDni.Text, txtNom.Text, txtApe.Text, txtUsuario.Text, string.Empty, txtEmail.Text, default, default, txtRol.Text));
                             txtDni.ReadOnly = false;
                             ReiniciarBotones();
-                            MessageBox.Show("Usuario Fue Modificado", "Alerta!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            MessageBox.Show(LanguageManager.Instance.GetTraduction("UserModif"), LanguageManager.Instance.GetTraduction("Alerta") , MessageBoxButtons.OK, MessageBoxIcon.Information);
                             MostrarUsuarios(dataGridView1, usuarioBLL.ListarUsuariosActivos());
                         }
                         break;
@@ -188,7 +188,7 @@ namespace GUI
 
                         }
                         
-                        MessageBox.Show("Usuario Fue Desbloqueado Y Clave Restaurada", "Alerta!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageBox.Show(LanguageManager.Instance.GetTraduction("UserDesbloqueado"), LanguageManager.Instance.GetTraduction("Alerta"), MessageBoxButtons.OK, MessageBoxIcon.Information);
                         break;
                     case UserAction.Activate:
                         usuarioBLL.EliminarLogico((dataGridView1.SelectedRows[0].DataBoundItem as Usuario).DNI);
@@ -202,7 +202,7 @@ namespace GUI
                             MostrarUsuarios(dataGridView1, usuarioBLL.ListarTodosUsuarios());
 
                         }
-                        MessageBox.Show("Usuario Fue Activado", "Alerta!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageBox.Show(LanguageManager.Instance.GetTraduction("UserActi"), LanguageManager.Instance.GetTraduction("Alerta"), MessageBoxButtons.OK, MessageBoxIcon.Information);
                         break;
                     case UserAction.Consult:
                         break;
@@ -232,13 +232,13 @@ namespace GUI
 
                 if (c is TextBox txt && string.IsNullOrWhiteSpace(txt.Text))
                 {
-                    mensaje.AppendLine("El Campo " + " " + nombreCampo + " " + "Esta Vacio");
+                    mensaje.AppendLine($"{LanguageManager.Instance.GetTraduction("ElCampo")} " + " " + nombreCampo + " " +  LanguageManager.Instance.GetTraduction("EstaVacio"));
                     if (primerInvalido == null) primerInvalido = txt;
                     hayVacios = true;
                 }
                 else if (c is ComboBox cb && cb.SelectedIndex == -1)
                 {
-                    mensaje.AppendLine("El Campo" + " " + nombreCampo+ " " + "No Fue Seleccionado");
+                    mensaje.AppendLine($"{LanguageManager.Instance.GetTraduction("ElCampo")}" + " " + nombreCampo+ " " + LanguageManager.Instance.GetTraduction("NoFueSelecc"));
                     if (primerInvalido == null) primerInvalido = cb;
                     hayVacios = true;
                 }
@@ -246,7 +246,7 @@ namespace GUI
 
             if (hayVacios)
             {
-                MessageBox.Show(mensaje.ToString(), "Faltan Completar Campo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(mensaje.ToString(), LanguageManager.Instance.GetTraduction("FaltaCompl"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 primerInvalido?.Focus(); // Enfocar el primer campo con error
             }
 
@@ -259,33 +259,33 @@ namespace GUI
 
            
             if (!Regex.IsMatch(txtNom.Text.Trim(), @"^[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ\s]+$"))
-                errores.AppendLine("El Campo Nombre");
+                errores.AppendLine(LanguageManager.Instance.GetTraduction("CampoNombre"));
 
             if (!Regex.IsMatch(txtApe.Text.Trim(), @"^[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ\s]+$"))
-                errores.AppendLine("E lCampo Apellido");
+                errores.AppendLine(LanguageManager.Instance.GetTraduction("CampoApell"));
 
             
             if (!Regex.IsMatch(txtDni.Text.Trim(), @"^\d{8}$"))
-                errores.AppendLine("El Campo DNI");
+                errores.AppendLine(LanguageManager.Instance.GetTraduction("CampoDni"));
 
             if (!(userAction == UserAction.Add))
             {
                 
                 if (string.IsNullOrWhiteSpace(txtUsuario.Text) || txtUsuario.Text.Length < 4)
-                    errores.AppendLine("El Nombre Usuario");
+                    errores.AppendLine(LanguageManager.Instance.GetTraduction("ElNombreUser"));
             }
            
             if (!Regex.IsMatch(txtEmail.Text.Trim(), @"^[^@\s]+@[^@\s]+\.[^@\s]+$"))
-                errores.AppendLine("El Correo Electronico");
+                errores.AppendLine(LanguageManager.Instance.GetTraduction("ElCorreoElec"));
 
            
             if (string.IsNullOrWhiteSpace(txtRol.Text))
-                errores.AppendLine("Debe Seleccionar");
+                errores.AppendLine(LanguageManager.Instance.GetTraduction("DebeSelecionar"));
 
             
             if (errores.Length > 0)
             {
-                MessageBox.Show(errores.ToString(), "Error Entrada Datos", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(errores.ToString(), LanguageManager.Instance.GetTraduction("ErrorEntradaDeDatos"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return false;
             }
 
@@ -351,7 +351,7 @@ namespace GUI
             //txtRol.Enabled = false;
             //txtUsuario.Enabled = false;
 
-            textBox1.Text = "Modo consulta";
+            txtBoxModo.Text = LanguageManager.Instance.GetTraduction("txtBoxModoConsulta");
 
             userAction = UserAction.Consult;
 
@@ -397,7 +397,7 @@ namespace GUI
         private void btnCrear_Click(object sender, EventArgs e)
         {
             userAction = UserAction.Add;
-            textBox1.Text = "Modo Añadir";
+            txtBoxModo.Text = LanguageManager.Instance.GetTraduction("txtBoxModoAnadir");
             EnabledControls(btnCrear, btnDesbloquear, btnModificar, btnActDes, btnAplicar, btnCancelar, btnSalir, pnFiltrado, panModificarUsuario, panel3);
         }
 
@@ -406,7 +406,7 @@ namespace GUI
             if (dataGridView1.SelectedRows.Count > 0)
             {
                 userAction = UserAction.UnBlock;
-                textBox1.Text = "Modo desbloquear";
+                txtBoxModo.Text = LanguageManager.Instance.GetTraduction("txtBoxModoDesbloquear");
                 EnabledControls(btnCrear, btnDesbloquear, btnModificar, btnActDes, btnAplicar, btnCancelar, btnSalir, pnFiltrado);
             }
         }
@@ -426,12 +426,12 @@ namespace GUI
                 if (!us.Activo)
                 {
                     userAction = UserAction.Activate;
-                    textBox1.Text = "Modo activar";
+                    txtBoxModo.Text = LanguageManager.Instance.GetTraduction("txtBoxModoActivar");
                 }
                 else
                 {
                     userAction = UserAction.Delete;
-                    textBox1.Text = "Modo eliminar";
+                    txtBoxModo.Text = LanguageManager.Instance.GetTraduction("txtBoxModoEliminar");
                 }
                 EnabledControls(btnCrear, btnDesbloquear, btnModificar, btnActDes, btnAplicar, btnCancelar, btnSalir, pnFiltrado, panModificarUsuario);
             }
@@ -455,7 +455,7 @@ namespace GUI
         {
 
             lblTextoTabla.Text = lenguaje.GetTraduction("lblTextoTabla");
-            lblCantidadUsers.Text = lenguaje.GetTraduction("lblCantidadUsers");
+            //lblCantidadUsers.Text = lenguaje.GetTraduction("lblCantidadUsers");
             lblApe.Text = lenguaje.GetTraduction("lblApe");
             lblNombre.Text = lenguaje.GetTraduction("lblNombre");
             lblEmail.Text = lenguaje.GetTraduction("lblEmail");

@@ -25,12 +25,12 @@ namespace BLL
             {
                 if (SessionManager.Instance.Logueado())
                 {
-                    throw new Exception("Ya hay un usuario logueado en el sistema.");
+                    throw new Exception(LanguageManager.Instance.GetTraduction("UserBLLText1"));
                 }
 
                 if (usuarioDAL == null)
                 {
-                    throw new Exception("No se pudo conectar a la base de datos.");
+                    throw new Exception(LanguageManager.Instance.GetTraduction("UserBLLText2"));
                 }
 
                 Usuario usuarioBE = usuarioDAL.ObtenerPorUserName(usuario);
@@ -120,7 +120,7 @@ namespace BLL
                 }
                 else
                 {
-                    throw new Exception("El usuario ya existe");
+                    throw new Exception(LanguageManager.Instance.GetTraduction("UserBLLText3"));
                 }
             }
             catch (Exception ex)
@@ -131,10 +131,10 @@ namespace BLL
 
         private void ValidarCaracteresUsuario(Usuario usuario)
         {
-            if (!Regex.IsMatch(usuario.Email, @"^[^@\s]+@[^@\s]+\.[^@\s]+$")) throw new Exception("El Formato Del Email Es Incorrecto");
-            if (!Regex.IsMatch(usuario.DNI, @"^\d{8}$")) throw new Exception("El Formato Del DNI Es Incorrecto");
+            if (!Regex.IsMatch(usuario.Email, @"^[^@\s]+@[^@\s]+\.[^@\s]+$")) throw new Exception(LanguageManager.Instance.GetTraduction("UserBLLText4"));
+            if (!Regex.IsMatch(usuario.DNI, @"^\d{8}$")) throw new Exception(LanguageManager.Instance.GetTraduction("UserBLLText5"));
             if (!Regex.IsMatch(usuario.Nombre, @"^.{3,}$") || !Regex.IsMatch(usuario.Apellido, @"^.{3,}$"))
-                throw new Exception("El Formato Del Nombre o Apellido Es Incorrecto");
+                throw new Exception(LanguageManager.Instance.GetTraduction("UserBLLText6"));
         }
 
         public List<Usuario> ListarUsuariosActivos()
@@ -209,12 +209,12 @@ namespace BLL
         {
             Usuario existente = usuarioDAL.BuscarUsuarioPorDNI(usuarioBE.DNI);
             if (existente != null && existente.DNI != dNI)
-                throw new Exception("Ya Existe User Con Ese DNI");
+                throw new Exception(LanguageManager.Instance.GetTraduction("UserBLLText7"));
             else
             {
                 Usuario repetido = usuarioDAL.ObtenerPorUserName(usuarioBE.Username);
                 if (repetido != null && repetido.DNI != dNI)
-                    throw new Exception("El Nombre De Usuario Ya Esta En Uso");
+                    throw new Exception(LanguageManager.Instance.GetTraduction("UserBLLText8"));
                 else
                 {
                     usuarioDAL.Modificar(dNI, usuarioBE);
@@ -250,7 +250,7 @@ namespace BLL
                 }
                 else
                 {
-                    throw new Exception("Usuario No Esta Bloqueado");
+                    throw new Exception(LanguageManager.Instance.GetTraduction("UserBLLText9"));
                 }
             }
             catch (Exception ex)

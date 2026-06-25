@@ -27,7 +27,7 @@ namespace DAL
             }
             catch (Exception ex)
             {
-                throw new Exception("Error al registrar el evento en la bitácora.", ex);
+                throw new Exception(LanguageManager.Instance.GetTraduction("BitText1"), ex);
             }
             finally
             {
@@ -107,7 +107,7 @@ namespace DAL
             }
             catch (Exception ex)
             {
-                throw new Exception("Error al filtrar los eventos.", ex);
+                throw new Exception(LanguageManager.Instance.GetTraduction("BitText2"), ex);
             }
             finally
             {
@@ -131,7 +131,7 @@ namespace DAL
             }
             catch (Exception ex)
             {
-                throw new Exception("Error al obtener los logins.", ex);
+                throw new Exception(LanguageManager.Instance.GetTraduction("BitText3"), ex);
             }
             finally
             {
@@ -168,7 +168,7 @@ namespace DAL
             }
             catch (Exception ex)
             {
-                throw new Exception("Error al obtener el usuario.", ex);
+                throw new Exception(LanguageManager.Instance.GetTraduction("BitText4"), ex);
             }
             finally
             {

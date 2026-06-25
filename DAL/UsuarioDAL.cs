@@ -82,7 +82,7 @@ namespace DAL
                     }
 
                 }
-                throw new Exception($"No se encontró el usuario con DNI {dNI}");
+                throw new Exception($"{LanguageManager.Instance.GetTraduction("UserDalText1")} {dNI}");
             }
             catch (Exception ex)
             {

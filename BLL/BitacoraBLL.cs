@@ -23,7 +23,7 @@ namespace BLL
             }
             catch (Exception ex)
             {
-                throw new Exception("No se pudo registrar el evento en la bitácora.", ex);
+                throw new Exception(LanguageManager.Instance.GetTraduction("BitBlltext1"), ex);
             }
         }
 
@@ -33,7 +33,7 @@ namespace BLL
             try
             {
                 if (desde > hasta)
-                    throw new Exception("La fecha de inicio no puede ser mayor a la fecha final.");
+                    throw new Exception(LanguageManager.Instance.GetTraduction("BitBlltext2"));
 
                 if (modulo == "Todos") modulo = null;
 
@@ -41,7 +41,7 @@ namespace BLL
             }
             catch (Exception ex)
             {
-                throw new Exception("No se pudieron filtrar los eventos.", ex);
+                throw new Exception(LanguageManager.Instance.GetTraduction("BitBlltext3"), ex);
             }
         }
 
@@ -53,7 +53,7 @@ namespace BLL
             }
             catch (Exception ex)
             {
-                throw new Exception("No se pudieron obtener los usuarios.", ex);
+                throw new Exception(LanguageManager.Instance.GetTraduction("BitBlltext4"), ex);
             }
         }
 
@@ -65,7 +65,7 @@ namespace BLL
             }
             catch (Exception ex)
             {
-                throw new Exception("No se pudo obtener el usuario.", ex);
+                throw new Exception(LanguageManager.Instance.GetTraduction("BitBlltext5"), ex);
             }
         }
     }

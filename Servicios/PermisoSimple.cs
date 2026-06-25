@@ -9,12 +9,12 @@ namespace Servicios
         public override void AgregarHijo(ComponentePermiso hijo)
         {
             // Un permiso simple es una hoja, no puede tener hijos.
-            throw new NotImplementedException("No se pueden agregar componentes a un permiso simple.");
+            throw new NotImplementedException(LanguageManager.Instance.GetTraduction("PerSimText1"));
         }
 
         public override void QuitarHijo(ComponentePermiso hijo)
         {
-            throw new NotImplementedException("No se pueden quitar componentes de un permiso simple.");
+            throw new NotImplementedException(LanguageManager.Instance.GetTraduction("PerSimText2"));
         }
 
         public override List<ComponentePermiso> ObtenerHijos()

@@ -174,7 +174,7 @@ namespace BLL
             catch (Exception ex)
             {
                 RegistrarEnBitacora(SessionManager.Instance.UsuarioActual().Username, $"ERROR en EliminarPermisoRedundante: {ex.Message}", 1);
-                throw new Exception("Error operativo al purgar los componentes redundantes: " + ex.Message);
+                throw new Exception(LanguageManager.Instance.GetTraduction("PerBLLText1") + ex.Message);
             }
         }
 
@@ -334,7 +334,7 @@ namespace BLL
             }
             catch (Exception ex)
             {
-                throw new Exception($"Error al remover el permiso específico del contenedor: {ex.Message}", ex);
+                throw new Exception($"{LanguageManager.Instance.GetTraduction("PerBLLText2")} {ex.Message}", ex);
             }
         }
         private string VerificarConflictoHorizontal(List<Familia> todosLosComponentes, Familia nodoDestino, string permisoBuscar)

@@ -205,6 +205,7 @@ namespace GUI
             btnReLogin.Text = LanguageManager.Instance.GetTraduction("btnReLogin");
             btnCambiarClave.Text = LanguageManager.Instance.GetTraduction("btnCambiarClave");
             btnLogout.Text = LanguageManager.Instance.GetTraduction("btnLogout");
+            btnCambiarIdioma.Text = LanguageManager.Instance.GetTraduction("btnCambiarIdioma");
         }
     }
 }

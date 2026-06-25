@@ -29,7 +29,7 @@
         {
             if (Logueado())
             {
-                throw new Exception("Ya hay un usuario logueado.");
+                throw new Exception(LanguageManager.Instance.GetTraduction("UserLogueado"));
             }
             _usuarioLogueado = usuario;
         }
@@ -38,7 +38,7 @@
         {
             if (!Logueado())
             {
-                throw new Exception("No hay ningún usuario logueado.");
+                throw new Exception(LanguageManager.Instance.GetTraduction("UserNoLogueado"));
             }
             _usuarioLogueado = null;
         }
@@ -52,7 +52,7 @@
         {
             if (!Logueado())
             {
-                throw new Exception("No hay ningún usuario logueado.");
+                throw new Exception(LanguageManager.Instance.GetTraduction("UserNoLogueado"));
             }
             return _usuarioLogueado;
         }

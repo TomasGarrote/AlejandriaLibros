@@ -140,7 +140,7 @@ namespace DAL
         {
             if (ExisteNombre(permiso.Nombre, "PermisoSimple"))
             {
-                throw new ArgumentException("El permiso con este nombre ya existe en el sistema.");
+                throw new ArgumentException(LanguageManager.Instance.GetTraduction("PerfilDalText2"));
             }
 
             _sqlcommand.CommandText = "INSERT INTO PermisoSimple (Nombre) VALUES (@Nombre)";
@@ -166,7 +166,7 @@ namespace DAL
             if (ExisteNombre(familia.Nombre, tabla))
             {
                 string tipoComponente = familia.EsRol ? "perfil" : "familia";
-                throw new ArgumentException($"El {tipoComponente} con este nombre ya existe en el sistema.");
+                throw new ArgumentException($"{LanguageManager.Instance.GetTraduction("PerfilDalText2")} {tipoComponente} {LanguageManager.Instance.GetTraduction("PerfilDalText3")}");
             }
 
             _sqlcommand.CommandText = $"INSERT INTO {tabla} (Nombre) VALUES (@Nombre)";
