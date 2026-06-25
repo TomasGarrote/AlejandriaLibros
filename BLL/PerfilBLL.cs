@@ -122,12 +122,27 @@ namespace BLL
         public void EliminarFamiliaOPerfil(string nombre)
         {
             var familia = _dal.ObtenerFamiliasYPerfiles().FirstOrDefault(f => f.Nombre == nombre);
-            if (familia != null)
+            if (familia == null) return;
+
+            // SE VERIFICA SI EL PERFIL A ELIMINAR ESTA ASIGNADO A ALGUN USUARIO ACTUAL
+            if (familia.EsRol)
             {
-                _dal.EliminarFamilia(familia);
-                RegistrarEnBitacora(SessionManager.Instance.UsuarioActual().Username, $"Eliminar contenedor jerárquico: {nombre}", 1);
-                RecargarPermisosUsuarioEnSesion();
+                var usuariosConEstePerfil = new UsuarioBLL().ListarTodosUsuarios()
+                    .Where(u => u.Rol == nombre)
+                    .ToList();
+
+                if (usuariosConEstePerfil.Any())
+                {
+                    string lista = string.Join(", ", usuariosConEstePerfil.Select(u => u.Username));
+                    throw new Exception(
+                        $"No se puede eliminar el perfil '{nombre}' porque está asignado a los siguientes usuarios: {lista}.\n\n" +
+                        $"Primero cambiá el perfil de esos usuarios.");
+                }
             }
+
+            _dal.EliminarFamilia(familia);
+            RegistrarEnBitacora(SessionManager.Instance.UsuarioActual().Username, $"Eliminar contenedor jerárquico: {nombre}", 1);
+            RecargarPermisosUsuarioEnSesion();
         }
 
         public void QuitarHijos(string nombrePadre, List<string> hijos, bool esPermisoSimple)
