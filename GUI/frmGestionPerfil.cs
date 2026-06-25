@@ -47,16 +47,16 @@ namespace GUI
 
         private void ValidarPermisos()
         {
-          
             Usuario usuarioActual = SessionManager.Instance.UsuarioActual();
+
             if (!usuarioActual.TienePermiso("Ver Perfiles"))
             {
-                MessageBox.Show(LanguageManager.Instance.GetTraduction("NoTienePermisosParaAcceder"), LanguageManager.Instance.GetTraduction("AccesoDenegado"), MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                MessageBox.Show("No tiene permisos para acceder a Gestión de Perfiles.",
+                    "Acceso Denegado", MessageBoxButtons.OK, MessageBoxIcon.Stop);
 
+                
                 if (Application.OpenForms["Menu"] != null)
-                {
                     Application.OpenForms["Menu"].Show();
-                }
                 else
                 {
                     Menu menu = new Menu();
@@ -68,7 +68,6 @@ namespace GUI
                 return;
             }
 
-           
             ActualizarEstadoBotonesSegunPermisos();
         }
 

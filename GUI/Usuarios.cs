@@ -2,29 +2,27 @@
 using Servicios;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace GUI
 {
-    public partial class Usuarios : Form,IObserver
+    public partial class Usuarios : Form, IObserver
     {
         int posX, posY;
         bool arrastrando = false;
         private UserAction userAction;
         private UsuarioBLL usuarioBLL;
+        private PerfilBLL perfilBLL;
+
         public Usuarios()
         {
-            
             InitializeComponent();
             usuarioBLL = new UsuarioBLL();
+            perfilBLL = new PerfilBLL();
             lblTextoTabla.Text = "[Usuarios Activos]";
             MostrarUsuarios(dataGridView1, usuarioBLL.ListarUsuariosActivos());
             MostrarCantidadUsuarios();
@@ -32,16 +30,19 @@ namespace GUI
             ReiniciarBotones();
         }
 
+        private void CargarPerfiles()
+        {
+            cbRol.Items.Clear();
+            foreach (var perfil in perfilBLL.ObtenerPerfiles())
+                cbRol.Items.Add(perfil.Nombre);
+        }
+
         private void MostrarCantidadUsuarios()
         {
             if (rbActivos.Checked)
-            {
                 lblCantidadUsers.Text = $"Cantidad de Usuarios: {usuarioBLL.ListarUsuariosActivos().Count}";
-            }
             else
-            {
                 lblCantidadUsers.Text = $"Cantidad de Usuarios: {usuarioBLL.ListarTodosUsuarios().Count}";
-            }
         }
 
         private void radioButton1_CheckedChanged(object sender, EventArgs e)
@@ -49,7 +50,7 @@ namespace GUI
             if (rbActivos.Checked)
             {
                 lblTextoTabla.Text = "[Usuarios Activos]";
-                MostrarUsuarios(dataGridView1, usuarioBLL.ListarUsuariosActivos() as List<Usuario>);
+                MostrarUsuarios(dataGridView1, usuarioBLL.ListarUsuariosActivos());
                 MostrarCantidadUsuarios();
             }
             else
@@ -57,7 +58,6 @@ namespace GUI
                 lblTextoTabla.Text = "[Todos los Usuarios]";
                 MostrarCantidadUsuarios();
             }
-
         }
 
         private void btnCerrar_Click(object sender, EventArgs e)
@@ -67,17 +67,12 @@ namespace GUI
             menu.Show();
         }
 
-        private void panel1_MouseUp(object sender, MouseEventArgs e)
-        {
-            arrastrando = false;
-        }
+        private void panel1_MouseUp(object sender, MouseEventArgs e) => arrastrando = false;
 
         private void panel1_MouseMove(object sender, MouseEventArgs e)
         {
             if (arrastrando)
-            {
                 this.Location = new Point(this.Location.X + (e.X - posX), this.Location.Y + (e.Y - posY));
-            }
         }
 
         private void btnMaximizar_Click(object sender, EventArgs e)
@@ -88,33 +83,20 @@ namespace GUI
                 this.WindowState = FormWindowState.Normal;
         }
 
-        private void btnMinimizar_Click(object sender, EventArgs e)
-        {
+        private void btnMinimizar_Click(object sender, EventArgs e) =>
             this.WindowState = FormWindowState.Minimized;
-        }
 
         private void panModificarUsuario_EnabledChanged(object sender, EventArgs e)
         {
-            if (panModificarUsuario.Enabled == true)
-            {
-                txtDni.BackColor = Color.White;
-                txtNom.BackColor = Color.White;
-                txtApe.BackColor =  Color.White;
-                txtEmail.BackColor = Color.White;
-                txtUsuario.BackColor = Color.White;
-                txtRol.BackColor = Color.White;
-            }
-            else
-            {
-                txtDni.BackColor = Color.Gray;
-                txtNom.BackColor = Color.Gray;
-                txtApe.BackColor =  Color.Gray;
-                txtEmail.BackColor = Color.Gray;
-                txtUsuario.BackColor = Color.Gray;
-                txtRol.BackColor = Color.Gray;
-            }
+            Color color = panModificarUsuario.Enabled ? Color.White : Color.Gray;
+            txtDni.BackColor = color;
+            txtNom.BackColor = color;
+            txtApe.BackColor = color;
+            txtEmail.BackColor = color;
+            txtUsuario.BackColor = color;
+            cbRol.BackColor = color;
         }
-                
+
         private void EnabledControls(params Control[] controls)
         {
             foreach (Control b in controls)
@@ -140,85 +122,102 @@ namespace GUI
                 switch (userAction)
                 {
                     case UserAction.Add:
-                        if (ValidarCamposVacios(txtDni,txtApe,txtNom,txtEmail,txtRol,txtUsuario)) {
-                            usuarioBLL.RegistrarUsuario(new Usuario(txtDni.Text,txtNom.Text,txtApe.Text,txtUsuario.Text,Encriptador.GetHash256(txtDni.Text + txtNom.Text), txtEmail.Text,false,true,txtRol.Text));
+                        if (ValidarCamposVacios(txtDni, txtApe, txtNom, txtEmail, txtUsuario) && ValidarComboBox(cbRol))
+                        {
+                            usuarioBLL.RegistrarUsuario(new Usuario(
+                                txtDni.Text, txtNom.Text, txtApe.Text, txtUsuario.Text,
+                                Encriptador.GetHash256(txtDni.Text + txtNom.Text),
+                                txtEmail.Text, false, true, cbRol.SelectedItem.ToString()));
                             ReiniciarBotones();
                             MostrarUsuarios(dataGridView1, usuarioBLL.ListarUsuariosActivos());
                             MostrarCantidadUsuarios();
                         }
-                            break;
+                        break;
+
                     case UserAction.Delete:
                         usuarioBLL.EliminarLogico((dataGridView1.SelectedRows[0].DataBoundItem as Usuario).DNI);
                         ReiniciarBotones();
-                        if (rbActivos.Checked)
-                        {
-                            MostrarUsuarios(dataGridView1, usuarioBLL.ListarUsuariosActivos());
-                        }
-                        else
-                        {
-                            MostrarUsuarios(dataGridView1, usuarioBLL.ListarTodosUsuarios());
-
-                        }
-
+                        MostrarUsuarios(dataGridView1, rbActivos.Checked
+                            ? usuarioBLL.ListarUsuariosActivos()
+                            : usuarioBLL.ListarTodosUsuarios());
                         MostrarCantidadUsuarios();
-
                         MessageBox.Show("Usuario Fue Eliminado", "Alerta!", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         break;
+
                     case UserAction.Modify:
                         txtDni.ReadOnly = true;
-                        if (ValidarCamposVacios(txtNom, txtApe, txtDni, txtUsuario, txtEmail, txtRol) && ValidarEntradaUsuario())
+                        if (ValidarCamposVacios(txtNom, txtApe, txtDni, txtUsuario, txtEmail) && ValidarComboBox(cbRol) && ValidarEntradaUsuario())
                         {
-                            usuarioBLL.Modificar((dataGridView1.SelectedRows[0].DataBoundItem as Usuario).DNI, new Usuario(txtDni.Text, txtNom.Text, txtApe.Text, txtUsuario.Text, string.Empty, txtEmail.Text, default, default, txtRol.Text));
+                            string dniOriginal = (dataGridView1.SelectedRows[0].DataBoundItem as Usuario).DNI;
+                            string rolNuevo = cbRol.SelectedItem.ToString();
+
+                            usuarioBLL.Modificar(dniOriginal, new Usuario(
+                                txtDni.Text, txtNom.Text, txtApe.Text, txtUsuario.Text,
+                                string.Empty, txtEmail.Text, default, default, rolNuevo));
+
+                            // Si el usuario modificado es el que está en sesión, actualizarle los permisos
+                            Usuario usuarioEnSesion = SessionManager.Instance.UsuarioActual();
+                            if (usuarioEnSesion.DNI == dniOriginal)
+                            {
+                                var perfiles = perfilBLL.ObtenerPerfiles();
+                                var perfilNuevo = perfiles.FirstOrDefault(p => p.Nombre == rolNuevo);
+                                usuarioEnSesion.Permisos.Clear();
+                                if (perfilNuevo != null)
+                                    usuarioEnSesion.Permisos.Add(perfilNuevo);
+                            }
+
                             txtDni.ReadOnly = false;
                             ReiniciarBotones();
                             MessageBox.Show("Usuario Fue Modificado", "Alerta!", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             MostrarUsuarios(dataGridView1, usuarioBLL.ListarUsuariosActivos());
+
+                            // Si el usuario en sesión fue modificado y ya no tiene permiso para estar acá, salir
+                            if (usuarioEnSesion.DNI == dniOriginal && !usuarioEnSesion.TienePermiso("Ver Usuarios"))
+                            {
+                                MessageBox.Show("Tu perfil fue modificado y ya no tenés acceso a esta sección.",
+                                    "Acceso revocado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                btnCerrar_Click(sender, e);
+                                return;
+                            }
+
+                            // Revalidar botones por si cambió el rol del usuario en sesión
+                            ValidarPermisos();
                         }
                         break;
+
                     case UserAction.UnBlock:
                         ReiniciarBotones();
                         usuarioBLL.DesbloquearUsuario(dataGridView1.SelectedRows[0].DataBoundItem as Usuario);
-                        if (rbActivos.Checked)
-                        {
-                            MostrarUsuarios(dataGridView1, usuarioBLL.ListarUsuariosActivos());
-                        }
-                        else
-                        {
-                            MostrarUsuarios(dataGridView1, usuarioBLL.ListarTodosUsuarios());
-
-                        }
-                        
+                        MostrarUsuarios(dataGridView1, rbActivos.Checked
+                            ? usuarioBLL.ListarUsuariosActivos()
+                            : usuarioBLL.ListarTodosUsuarios());
                         MessageBox.Show("Usuario Fue Desbloqueado Y Clave Restaurada", "Alerta!", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         break;
+
                     case UserAction.Activate:
                         usuarioBLL.EliminarLogico((dataGridView1.SelectedRows[0].DataBoundItem as Usuario).DNI);
                         ReiniciarBotones();
-                        if (rbActivos.Checked)
-                        {
-                            MostrarUsuarios(dataGridView1, usuarioBLL.ListarUsuariosActivos());
-                        }
-                        else
-                        {
-                            MostrarUsuarios(dataGridView1, usuarioBLL.ListarTodosUsuarios());
-
-                        }
+                        MostrarUsuarios(dataGridView1, rbActivos.Checked
+                            ? usuarioBLL.ListarUsuariosActivos()
+                            : usuarioBLL.ListarTodosUsuarios());
                         MessageBox.Show("Usuario Fue Activado", "Alerta!", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         break;
+
                     case UserAction.Consult:
                         break;
-                    default:
-                        break;
-
                 }
             }
             catch (Exception ex)
             {
-
-                MessageBox.Show(ex.Message); 
+                MessageBox.Show(ex.Message);
             }
         }
-        public void MostrarUsuarios(DataGridView dgv, object obj) { dgv.DataSource = null; dgv.DataSource = obj; }
-            
+
+        public void MostrarUsuarios(DataGridView dgv, object obj)
+        {
+            dgv.DataSource = null;
+            dgv.DataSource = obj;
+        }
 
         private bool ValidarCamposVacios(params Control[] controles)
         {
@@ -229,74 +228,59 @@ namespace GUI
             foreach (Control c in controles)
             {
                 string nombreCampo = c.Tag?.ToString() ?? c.Name;
-
                 if (c is TextBox txt && string.IsNullOrWhiteSpace(txt.Text))
                 {
-                    mensaje.AppendLine("El Campo " + " " + nombreCampo + " " + "Esta Vacio");
+                    mensaje.AppendLine($"El Campo {nombreCampo} Esta Vacio");
                     if (primerInvalido == null) primerInvalido = txt;
-                    hayVacios = true;
-                }
-                else if (c is ComboBox cb && cb.SelectedIndex == -1)
-                {
-                    mensaje.AppendLine("El Campo" + " " + nombreCampo+ " " + "No Fue Seleccionado");
-                    if (primerInvalido == null) primerInvalido = cb;
                     hayVacios = true;
                 }
             }
 
             if (hayVacios)
             {
-                MessageBox.Show(mensaje.ToString(), "Faltan Completar Campo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                primerInvalido?.Focus(); // Enfocar el primer campo con error
+                MessageBox.Show(mensaje.ToString(), "Faltan Completar Campos", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                primerInvalido?.Focus();
             }
 
-            return !hayVacios; // true si está todo bien
+            return !hayVacios;
+        }
+
+        private bool ValidarComboBox(ComboBox cb)
+        {
+            if (cb.SelectedIndex == -1)
+            {
+                MessageBox.Show("Debe seleccionar un perfil.", "Faltan Completar Campos", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                cb.Focus();
+                return false;
+            }
+            return true;
         }
 
         private bool ValidarEntradaUsuario()
         {
             StringBuilder errores = new StringBuilder();
 
-           
             if (!Regex.IsMatch(txtNom.Text.Trim(), @"^[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ\s]+$"))
-                errores.AppendLine("El Campo Nombre");
+                errores.AppendLine("El Campo Nombre es inválido");
 
             if (!Regex.IsMatch(txtApe.Text.Trim(), @"^[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ\s]+$"))
-                errores.AppendLine("E lCampo Apellido");
+                errores.AppendLine("El Campo Apellido es inválido");
 
-            
             if (!Regex.IsMatch(txtDni.Text.Trim(), @"^\d{8}$"))
-                errores.AppendLine("El Campo DNI");
+                errores.AppendLine("El Campo DNI debe tener 8 dígitos");
 
-            if (!(userAction == UserAction.Add))
-            {
-                
-                if (string.IsNullOrWhiteSpace(txtUsuario.Text) || txtUsuario.Text.Length < 4)
-                    errores.AppendLine("El Nombre Usuario");
-            }
-           
+            if (userAction != UserAction.Add && (string.IsNullOrWhiteSpace(txtUsuario.Text) || txtUsuario.Text.Length < 4))
+                errores.AppendLine("El Nombre de Usuario debe tener al menos 4 caracteres");
+
             if (!Regex.IsMatch(txtEmail.Text.Trim(), @"^[^@\s]+@[^@\s]+\.[^@\s]+$"))
-                errores.AppendLine("El Correo Electronico");
+                errores.AppendLine("El Correo Electrónico es inválido");
 
-           
-            if (string.IsNullOrWhiteSpace(txtRol.Text))
-                errores.AppendLine("Debe Seleccionar");
-
-            
             if (errores.Length > 0)
             {
                 MessageBox.Show(errores.ToString(), "Error Entrada Datos", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return false;
             }
-
             return true;
-        }
-
-        private void button3_Click(object sender, EventArgs e)
-        {
-            userAction = UserAction.Modify;
-            EnabledControls(btnCrear, btnDesbloquear, btnModificar, btnActDes, btnAplicar, btnCancelar, btnSalir, pnFiltrado, panModificarUsuario,txtDni);
-            MostrarUsuarios(dataGridView1, usuarioBLL.ListarUsuariosActivos());
         }
 
         private void panel1_MouseDown(object sender, MouseEventArgs e)
@@ -309,10 +293,7 @@ namespace GUI
             }
         }
 
-        private void btnCancelar_Click(object sender, EventArgs e)
-        {
-            ReiniciarBotones();
-        }
+        private void btnCancelar_Click(object sender, EventArgs e) => ReiniciarBotones();
 
         private void ReiniciarBotones()
         {
@@ -320,8 +301,8 @@ namespace GUI
             txtApe.Clear();
             txtDni.Clear();
             txtEmail.Clear();
-            txtRol.Clear();
             txtUsuario.Clear();
+            cbRol.SelectedIndex = -1;
 
             pnFiltrado.Enabled = true;
             panel3.Enabled = true;
@@ -331,7 +312,6 @@ namespace GUI
             btnCancelar.Enabled = false;
             btnAplicar.BackColor = Color.Maroon;
             btnCancelar.BackColor = Color.Maroon;
-
             panel10.BackColor = Color.Maroon;
             panel11.BackColor = Color.Maroon;
 
@@ -344,23 +324,12 @@ namespace GUI
             btnModificar.BackColor = Color.Green;
             btnActDes.BackColor = Color.Green;
 
-            //txtNom.Enabled = false;
-            //txtApe.Enabled = false;
-            //txtDni.Enabled = false;
-            //txtEmail.Enabled = false;
-            //txtRol.Enabled = false;
-            //txtUsuario.Enabled = false;
-
             textBox1.Text = "Modo consulta";
-
             userAction = UserAction.Consult;
-
         }
 
-        private void radioButton2_CheckedChanged(object sender, EventArgs e)
-        {
-            MostrarUsuarios(dataGridView1, usuarioBLL.ListarTodosUsuarios() as List<Usuario>);
-        }
+        private void radioButton2_CheckedChanged(object sender, EventArgs e) =>
+            MostrarUsuarios(dataGridView1, usuarioBLL.ListarTodosUsuarios());
 
         private void dataGridView1_SelectionChanged(object sender, EventArgs e)
         {
@@ -374,7 +343,7 @@ namespace GUI
                     txtApe.Text = user.Apellido;
                     txtUsuario.Text = user.Username;
                     txtEmail.Text = user.Email;
-                    txtRol.Text = user.Rol;
+                    cbRol.SelectedItem = user.Rol;
                 }
             }
         }
@@ -382,22 +351,14 @@ namespace GUI
         private void dataGridView1_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
             if (e.RowIndex >= 0 && dataGridView1.Rows[e.RowIndex].DataBoundItem is Usuario usuario)
-            { 
-                if (usuario.Bloqueado)
-                {
-                    e.CellStyle.ForeColor = Color.Red;
-                }
-                else
-                {
-                    e.CellStyle.ForeColor = Color.Black;
-                }
-            }
+                e.CellStyle.ForeColor = usuario.Bloqueado ? Color.Red : Color.Black;
         }
 
         private void btnCrear_Click(object sender, EventArgs e)
         {
             userAction = UserAction.Add;
             textBox1.Text = "Modo Añadir";
+            CargarPerfiles();
             EnabledControls(btnCrear, btnDesbloquear, btnModificar, btnActDes, btnAplicar, btnCancelar, btnSalir, pnFiltrado, panModificarUsuario, panel3);
         }
 
@@ -414,6 +375,7 @@ namespace GUI
         private void btnModificar_Click(object sender, EventArgs e)
         {
             userAction = UserAction.Modify;
+            CargarPerfiles();
             EnabledControls(btnCrear, btnDesbloquear, btnModificar, btnActDes, btnAplicar, btnCancelar, btnSalir, pnFiltrado, panModificarUsuario, txtDni);
             MostrarUsuarios(dataGridView1, usuarioBLL.ListarUsuariosActivos());
         }
@@ -441,6 +403,17 @@ namespace GUI
         {
             LanguageManager.Instance.AgregarObservador(this);
             Actualizar(LanguageManager.Instance);
+            ValidarPermisos();
+        }
+
+        private void ValidarPermisos()
+        {
+            Usuario usuarioActual = SessionManager.Instance.UsuarioActual();
+
+            btnCrear.Enabled = usuarioActual.TienePermiso("Crear Usuario");
+            btnModificar.Enabled = usuarioActual.TienePermiso("Modificar Usuario");
+            btnActDes.Enabled = usuarioActual.TienePermiso("Activar Desactivar Usuario");
+            btnDesbloquear.Enabled = usuarioActual.TienePermiso("Desbloquear Usuario");
         }
 
         private void ConfigurarGrillaSeleccionFila(DataGridView dgv)
@@ -453,7 +426,6 @@ namespace GUI
 
         public void Actualizar(LanguageManager lenguaje)
         {
-
             lblTextoTabla.Text = lenguaje.GetTraduction("lblTextoTabla");
             lblCantidadUsers.Text = lenguaje.GetTraduction("lblCantidadUsers");
             lblApe.Text = lenguaje.GetTraduction("lblApe");

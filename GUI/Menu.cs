@@ -120,6 +120,12 @@ namespace GUI
 
         private void btnBitacora_Click(object sender, EventArgs e)
         {
+            if (!SessionManager.Instance.UsuarioActual().TienePermiso("Ver Bitacora"))
+            {
+                MessageBox.Show("No tiene permisos para acceder a la Bitácora.",
+                    "Acceso Denegado", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                return;
+            }
             this.Hide();
             FormBitacora formBitacora = new FormBitacora();
             formBitacora.Show();
@@ -127,6 +133,12 @@ namespace GUI
 
         private void btnUsuarios_Click(object sender, EventArgs e)
         {
+            if (!SessionManager.Instance.UsuarioActual().TienePermiso("Ver Usuarios"))
+            {
+                MessageBox.Show("No tiene permisos para acceder a la gestión de usuarios.",
+                    "Acceso Denegado", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                return;
+            }
             this.Hide();
             Usuarios usuarios = new Usuarios();
             usuarios.Show();
@@ -165,8 +177,14 @@ namespace GUI
 
         private void btnPerfiles_Click(object sender, EventArgs e)
         {
-            this.Hide();
             frmGestionPerfiles gestionPerfiles = new frmGestionPerfiles();
+            if (!SessionManager.Instance.UsuarioActual().TienePermiso("Ver Perfiles"))
+            {
+                MessageBox.Show("No tiene permisos para acceder a Gestión de Perfiles.",
+                    "Acceso Denegado", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                return; 
+            }
+            this.Hide();
             gestionPerfiles.Show();
         }
 
