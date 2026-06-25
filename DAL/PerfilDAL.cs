@@ -152,11 +152,33 @@ namespace DAL
 
         public void EliminarPermiso(string nombre)
         {
-            _sqlcommand.CommandText = "DELETE FROM PermisoSimple WHERE Nombre = @Nombre";
-            _sqlcommand.Parameters.Clear();
-            _sqlcommand.Parameters.AddWithValue("@Nombre", nombre);
+            try
+            {
+                if (_sqlserver.State != ConnectionState.Open) _sqlserver.Open();
 
-            EjecutarNonQuery();
+                //SE LIMPIAN LAS RELACIONES QUE TENIAN FAMILIA O PERFIL CON LOS PERMISOS SIMPLES
+
+                using (var cmd1 = new SqlCommand("DELETE FROM Familia_PermisoSimple WHERE NombrePermiso = @Nombre", _sqlserver))
+                {
+                    cmd1.Parameters.AddWithValue("@Nombre", nombre);
+                    cmd1.ExecuteNonQuery();
+                }
+                using (var cmd2 = new SqlCommand("DELETE FROM Perfil_PermisoSimple WHERE NombrePermiso = @Nombre", _sqlserver))
+                {
+                    cmd2.Parameters.AddWithValue("@Nombre", nombre);
+                    cmd2.ExecuteNonQuery();
+                }
+
+                _sqlcommand.CommandText = "DELETE FROM PermisoSimple WHERE Nombre = @Nombre";
+                _sqlcommand.Parameters.Clear();
+                _sqlcommand.Parameters.AddWithValue("@Nombre", nombre);
+                _sqlcommand.ExecuteNonQuery();
+            }
+            finally
+            {
+                if (_sqlserver.State == ConnectionState.Open) _sqlserver.Close();
+                _sqlcommand.Parameters.Clear();
+            }
         }
 
         public void GuardarFamilia(Familia familia)
@@ -185,6 +207,22 @@ namespace DAL
 
                 LimpiarRelacionesComponente(familia.Nombre, familia.EsRol);
 
+                //SE LIMPIAN LAS RELACIONES QUE TENIAN FAMILIA O PERFIL CON LOS COMPONENTES 
+
+                if (!familia.EsRol)
+                {
+                    using (var cmd1 = new SqlCommand("DELETE FROM Familia_Familia WHERE NombreHijo = @Nombre", _sqlserver))
+                    {
+                        cmd1.Parameters.AddWithValue("@Nombre", familia.Nombre);
+                        cmd1.ExecuteNonQuery();
+                    }
+                    using (var cmd2 = new SqlCommand("DELETE FROM Perfil_Familia WHERE NombreFamilia = @Nombre", _sqlserver))
+                    {
+                        cmd2.Parameters.AddWithValue("@Nombre", familia.Nombre);
+                        cmd2.ExecuteNonQuery();
+                    }
+                }
+
                 _sqlcommand.CommandText = $"DELETE FROM {tabla} WHERE Nombre = @Nombre";
                 _sqlcommand.Parameters.Clear();
                 _sqlcommand.Parameters.AddWithValue("@Nombre", familia.Nombre);
@@ -193,6 +231,7 @@ namespace DAL
             finally
             {
                 if (_sqlserver.State == ConnectionState.Open) _sqlserver.Close();
+                _sqlcommand.Parameters.Clear();
             }
         }
 
