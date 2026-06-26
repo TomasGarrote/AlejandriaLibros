@@ -123,9 +123,11 @@
   "MsjConfirmacion": "確認済み",
   "Salir": "終了",
 
-  "Es": "スペイン語",
-  "En": "英語",
-  "Ja": "日本語",
+  "Español": "スペイン語",
+  "Ingles": "英語",
+  "Japones": "日本語",
+
+
 
   //FormGestionPerfiles
   "RbPermisos": "権限",

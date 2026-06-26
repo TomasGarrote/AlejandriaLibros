@@ -1,4 +1,5 @@
 ﻿using DAL;
+using Servicios;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,20 +9,31 @@ namespace BLL
     public class IdiomaBLL
     {
         private readonly IdiomaDAL _idiomaDAL;
+        private readonly BitacoraBLL bll;
+        private const string MODULO_BITACORA = "Idioma";
 
         public IdiomaBLL()
         {
             _idiomaDAL = new IdiomaDAL();
+            bll = new BitacoraBLL();
         }
 
         public string ObtenerIdioma(string userName)
         {
             return _idiomaDAL.ObtenerIdioma(userName);
+
         }
 
         public void GuardarIdioma(string userName, string idioma)
         {
             _idiomaDAL.GuardarIdioma(userName, idioma);
+
+            Bitacora bita = new Bitacora();
+            bita.Criticidad = 5;
+            bita.Modulo = MODULO_BITACORA;
+            bita.Evento = $"Se guardo el idioma {idioma}";
+            bita.Login = userName;
+            bll.RegistrarEvento(bita);
         }
     }
 }

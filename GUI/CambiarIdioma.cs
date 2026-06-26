@@ -23,9 +23,9 @@ namespace GUI
         {
             var lista = new List<object>()
             {
-                new {Idioma=LanguageManager.Instance.GetTraduction("Es"), Codigo="es"},
-                new {Idioma=LanguageManager.Instance.GetTraduction("En"), Codigo="en"},
-                new {Idioma=LanguageManager.Instance.GetTraduction("Ja"), Codigo="ja"}
+                new {Idioma=LanguageManager.Instance.GetTraduction("Español"), Codigo="es"},
+                new {Idioma=LanguageManager.Instance.GetTraduction("Ingles"), Codigo="en"},
+                new {Idioma=LanguageManager.Instance.GetTraduction("Japones"), Codigo="ja"}
             };
 
             cbIdiomas.DisplayMember = "Idioma";

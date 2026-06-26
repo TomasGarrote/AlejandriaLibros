@@ -123,11 +123,11 @@
   "MsjConfirmacion": "Confirmado",
   "Salir": "Salir",
 
-  "Es": "Español",
-  "En": "Ingles",
-  "Ja": "Japones",
+ 
 
-
+  "Español": "Español",
+  "Ingles": "Ingles",
+  "Japones": "Japones",
   //FormGestionPerfiles
   "RbPermisos": "Permisos",
   "RbFamilias": "Familias",

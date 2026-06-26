@@ -123,9 +123,9 @@
   "MsjConfirmacion": "Confirmed",
   "Salir": "Exit",
 
-  "Es": "Spanish",
-  "En": "English",
-  "Ja": "Japanese",
+  "Español": "Spanish",
+  "Ingles": "English",
+  "Japones": "Japanese",
 
   //FormGestionPerfiles
   "RbPermisos": "Permissions",
