@@ -30,17 +30,17 @@ namespace GUI
 
             ValidarPermisos();
 
-            RbPermisos.CheckedChanged += RbPermisos_CheckedChanged;
+            //RbPermisos.CheckedChanged += RbPermisos_CheckedChanged;
             RbFamilias.CheckedChanged += RbFamilias_CheckedChanged_1;
             RbPerfiles.CheckedChanged += RbPerfiles_CheckedChanged;
 
-            if (!this.Controls.Contains(pnlPermisos)) this.Controls.Add(pnlPermisos);
+            //if (!this.Controls.Contains(pnlPermisos)) this.Controls.Add(pnlPermisos);
             if (!this.Controls.Contains(pnlFamilias)) this.Controls.Add(pnlFamilias);
             if (!this.Controls.Contains(pnlPerfiles)) this.Controls.Add(pnlPerfiles);
 
             this.SizeChanged += FrmGestionPerfiles_SizeChanged;
 
-            RbPermisos.Checked = true;
+            RbFamilias.Checked = true;
             SincronizarVisibilidadPaneles();
             CargarDatosFormulario();
         }

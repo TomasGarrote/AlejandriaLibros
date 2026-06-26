@@ -338,27 +338,28 @@
             // RbPermisos
             // 
             this.RbPermisos.AutoSize = true;
-            this.RbPermisos.Checked = true;
             this.RbPermisos.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.RbPermisos.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.RbPermisos.Location = new System.Drawing.Point(15, 12);
+            this.RbPermisos.Location = new System.Drawing.Point(1062, 56);
             this.RbPermisos.Name = "RbPermisos";
             this.RbPermisos.Size = new System.Drawing.Size(90, 22);
             this.RbPermisos.TabIndex = 25;
-            this.RbPermisos.TabStop = true;
             this.RbPermisos.Text = "Permisos";
             this.RbPermisos.UseVisualStyleBackColor = true;
+            this.RbPermisos.Visible = false;
             this.RbPermisos.CheckedChanged += new System.EventHandler(this.RbPermisos_CheckedChanged);
             // 
             // RbFamilias
             // 
             this.RbFamilias.AutoSize = true;
+            this.RbFamilias.Checked = true;
             this.RbFamilias.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.RbFamilias.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.RbFamilias.Location = new System.Drawing.Point(159, 12);
+            this.RbFamilias.Location = new System.Drawing.Point(83, 12);
             this.RbFamilias.Name = "RbFamilias";
             this.RbFamilias.Size = new System.Drawing.Size(81, 22);
             this.RbFamilias.TabIndex = 26;
+            this.RbFamilias.TabStop = true;
             this.RbFamilias.Text = "Familias";
             this.RbFamilias.UseVisualStyleBackColor = true;
             this.RbFamilias.CheckedChanged += new System.EventHandler(this.RbFamilias_CheckedChanged_1);
@@ -368,7 +369,7 @@
             this.RbPerfiles.AutoSize = true;
             this.RbPerfiles.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.RbPerfiles.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.RbPerfiles.Location = new System.Drawing.Point(306, 12);
+            this.RbPerfiles.Location = new System.Drawing.Point(214, 12);
             this.RbPerfiles.Name = "RbPerfiles";
             this.RbPerfiles.Size = new System.Drawing.Size(75, 22);
             this.RbPerfiles.TabIndex = 27;
@@ -607,7 +608,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(999, 41);
+            this.panel1.Size = new System.Drawing.Size(1009, 41);
             this.panel1.TabIndex = 32;
             this.panel1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.BarraTitulo_MouseDown);
             this.panel1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.BarraTitulo_MouseMove);
@@ -618,7 +619,7 @@
             this.btnCerrar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCerrar.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnCerrar.Image = ((System.Drawing.Image)(resources.GetObject("btnCerrar.Image")));
-            this.btnCerrar.Location = new System.Drawing.Point(971, 3);
+            this.btnCerrar.Location = new System.Drawing.Point(981, 3);
             this.btnCerrar.Name = "btnCerrar";
             this.btnCerrar.Size = new System.Drawing.Size(25, 35);
             this.btnCerrar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -631,7 +632,7 @@
             this.btnMaximizar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnMaximizar.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnMaximizar.Image = ((System.Drawing.Image)(resources.GetObject("btnMaximizar.Image")));
-            this.btnMaximizar.Location = new System.Drawing.Point(940, 3);
+            this.btnMaximizar.Location = new System.Drawing.Point(950, 3);
             this.btnMaximizar.Name = "btnMaximizar";
             this.btnMaximizar.Size = new System.Drawing.Size(25, 35);
             this.btnMaximizar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -644,7 +645,7 @@
             this.btnMinimizar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnMinimizar.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnMinimizar.Image = ((System.Drawing.Image)(resources.GetObject("btnMinimizar.Image")));
-            this.btnMinimizar.Location = new System.Drawing.Point(909, 3);
+            this.btnMinimizar.Location = new System.Drawing.Point(919, 3);
             this.btnMinimizar.Name = "btnMinimizar";
             this.btnMinimizar.Size = new System.Drawing.Size(25, 35);
             this.btnMinimizar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -710,7 +711,6 @@
             this.pnlOpciones.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.pnlOpciones.Controls.Add(this.RbPerfiles);
             this.pnlOpciones.Controls.Add(this.RbFamilias);
-            this.pnlOpciones.Controls.Add(this.RbPermisos);
             this.pnlOpciones.Location = new System.Drawing.Point(29, 17);
             this.pnlOpciones.Name = "pnlOpciones";
             this.pnlOpciones.Size = new System.Drawing.Size(403, 52);
@@ -865,9 +865,10 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
-            this.ClientSize = new System.Drawing.Size(999, 700);
+            this.ClientSize = new System.Drawing.Size(1009, 707);
             this.Controls.Add(this.pnlFamilias);
             this.Controls.Add(this.pnlPerfiles);
+            this.Controls.Add(this.RbPermisos);
             this.Controls.Add(this.pnlPermisos);
             this.Controls.Add(this.panel4);
             this.Controls.Add(this.panel1);
@@ -908,6 +909,7 @@
             this.pnlPerfiles.ResumeLayout(false);
             this.pnlFamilias.ResumeLayout(false);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
