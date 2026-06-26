@@ -16,6 +16,8 @@
 
   "YaHaySesionActiva": "Ya hay una sesión iniciada. Por favor, cierre sesión antes de intentar iniciar una nueva.",
   "Informacion": "Informacion",
+  "menumsj1": "Quiere cerrar sesion?",
+  "menumsj2": "cerrar sesion",
 
   //Form Usuario
   "lblTextoTabla": "Usuarios Activos",

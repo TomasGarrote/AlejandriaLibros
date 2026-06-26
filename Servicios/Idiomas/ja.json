@@ -16,6 +16,8 @@
 
   "YaHaySesionActiva": "既にセッションが開始されています。新しいセッションを開始する前にログアウトしてください。",
   "Informacion": "情報",
+  "menumsj1": "アウト?",
+  "menumsj2": "にセッ",
 
   //Form Usuario
   "lblTextoTabla": "アクティブユーザー",

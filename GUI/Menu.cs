@@ -155,16 +155,21 @@ namespace GUI
        
         private void btnLogout_Click(object sender, EventArgs e)
         {
-            IdiomaBLL idiomaBLL = new IdiomaBLL();
+            string Decision = MessageBox.Show(LanguageManager.Instance.GetTraduction("menumsj1"), LanguageManager.Instance.GetTraduction("menumsj2"), MessageBoxButtons.YesNo).ToString();
+            if (Decision == "Yes")
+            {
+                IdiomaBLL idiomaBLL = new IdiomaBLL();
 
-            string username = SessionManager.Instance.UsuarioActual().Username;
-            idiomaBLL.GuardarIdioma(username, LanguageManager.Instance.CodigoIdiomaActual);
+                string username = SessionManager.Instance.UsuarioActual().Username;
+                idiomaBLL.GuardarIdioma(username, LanguageManager.Instance.CodigoIdiomaActual);
 
-            SessionManager.Instance.Desloguear();
+                SessionManager.Instance.Desloguear();
 
-            this.Hide();
-            Login login = new Login();
-            login.Show();
+                this.Hide();
+                Login login = new Login();
+                login.Show();
+            }
+            
         }
         
 

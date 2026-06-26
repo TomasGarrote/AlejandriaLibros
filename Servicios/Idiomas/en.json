@@ -16,6 +16,8 @@
 
   "YaHaySesionActiva": "A session is already active. Please log out before trying to start a new one.",
   "Informacion": "Information",
+  "menumsj1": "Confirm Logout?",
+  "menumsj2": "Logout",
 
   //Form Usuario
   "lblTextoTabla": "Active Users",
