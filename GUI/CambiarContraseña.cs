@@ -30,7 +30,7 @@ namespace GUI
                 {
                     case LoginResultado.Valido:
                         MessageBox.Show(LanguageManager.Instance.GetTraduction("CamClaMsj1"), LanguageManager.Instance.GetTraduction("ExitoP"), MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        if(SessionManager.Instance.UsuarioActual != null)
+                        if(SessionManager.Instance.Logueado())
                         {
                             usuarioBLL.Desloguear();
                         }
