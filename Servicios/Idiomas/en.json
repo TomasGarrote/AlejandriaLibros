@@ -77,7 +77,7 @@
   "CamClaMsj1": "Password changed successfully!",
   "CamClaMsj2": "The new password cannot be the same as the previous one!",
   "CamClaMsj3": "There is an error in User!",
-  "CamClaMsj4": "There is an error in Password!",
+  "CamClaMsj4": "There is an error in Current Password!",
   "CamMsj5": "The user is blocked, please contact the administrator!",
   "CamMsj6": "Please enter your User!",
   "CamMsj7": "Please enter your Password!",
