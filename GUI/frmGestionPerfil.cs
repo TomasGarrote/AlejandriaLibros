@@ -1024,6 +1024,20 @@ namespace GUI
             label10.Text= LanguageManager.Instance.GetTraduction("label10");
             label15.Text= LanguageManager.Instance.GetTraduction("label15");
 
+            lblNombrePermisos.Text = LanguageManager.Instance.GetTraduction("lblNombrePermisos");
+            btnCrearPermiso.Text = LanguageManager.Instance.GetTraduction("btnCrearPermiso");
+            btnEliminarPermiso.Text = LanguageManager.Instance.GetTraduction("btnEliminarPermiso");
+            label2.Text = LanguageManager.Instance.GetTraduction("label2");
+            btnCrearFamilia.Text = LanguageManager.Instance.GetTraduction("btnCrearFamilia");
+            btnEliminarFamilia.Text = LanguageManager.Instance.GetTraduction("btnEliminarFamilia");
+            label4.Text = LanguageManager.Instance.GetTraduction("label4");
+            btnAsignarSubfamilia.Text = LanguageManager.Instance.GetTraduction("btnAsignarSubfamilia");
+            label5.Text = LanguageManager.Instance.GetTraduction("label5");
+            btnQuitarSubfamilia.Text = LanguageManager.Instance.GetTraduction("btnQuitarSubfamilia");
+            label7.Text = LanguageManager.Instance.GetTraduction("label7");
+            btnAsignarPermisos.Text = LanguageManager.Instance.GetTraduction("btnAsignarPermisos");
+            label8.Text = LanguageManager.Instance.GetTraduction("label8");
+            btnQuitarPermisos.Text = LanguageManager.Instance.GetTraduction("btnQuitarPermisos");
         }
     }
 }

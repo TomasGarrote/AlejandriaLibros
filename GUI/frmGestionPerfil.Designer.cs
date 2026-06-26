@@ -57,7 +57,7 @@
             this.RbFamilias = new System.Windows.Forms.RadioButton();
             this.RbPerfiles = new System.Windows.Forms.RadioButton();
             this.panelPermisos = new System.Windows.Forms.Panel();
-            this.label1 = new System.Windows.Forms.Label();
+            this.lblNombrePermisos = new System.Windows.Forms.Label();
             this.panelFamilias = new System.Windows.Forms.Panel();
             this.label8 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
@@ -380,7 +380,7 @@
             // 
             this.panelPermisos.BackColor = System.Drawing.Color.Maroon;
             this.panelPermisos.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panelPermisos.Controls.Add(this.label1);
+            this.panelPermisos.Controls.Add(this.lblNombrePermisos);
             this.panelPermisos.Controls.Add(this.dgvPermisos);
             this.panelPermisos.Controls.Add(this.txtNombrePermiso);
             this.panelPermisos.Controls.Add(this.btnCrearPermiso);
@@ -390,16 +390,16 @@
             this.panelPermisos.Size = new System.Drawing.Size(460, 172);
             this.panelPermisos.TabIndex = 28;
             // 
-            // label1
+            // lblNombrePermisos
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.label1.Location = new System.Drawing.Point(335, 27);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(66, 18);
-            this.label1.TabIndex = 5;
-            this.label1.Text = "Nombre:";
+            this.lblNombrePermisos.AutoSize = true;
+            this.lblNombrePermisos.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblNombrePermisos.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.lblNombrePermisos.Location = new System.Drawing.Point(335, 27);
+            this.lblNombrePermisos.Name = "lblNombrePermisos";
+            this.lblNombrePermisos.Size = new System.Drawing.Size(66, 18);
+            this.lblNombrePermisos.TabIndex = 5;
+            this.lblNombrePermisos.Text = "Nombre:";
             // 
             // panelFamilias
             // 
@@ -607,7 +607,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1047, 41);
+            this.panel1.Size = new System.Drawing.Size(999, 41);
             this.panel1.TabIndex = 32;
             this.panel1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.BarraTitulo_MouseDown);
             this.panel1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.BarraTitulo_MouseMove);
@@ -618,7 +618,7 @@
             this.btnCerrar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCerrar.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnCerrar.Image = ((System.Drawing.Image)(resources.GetObject("btnCerrar.Image")));
-            this.btnCerrar.Location = new System.Drawing.Point(1019, 3);
+            this.btnCerrar.Location = new System.Drawing.Point(971, 3);
             this.btnCerrar.Name = "btnCerrar";
             this.btnCerrar.Size = new System.Drawing.Size(25, 35);
             this.btnCerrar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -631,7 +631,7 @@
             this.btnMaximizar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnMaximizar.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnMaximizar.Image = ((System.Drawing.Image)(resources.GetObject("btnMaximizar.Image")));
-            this.btnMaximizar.Location = new System.Drawing.Point(988, 3);
+            this.btnMaximizar.Location = new System.Drawing.Point(940, 3);
             this.btnMaximizar.Name = "btnMaximizar";
             this.btnMaximizar.Size = new System.Drawing.Size(25, 35);
             this.btnMaximizar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -644,7 +644,7 @@
             this.btnMinimizar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnMinimizar.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnMinimizar.Image = ((System.Drawing.Image)(resources.GetObject("btnMinimizar.Image")));
-            this.btnMinimizar.Location = new System.Drawing.Point(957, 3);
+            this.btnMinimizar.Location = new System.Drawing.Point(909, 3);
             this.btnMinimizar.Name = "btnMinimizar";
             this.btnMinimizar.Size = new System.Drawing.Size(25, 35);
             this.btnMinimizar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -833,7 +833,7 @@
             // 
             this.pnlPermisos.Controls.Add(this.panel7);
             this.pnlPermisos.Controls.Add(this.panelPermisos);
-            this.pnlPermisos.Location = new System.Drawing.Point(34, 709);
+            this.pnlPermisos.Location = new System.Drawing.Point(12, 702);
             this.pnlPermisos.Name = "pnlPermisos";
             this.pnlPermisos.Size = new System.Drawing.Size(470, 233);
             this.pnlPermisos.TabIndex = 40;
@@ -865,7 +865,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
-            this.ClientSize = new System.Drawing.Size(1047, 708);
+            this.ClientSize = new System.Drawing.Size(999, 700);
             this.Controls.Add(this.pnlFamilias);
             this.Controls.Add(this.pnlPerfiles);
             this.Controls.Add(this.pnlPermisos);
@@ -943,7 +943,7 @@
         private System.Windows.Forms.Panel panelPermisos;
         private System.Windows.Forms.Panel panelFamilias;
         private System.Windows.Forms.Panel panelPerfiles;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lblNombrePermisos;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label lblNombreP;
         private System.Windows.Forms.Label label5;

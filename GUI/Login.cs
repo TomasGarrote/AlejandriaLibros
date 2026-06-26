@@ -172,9 +172,6 @@ namespace GUI
 
         private void Login_Load(object sender, EventArgs e)
         {
-            //LanguageManager.Instance.AgregarObservador(this);
-
-            //LanguageManager.Instance.CargarIdioma("es");
         }
 
 

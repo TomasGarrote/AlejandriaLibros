@@ -23,7 +23,6 @@ namespace GUI
             InitializeComponent();
             usuarioBLL = new UsuarioBLL();
             perfilBLL = new PerfilBLL();
-            lblTextoTabla.Text = "[Usuarios Activos]";
             lblTextoTabla.Text = LanguageManager.Instance.GetTraduction("lblTextoTablaUserActivos");
             MostrarUsuarios(dataGridView1, usuarioBLL.ListarUsuariosActivos());
             MostrarCantidadUsuarios();
@@ -180,8 +179,8 @@ namespace GUI
                             // Si el usuario en sesión fue modificado y ya no tiene permiso para estar acá, salir
                             if (usuarioEnSesion.DNI == dniOriginal && !usuarioEnSesion.TienePermiso("Ver Usuarios"))
                             {
-                                MessageBox.Show("Tu perfil fue modificado y ya no tenés acceso a esta sección.",
-                                    "Acceso revocado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                MessageBox.Show(LanguageManager.Instance.GetTraduction("UserMsj2"),
+                                    LanguageManager.Instance.GetTraduction("UserMsj3"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
                                 btnCerrar_Click(sender, e);
                                 return;
                             }
@@ -197,8 +196,6 @@ namespace GUI
                         MostrarUsuarios(dataGridView1, rbActivos.Checked
                             ? usuarioBLL.ListarUsuariosActivos()
                             : usuarioBLL.ListarTodosUsuarios());
-                        MessageBox.Show("Usuario Fue Desbloqueado Y Clave Restaurada", "Alerta!", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        
                         MessageBox.Show(LanguageManager.Instance.GetTraduction("UserDesbloqueado"), LanguageManager.Instance.GetTraduction("Alerta"), MessageBoxButtons.OK, MessageBoxIcon.Information);
                         break;
 
@@ -214,11 +211,11 @@ namespace GUI
                             MostrarUsuarios(dataGridView1, usuarioBLL.ListarTodosUsuarios());
 
                         }
-                        MessageBox.Show(LanguageManager.Instance.GetTraduction("UserActi"), LanguageManager.Instance.GetTraduction("Alerta"), MessageBoxButtons.OK, MessageBoxIcon.Information);
                         MostrarUsuarios(dataGridView1, rbActivos.Checked
                             ? usuarioBLL.ListarUsuariosActivos()
                             : usuarioBLL.ListarTodosUsuarios());
-                        MessageBox.Show("Usuario Fue Activado", "Alerta!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageBox.Show(LanguageManager.Instance.GetTraduction("UserActi"), LanguageManager.Instance.GetTraduction("Alerta"), MessageBoxButtons.OK, MessageBoxIcon.Information);
+                       
                         break;
 
                     case UserAction.Consult:
@@ -248,13 +245,13 @@ namespace GUI
                 string nombreCampo = c.Tag?.ToString() ?? c.Name;
                 if (c is TextBox txt && string.IsNullOrWhiteSpace(txt.Text))
                 {
-                    mensaje.AppendLine($"{LanguageManager.Instance.GetTraduction("ElCampo")} " + " " + nombreCampo + " " +  LanguageManager.Instance.GetTraduction("EstaVacio"));
+                    mensaje.AppendLine($"{LanguageManager.Instance.GetTraduction("ElCampo")} " + " " + nombreCampo + " " + LanguageManager.Instance.GetTraduction("EstaVacio"));
                     if (primerInvalido == null) primerInvalido = txt;
                     hayVacios = true;
                 }
                 else if (c is ComboBox cb && cb.SelectedIndex == -1)
                 {
-                    mensaje.AppendLine($"{LanguageManager.Instance.GetTraduction("ElCampo")}" + " " + nombreCampo+ " " + LanguageManager.Instance.GetTraduction("NoFueSelecc"));
+                    mensaje.AppendLine($"{LanguageManager.Instance.GetTraduction("ElCampo")}" + " " + nombreCampo + " " + LanguageManager.Instance.GetTraduction("NoFueSelecc"));
                     if (primerInvalido == null) primerInvalido = cb;
                     hayVacios = true;
                 }
@@ -265,12 +262,13 @@ namespace GUI
                 MessageBox.Show(mensaje.ToString(), LanguageManager.Instance.GetTraduction("FaltaCompl"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 primerInvalido?.Focus(); // Enfocar el primer campo con error
             }
-
+            return !hayVacios;
+        }
         private bool ValidarComboBox(ComboBox cb)
         {
             if (cb.SelectedIndex == -1)
             {
-                MessageBox.Show("Debe seleccionar un perfil.", "Faltan Completar Campos", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(LanguageManager.Instance.GetTraduction("UserMsj1"), LanguageManager.Instance.GetTraduction("FaltaCompl"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 cb.Focus();
                 return false;
             }
@@ -300,11 +298,6 @@ namespace GUI
            
             if (!Regex.IsMatch(txtEmail.Text.Trim(), @"^[^@\s]+@[^@\s]+\.[^@\s]+$"))
                 errores.AppendLine(LanguageManager.Instance.GetTraduction("ElCorreoElec"));
-
-           
-            if (string.IsNullOrWhiteSpace(txtRol.Text))
-                errores.AppendLine(LanguageManager.Instance.GetTraduction("DebeSelecionar"));
-
             
             if (errores.Length > 0)
             {
@@ -355,12 +348,7 @@ namespace GUI
             btnModificar.BackColor = Color.Green;
             btnActDes.BackColor = Color.Green;
 
-            //txtNom.Enabled = false;
-            //txtApe.Enabled = false;
-            //txtDni.Enabled = false;
-            //txtEmail.Enabled = false;
-            //txtRol.Enabled = false;
-            //txtUsuario.Enabled = false;
+          
 
             txtBoxModo.Text = LanguageManager.Instance.GetTraduction("txtBoxModoConsulta");
 
@@ -396,7 +384,6 @@ namespace GUI
         private void btnCrear_Click(object sender, EventArgs e)
         {
             userAction = UserAction.Add;
-            textBox1.Text = "Modo Añadir";
             CargarPerfiles();
             txtBoxModo.Text = LanguageManager.Instance.GetTraduction("txtBoxModoAnadir");
             EnabledControls(btnCrear, btnDesbloquear, btnModificar, btnActDes, btnAplicar, btnCancelar, btnSalir, pnFiltrado, panModificarUsuario, panel3);
@@ -415,6 +402,7 @@ namespace GUI
         private void btnModificar_Click(object sender, EventArgs e)
         {
             userAction = UserAction.Modify;
+            txtBoxModo.Text = LanguageManager.Instance.GetTraduction("txtBoxModoModificar");
             CargarPerfiles();
             EnabledControls(btnCrear, btnDesbloquear, btnModificar, btnActDes, btnAplicar, btnCancelar, btnSalir, pnFiltrado, panModificarUsuario, txtDni);
             MostrarUsuarios(dataGridView1, usuarioBLL.ListarUsuariosActivos());
@@ -467,7 +455,7 @@ namespace GUI
         public void Actualizar(LanguageManager lenguaje)
         {
             lblTextoTabla.Text = lenguaje.GetTraduction("lblTextoTabla");
-            //lblCantidadUsers.Text = lenguaje.GetTraduction("lblCantidadUsers");
+            txtDni.Text = lenguaje.GetTraduction("DNI");
             lblApe.Text = lenguaje.GetTraduction("lblApe");
             lblNombre.Text = lenguaje.GetTraduction("lblNombre");
             lblEmail.Text = lenguaje.GetTraduction("lblEmail");

@@ -19,6 +19,7 @@
 
   //Form Usuario
   "lblTextoTabla": "Usuarios Activos",
+  "DNI": "DNI",
   "lblApe": "Apellidos",
   "lblNombre": "Nombre",
   "lblEmail": "Email",
@@ -42,6 +43,7 @@
   "txtBoxModoDesbloquear": "Modo desbloquear",
   "txtBoxModoActivar": "Modo activar",
   "txtBoxModoEliminar": "Modo eliminar",
+  "txtBoxModoModificar": "Modo modificar",
   "lblCantidadUser": "Cantidad de Usuarios",
   "UserElimi": "Usuario Fue Eliminado",
   "Alerta": "Alerta!",
@@ -59,6 +61,9 @@
   "ElCorreoElec": "El Correo Electronico",
   "DebeSelecionar": "Debe Seleccionar",
   "ErrorEntradaDeDatos": "Error Entrada Datos",
+  "UserMsj1": "Debe seleccionar un perfil.",
+  "UserMsj2": "Tu perfil fue modificado y ya no tenés acceso a esta sección.",
+  "UserMsj3": "Acceso revocado",
 
   //Form Cambiar contraserña
   "lblUsuarioFCC": "Usuario",
@@ -142,6 +147,21 @@
   "label6": "Permisos",
   "label10": "Familias",
   "label15": "Gestion Familias",
+  "lblNombrePermisos": "Nombre:",
+  "btnCrearPermiso": "Crear permiso",
+  "btnEliminarPermiso": "Eliminar",
+  "label2": "Nombre:",
+  "btnCrearFamilia": "Crear familia",
+  "btnEliminarFamilia": "Eliminar",
+  "label4": "Familias Disponibiles:",
+  "btnAsignarSubfamilia": "Asignar",
+  "label5": "Familias Asignadas:",
+  "btnQuitarSubfamilia": "Quitar",
+  "label7": "Permisos Disponibles:",
+  "btnAsignarPermisos": "Asignar",
+  "label8": "Permisos Asignados:",
+  "btnQuitarPermisos": "Quitar",
+
 
 
 
@@ -257,6 +277,10 @@
   //PerfillBLL
   "PerBLLText1": "Error operativo al purgar los componentes redundantes:",
   "PerBLLText2": "Error al remover el permiso específico del contenedor:",
+  "PerfilBLLmsj1": "No se puede eliminar el perfil",
+  "PerfilBLLmsj2": "porque está asignado a los siguientes usuarios:",
+  "PerfilBllMsj3": "Primero cambiá el perfil de esos usuarios.",
+  "PerfilBllMsj4": "No se encontró el nodo raíz",
   //BitBLL
   "BitBlltext1": "No se pudo registrar el evento en la bitácora.",
   "BitBlltext2": "La fecha de inicio no puede ser mayor a la fecha final.",

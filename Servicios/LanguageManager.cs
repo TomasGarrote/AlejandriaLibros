@@ -101,14 +101,9 @@ namespace Servicios
         }
         public void CargarIdioma(string codigoIdioma)
         {
-            string readjson =
-                File.ReadAllText(
-                    GetJsonRute(codigoIdioma));
+            string readjson =File.ReadAllText(GetJsonRute(codigoIdioma));
 
-            _jsonidioma =
-                JsonConvert.DeserializeObject
-                <Dictionary<string, string>>
-                (readjson);
+            _jsonidioma =JsonConvert.DeserializeObject<Dictionary<string, string>>(readjson);
 
             _language = new DefaultLenguage
             {

@@ -124,7 +124,6 @@ namespace BLL
             var familia = _dal.ObtenerFamiliasYPerfiles().FirstOrDefault(f => f.Nombre == nombre);
             if (familia == null) return;
 
-            // SE VERIFICA SI EL PERFIL A ELIMINAR ESTA ASIGNADO A ALGUN USUARIO ACTUAL
             if (familia.EsRol)
             {
                 var usuariosConEstePerfil = new UsuarioBLL().ListarTodosUsuarios()
@@ -135,8 +134,8 @@ namespace BLL
                 {
                     string lista = string.Join(", ", usuariosConEstePerfil.Select(u => u.Username));
                     throw new Exception(
-                        $"No se puede eliminar el perfil '{nombre}' porque está asignado a los siguientes usuarios: {lista}.\n\n" +
-                        $"Primero cambiá el perfil de esos usuarios.");
+                        $"{LanguageManager.Instance.GetTraduction("PerfilBLLmsj1")} '{nombre}' {LanguageManager.Instance.GetTraduction("PerfilBLLmsj2")} {lista}.\n\n" +
+                        LanguageManager.Instance.GetTraduction("PerfilBllMsj3"));
                 }
             }
 
@@ -176,7 +175,7 @@ namespace BLL
             {
                 var todosLosComponentes = _dal.ObtenerFamiliasYPerfiles();
                 var raiz = todosLosComponentes.FirstOrDefault(f => f.Nombre == nombreContenedorRaiz);
-                if (raiz == null) throw new Exception($"No se encontró el nodo raíz '{nombreContenedorRaiz}'.");
+                if (raiz == null) throw new Exception($"{LanguageManager.Instance.GetTraduction("PerfilBllMsj4")} '{nombreContenedorRaiz}'.");
 
                 foreach (var permiso in permisosComponentes)
                 {
