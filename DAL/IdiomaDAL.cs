@@ -1,4 +1,5 @@
 ﻿using Microsoft.Data.SqlClient;
+using Servicios;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -43,10 +44,43 @@ namespace DAL
                 _sqlcommand.Parameters.Clear();
             }
         }
+        public List<Idioma> listarTodosLosIdiomas()
+        {
+            List<Idioma> lista = new List<Idioma>();
+            try
+            {
+                _sqlcommand.CommandText = @"SELECT UserName, CodigoIdioma, DVH FROM Idioma";
+                _sqlcommand.Parameters.Clear();
+                _sqlserver.Open();
+                using (SqlDataReader reader = _sqlcommand.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        Idioma idioma = new Idioma
+                        {
+                            UserName = reader["UserName"].ToString(),
+                            CodigoIdioma = reader["CodigoIdioma"].ToString(),
+                            DVH = reader["DVH"].ToString()
+                        };
+                        lista.Add(idioma);
+                    }
+                }
+            }
+            finally
+            {
+                if (_sqlserver.State == System.Data.ConnectionState.Open)
+                {
+                    _sqlserver.Close();
+                }
+                _sqlcommand.Parameters.Clear();
+            }
+            return lista;
+        }
 
         public void GuardarIdioma(
             string userName,
-            string codigoIdioma)
+            string codigoIdioma,
+            string DVH)
         {
             try
             {
@@ -61,7 +95,9 @@ namespace DAL
                 )
                 BEGIN
                     UPDATE Idioma
-                    SET CodigoIdioma = @CodigoIdioma
+                    SET 
+                        CodigoIdioma = @CodigoIdioma,
+                        DVH = @dvh
                     WHERE UserName = @UserName
                 END
                 ELSE
@@ -69,12 +105,14 @@ namespace DAL
                     INSERT INTO Idioma
                     (
                         UserName,
-                        CodigoIdioma
+                        CodigoIdioma,
+                        DVH
                     )
                     VALUES
                     (
                         @UserName,
-                        @CodigoIdioma
+                        @CodigoIdioma,
+                        @dvh
                     )
                 END";
 
@@ -85,6 +123,10 @@ namespace DAL
                 _sqlcommand.Parameters.AddWithValue(
                     "@CodigoIdioma",
                     codigoIdioma);
+
+                _sqlcommand.Parameters.AddWithValue(
+                    "@dvh",
+                    DVH);
 
                 _sqlserver.Open();
 
@@ -98,6 +140,32 @@ namespace DAL
                     _sqlserver.Close();
                 }
 
+                _sqlcommand.Parameters.Clear();
+            }
+        }
+
+        public void ActualizarDVH(string userName, string dvhCalculado)
+        {
+            try
+            {
+                _sqlcommand.CommandText = @"UPDATE Idioma SET DVH = @DVH WHERE UserName = @UserName";
+                _sqlcommand.Parameters.Clear();
+                _sqlcommand.Parameters.AddWithValue("@DVH", dvhCalculado);
+                _sqlcommand.Parameters.AddWithValue("@UserName", userName);
+                _sqlserver.Open();
+                _sqlcommand.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+            finally
+            {
+                if (_sqlserver.State == System.Data.ConnectionState.Open)
+                {
+                    _sqlserver.Close();
+                }
                 _sqlcommand.Parameters.Clear();
             }
         }

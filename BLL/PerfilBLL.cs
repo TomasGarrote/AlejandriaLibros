@@ -12,6 +12,7 @@ namespace BLL
     {
         private readonly PerfilDAL _dal;
         private readonly BitacoraBLL _bitacoraBLL;
+        private readonly DigitoVerificadorBLL _digitoVerificadorBLL = new DigitoVerificadorBLL();
         private const string MODULO_BITACORA = "Perfiles";
 
         public PerfilBLL()
@@ -85,7 +86,7 @@ namespace BLL
 
         public void CrearPermiso(string nombre)
         {
-            _dal.GuardarPermiso(new PermisoSimple { Nombre = nombre });
+            _dal.GuardarPermiso(new PermisoSimple { Nombre = nombre, DVH = DigitoVerificador.CalcularDVH(nombre) });
             RegistrarEnBitacora(SessionManager.Instance.UsuarioActual().Username, $"Crear permiso simple: {nombre}", 1);
         }
 
@@ -98,13 +99,15 @@ namespace BLL
 
         public void CrearFamilia(string nombre)
         {
-            _dal.GuardarFamilia(new Familia { Nombre = nombre, EsRol = false });
+            _dal.GuardarFamilia(new Familia { Nombre = nombre, EsRol = false, DVH = DigitoVerificador.CalcularDVH(nombre) });
+            _digitoVerificadorBLL.RecalcularDVV_Familia();
             RegistrarEnBitacora(SessionManager.Instance.UsuarioActual().Username, $"Crear familia: {nombre}", 1);
         }
 
         public void CrearPerfil(string nombre)
         {
-            _dal.GuardarFamilia(new Familia { Nombre = nombre, EsRol = true });
+            _dal.GuardarFamilia(new Familia { Nombre = nombre, EsRol = true, DVH = DigitoVerificador.CalcularDVH(nombre) });
+            _digitoVerificadorBLL.RecalcularDVV_Perfil();
             RegistrarEnBitacora(SessionManager.Instance.UsuarioActual().Username, $"Crear perfil: {nombre}", 1);
         }
 
@@ -129,6 +132,8 @@ namespace BLL
             }
 
             _dal.EliminarFamilia(familia);
+            _digitoVerificadorBLL.RecalcularDVV_Familia();
+            _digitoVerificadorBLL.RecalcularDVV_Perfil();
             RegistrarEnBitacora(SessionManager.Instance.UsuarioActual().Username, $"Eliminar contenedor jerárquico: {nombre}", 1);
             RecargarPermisosUsuarioEnSesion();
         }

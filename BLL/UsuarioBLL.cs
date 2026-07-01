@@ -12,11 +12,13 @@ namespace BLL
     {
         private readonly UsuarioDAL usuarioDAL;
         private readonly BitacoraBLL bitacoraBLL;
+        private readonly DigitoVerificadorBLL digitoVerificadorBLL;
 
         public UsuarioBLL()
         {
             usuarioDAL = new UsuarioDAL();
             bitacoraBLL = new BitacoraBLL();
+            digitoVerificadorBLL = new DigitoVerificadorBLL();
         }
 
         public LoginResultado Login(string usuario, string contraseña)
@@ -108,15 +110,25 @@ namespace BLL
                 ValidarCaracteresUsuario(usuarioBE);
                 if (usuarioDAL.BuscarUsuarioPorDNI(usuarioBE.DNI) == null)
                 {
-                    usuarioDAL.Registrar(usuarioBE);
-
+                    string cadenaDV = 
+                        usuarioBE.DNI + 
+                        usuarioBE.Nombre + 
+                        usuarioBE.Apellido + 
+                        usuarioBE.Username + 
+                        usuarioBE.Password + 
+                        usuarioBE.Email + 
+                        usuarioBE.Bloqueado + 
+                        usuarioBE.Activo +
+                        usuarioBE.Rol;
+                    
+                    usuarioDAL.Registrar(usuarioBE, DigitoVerificador.CalcularDVH(cadenaDV));
+                    digitoVerificadorBLL.RecalcularDVV_Usuario();
                     Bitacora bitacora = new Bitacora();
                     bitacora.Login = SessionManager.Instance.UsuarioActual().Username;
                     bitacora.Modulo = "Usuarios";
                     bitacora.Evento = "Crear usuario exitoso";
                     bitacora.Criticidad = 1;
                     bitacoraBLL.RegistrarEvento(bitacora);
-
                 }
                 else
                 {
@@ -153,6 +165,9 @@ namespace BLL
                 if (user.Activo)
                 {
                     usuarioDAL.EliminarLogico(dNI);
+                    digitoVerificadorBLL.RecalcularDVH_Usuario();    
+                    digitoVerificadorBLL.RecalcularDVV_Usuario();
+
                     Bitacora bitacora = new Bitacora();
                     bitacora.Login = SessionManager.Instance.UsuarioActual().Username;
                     bitacora.Modulo = "Usuarios";
@@ -163,6 +178,8 @@ namespace BLL
                 else
                 {
                     usuarioDAL.ActivarUsuario(dNI);
+                    digitoVerificadorBLL.RecalcularDVH_Usuario();
+                    digitoVerificadorBLL.RecalcularDVV_Usuario();
                     Bitacora bitacora = new Bitacora();
                     bitacora.Login = SessionManager.Instance.UsuarioActual().Username;
                     bitacora.Modulo = "Usuarios";
@@ -189,7 +206,8 @@ namespace BLL
                 if (user.Bloqueado) return LoginResultado.Bloqueado;
 
                 usuarioDAL.CambiarClave(usuario, Encriptador.GetHash256(nuevaContra));
-
+                digitoVerificadorBLL.RecalcularDVH_Usuario();
+                digitoVerificadorBLL.RecalcularDVV_Usuario();
                 Bitacora bitacora = new Bitacora();
                 bitacora.Login = usuario;
                 bitacora.Modulo = "Usuarios";
@@ -218,7 +236,8 @@ namespace BLL
                 else
                 {
                     usuarioDAL.Modificar(dNI, usuarioBE);
-
+                    digitoVerificadorBLL.RecalcularDVH_Usuario();
+                    digitoVerificadorBLL.RecalcularDVV_Usuario();
                     Bitacora bitacora = new Bitacora();
                     bitacora.Login = SessionManager.Instance.UsuarioActual().Username;
                     bitacora.Modulo = "Usuarios";
@@ -240,7 +259,8 @@ namespace BLL
                     string nuevaClave = Encriptador.GetHash256(user.DNI + user.Nombre);
 
                     usuarioDAL.DesbloquearUsuario(user.DNI, nuevaClave);
-
+                    digitoVerificadorBLL.RecalcularDVH_Usuario();
+                    digitoVerificadorBLL.RecalcularDVV_Usuario();
                     Bitacora bitacora = new Bitacora();
                     bitacora.Login = SessionManager.Instance.UsuarioActual().Username;
                     bitacora.Modulo = "Usuarios";
@@ -277,6 +297,12 @@ namespace BLL
                 }
             }
             return false;
+        }
+
+        public string RetornarRol(string username)
+        {
+            Usuario usuario = BuscarUsuarioPorUserName(username);
+            return usuario.Rol;
         }
     }
 }

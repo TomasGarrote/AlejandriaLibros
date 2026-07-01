@@ -9,18 +9,19 @@ namespace DAL
     {
         public BitacoraDAL() { }
 
-        public void RegistrarEvento(Bitacora unEvento)
+        public void RegistrarEvento(Bitacora unEvento, string DVH)
         {
             try
             {
-                _sqlcommand.CommandText = @"INSERT INTO Bitacora (Login, Fecha, Modulo, Evento, Criticidad) 
-                           VALUES (@Login, @Fecha, @Modulo, @Evento, @Criticidad)";
+                _sqlcommand.CommandText = @"INSERT INTO Bitacora (Login, Fecha, Modulo, Evento, Criticidad, DVH) 
+                           VALUES (@Login, @Fecha, @Modulo, @Evento, @Criticidad, @dvh)";
                 _sqlcommand.Parameters.Clear();
                 _sqlcommand.Parameters.AddWithValue("@Login", unEvento.Login);
                 _sqlcommand.Parameters.AddWithValue("@Fecha", unEvento.Fecha);
                 _sqlcommand.Parameters.AddWithValue("@Modulo", unEvento.Modulo);
                 _sqlcommand.Parameters.AddWithValue("@Evento", unEvento.Evento);
                 _sqlcommand.Parameters.AddWithValue("@Criticidad", unEvento.Criticidad);
+                _sqlcommand.Parameters.AddWithValue("@dvh", DVH);
 
                 _sqlserver.Open();
                 _sqlcommand.ExecuteNonQuery();
@@ -175,6 +176,56 @@ namespace DAL
                 _sqlserver.Close();
             }
             return usuario;
+        }
+
+        public List<Bitacora> listarTodosLosEventos()
+        {
+            try
+            {
+                _sqlcommand.CommandText = @"SELECT Id_Evento, Login, Fecha, Modulo, Evento, Criticidad, DVH FROM Bitacora";
+                _sqlserver.Open();
+                var reader = _sqlcommand.ExecuteReader();
+                var Bitacoralst = new List<Bitacora>();
+                while (reader.Read())
+                {
+                    Bitacoralst.Add(new Bitacora(reader.GetInt32(0), reader.GetString(1), reader.GetDateTime(2), reader.GetString(3), reader.GetString(4),
+                           reader.GetInt32(5), reader.GetString(6)));
+                }
+                return Bitacoralst;
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                _sqlcommand.Parameters.Clear();
+                _sqlserver.Close();
+            }
+        }
+
+        public void ActualizarDVH(string v, string dvhCalculado)
+        {
+            try
+            {
+                _sqlcommand.CommandText = @"UPDATE Bitacora SET DVH = @DVH WHERE Id_Evento = @IdEvento";
+                _sqlcommand.Parameters.Clear();
+                _sqlcommand.Parameters.AddWithValue("@DVH", dvhCalculado);
+                _sqlcommand.Parameters.AddWithValue("@IdEvento", v);
+                _sqlserver.Open();
+                _sqlcommand.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                _sqlcommand.Parameters.Clear();
+                _sqlserver.Close();
+            }
         }
     }
 }
