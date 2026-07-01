@@ -215,6 +215,13 @@ namespace GUI
             cambiarContraseña.Show();
         }
 
+        private void btnDigitoVerificador_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            frmReparacionDV frmReparacionDV = new frmReparacionDV();
+            frmReparacionDV.Show();
+        }
+
         public void Actualizar(LanguageManager lenguaje)
         {
             btnAdmin.Text = LanguageManager.Instance.GetTraduction("btnAdmin");
