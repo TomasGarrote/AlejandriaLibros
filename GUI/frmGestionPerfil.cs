@@ -784,7 +784,7 @@ namespace GUI
 
             btnEjecutar.Click += (s, e) =>
             {
-                string estrategia = rbtnResolver.Checked ? "RESOLVE" : "CANCEL";
+                string estrategia = rbtnResolver.Checked ? "RESOLVER" : "CANCEL";
                 this.Controls.Remove(pnlModal);
                 pnlModal.Dispose();
                 panelActivo.Enabled = true;
@@ -865,7 +865,7 @@ namespace GUI
 
             btnEjecutar.Click += (s, e) =>
             {
-                string estrategia = rbtnResolver.Checked ? "RESOLVE" : "CANCEL";
+                string estrategia = rbtnResolver.Checked ? "RESOLVER" : "CANCEL";
                 this.Controls.Remove(pnlModal);
                 pnlModal.Dispose();
                 panelActivo.Enabled = true;
