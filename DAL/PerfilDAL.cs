@@ -207,7 +207,6 @@ namespace DAL
 
                 LimpiarRelacionesComponente(familia.Nombre, familia.EsRol);
 
-                //SE LIMPIAN LAS RELACIONES QUE TENIAN FAMILIA O PERFIL CON LOS COMPONENTES 
 
                 if (!familia.EsRol)
                 {
