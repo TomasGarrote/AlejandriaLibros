@@ -12,7 +12,7 @@ namespace DAL
         
         protected AbstractDAL()
         {
-            _sqlserver = new SqlConnection("Data Source=.;Initial Catalog=Alejandria_DB;Integrated Security=True;TrustServerCertificate=True");
+            _sqlserver = new SqlConnection("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=Alejandria_DB;Integrated Security=True;TrustServerCertificate=True");
             _sqlcommand = new SqlCommand();
             _sqlcommand.Connection = _sqlserver;
             _sqlcommand.CommandType = System.Data.CommandType.Text;

@@ -40,7 +40,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.btnRestaurar = new System.Windows.Forms.Button();
-            this.lbBakcup = new System.Windows.Forms.ListBox();
+            this.lstBackups = new System.Windows.Forms.ListBox();
             this.btnRecalcularDV = new System.Windows.Forms.Button();
             this.lblModuloReparacion = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
@@ -131,7 +131,7 @@
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.btnRestaurar);
-            this.groupBox1.Controls.Add(this.lbBakcup);
+            this.groupBox1.Controls.Add(this.lstBackups);
             this.groupBox1.Controls.Add(this.btnRecalcularDV);
             this.groupBox1.Location = new System.Drawing.Point(29, 43);
             this.groupBox1.Name = "groupBox1";
@@ -171,13 +171,13 @@
             this.btnRestaurar.UseVisualStyleBackColor = true;
             this.btnRestaurar.Click += new System.EventHandler(this.btnRestaurar_Click);
             // 
-            // lbBakcup
+            // lstBackups
             // 
-            this.lbBakcup.FormattingEnabled = true;
-            this.lbBakcup.Location = new System.Drawing.Point(51, 159);
-            this.lbBakcup.Name = "lbBakcup";
-            this.lbBakcup.Size = new System.Drawing.Size(281, 108);
-            this.lbBakcup.TabIndex = 3;
+            this.lstBackups.FormattingEnabled = true;
+            this.lstBackups.Location = new System.Drawing.Point(51, 159);
+            this.lstBackups.Name = "lstBackups";
+            this.lstBackups.Size = new System.Drawing.Size(281, 108);
+            this.lstBackups.TabIndex = 3;
             // 
             // btnRecalcularDV
             // 
@@ -235,7 +235,7 @@
         private System.Windows.Forms.PictureBox btnMinimizar;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.ListBox lbBakcup;
+        private System.Windows.Forms.ListBox lstBackups;
         private System.Windows.Forms.Button btnRecalcularDV;
         private System.Windows.Forms.Label lblModuloReparacion;
         private System.Windows.Forms.Label label1;

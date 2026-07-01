@@ -14,6 +14,7 @@ namespace GUI
     public partial class frmReparacionDV : Form
     {
         DigitoVerificadorBLL DVBLL;
+        RespaldoBLL backupBLL;
         public frmReparacionDV()
         {
             InitializeComponent();
@@ -36,12 +37,36 @@ namespace GUI
 
         private void btnRestaurar_Click(object sender, EventArgs e)
         {
+            try
+            {
+                if (lstBackups.SelectedItem == null)
+                {
+                    MessageBox.Show("Debe seleccionar un backup para restaurar", "Restauracion de backup", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+                backupBLL.RealizarRestore(backupBLL.ObtenerRutaBakcup(lstBackups.SelectedItem.ToString()));
+                MessageBox.Show("Se realizo la restauracion del backup correctamente", "Restauracion de backup", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                this.Close();
+                Login login = new Login();
+                login.Show();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al restaurar el backup: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            
 
         }
 
         private void frmReparacionDV_Load(object sender, EventArgs e)
         {
             DVBLL = new DigitoVerificadorBLL();
+            backupBLL = new RespaldoBLL();
+            listarIncocistencias();
+            listarBackups();
+        }
+        private void listarIncocistencias()
+        {
             lstInconsistencias.Items.Clear();
             List<string> auditoria = DVBLL.EjecutarAuditoriaDetalladaCompleta();
 
@@ -49,11 +74,31 @@ namespace GUI
             {
                 lstInconsistencias.Items.Add(inconsistencia);
             }
-        }
-        private void listarIncocistencias()
-        {
-            lstInconsistencias.Items.Clear();
 
+        }
+        private void listarBackups()
+        {
+            try
+            {
+                lstBackups.Items.Clear();
+
+                List<string> listaDeBackups = backupBLL.ObtenerListaBackups();
+
+                if (listaDeBackups.Count == 0)
+                {
+                    MessageBox.Show("No se encontraron archivos de respaldo (.bak) en la carpeta del programa.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+
+                foreach (string backup in listaDeBackups)
+                {
+                    lstBackups.Items.Add(backup);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al listar los respaldos: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void btnCerrar_Click(object sender, EventArgs e)

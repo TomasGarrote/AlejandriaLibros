@@ -48,7 +48,7 @@ namespace DAL
         public void RestaurarBackup(string rutaCompletaArchivo)
         {
             SqlConnection connMaster = new SqlConnection(
-                "Data Source=.;Initial Catalog=master;Integrated Security=True;TrustServerCertificate=True");
+                "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=master;Integrated Security=True;TrustServerCertificate=True");
 
             try
             {

@@ -1,7 +1,9 @@
 ﻿using DAL;
 using Servicios;
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace BLL
 {
@@ -20,6 +22,36 @@ namespace BLL
         {
             string fechaHora = DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss");
             return $"Alejandria_DB_{fechaHora}.bak";
+        }
+
+        public List<string> ObtenerListaBackups()
+        {
+            string rutaCarpetaPrograma = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Backups");
+
+            if (!Directory.Exists(rutaCarpetaPrograma))
+            {
+                Directory.CreateDirectory(rutaCarpetaPrograma);
+            }
+
+            DirectoryInfo directorio = new DirectoryInfo(rutaCarpetaPrograma);
+
+            FileInfo[] archivosBak = directorio.GetFiles("*.bak")
+                                               .OrderByDescending(f => f.CreationTime)
+                                               .ToArray();
+
+            List<string> nombresDeArchivos = new List<string>();
+            foreach (FileInfo archivo in archivosBak)
+            {
+                nombresDeArchivos.Add(archivo.Name);
+            }
+
+            return nombresDeArchivos;
+        }
+
+        public string ObtenerRutaBakcup(string nombreArchivo)
+        {
+            string carpetaBackups = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Backups");
+            return Path.Combine(carpetaBackups, nombreArchivo);
         }
 
         public string RealizarBackup(string carpetaDestino)

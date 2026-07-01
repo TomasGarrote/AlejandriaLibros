@@ -234,6 +234,12 @@ namespace GUI
 
         private void btnDigitoVerificador_Click(object sender, EventArgs e)
         {
+            if (!SessionManager.Instance.UsuarioActual().TienePermiso("Gestionar DigitoVerificadores"))
+            {
+                MessageBox.Show("No tiene permisos para acceder a Digitos Verificadores.",
+                    "Acceso Denegado", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                return;
+            }
             this.Hide();
             frmReparacionDV frmReparacionDV = new frmReparacionDV();
             frmReparacionDV.Show();
