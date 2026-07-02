@@ -82,22 +82,28 @@ namespace Servicios
 
             return _jsonidioma[key];
         }
+        //    private string GetJsonRute(string name)
+        //    {
+        //        string directory = AppDomain.CurrentDomain.BaseDirectory;
+        //        string jsonruta = Path.GetFullPath(
+        //Path.Combine(
+        //    directory,
+        //    "..",
+        //    "..",
+        //    "..",
+        //    "Servicios",
+        //    "Idiomas",
+        //    $"{name}.json"));
+
+
+        //        return jsonruta;
+
+        //    }
         private string GetJsonRute(string name)
         {
             string directory = AppDomain.CurrentDomain.BaseDirectory;
-            string jsonruta = Path.GetFullPath(
-    Path.Combine(
-        directory,
-        "..",
-        "..",
-        "..",
-        "Servicios",
-        "Idiomas",
-        $"{name}.json"));
-
-
+            string jsonruta = Path.Combine(directory, "Idiomas", $"{name}.json");
             return jsonruta;
-
         }
         public void CargarIdioma(string codigoIdioma)
         {
