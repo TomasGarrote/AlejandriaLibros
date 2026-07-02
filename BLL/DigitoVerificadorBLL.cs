@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Windows.Forms;
 
 namespace BLL
 {
@@ -14,7 +15,6 @@ namespace BLL
         private readonly UsuarioDAL _usuarioDal = new UsuarioDAL();
         private readonly BitacoraDAL _bitacoraDal = new BitacoraDAL();
         private readonly IdiomaDAL _idiomaDal = new IdiomaDAL();
-
 
         //===========================RECALCULAR DVH DE TODAS LAS TABLAS=========================
         public void RecalcularDVH_Usuario()
@@ -370,21 +370,52 @@ namespace BLL
 
         public void RecalcularDVV_General()
         {
-            // Recalcular DVH para todas las tablas
-            RecalcularDVH_Usuario();
-            RecalcularDVH_Familia();
-            RecalcularDVH_PermisoSimple();
-            RecalcularDVH_Perfil();
-            RecalcularDVH_Bitacora();
-            RecalcularDVH_Idioma();
+            try
+            {
+                // Recalcular DVH para todas las tablas
+                RecalcularDVH_Usuario();
+                RecalcularDVH_Familia();
+                RecalcularDVH_PermisoSimple();
+                RecalcularDVH_Perfil();
+                RecalcularDVH_Bitacora();
+                RecalcularDVH_Idioma();
 
-            //Recalcular DVV para todas las tablas
-            RecalcularDVV_Bitacora();
-            RecalcularDVV_Familia();
-            RecalcularDVV_Idioma();
-            RecalcularDVV_Perfil();
-            RecalcularDVV_PermisoSimple();
-            RecalcularDVV_Usuario();
+                //Recalcular DVV para todas las tablas
+                RecalcularDVV_Bitacora();
+                RecalcularDVV_Familia();
+                RecalcularDVV_Idioma();
+                RecalcularDVV_Perfil();
+                RecalcularDVV_PermisoSimple();
+                RecalcularDVV_Usuario();
+
+                RegistrarEvento("Recalculo de DVV y DVH realizado correctamente", 1);
+            }
+            catch (Exception ex)
+            {
+                RegistrarEvento("Error al recalcular DVV y DVH", 3);
+                throw new Exception("Error al recalcular DVV y DVH: " + ex.Message);
+            }
+            
+
+
+        }
+        private void RegistrarEvento(string descripcion, int criticidad)
+        {
+            try
+            {
+                string login = SessionManager.Instance?.UsuarioActual()?.Username ?? "Sistema";
+                Bitacora evento = new Bitacora
+                {
+                    Login = login,
+                    Modulo = "DigitoVerificador",
+                    Fecha = DateTime.Now,
+                    Evento = descripcion,
+                    Criticidad = criticidad
+                };
+                string cadenaDVH = evento.Login + evento.Fecha.ToString("yyyy-MM-dd HH:mm:ss") + evento.Modulo + evento.Evento + evento.Criticidad.ToString();
+                _bitacoraDal.RegistrarEvento(evento, DigitoVerificador.CalcularDVH(cadenaDVH));
+            }
+            catch { }
         }
     }
 }
