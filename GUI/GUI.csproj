@@ -165,6 +165,12 @@
     <Compile Include="CambiarIdioma.Designer.cs">
       <DependentUpon>CambiarIdioma.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormBackup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormBackup.Designer.cs">
+      <DependentUpon>FormBackup.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormBitacora.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -177,11 +183,23 @@
     <Compile Include="CambiarContraseña.Designer.cs">
       <DependentUpon>CambiarContraseña.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormRestore.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormRestore.Designer.cs">
+      <DependentUpon>FormRestore.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmGestionPerfil.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frmGestionPerfil.Designer.cs">
       <DependentUpon>frmGestionPerfil.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmReparacionDV.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmReparacionDV.Designer.cs">
+      <DependentUpon>frmReparacionDV.cs</DependentUpon>
     </Compile>
     <Compile Include="Login.cs">
       <SubType>Form</SubType>
@@ -206,6 +224,9 @@
     <EmbeddedResource Include="CambiarIdioma.resx">
       <DependentUpon>CambiarIdioma.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FormBackup.resx">
+      <DependentUpon>FormBackup.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormBitacora.resx">
       <DependentUpon>FormBitacora.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -213,9 +234,15 @@
     <EmbeddedResource Include="CambiarContraseña.resx">
       <DependentUpon>CambiarContraseña.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FormRestore.resx">
+      <DependentUpon>FormRestore.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmGestionPerfil.resx">
       <DependentUpon>frmGestionPerfil.cs</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmReparacionDV.resx">
+      <DependentUpon>frmReparacionDV.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Login.resx">
       <DependentUpon>Login.cs</DependentUpon>

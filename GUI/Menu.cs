@@ -196,11 +196,28 @@ namespace GUI
 
         private void btnBackUp_Click(object sender, EventArgs e)
         {
-
+            if (!SessionManager.Instance.UsuarioActual().TienePermiso("Ver Respaldos"))
+            {
+                MessageBox.Show("No tiene permisos para acceder a Backup.",
+                    "Acceso Denegado", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                return;
+            }
+            this.Hide();
+            FormBackup formBackup = new FormBackup();
+            formBackup.Show();
         }
 
         private void btnRestore_Click(object sender, EventArgs e)
         {
+            if (!SessionManager.Instance.UsuarioActual().TienePermiso("Ver Respaldos"))
+            {
+                MessageBox.Show("No tiene permisos para acceder a Restore.",
+                    "Acceso Denegado", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                return;
+            }
+            this.Hide();
+            FormRestore formRestore = new FormRestore();
+            formRestore.Show();
         }
 
         private void BarraTitulo_MouseUp(object sender, MouseEventArgs e)
@@ -213,6 +230,19 @@ namespace GUI
             this.Hide();
             CambiarIdioma cambiarContraseña = new CambiarIdioma();
             cambiarContraseña.Show();
+        }
+
+        private void btnDigitoVerificador_Click(object sender, EventArgs e)
+        {
+            if (!SessionManager.Instance.UsuarioActual().TienePermiso("Gestionar DigitoVerificadores"))
+            {
+                MessageBox.Show("No tiene permisos para acceder a Digitos Verificadores.",
+                    "Acceso Denegado", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                return;
+            }
+            this.Hide();
+            frmReparacionDV frmReparacionDV = new frmReparacionDV();
+            frmReparacionDV.Show();
         }
 
         public void Actualizar(LanguageManager lenguaje)

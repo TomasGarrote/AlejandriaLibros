@@ -10,6 +10,7 @@ namespace BLL
     {
         private readonly IdiomaDAL _idiomaDAL;
         private readonly BitacoraBLL bll;
+        private readonly DigitoVerificadorBLL digitoVerificadorBLL = new DigitoVerificadorBLL();
         private const string MODULO_BITACORA = "Idioma";
 
         public IdiomaBLL()
@@ -26,8 +27,10 @@ namespace BLL
 
         public void GuardarIdioma(string userName, string idioma)
         {
-            _idiomaDAL.GuardarIdioma(userName, idioma);
+            string cadenaDHV = $"{userName}{idioma}";
 
+            _idiomaDAL.GuardarIdioma(userName, idioma, DigitoVerificador.CalcularDVH(cadenaDHV));
+            digitoVerificadorBLL.RecalcularDVV_Idioma();
             Bitacora bita = new Bitacora();
             bita.Criticidad = 5;
             bita.Modulo = MODULO_BITACORA;

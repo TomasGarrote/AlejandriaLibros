@@ -8,6 +8,7 @@ namespace BLL
     public class BitacoraBLL
     {
         BitacoraDAL DAL;
+        DigitoVerificadorBLL digitoVerificadorBLL = new DigitoVerificadorBLL();
 
         public BitacoraBLL()
         {
@@ -19,7 +20,10 @@ namespace BLL
             try
             {
                 unEvento.Fecha = DateTime.Now;
-                DAL.RegistrarEvento(unEvento);
+                string cadenaDVH = unEvento.Login + unEvento.Fecha.ToString("yyyy-MM-dd HH:mm:ss") + unEvento.Modulo + unEvento.Evento + unEvento.Criticidad.ToString();
+
+                DAL.RegistrarEvento(unEvento, DigitoVerificador.CalcularDVH(cadenaDVH));
+                digitoVerificadorBLL.RecalcularDVV_Bitacora();
             }
             catch (Exception ex)
             {

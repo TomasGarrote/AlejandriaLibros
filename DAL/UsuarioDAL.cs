@@ -16,12 +16,12 @@ namespace DAL
             
         }
 
-        public void Registrar(Usuario entity)
+        public void Registrar(Usuario entity, string DVH)
         {
             try
             {
-                _sqlcommand.CommandText = @"INSERT INTO Usuario (DNI, Nombre, Apellido, UserName, Password, Email, Bloqueado, Activo, Rol)
-                                            VALUES (@dni, @nombre, @apellido, @username, @password, @email, 0, 1, @rol);";
+                _sqlcommand.CommandText = @"INSERT INTO Usuario (DNI, Nombre, Apellido, UserName, Password, Email, Bloqueado, Activo, Rol, DVH)
+                                            VALUES (@dni, @nombre, @apellido, @username, @password, @email, 0, 1, @rol, @dvh);";
 
                 _sqlcommand.Parameters.AddWithValue("@dni", entity.DNI);
                 _sqlcommand.Parameters.AddWithValue("@nombre", entity.Nombre);
@@ -30,6 +30,7 @@ namespace DAL
                 _sqlcommand.Parameters.AddWithValue("@password", entity.Password);
                 _sqlcommand.Parameters.AddWithValue("@email", entity.Email);
                 _sqlcommand.Parameters.AddWithValue("@Rol", entity.Rol);
+                _sqlcommand.Parameters.AddWithValue("@dvh", DVH);
 
                 _sqlserver.Open();
                 _sqlcommand.ExecuteNonQuery();
@@ -240,6 +241,45 @@ namespace DAL
                 _sqlserver.Close();
             }
         }
+        public List<Usuario> ListarTodosLosUsuariosDVH()
+        {
+            try
+            {
+                _sqlcommand.CommandText = @"SELECT DNI, Nombre, Apellido, UserName, Password, Email, Bloqueado, Activo, Rol, Intentos,DVH FROM Usuario;";
+                _sqlserver.Open();
+                var reader = _sqlcommand.ExecuteReader();
+                var Usuariolst = new List<Usuario>();
+                while (reader.Read())
+                {
+                    Usuario us = new Usuario(
+                            reader.GetString(0), //DNI
+                            reader.GetString(1), //Nombre
+                            reader.GetString(2), //Apellido
+                            reader.GetString(3), //UserName
+                            reader.GetString(4), //Password
+                            reader.GetString(5), //Email
+                            reader.GetBoolean(6), //Bloqueado
+                            reader.GetBoolean(7), //Activo
+                            reader.GetString(8), //Rol
+                            reader.GetInt32(9), //Intentos
+                            reader.GetString(10) //DVH
+                            ); 
+
+                    Usuariolst.Add(us);
+                }
+                return Usuariolst;
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                _sqlcommand.Parameters.Clear();
+                _sqlserver.Close();
+            }
+        }
 
         public void EliminarLogico(string _dni)
         {
@@ -355,6 +395,29 @@ namespace DAL
             }
             catch (Exception ex)
             {
+                throw ex;
+            }
+            finally
+            {
+                _sqlcommand.Parameters.Clear();
+                _sqlserver.Close();
+            }
+        }
+
+        public void ActualizarDVH(string dNI, string dvhCalculado)
+        {
+            try
+            {
+                _sqlcommand.CommandText = "update Usuario set DVH =  @dvh WHERE DNI = @dni;";
+                _sqlcommand.Parameters.AddWithValue("@dni", dNI);
+                _sqlcommand.Parameters.AddWithValue("@dvh", dvhCalculado);
+
+                _sqlserver.Open();
+                _sqlcommand.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+
                 throw ex;
             }
             finally

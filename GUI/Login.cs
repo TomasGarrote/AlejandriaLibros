@@ -103,10 +103,30 @@ namespace GUI
                         throw new Exception("Usuario Incorrecto, vuelva a intentar.");
                     case LoginResultado.Valido:
                         IdiomaBLL idiomaBLL = new IdiomaBLL();
+                        DigitoVerificadorBLL digitoVerificadorBLL = new DigitoVerificadorBLL();
 
-                      
                         string username = SessionManager.Instance.UsuarioActual().Username;
                         string idioma = idiomaBLL.ObtenerIdioma(username);
+                        var Auditoria = digitoVerificadorBLL.EjecutarAuditoriaDetalladaCompleta();
+                        string rol = usuarioBLL.RetornarRol(username);
+
+                        if (Auditoria.Count > 0)
+                        {
+                           if(rol == "Administrador") 
+                           {
+                                this.Hide();
+                                frmReparacionDV frmRep = new frmReparacionDV();
+                                frmRep.Show();
+                                break;
+                           }
+                           else
+                            {
+                                string mensaje = "Se han detectado inconsistencias en la base de datos, porfavor contacte al administrador:\n\n";
+                                MessageBox.Show(mensaje, "Error de Integridad", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                Application.Exit();
+                            }
+                        }
+                        
 
                         LanguageManager.Instance.CargarIdioma(idioma);
                         this.Hide();

@@ -370,6 +370,7 @@
             this.btnDigitoVerificador.TabIndex = 5;
             this.btnDigitoVerificador.Text = "Dig. Ver.";
             this.btnDigitoVerificador.UseVisualStyleBackColor = true;
+            this.btnDigitoVerificador.Click += new System.EventHandler(this.btnDigitoVerificador_Click);
             // 
             // btnBitacora
             // 
