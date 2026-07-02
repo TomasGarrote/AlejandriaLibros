@@ -114,8 +114,6 @@ namespace GUI
                         {
                            if(rol == "Administrador") 
                            {
-                        
-                                usuarioBLL.Desloguear();
                                 this.Hide();
                                 frmReparacionDV frmRep = new frmReparacionDV();
                                 frmRep.Show();

@@ -1,4 +1,5 @@
 ﻿using BLL;
+using Servicios;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -27,6 +28,7 @@ namespace GUI
             {
 
                 DVBLL.RecalcularDVV_General();
+                SessionManager.Instance.Desloguear();
                 MessageBox.Show("Se recalcularon los digitos verificadores correctamente", "Recalculo de DV", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 this.Close();
                 Login login = new Login();
@@ -46,6 +48,9 @@ namespace GUI
                 }
                 backupBLL.RealizarRestore(backupBLL.ObtenerRutaBakcup(lstBackups.SelectedItem.ToString()));
                 MessageBox.Show("Se realizo la restauracion del backup correctamente", "Restauracion de backup", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+
+                SessionManager.Instance.Desloguear();
                 this.Close();
                 Login login = new Login();
                 login.Show();
@@ -100,11 +105,11 @@ namespace GUI
                 MessageBox.Show($"Error al listar los respaldos: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
-        private void btnCerrar_Click(object sender, EventArgs e)
+        private void btnCancelar_Click(object sender, EventArgs e)
         {
-            if(MessageBox.Show("Esta seguro que desea cerrar la ventana de reparacion de digitos verificadores?", "Cerrar ventana", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            if (MessageBox.Show("Esta seguro que desea cerrar la ventana de reparacion de digitos verificadores?", "Cerrar ventana", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
+                SessionManager.Instance.Desloguear();
                 this.Close();
                 Login login = new Login();
                 login.Show();
