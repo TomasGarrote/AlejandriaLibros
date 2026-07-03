@@ -12,7 +12,7 @@ using System.Windows.Forms;
 
 namespace GUI
 {
-    public partial class frmReparacionDV : Form
+    public partial class frmReparacionDV : Form,IObserver
     {
         DigitoVerificadorBLL DVBLL;
         RespaldoBLL backupBLL;
@@ -24,12 +24,12 @@ namespace GUI
 
         private void btnRecalcularDV_Click(object sender, EventArgs e)
         {
-            if(Convert.ToBoolean(MessageBox.Show("Se recalcularan los digitos verificadores de todas las tablas, esta seguro?", "Recalculo de DV", MessageBoxButtons.YesNo, MessageBoxIcon.Information)))
+            if(Convert.ToBoolean(MessageBox.Show(LanguageManager.Instance.GetTraduction("TextDV1"), LanguageManager.Instance.GetTraduction("TextDV2"), MessageBoxButtons.YesNo, MessageBoxIcon.Information)))
             {
 
                 DVBLL.RecalcularDVV_General();
                 SessionManager.Instance.Desloguear();
-                MessageBox.Show("Se recalcularon los digitos verificadores correctamente", "Recalculo de DV", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(LanguageManager.Instance.GetTraduction("TextDV3"), LanguageManager.Instance.GetTraduction("TextDV2"), MessageBoxButtons.OK, MessageBoxIcon.Information);
                 this.Close();
                 Login login = new Login();
                 login.Show();
@@ -43,11 +43,11 @@ namespace GUI
             {
                 if (lstBackups.SelectedItem == null)
                 {
-                    MessageBox.Show("Debe seleccionar un backup para restaurar", "Restauracion de backup", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show(LanguageManager.Instance.GetTraduction("TextDV4"), LanguageManager.Instance.GetTraduction("TextDV5"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
                 backupBLL.RealizarRestore(backupBLL.ObtenerRutaBakcup(lstBackups.SelectedItem.ToString()));
-                MessageBox.Show("Se realizo la restauracion del backup correctamente", "Restauracion de backup", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(LanguageManager.Instance.GetTraduction("TextDV6"), LanguageManager.Instance.GetTraduction("TextDV7"), MessageBoxButtons.OK, MessageBoxIcon.Information);
 
 
                 SessionManager.Instance.Desloguear();
@@ -57,7 +57,7 @@ namespace GUI
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al restaurar el backup: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"{LanguageManager.Instance.GetTraduction("TextDV8")} {ex.Message}", LanguageManager.Instance.GetTraduction("ErrorP"), MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             
 
@@ -69,6 +69,8 @@ namespace GUI
             backupBLL = new RespaldoBLL();
             listarIncocistencias();
             listarBackups();
+            LanguageManager.Instance.AgregarObservador(this);
+            Actualizar(LanguageManager.Instance);
         }
         private void listarIncocistencias()
         {
@@ -91,7 +93,7 @@ namespace GUI
 
                 if (listaDeBackups.Count == 0)
                 {
-                    MessageBox.Show("No se encontraron archivos de respaldo (.bak) en la carpeta del programa.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show(LanguageManager.Instance.GetTraduction("TextDV9"), LanguageManager.Instance.GetTraduction("Informacion"), MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return;
                 }
 
@@ -102,18 +104,29 @@ namespace GUI
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al listar los respaldos: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"{LanguageManager.Instance.GetTraduction("TextDV10")} {ex.Message}", LanguageManager.Instance.GetTraduction("ErrorP"), MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         private void btnCancelar_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show("Esta seguro que desea cerrar la ventana de reparacion de digitos verificadores?", "Cerrar ventana", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            if (MessageBox.Show(LanguageManager.Instance.GetTraduction("TextDV11"), LanguageManager.Instance.GetTraduction("TextDV12"), MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
                 SessionManager.Instance.Desloguear();
                 this.Close();
                 Login login = new Login();
                 login.Show();
             }
+        }
+
+        public void Actualizar(LanguageManager lenguaje)
+        {
+            lblErrorDV.Text = lenguaje.GetTraduction("lblErrorDV");
+            lblModuloReparacion.Text = lenguaje.GetTraduction("lblModuloReparacion");
+            lblForzar.Text = lenguaje.GetTraduction("lblForzar");
+            btnRecalcularDV.Text = lenguaje.GetTraduction("btnRecalcularDV");
+            btnRestaurar.Text = lenguaje.GetTraduction("lblSelecVers");
+            lblSelecVers.Text= lenguaje.GetTraduction("btnRestaurar");
+            btnCancelardv.Text = lenguaje.GetTraduction("btnCancelardv");
         }
     }
 }

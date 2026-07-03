@@ -143,7 +143,8 @@ namespace GUI
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //cambiar idioma
+                MessageBox.Show(ex.ToString(), "Error! (DEBUG)", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

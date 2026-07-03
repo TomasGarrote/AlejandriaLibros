@@ -123,7 +123,7 @@
   "MsjConfirmacion": "Confirmado",
   "Salir": "Salir",
 
- 
+
 
   "Español": "Español",
   "Ingles": "Ingles",
@@ -288,5 +288,55 @@
   "BitBlltext2": "La fecha de inicio no puede ser mayor a la fecha final.",
   "BitBlltext3": "No se pudieron filtrar los eventos.",
   "BitBlltext4": "No se pudieron obtener los usuarios.",
-  "BitBlltext5": "No se pudo obtener el usuario."
+  "BitBlltext5": "No se pudo obtener el usuario.",
+
+  //FormDigitoVerificador
+  "lblErrorDV": "Inconsistencias Detectadas",
+  "lblModuloReparacion": "Modulo de reparacion",
+  "lblForzar": "Forzar nuevos digitos verificadores",
+  "btnRecalcularDV": "Recalcular Digito Verificadores",
+  "lblSelecVers": "Seleccione una version:",
+  "btnRestaurar": "Seleccione una version:",
+  "btnCancelardv": "Cancelar",
+
+  //Text DV
+  "TextDV1": "Se recalcularan los digitos verificadores de todas las tablas, esta seguro?",
+  "TextDV2": "Recalculo de DV",
+  "TextDV3": "Se recalcularon los digitos verificadores correctamente",
+  "TextDV4": "Debe seleccionar un backup para restaurar",
+  "TextDV5": "Restauracion de backup",
+  "TextDV6": "Se realizo la restauracion del backup correctamente",
+  "TextDV7": "Restauracion de backup",
+  "TextDV8": "Error al restaurar el backup:",
+  "TextDV9": "No se encontraron archivos de respaldo (.bak) en la carpeta del programa.",
+  "TextDV10": "Error al listar los respaldos:",
+  "TextDV11": "Esta seguro que desea cerrar la ventana de reparacion de digitos verificadores?",
+  "TextDV12": "Cerrar ventana",
+  "TextDV13": "Error al recalcular DVV y DVH:",
+  "TextDV14": "Debe seleccionar una carpeta de destino.",
+  "TextDV15": "La carpeta de destino no existe.",
+  "TextDV16": "Ocurrió un error al realizar el backup.",
+  "TextDV17": "Debe seleccionar un archivo de respaldo.",
+  "TextDV18": "El archivo de respaldo no existe en la ruta indicada.",
+  "TextDV19": "El archivo no tiene extensión válida (.bak).",
+  "TextDV20": "El archivo no es un respaldo válido de la base de datos.",
+  "TextDV21": "Ocurrió un error al restaurar la base de datos.",
+
+  //FormBackUp
+  "lblTitulo": "Backup",
+  "lblPath": "Path",
+  "btnExaminar": "Examinar",
+  "btnGenerar": "Generar",
+  "btnVolverDV": "Volver",
+
+  "TextBP1": "Debe seleccionar una carpeta de destino.",
+  "TextBP2": "Atención",
+  "TextBP3": "Backup generado correctamente en",
+  "TextBP4": "Operación Exitosa",
+  "TextBP5": "No se pudo generar el Backup.",
+
+  //restore
+  "lblTituloRes": "Restore",
+  "btnEjecutar": "Ejecutar"
+
 }

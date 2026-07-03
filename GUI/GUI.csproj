@@ -15,6 +15,7 @@
     <LangVersion>latest</LangVersion>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -189,6 +190,12 @@
     <Compile Include="FormRestore.Designer.cs">
       <DependentUpon>FormRestore.cs</DependentUpon>
     </Compile>
+    <Compile Include="FrmConexionInicial.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmConexionInicial.Designer.cs">
+      <DependentUpon>FrmConexionInicial.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmGestionPerfil.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -215,6 +222,7 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Settings.cs" />
     <Compile Include="Usuarios.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -236,6 +244,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormRestore.resx">
       <DependentUpon>FormRestore.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmConexionInicial.resx">
+      <DependentUpon>FrmConexionInicial.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmGestionPerfil.resx">
       <DependentUpon>frmGestionPerfil.cs</DependentUpon>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Servicios;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -16,7 +17,19 @@ namespace GUI
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Login()); 
+
+            if (!ConexionConfig.ExisteConfiguracion())
+            {
+                FrmConexionInicial frmConfig = new FrmConexionInicial();
+                DialogResult resultado = frmConfig.ShowDialog();
+
+                if (resultado != DialogResult.OK)
+                {
+                    return;
+                }
+            }
+
+            Application.Run(new Login());
         }
     }
 }

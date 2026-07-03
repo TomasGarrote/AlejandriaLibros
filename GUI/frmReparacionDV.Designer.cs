@@ -33,13 +33,13 @@
             this.lblErrorDV = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
+            this.btnCancelardv = new System.Windows.Forms.Button();
+            this.lblForzar = new System.Windows.Forms.Label();
+            this.lblSelecVers = new System.Windows.Forms.Label();
             this.btnRestaurar = new System.Windows.Forms.Button();
             this.lstBackups = new System.Windows.Forms.ListBox();
             this.btnRecalcularDV = new System.Windows.Forms.Button();
             this.lblModuloReparacion = new System.Windows.Forms.Label();
-            this.btnCancelar = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.panel3.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -86,9 +86,9 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.btnCancelar);
-            this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Controls.Add(this.label1);
+            this.groupBox1.Controls.Add(this.btnCancelardv);
+            this.groupBox1.Controls.Add(this.lblForzar);
+            this.groupBox1.Controls.Add(this.lblSelecVers);
             this.groupBox1.Controls.Add(this.btnRestaurar);
             this.groupBox1.Controls.Add(this.lstBackups);
             this.groupBox1.Controls.Add(this.btnRecalcularDV);
@@ -98,27 +98,37 @@
             this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
             // 
-            // label2
+            // btnCancelardv
             // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.label2.Location = new System.Drawing.Point(48, 37);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(251, 16);
-            this.label2.TabIndex = 6;
-            this.label2.Text = "Forzar nuevos digitos verificadores";
+            this.btnCancelardv.Location = new System.Drawing.Point(348, 261);
+            this.btnCancelardv.Name = "btnCancelardv";
+            this.btnCancelardv.Size = new System.Drawing.Size(254, 42);
+            this.btnCancelardv.TabIndex = 7;
+            this.btnCancelardv.Text = "Cancelar";
+            this.btnCancelardv.UseVisualStyleBackColor = true;
+            this.btnCancelardv.Click += new System.EventHandler(this.btnCancelar_Click);
             // 
-            // label1
+            // lblForzar
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.label1.Location = new System.Drawing.Point(48, 116);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(173, 16);
-            this.label1.TabIndex = 5;
-            this.label1.Text = "Seleccione una version:";
+            this.lblForzar.AutoSize = true;
+            this.lblForzar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblForzar.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.lblForzar.Location = new System.Drawing.Point(48, 37);
+            this.lblForzar.Name = "lblForzar";
+            this.lblForzar.Size = new System.Drawing.Size(251, 16);
+            this.lblForzar.TabIndex = 6;
+            this.lblForzar.Text = "Forzar nuevos digitos verificadores";
+            // 
+            // lblSelecVers
+            // 
+            this.lblSelecVers.AutoSize = true;
+            this.lblSelecVers.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSelecVers.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.lblSelecVers.Location = new System.Drawing.Point(48, 116);
+            this.lblSelecVers.Name = "lblSelecVers";
+            this.lblSelecVers.Size = new System.Drawing.Size(173, 16);
+            this.lblSelecVers.TabIndex = 5;
+            this.lblSelecVers.Text = "Seleccione una version:";
             // 
             // btnRestaurar
             // 
@@ -159,16 +169,6 @@
             this.lblModuloReparacion.TabIndex = 3;
             this.lblModuloReparacion.Text = "Modulo de reparacion";
             // 
-            // btnCancelar
-            // 
-            this.btnCancelar.Location = new System.Drawing.Point(348, 261);
-            this.btnCancelar.Name = "btnCancelar";
-            this.btnCancelar.Size = new System.Drawing.Size(254, 42);
-            this.btnCancelar.TabIndex = 7;
-            this.btnCancelar.Text = "Cancelar";
-            this.btnCancelar.UseVisualStyleBackColor = true;
-            this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
-            // 
             // frmReparacionDV
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -201,9 +201,9 @@
         private System.Windows.Forms.ListBox lstBackups;
         private System.Windows.Forms.Button btnRecalcularDV;
         private System.Windows.Forms.Label lblModuloReparacion;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lblSelecVers;
         private System.Windows.Forms.Button btnRestaurar;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Button btnCancelar;
+        private System.Windows.Forms.Label lblForzar;
+        private System.Windows.Forms.Button btnCancelardv;
     }
 }

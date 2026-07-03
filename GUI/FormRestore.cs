@@ -7,7 +7,7 @@ using System.Windows.Forms;
 
 namespace GUI
 {
-    public partial class FormRestore : Form
+    public partial class FormRestore : Form,IObserver
     {
         int posX, posY;
         bool arrastrando = false;
@@ -110,6 +110,22 @@ namespace GUI
             {
                 this.Location = new Point(this.Location.X + (e.X - posX), this.Location.Y + (e.Y - posY));
             }
+        }
+
+        private void FormRestore_Load(object sender, EventArgs e)
+        {
+            LanguageManager.Instance.AgregarObservador(this);
+            Actualizar(LanguageManager.Instance);
+        }
+
+        public void Actualizar(LanguageManager lenguaje)
+        {
+            lblTituloRes.Text = lenguaje.GetTraduction("lblTituloRes");
+            lblPath.Text = lenguaje.GetTraduction("lblPath");
+            btnExaminar.Text = lenguaje.GetTraduction("btnExaminar");
+            btnEjecutar.Text = lenguaje.GetTraduction("btnEjecutar");
+            btnVolver.Text = lenguaje.GetTraduction("btnVolverDV");
+
         }
     }
 }
