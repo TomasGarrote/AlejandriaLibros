@@ -1,5 +1,7 @@
 ﻿using BLL;
+using LibreriasExternas;
 using Servicios;
+using Servicios.Patron_Memento;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -21,6 +23,8 @@ namespace GUI
 
         private Familia _familiaSeleccionada = null;
         private Familia _perfilSeleccionado = null;
+
+         
 
         public frmGestionPerfiles()
         {
@@ -106,10 +110,11 @@ namespace GUI
 
             if (panelActivo != null)
             {
-                int xDelCentro = (contenedorAncho) / 2;
+                int xDelCentro = panel4.Right;
                 int yAlineada = panel4.Top - 10;
 
                 panelActivo.Location = new Point(xDelCentro, yAlineada);
+                textBox1.Location = new Point(xDelCentro + 600, yAlineada + 20);
             }
         }
 
@@ -284,8 +289,10 @@ namespace GUI
         private void LstFamilias_SelectedIndexChanged(object sender, EventArgs e)
         {
             _familiaSeleccionada = lstFamilias.SelectedItem as Familia;
+            ExportarArbol();
             VisualizarDetallesFamilia();
         }
+
 
         private void BtnCrearFamilia_Click(object sender, EventArgs e)
         {
@@ -1038,6 +1045,13 @@ namespace GUI
             btnAsignarPermisos.Text = LanguageManager.Instance.GetTraduction("btnAsignarPermisos");
             label8.Text = LanguageManager.Instance.GetTraduction("label8");
             btnQuitarPermisos.Text = LanguageManager.Instance.GetTraduction("btnQuitarPermisos");
+        }
+
+        private void ExportarArbol()
+        {
+            IExportadorPermisos adaptador = new PermisosEstructuraAdapter(new AnalizadorEstructurasPlanas());
+            
+            textBox1.Text = _bll.exportarArbol(_familiaSeleccionada, adaptador);
         }
     }
 }

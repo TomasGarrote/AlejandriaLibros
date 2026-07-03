@@ -98,6 +98,7 @@
             this.pnlPermisos = new System.Windows.Forms.Panel();
             this.pnlPerfiles = new System.Windows.Forms.Panel();
             this.pnlFamilias = new System.Windows.Forms.Panel();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPermisos)).BeginInit();
             this.panelPermisos.SuspendLayout();
             this.panelFamilias.SuspendLayout();
@@ -340,7 +341,7 @@
             this.RbPermisos.AutoSize = true;
             this.RbPermisos.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.RbPermisos.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.RbPermisos.Location = new System.Drawing.Point(1062, 56);
+            this.RbPermisos.Location = new System.Drawing.Point(1016, 720);
             this.RbPermisos.Name = "RbPermisos";
             this.RbPermisos.Size = new System.Drawing.Size(90, 22);
             this.RbPermisos.TabIndex = 25;
@@ -608,7 +609,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1009, 41);
+            this.panel1.Size = new System.Drawing.Size(1381, 41);
             this.panel1.TabIndex = 32;
             this.panel1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.BarraTitulo_MouseDown);
             this.panel1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.BarraTitulo_MouseMove);
@@ -619,7 +620,7 @@
             this.btnCerrar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCerrar.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnCerrar.Image = ((System.Drawing.Image)(resources.GetObject("btnCerrar.Image")));
-            this.btnCerrar.Location = new System.Drawing.Point(981, 3);
+            this.btnCerrar.Location = new System.Drawing.Point(1353, 3);
             this.btnCerrar.Name = "btnCerrar";
             this.btnCerrar.Size = new System.Drawing.Size(25, 35);
             this.btnCerrar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -632,7 +633,7 @@
             this.btnMaximizar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnMaximizar.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnMaximizar.Image = ((System.Drawing.Image)(resources.GetObject("btnMaximizar.Image")));
-            this.btnMaximizar.Location = new System.Drawing.Point(950, 3);
+            this.btnMaximizar.Location = new System.Drawing.Point(1322, 3);
             this.btnMaximizar.Name = "btnMaximizar";
             this.btnMaximizar.Size = new System.Drawing.Size(25, 35);
             this.btnMaximizar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -645,7 +646,7 @@
             this.btnMinimizar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnMinimizar.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnMinimizar.Image = ((System.Drawing.Image)(resources.GetObject("btnMinimizar.Image")));
-            this.btnMinimizar.Location = new System.Drawing.Point(919, 3);
+            this.btnMinimizar.Location = new System.Drawing.Point(1291, 3);
             this.btnMinimizar.Name = "btnMinimizar";
             this.btnMinimizar.Size = new System.Drawing.Size(25, 35);
             this.btnMinimizar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -860,12 +861,21 @@
             this.pnlFamilias.Size = new System.Drawing.Size(484, 645);
             this.pnlFamilias.TabIndex = 42;
             // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(1037, 71);
+            this.textBox1.Multiline = true;
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(288, 574);
+            this.textBox1.TabIndex = 43;
+            // 
             // frmGestionPerfiles
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
-            this.ClientSize = new System.Drawing.Size(1009, 707);
+            this.ClientSize = new System.Drawing.Size(1381, 716);
+            this.Controls.Add(this.textBox1);
             this.Controls.Add(this.pnlFamilias);
             this.Controls.Add(this.pnlPerfiles);
             this.Controls.Add(this.RbPermisos);
@@ -984,5 +994,6 @@
         private System.Windows.Forms.Panel pnlFamilias;
         private System.Windows.Forms.Label lblArbol;
         private System.Windows.Forms.Panel panel5;
+        private System.Windows.Forms.TextBox textBox1;
     }
 }

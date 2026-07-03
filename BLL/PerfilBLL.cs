@@ -1,6 +1,7 @@
 ﻿
 using DAL;
 using Servicios;
+using Servicios.Patron_Memento;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,8 @@ namespace BLL
         private readonly BitacoraBLL _bitacoraBLL;
         private readonly DigitoVerificadorBLL _digitoVerificadorBLL = new DigitoVerificadorBLL();
         private const string MODULO_BITACORA = "Perfiles";
+
+        
 
         public PerfilBLL()
         {
@@ -497,6 +500,62 @@ namespace BLL
                 }
             }
         }
+        public void DeshacerTransaccion(MementoTransaccion memento)
+        {
+            List<string> nomHijo = new();
+            if (memento == null) return;
 
+            if (memento.OperacionRealizada == TipoOperacion.Asignacion)
+            {
+                if (memento.TipoDelComponente == TipoComponente.Familia)
+                {
+                    nomHijo.Add(memento.NombreHijo);
+                    QuitarHijos(memento.NombrePadre, nomHijo, false);
+                    Console.WriteLine("DAL: Eliminando relación de familia por deshacer");
+                } 
+                else if (memento.TipoDelComponente == TipoComponente.Perfil)
+                {
+                    nomHijo.Add(memento.NombreHijo);
+                    QuitarHijos(memento.NombrePadre, nomHijo, false);
+                    Console.WriteLine("DAL: Eliminando realacion de perfil por deshacer");
+                }
+                else
+                {
+                    nomHijo.Add(memento.NombreHijo);
+                    QuitarHijos(memento.NombrePadre, nomHijo, true);
+                    Console.WriteLine("DAL: Eliminando permiso por deshacer");
+                }
+
+            }
+            else if (memento.OperacionRealizada == TipoOperacion.Eliminacion)
+            {
+                if (memento.TipoDelComponente == TipoComponente.Familia)
+                {
+                    nomHijo.Add(memento.NombreHijo);
+                    AsignarComponentesHijos(memento.NombrePadre, nomHijo, false);
+                    Console.WriteLine("DAL: Re-insertando familia por deshacer");
+                }
+                else if(memento.TipoDelComponente == TipoComponente.Perfil)
+                {
+                    nomHijo.Add(memento.NombreHijo);
+                    AsignarComponentesHijos(memento.NombrePadre, nomHijo, false);
+                    Console.WriteLine("DAL: Re-insertando familia por deshacer");
+                }
+                else
+                {
+                    nomHijo.Add(memento.NombreHijo);
+                    AsignarComponentesHijos(memento.NombrePadre, nomHijo, true);
+                    Console.WriteLine("DAL: Permiso ");
+                }
+
+            }
+            _digitoVerificadorBLL.RecalcularDVV_General();
+        }
+
+        public string exportarArbol(Familia fam, IExportadorPermisos exportador)
+        {
+            if (fam == null) throw new ArgumentNullException("No hay familia seleccionada");
+            return exportador.ExportarReporte(fam);
+        }
     }
 }
