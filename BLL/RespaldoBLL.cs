@@ -59,10 +59,10 @@ namespace BLL
             try
             {
                 if (string.IsNullOrWhiteSpace(carpetaDestino))
-                    throw new Exception("Debe seleccionar una carpeta de destino.");
+                    throw new Exception(LanguageManager.Instance.GetTraduction("TextDV14"));
 
                 if (!Directory.Exists(carpetaDestino))
-                    throw new Exception("La carpeta de destino no existe.");
+                    throw new Exception(LanguageManager.Instance.GetTraduction("TextDV15"));
 
                 string nombreArchivo = GenerarNombreArchivo();
                 string rutaCompleta = Path.Combine(carpetaDestino, nombreArchivo);
@@ -75,7 +75,7 @@ namespace BLL
             catch (Exception ex)
             {
                 RegistrarEvento("Error al generar Backup: " + ex.Message, 4);
-                throw new Exception("Ocurrió un error al realizar el backup.", ex);
+                throw new Exception(LanguageManager.Instance.GetTraduction("TextDV16"), ex);
             }
         }
 
@@ -84,16 +84,16 @@ namespace BLL
             try
             {
                 if (string.IsNullOrWhiteSpace(rutaArchivoBackup))
-                    throw new Exception("Debe seleccionar un archivo de respaldo.");
+                    throw new Exception(LanguageManager.Instance.GetTraduction("TextDV17"));
 
                 if (!File.Exists(rutaArchivoBackup))
-                    throw new Exception("El archivo de respaldo no existe en la ruta indicada.");
+                    throw new Exception(LanguageManager.Instance.GetTraduction("TextDV18"));
 
                 if (!rutaArchivoBackup.EndsWith(".bak", StringComparison.OrdinalIgnoreCase))
-                    throw new Exception("El archivo no tiene extensión válida (.bak).");
+                    throw new Exception(LanguageManager.Instance.GetTraduction("TextDV19"));
 
                 if (!DAL.ValidarArchivoBackup(rutaArchivoBackup))
-                    throw new Exception("El archivo no es un respaldo válido de la base de datos.");
+                    throw new Exception(LanguageManager.Instance.GetTraduction("TextDV20"));
 
                 DAL.RestaurarBackup(rutaArchivoBackup);
                 RegistrarEvento("Restore ejecutado desde: " + Path.GetFileName(rutaArchivoBackup), 1);
@@ -101,7 +101,7 @@ namespace BLL
             catch (Exception ex)
             {
                 RegistrarEvento("Error al ejecutar Restore: " + ex.Message, 4);
-                throw new Exception("Ocurrió un error al restaurar la base de datos.", ex);
+                throw new Exception(LanguageManager.Instance.GetTraduction("TextDV21"), ex);
             }
         }
 

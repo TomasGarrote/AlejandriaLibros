@@ -34,7 +34,7 @@
             this.btnExaminar = new System.Windows.Forms.Button();
             this.txtPath = new System.Windows.Forms.TextBox();
             this.lblPath = new System.Windows.Forms.Label();
-            this.lblTitulo = new System.Windows.Forms.Label();
+            this.lblTituloRes = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
             this.BarraTitulo = new System.Windows.Forms.Panel();
@@ -105,16 +105,16 @@
             this.lblPath.TabIndex = 7;
             this.lblPath.Text = "Path";
             // 
-            // lblTitulo
+            // lblTituloRes
             // 
-            this.lblTitulo.AutoSize = true;
-            this.lblTitulo.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTitulo.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.lblTitulo.Location = new System.Drawing.Point(149, 60);
-            this.lblTitulo.Name = "lblTitulo";
-            this.lblTitulo.Size = new System.Drawing.Size(105, 29);
-            this.lblTitulo.TabIndex = 6;
-            this.lblTitulo.Text = "Restore";
+            this.lblTituloRes.AutoSize = true;
+            this.lblTituloRes.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTituloRes.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.lblTituloRes.Location = new System.Drawing.Point(149, 60);
+            this.lblTituloRes.Name = "lblTituloRes";
+            this.lblTituloRes.Size = new System.Drawing.Size(105, 29);
+            this.lblTituloRes.TabIndex = 6;
+            this.lblTituloRes.Text = "Restore";
             // 
             // panel1
             // 
@@ -184,10 +184,11 @@
             this.Controls.Add(this.BarraTitulo);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.lblTitulo);
+            this.Controls.Add(this.lblTituloRes);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "FormRestore";
             this.Text = "FormRestore";
+            this.Load += new System.EventHandler(this.FormRestore_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
@@ -206,7 +207,7 @@
         private System.Windows.Forms.Button btnExaminar;
         private System.Windows.Forms.TextBox txtPath;
         private System.Windows.Forms.Label lblPath;
-        private System.Windows.Forms.Label lblTitulo;
+        private System.Windows.Forms.Label lblTituloRes;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Panel BarraTitulo;

@@ -33,7 +33,7 @@
             this.txtPath = new System.Windows.Forms.TextBox();
             this.btnExaminar = new System.Windows.Forms.Button();
             this.btnGenerar = new System.Windows.Forms.Button();
-            this.btnVolver = new System.Windows.Forms.Button();
+            this.btnVolverDV = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.BarraTitulo = new System.Windows.Forms.Panel();
             this.btnCerrar = new System.Windows.Forms.PictureBox();
@@ -92,17 +92,17 @@
             this.btnGenerar.UseVisualStyleBackColor = false;
             this.btnGenerar.Click += new System.EventHandler(this.btnGenerar_Click);
             // 
-            // btnVolver
+            // btnVolverDV
             // 
-            this.btnVolver.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnVolver.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.btnVolver.Location = new System.Drawing.Point(18, 104);
-            this.btnVolver.Name = "btnVolver";
-            this.btnVolver.Size = new System.Drawing.Size(293, 38);
-            this.btnVolver.TabIndex = 5;
-            this.btnVolver.Text = "Volver";
-            this.btnVolver.UseVisualStyleBackColor = true;
-            this.btnVolver.Click += new System.EventHandler(this.btnVolver_Click);
+            this.btnVolverDV.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnVolverDV.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.btnVolverDV.Location = new System.Drawing.Point(18, 104);
+            this.btnVolverDV.Name = "btnVolverDV";
+            this.btnVolverDV.Size = new System.Drawing.Size(293, 38);
+            this.btnVolverDV.TabIndex = 5;
+            this.btnVolverDV.Text = "Volver";
+            this.btnVolverDV.UseVisualStyleBackColor = true;
+            this.btnVolverDV.Click += new System.EventHandler(this.btnVolver_Click);
             // 
             // panel1
             // 
@@ -158,7 +158,7 @@
             this.panel3.BackColor = System.Drawing.Color.Maroon;
             this.panel3.Controls.Add(this.btnGenerar);
             this.panel3.Controls.Add(this.btnExaminar);
-            this.panel3.Controls.Add(this.btnVolver);
+            this.panel3.Controls.Add(this.btnVolverDV);
             this.panel3.Location = new System.Drawing.Point(29, 204);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(327, 160);
@@ -205,7 +205,7 @@
         private System.Windows.Forms.TextBox txtPath;
         private System.Windows.Forms.Button btnExaminar;
         private System.Windows.Forms.Button btnGenerar;
-        private System.Windows.Forms.Button btnVolver;
+        private System.Windows.Forms.Button btnVolverDV;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel BarraTitulo;
         private System.Windows.Forms.PictureBox btnCerrar;

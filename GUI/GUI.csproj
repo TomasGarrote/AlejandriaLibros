@@ -190,6 +190,12 @@
     <Compile Include="FormRestore.Designer.cs">
       <DependentUpon>FormRestore.cs</DependentUpon>
     </Compile>
+    <Compile Include="FrmConexionInicial.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmConexionInicial.Designer.cs">
+      <DependentUpon>FrmConexionInicial.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmGestionPerfil.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -238,6 +244,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormRestore.resx">
       <DependentUpon>FormRestore.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmConexionInicial.resx">
+      <DependentUpon>FrmConexionInicial.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmGestionPerfil.resx">
       <DependentUpon>frmGestionPerfil.cs</DependentUpon>

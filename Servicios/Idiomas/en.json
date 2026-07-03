@@ -284,5 +284,53 @@
   "BitBlltext2": "The start date cannot be greater than the end date.",
   "BitBlltext3": "Could not filter events.",
   "BitBlltext4": "Could not retrieve users.",
-  "BitBlltext5": "Could not retrieve user."
+  "BitBlltext5": "Could not retrieve user.",
+
+  //FormDigitoVerificador
+  "lblErrorDV": "Inconsistencies Detected",
+  "lblModuloReparacion": "Repair Module",
+  "lblForzar": "Force new verification digits",
+  "btnRecalcularDV": "Recalculate Verification Digits",
+  "lblSelecVers": "Select a version:",
+  "btnRestaurar": "Restore",
+  "btnCancelardv": "Cancel",
+
+  //Text DV
+  "TextDV1": "The verification digits of all tables will be recalculated, are you sure?",
+  "TextDV2": "Recalculate Verification Digits",
+  "TextDV3": "Verification digits were recalculated successfully",
+  "TextDV4": "You must select a backup to restore",
+  "TextDV5": "Backup Restore",
+  "TextDV6": "The backup was restored successfully",
+  "TextDV7": "Backup Restore",
+  "TextDV8": "Error restoring the backup:",
+  "TextDV9": "No backup files (.bak) were found in the program folder.",
+  "TextDV10": "Error listing backups:",
+  "TextDV11": "Are you sure you want to close the verification digit repair window?",
+  "TextDV12": "Close Window",
+  "TextDV13": "Error recalculating DVV and DVH:",
+  "TextDV14": "You must select a destination folder.",
+  "TextDV15": "The destination folder does not exist.",
+  "TextDV16": "An error occurred while creating the backup.",
+  "TextDV17": "You must select a backup file.",
+  "TextDV18": "The backup file does not exist at the specified path.",
+  "TextDV19": "The file does not have a valid extension (.bak).",
+  "TextDV20": "The file is not a valid database backup.",
+  "TextDV21": "An error occurred while restoring the database.",
+
+  //FormBackUp
+  "lblTitulo": "Backup",
+  "lblPath": "Path",
+  "btnExaminar": "Browse",
+  "btnGenerar": "Generate",
+  "btnVolverDV": "Back",
+  "TextBP1": "You must select a destination folder.",
+  "TextBP2": "Warning",
+  "TextBP3": "Backup successfully generated at",
+  "TextBP4": "Operation Successful",
+  "TextBP5": "Could not generate the backup.",
+   
+  //restore
+  "lblTituloRes": "Restore",
+  "btnEjecutar": "Execute"
 }

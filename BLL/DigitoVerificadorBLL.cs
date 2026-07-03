@@ -16,7 +16,7 @@ namespace BLL
         private readonly BitacoraDAL _bitacoraDal = new BitacoraDAL();
         private readonly IdiomaDAL _idiomaDal = new IdiomaDAL();
 
-        //===========================RECALCULAR DVH DE TODAS LAS TABLAS=========================
+        
         public void RecalcularDVH_Usuario()
         {
             var listaUsuarios = _usuarioDal.ListarTodosLosUsuariosDVH();
@@ -89,7 +89,7 @@ namespace BLL
                 _perfilDal.ActualizarDVH(familia.Nombre, DigitoVerificador.CalcularDVH(dvhCalculado));
             }
         }
-        //===========================RECALCULAR DVV DE TODAS LAS TABLAS=========================
+       
         public void RecalcularDVV_Perfil()
         {
             var lista = _perfilDal.ObtenerPerfiles();
@@ -158,7 +158,7 @@ namespace BLL
             RecalcularDVVDeTablaGenerica("Familia", datos);
         }
 
-        //=====================================Recalculador generico de DVV para cualquier tabla y sus columnas=========================================
+        
         private void RecalcularDVVDeTablaGenerica(string nombreTabla, Dictionary<string, List<string>> columnasData)
         {
             List<string> hashesDeLasColumnas = new List<string>();
@@ -189,7 +189,7 @@ namespace BLL
         {
             List<string> listaTotalesConsolidados = new List<string>();
 
-            // Mapeo exacto de las 10 tablas creadas por el script de SQL
+            
             string[] arrayTablasNegocio = {
             "Perfil", "Usuario", "Bitacora", "Idioma", "PermisoSimple",
             "Familia"
@@ -211,7 +211,7 @@ namespace BLL
             return listaTotalesConsolidados;
         }
 
-        // ==================================[AUDITORIA DE DIGITO VERIFICADORES]===============================================
+       
         
         public List<string> EjecutarAuditoriaDetalladaCompleta()
         {
@@ -372,7 +372,7 @@ namespace BLL
         {
             try
             {
-                // Recalcular DVH para todas las tablas
+                
                 RecalcularDVH_Usuario();
                 RecalcularDVH_Familia();
                 RecalcularDVH_PermisoSimple();
@@ -380,7 +380,7 @@ namespace BLL
                 RecalcularDVH_Bitacora();
                 RecalcularDVH_Idioma();
 
-                //Recalcular DVV para todas las tablas
+                
                 RecalcularDVV_Bitacora();
                 RecalcularDVV_Familia();
                 RecalcularDVV_Idioma();
@@ -393,7 +393,7 @@ namespace BLL
             catch (Exception ex)
             {
                 RegistrarEvento("Error al recalcular DVV y DVH", 3);
-                throw new Exception("Error al recalcular DVV y DVH: " + ex.Message);
+                throw new Exception(LanguageManager.Instance.GetTraduction("TextDV13") + ex.Message);
             }
             
 

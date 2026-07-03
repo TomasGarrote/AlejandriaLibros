@@ -6,7 +6,7 @@ using System.Windows.Forms;
 
 namespace GUI
 {
-    public partial class FormBackup : Form
+    public partial class FormBackup : Form,IObserver
     {
         int posX, posY;
         bool arrastrando = false;
@@ -34,8 +34,8 @@ namespace GUI
             {
                 if (string.IsNullOrWhiteSpace(txtPath.Text))
                 {
-                    MessageBox.Show("Debe seleccionar una carpeta de destino.",
-                        "Atención", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show(LanguageManager.Instance.GetTraduction("TextBP1"),
+                        LanguageManager.Instance.GetTraduction("TextBP2"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
 
@@ -44,13 +44,13 @@ namespace GUI
 
                 string rutaGenerada = bll.RealizarBackup(txtPath.Text);
 
-                MessageBox.Show("Backup generado correctamente en:\n" + rutaGenerada,
-                    "Operación Exitosa", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show($"{LanguageManager.Instance.GetTraduction("TextBP3")}:\n" + rutaGenerada,
+                    LanguageManager.Instance.GetTraduction("TextBP4"), MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
-                MessageBox.Show("No se pudo generar el Backup.\n" + ex.Message,
-                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"{LanguageManager.Instance.GetTraduction("TextBP5")}\n" + ex.Message,
+                    LanguageManager.Instance.GetTraduction("ErrorP"), MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
             {
@@ -68,7 +68,8 @@ namespace GUI
 
         private void FormBackup_Load(object sender, EventArgs e)
         {
-
+            LanguageManager.Instance.AgregarObservador(this);
+            Actualizar(LanguageManager.Instance);
         }
 
         private void panel2_Paint(object sender, PaintEventArgs e)
@@ -114,6 +115,15 @@ namespace GUI
             {
                 this.Location = new Point(this.Location.X + (e.X - posX), this.Location.Y + (e.Y - posY));
             }
+        }
+
+        public void Actualizar(LanguageManager lenguaje)
+        {
+            lblTitulo.Text= lenguaje.GetTraduction("lblTitulo");
+            lblPath.Text = lenguaje.GetTraduction("lblPath");
+            btnExaminar.Text = lenguaje.GetTraduction("btnExaminar");
+            btnGenerar.Text = lenguaje.GetTraduction("btnGenerar");
+            btnVolverDV.Text = lenguaje.GetTraduction("btnVolverDV");
         }
     }
 }
