@@ -24,7 +24,7 @@ namespace GUI
         private Familia _familiaSeleccionada = null;
         private Familia _perfilSeleccionado = null;
 
-         
+        private Stack<MementoTransaccion> _historialDeshacer = new Stack<MementoTransaccion>();
 
         public frmGestionPerfiles()
         {
@@ -658,6 +658,18 @@ namespace GUI
                     MessageBox.Show(detalleError, LanguageManager.Instance.GetTraduction("ValiPerPerfp"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
+
+                MementoTransaccion snapshot = null;
+                if(_perfilSeleccionado != null)
+                {
+                    snapshot = new MementoTransaccion(_perfilSeleccionado.Nombre, permiso, TipoOperacion.Asignacion, TipoComponente.Permiso);
+                    _historialDeshacer.Push(snapshot);
+                }
+                else
+                {
+                    snapshot = new MementoTransaccion(_familiaSeleccionada.Nombre, permiso, TipoOperacion.Asignacion, TipoComponente.Permiso);
+                    _historialDeshacer.Push(snapshot);
+                }
             }
 
             CargarDatosFormulario();
@@ -1045,6 +1057,25 @@ namespace GUI
             btnAsignarPermisos.Text = LanguageManager.Instance.GetTraduction("btnAsignarPermisos");
             label8.Text = LanguageManager.Instance.GetTraduction("label8");
             btnQuitarPermisos.Text = LanguageManager.Instance.GetTraduction("btnQuitarPermisos");
+        }
+
+        private void btnDeshacerPermisoSimple_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (_historialDeshacer.Count < 0) throw new Exception("No hay nada que deshacer");
+                    MementoTransaccion snapshot = _historialDeshacer.Pop();
+
+                _bll.DeshacerTransaccion(snapshot);
+                CargarDatosFormulario();
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message);
+            }
+            
+
         }
 
         private void ExportarArbol()
