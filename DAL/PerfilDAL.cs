@@ -8,22 +8,21 @@ namespace DAL
 {
     public class PerfilDAL : AbstractDAL<ComponentePermiso>
     {
-
         public List<PermisoSimple> ObtenerPermisos()
         {
             var lista = new List<PermisoSimple>();
-            _sqlcommand.CommandText = "SELECT Nombre, DVH FROM PermisoSimple";
-
             try
             {
                 if (_sqlserver.State != ConnectionState.Open) _sqlserver.Open();
-
+                _sqlcommand.CommandText = "SELECT Nombre, DVH FROM PermisoSimple";
                 using (var reader = _sqlcommand.ExecuteReader())
                 {
                     while (reader.Read())
-                    {
-                        lista.Add(new PermisoSimple { Nombre = reader["Nombre"].ToString(), DVH = reader["DVH"].ToString() });
-                    }
+                        lista.Add(new PermisoSimple
+                        {
+                            Nombre = reader["Nombre"].ToString(),
+                            DVH = reader["DVH"].ToString()
+                        });
                 }
             }
             finally
@@ -32,74 +31,59 @@ namespace DAL
             }
             return lista;
         }
+
         public List<Familia> ObtenerFamilias()
         {
-            List<Familia> listaEnMemoria = new List<Familia>();
+            var lista = new List<Familia>();
             try
             {
                 if (_sqlserver.State != ConnectionState.Open) _sqlserver.Open();
-                using (var command = new SqlCommand("SELECT Nombre, DVH FROM Familia", _sqlserver))
+                using (var cmd = new SqlCommand("SELECT Nombre, DVH FROM Familia", _sqlserver))
+                using (var reader = cmd.ExecuteReader())
                 {
-                    using (var reader = command.ExecuteReader())
-                    {
-                        while (reader.Read())
+                    while (reader.Read())
+                        lista.Add(new Familia
                         {
-                            listaEnMemoria.Add(new Familia
-                            {
-                                Nombre = reader["Nombre"].ToString(),
-                                EsRol = false,
-                                DVH = reader["DVH"].ToString()
-                            });
-                        }
-                    }
+                            Nombre = reader["Nombre"].ToString(),
+                            EsRol = false,
+                            DVH = reader["DVH"].ToString()
+                        });
                 }
-                foreach (var perfil in listaEnMemoria)
-                {
-                    CargarHijosComponente(perfil);
-                }
+                foreach (var fam in lista)
+                    CargarHijosComponente(fam);
             }
             finally
             {
                 if (_sqlserver.State == ConnectionState.Open) _sqlserver.Close();
             }
-            return listaEnMemoria;
+            return lista;
         }
+
         public List<Familia> ObtenerPerfiles()
         {
-            List<Familia> listaEnMemoria = new List<Familia>();
-            _sqlcommand.CommandText = "SELECT Nombre, DVH FROM Perfil";
+            var lista = new List<Familia>();
             try
             {
                 if (_sqlserver.State != ConnectionState.Open) _sqlserver.Open();
-
-                using (var command = new SqlCommand("SELECT Nombre, DVH FROM Perfil", _sqlserver))
+                using (var cmd = new SqlCommand("SELECT Nombre, DVH FROM Perfil", _sqlserver))
+                using (var reader = cmd.ExecuteReader())
                 {
-                    using (var reader = command.ExecuteReader())
-                    {
-                        while (reader.Read())
+                    while (reader.Read())
+                        lista.Add(new Familia
                         {
-                            listaEnMemoria.Add(new Familia
-                            {
-                                Nombre = reader["Nombre"].ToString(),
-                                EsRol = true,
-                                DVH = reader["DVH"].ToString()
-                                
-                            });
-                        }
-                    }
+                            Nombre = reader["Nombre"].ToString(),
+                            EsRol = true,
+                            DVH = reader["DVH"].ToString()
+                        });
                 }
-                foreach (var perfil in listaEnMemoria)
-                {
+                foreach (var perfil in lista)
                     CargarHijosComponente(perfil);
-                }
-
-                
             }
             finally
             {
                 if (_sqlserver.State == ConnectionState.Open) _sqlserver.Close();
             }
-            return listaEnMemoria;
+            return lista;
         }
 
         public List<Familia> ObtenerFamiliasYPerfiles()
@@ -112,17 +96,16 @@ namespace DAL
             {
                 if (_sqlserver.State != ConnectionState.Open) _sqlserver.Open();
 
-                _sqlcommand.CommandText = "SELECT Nombre FROM Familia";
-                using (var reader = _sqlcommand.ExecuteReader())
-                {
-                    while (reader.Read()) nombresFamilias.Add(reader["Nombre"].ToString());
-                }
+                // Usamos siempre new SqlCommand para consistencia
+                using (var cmd = new SqlCommand("SELECT Nombre FROM Familia", _sqlserver))
+                using (var reader = cmd.ExecuteReader())
+                    while (reader.Read())
+                        nombresFamilias.Add(reader["Nombre"].ToString());
 
-                _sqlcommand.CommandText = "SELECT Nombre FROM Perfil";
-                using (var reader = _sqlcommand.ExecuteReader())
-                {
-                    while (reader.Read()) nombresPerfiles.Add(reader["Nombre"].ToString());
-                }
+                using (var cmd = new SqlCommand("SELECT Nombre FROM Perfil", _sqlserver))
+                using (var reader = cmd.ExecuteReader())
+                    while (reader.Read())
+                        nombresPerfiles.Add(reader["Nombre"].ToString());
 
                 foreach (var nombre in nombresFamilias)
                 {
@@ -130,7 +113,6 @@ namespace DAL
                     CargarHijosComponente(fam);
                     listaUnificada.Add(fam);
                 }
-
                 foreach (var nombre in nombresPerfiles)
                 {
                     var perf = new Familia { Nombre = nombre, EsRol = true };
@@ -151,52 +133,45 @@ namespace DAL
             string tablaFamilias = padre.EsRol ? "Perfil_Familia" : "Familia_Familia";
             string colPadre = padre.EsRol ? "NombrePerfil" : "NombreFamilia";
             string colPadreHijo = padre.EsRol ? "NombrePerfil" : "NombrePadre";
-
-            var permisosHijos = new List<string>();
-            var familiasHijas = new List<string>();
-
-            using (var cmdPermisos = new SqlCommand($"SELECT NombrePermiso FROM {tablaPermisos} WHERE {colPadre} = @Padre", _sqlserver))
-            {
-                cmdPermisos.Parameters.AddWithValue("@Padre", padre.Nombre);
-                using (var reader = cmdPermisos.ExecuteReader())
-                {
-                    while (reader.Read()) permisosHijos.Add(reader["NombrePermiso"].ToString());
-                }
-            }
-
-            foreach (var perm in permisosHijos)
-            {
-                padre.AgregarHijo(new PermisoSimple { Nombre = perm });
-            }
-
             string colHijo = padre.EsRol ? "NombreFamilia" : "NombreHijo";
-            using (var cmdFamilias = new SqlCommand($"SELECT {colHijo} FROM {tablaFamilias} WHERE {colPadreHijo} = @Padre", _sqlserver))
+
+            using (var cmd = new SqlCommand(
+                $"SELECT NombrePermiso FROM {tablaPermisos} WHERE {colPadre} = @Padre", _sqlserver))
             {
-                cmdFamilias.Parameters.AddWithValue("@Padre", padre.Nombre);
-                using (var reader = cmdFamilias.ExecuteReader())
-                {
-                    while (reader.Read()) familiasHijas.Add(reader[colHijo].ToString());
-                }
+                cmd.Parameters.AddWithValue("@Padre", padre.Nombre);
+                using (var reader = cmd.ExecuteReader())
+                    while (reader.Read())
+                        padre.AgregarHijo(new PermisoSimple { Nombre = reader["NombrePermiso"].ToString() });
+            }
+
+            var familiasHijas = new List<string>();
+            using (var cmd = new SqlCommand(
+                $"SELECT {colHijo} FROM {tablaFamilias} WHERE {colPadreHijo} = @Padre", _sqlserver))
+            {
+                cmd.Parameters.AddWithValue("@Padre", padre.Nombre);
+                using (var reader = cmd.ExecuteReader())
+                    while (reader.Read())
+                        familiasHijas.Add(reader[colHijo].ToString());
             }
 
             foreach (var nombreHijo in familiasHijas)
             {
-                var subFamilia = new Familia { Nombre = nombreHijo, EsRol = false };
-                CargarHijosComponente(subFamilia);
-                padre.AgregarHijo(subFamilia);
+                var sub = new Familia { Nombre = nombreHijo, EsRol = false };
+                CargarHijosComponente(sub);
+                padre.AgregarHijo(sub);
             }
         }
 
         private bool ExisteNombre(string nombre, string tabla)
         {
-            using (var cmdCheck = new SqlCommand($"SELECT COUNT(*) FROM {tabla} WHERE Nombre = @Nombre", _sqlserver))
+            using (var cmd = new SqlCommand(
+                $"SELECT COUNT(*) FROM {tabla} WHERE Nombre = @Nombre", _sqlserver))
             {
-                cmdCheck.Parameters.AddWithValue("@Nombre", nombre);
+                cmd.Parameters.AddWithValue("@Nombre", nombre);
                 try
                 {
                     if (_sqlserver.State != ConnectionState.Open) _sqlserver.Open();
-                    int count = Convert.ToInt32(cmdCheck.ExecuteScalar());
-                    return count > 0;
+                    return Convert.ToInt32(cmd.ExecuteScalar()) > 0;
                 }
                 finally
                 {
@@ -208,15 +183,15 @@ namespace DAL
         public void GuardarPermiso(PermisoSimple permiso)
         {
             if (ExisteNombre(permiso.Nombre, "PermisoSimple"))
-            {
                 throw new ArgumentException(LanguageManager.Instance.GetTraduction("PerfilDalText2"));
-            }
+
+            // Calculamos el DVH antes de insertar
+            string dvh = DigitoVerificador.CalcularDVH(permiso.Nombre);
 
             _sqlcommand.CommandText = "INSERT INTO PermisoSimple (Nombre, DVH) VALUES (@Nombre, @dvh)";
             _sqlcommand.Parameters.Clear();
             _sqlcommand.Parameters.AddWithValue("@Nombre", permiso.Nombre);
-            _sqlcommand.Parameters.AddWithValue("@dvh", permiso.DVH);
-
+            _sqlcommand.Parameters.AddWithValue("@dvh", dvh);
             EjecutarNonQuery();
         }
 
@@ -226,14 +201,14 @@ namespace DAL
             {
                 if (_sqlserver.State != ConnectionState.Open) _sqlserver.Open();
 
-                //SE LIMPIAN LAS RELACIONES QUE TENIAN FAMILIA O PERFIL CON LOS PERMISOS SIMPLES
-
-                using (var cmd1 = new SqlCommand("DELETE FROM Familia_PermisoSimple WHERE NombrePermiso = @Nombre", _sqlserver))
+                using (var cmd1 = new SqlCommand(
+                    "DELETE FROM Familia_PermisoSimple WHERE NombrePermiso = @Nombre", _sqlserver))
                 {
                     cmd1.Parameters.AddWithValue("@Nombre", nombre);
                     cmd1.ExecuteNonQuery();
                 }
-                using (var cmd2 = new SqlCommand("DELETE FROM Perfil_PermisoSimple WHERE NombrePermiso = @Nombre", _sqlserver))
+                using (var cmd2 = new SqlCommand(
+                    "DELETE FROM Perfil_PermisoSimple WHERE NombrePermiso = @Nombre", _sqlserver))
                 {
                     cmd2.Parameters.AddWithValue("@Nombre", nombre);
                     cmd2.ExecuteNonQuery();
@@ -257,15 +232,18 @@ namespace DAL
 
             if (ExisteNombre(familia.Nombre, tabla))
             {
-                string tipoComponente = familia.EsRol ? "perfil" : "familia";
-                throw new ArgumentException($"{LanguageManager.Instance.GetTraduction("PerfilDalText2")} {tipoComponente} {LanguageManager.Instance.GetTraduction("PerfilDalText3")}");
+                string tipo = familia.EsRol ? "perfil" : "familia";
+                throw new ArgumentException(
+                    $"{LanguageManager.Instance.GetTraduction("PerfilDalText2")} {tipo} {LanguageManager.Instance.GetTraduction("PerfilDalText3")}");
             }
+
+            // Calculamos el DVH antes de insertar
+            string dvh = DigitoVerificador.CalcularDVH(familia.Nombre);
 
             _sqlcommand.CommandText = $"INSERT INTO {tabla} (Nombre, DVH) VALUES (@Nombre, @dvh)";
             _sqlcommand.Parameters.Clear();
             _sqlcommand.Parameters.AddWithValue("@Nombre", familia.Nombre);
-            _sqlcommand.Parameters.AddWithValue("@dvh", familia.DVH);
-
+            _sqlcommand.Parameters.AddWithValue("@dvh", dvh);
             EjecutarNonQuery();
         }
 
@@ -278,15 +256,16 @@ namespace DAL
 
                 LimpiarRelacionesComponente(familia.Nombre, familia.EsRol);
 
-
                 if (!familia.EsRol)
                 {
-                    using (var cmd1 = new SqlCommand("DELETE FROM Familia_Familia WHERE NombreHijo = @Nombre", _sqlserver))
+                    using (var cmd1 = new SqlCommand(
+                        "DELETE FROM Familia_Familia WHERE NombreHijo = @Nombre", _sqlserver))
                     {
                         cmd1.Parameters.AddWithValue("@Nombre", familia.Nombre);
                         cmd1.ExecuteNonQuery();
                     }
-                    using (var cmd2 = new SqlCommand("DELETE FROM Perfil_Familia WHERE NombreFamilia = @Nombre", _sqlserver))
+                    using (var cmd2 = new SqlCommand(
+                        "DELETE FROM Perfil_Familia WHERE NombreFamilia = @Nombre", _sqlserver))
                     {
                         cmd2.Parameters.AddWithValue("@Nombre", familia.Nombre);
                         cmd2.ExecuteNonQuery();
@@ -305,9 +284,6 @@ namespace DAL
             }
         }
 
-
-
-
         public void GuardarRelaciones(Familia padre)
         {
             try
@@ -322,8 +298,8 @@ namespace DAL
                     {
                         string tabla = padre.EsRol ? "Perfil_PermisoSimple" : "Familia_PermisoSimple";
                         string col1 = padre.EsRol ? "NombrePerfil" : "NombreFamilia";
-
-                        using (var cmd = new SqlCommand($"INSERT INTO {tabla} ({col1}, NombrePermiso) VALUES (@Padre, @Hijo)", _sqlserver))
+                        using (var cmd = new SqlCommand(
+                            $"INSERT INTO {tabla} ({col1}, NombrePermiso) VALUES (@Padre, @Hijo)", _sqlserver))
                         {
                             cmd.Parameters.AddWithValue("@Padre", padre.Nombre);
                             cmd.Parameters.AddWithValue("@Hijo", permiso.Nombre);
@@ -335,8 +311,8 @@ namespace DAL
                         string tabla = padre.EsRol ? "Perfil_Familia" : "Familia_Familia";
                         string col1 = padre.EsRol ? "NombrePerfil" : "NombrePadre";
                         string col2 = padre.EsRol ? "NombreFamilia" : "NombreHijo";
-
-                        using (var cmd = new SqlCommand($"INSERT INTO {tabla} ({col1}, {col2}) VALUES (@Padre, @Hijo)", _sqlserver))
+                        using (var cmd = new SqlCommand(
+                            $"INSERT INTO {tabla} ({col1}, {col2}) VALUES (@Padre, @Hijo)", _sqlserver))
                         {
                             cmd.Parameters.AddWithValue("@Padre", padre.Nombre);
                             cmd.Parameters.AddWithValue("@Hijo", subFamilia.Nombre);
@@ -353,21 +329,24 @@ namespace DAL
 
         private void LimpiarRelacionesComponente(string nombrePadre, bool esRol)
         {
-            string query1 = esRol ? "DELETE FROM Perfil_PermisoSimple WHERE NombrePerfil = @Padre" : "DELETE FROM Familia_PermisoSimple WHERE NombreFamilia = @Padre";
-            string query2 = esRol ? "DELETE FROM Perfil_Familia WHERE NombrePerfil = @Padre" : "DELETE FROM Familia_Familia WHERE NombrePadre = @Padre";
+            string q1 = esRol
+                ? "DELETE FROM Perfil_PermisoSimple WHERE NombrePerfil = @Padre"
+                : "DELETE FROM Familia_PermisoSimple WHERE NombreFamilia = @Padre";
+            string q2 = esRol
+                ? "DELETE FROM Perfil_Familia WHERE NombrePerfil = @Padre"
+                : "DELETE FROM Familia_Familia WHERE NombrePadre = @Padre";
 
-            using (var cmd1 = new SqlCommand(query1, _sqlserver))
+            using (var cmd1 = new SqlCommand(q1, _sqlserver))
             {
                 cmd1.Parameters.AddWithValue("@Padre", nombrePadre);
                 cmd1.ExecuteNonQuery();
             }
-            using (var cmd2 = new SqlCommand(query2, _sqlserver))
+            using (var cmd2 = new SqlCommand(q2, _sqlserver))
             {
                 cmd2.Parameters.AddWithValue("@Padre", nombrePadre);
                 cmd2.ExecuteNonQuery();
             }
         }
-
 
         private void EjecutarNonQuery()
         {
@@ -385,53 +364,29 @@ namespace DAL
 
         public void ActualizarPefilDVH(string nombre, string dvhCalculado)
         {
-            try
-            {
-                _sqlcommand.CommandText = "UPDATE Perfil SET DVH = @dvh WHERE Nombre = @nom";
-                _sqlcommand.Parameters.Clear();
-                _sqlcommand.Parameters.AddWithValue("@dvh", dvhCalculado);
-                _sqlcommand.Parameters.AddWithValue("@nom", nombre);
-                EjecutarNonQuery();
-            }
-            catch (Exception ex)
-            {
-
-                throw ex;
-            }
+            _sqlcommand.CommandText = "UPDATE Perfil SET DVH = @dvh WHERE Nombre = @nom";
+            _sqlcommand.Parameters.Clear();
+            _sqlcommand.Parameters.AddWithValue("@dvh", dvhCalculado);
+            _sqlcommand.Parameters.AddWithValue("@nom", nombre);
+            EjecutarNonQuery();
         }
 
         public void ActualizarPermisoSimpleDVH(string nombre, string dvhCalculado)
         {
-            try
-            {
-                _sqlcommand.CommandText = "UPDATE PermisoSimple SET DVH = @dvh WHERE Nombre = @nom";
-                _sqlcommand.Parameters.Clear();
-                _sqlcommand.Parameters.AddWithValue("@dvh", dvhCalculado);
-                _sqlcommand.Parameters.AddWithValue("@nom", nombre);
-                EjecutarNonQuery();
-            }
-            catch (Exception ex)
-            {
-
-                throw ex;
-            }
+            _sqlcommand.CommandText = "UPDATE PermisoSimple SET DVH = @dvh WHERE Nombre = @nom";
+            _sqlcommand.Parameters.Clear();
+            _sqlcommand.Parameters.AddWithValue("@dvh", dvhCalculado);
+            _sqlcommand.Parameters.AddWithValue("@nom", nombre);
+            EjecutarNonQuery();
         }
 
         public void ActualizarDVH(string nombre, string dvhCalculado)
         {
-            try
-            {
-                _sqlcommand.CommandText = "UPDATE Familia SET DVH = @dvh WHERE Nombre = @nom";
-                _sqlcommand.Parameters.Clear();
-                _sqlcommand.Parameters.AddWithValue("@dvh", dvhCalculado);
-                _sqlcommand.Parameters.AddWithValue("@nom", nombre);
-                EjecutarNonQuery();
-            }
-            catch (Exception ex)
-            {
-
-                throw ex;
-            }
+            _sqlcommand.CommandText = "UPDATE Familia SET DVH = @dvh WHERE Nombre = @nom";
+            _sqlcommand.Parameters.Clear();
+            _sqlcommand.Parameters.AddWithValue("@dvh", dvhCalculado);
+            _sqlcommand.Parameters.AddWithValue("@nom", nombre);
+            EjecutarNonQuery();
         }
     }
 }

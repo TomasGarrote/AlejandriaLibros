@@ -101,23 +101,7 @@ namespace GUI
             cbRol.BackColor = color;
         }
 
-        private void EnabledControls(params Control[] controls)
-        {
-            foreach (Control b in controls)
-            {
-                b.Enabled = !b.Enabled;
-                if (b.Name == "btnAplicar" || b.Name == "btnCancelar")
-                {
-                    b.BackColor = Color.Green;
-                    panel10.BackColor = Color.Green;
-                    panel11.BackColor = Color.Green;
-                }
-                else
-                {
-                    b.BackColor = Color.Maroon;
-                }
-            }
-        }
+      
 
         private void btnAplicar_Click(object sender, EventArgs e)
         {
@@ -149,48 +133,47 @@ namespace GUI
                         MessageBox.Show(LanguageManager.Instance.GetTraduction("UserElimi"), LanguageManager.Instance.GetTraduction("Alerta"), MessageBoxButtons.OK, MessageBoxIcon.Information);
                         break;
 
-                    case UserAction.Modify:
-                        txtDni.ReadOnly = true;
-                        if (ValidarCamposVacios(txtNom, txtApe, txtDni, txtUsuario, txtEmail) && ValidarComboBox(cbRol) && ValidarEntradaUsuario())
-                        {
-                            string dniOriginal = (dataGridView1.SelectedRows[0].DataBoundItem as Usuario).DNI;
-                            string rolNuevo = cbRol.SelectedItem.ToString();
+                            case UserAction.Modify:
+                                // Sacamos el txtDni.ReadOnly = true de acá porque ya se pone en btnModificar_Click
+                                if (ValidarCamposVacios(txtNom, txtApe, txtDni, txtUsuario, txtEmail) && ValidarComboBox(cbRol) && ValidarEntradaUsuario())
+                                {
+                                    string dniOriginal = (dataGridView1.SelectedRows[0].DataBoundItem as Usuario).DNI;
+                                    string rolNuevo = cbRol.SelectedItem.ToString();
 
-                            usuarioBLL.Modificar(dniOriginal, new Usuario(
-                                txtDni.Text, txtNom.Text, txtApe.Text, txtUsuario.Text,
-                                string.Empty, txtEmail.Text, default, default, rolNuevo));
+                                    usuarioBLL.Modificar(dniOriginal, new Usuario(
+                                        dniOriginal,        // forzamos el DNI original, ignoramos txtDni
+                                        txtNom.Text, txtApe.Text, txtUsuario.Text,
+                                        string.Empty, txtEmail.Text, default, default, rolNuevo));
 
-                            // Si el usuario modificado es el que está en sesión, actualizarle los permisos
-                            Usuario usuarioEnSesion = SessionManager.Instance.UsuarioActual();
-                            if (usuarioEnSesion.DNI == dniOriginal)
-                            {
-                                var perfiles = perfilBLL.ObtenerPerfiles();
-                                var perfilNuevo = perfiles.FirstOrDefault(p => p.Nombre == rolNuevo);
-                                usuarioEnSesion.Permisos.Clear();
-                                if (perfilNuevo != null)
-                                    usuarioEnSesion.Permisos.Add(perfilNuevo);
-                            }
+                                    Usuario usuarioEnSesion = SessionManager.Instance.UsuarioActual();
+                                    if (usuarioEnSesion.DNI == dniOriginal)
+                                    {
+                                        var perfiles = perfilBLL.ObtenerPerfiles();
+                                        var perfilNuevo = perfiles.FirstOrDefault(p => p.Nombre == rolNuevo);
+                                        usuarioEnSesion.Permisos.Clear();
+                                        if (perfilNuevo != null)
+                                            usuarioEnSesion.Permisos.Add(perfilNuevo);
+                                    }
 
-                            txtDni.ReadOnly = false;
-                            ReiniciarBotones();
-                            MessageBox.Show(LanguageManager.Instance.GetTraduction("UserModif"), LanguageManager.Instance.GetTraduction("Alerta") , MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            MostrarUsuarios(dataGridView1, usuarioBLL.ListarUsuariosActivos());
+                                    ReiniciarBotones();
+                                    MessageBox.Show(LanguageManager.Instance.GetTraduction("UserModif"),
+                                        LanguageManager.Instance.GetTraduction("Alerta"),
+                                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                    MostrarUsuarios(dataGridView1, usuarioBLL.ListarUsuariosActivos());
 
-                            // Si el usuario en sesión fue modificado y ya no tiene permiso para estar acá, salir
-                            if (usuarioEnSesion.DNI == dniOriginal && !usuarioEnSesion.TienePermiso("Ver Usuarios"))
-                            {
-                                MessageBox.Show(LanguageManager.Instance.GetTraduction("UserMsj2"),
-                                    LanguageManager.Instance.GetTraduction("UserMsj3"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                                btnCerrar_Click(sender, e);
-                                return;
-                            }
+                                    if (usuarioEnSesion.DNI == dniOriginal && !usuarioEnSesion.TienePermiso("Ver Usuarios"))
+                                    {
+                                        MessageBox.Show(LanguageManager.Instance.GetTraduction("UserMsj2"),
+                                            LanguageManager.Instance.GetTraduction("UserMsj3"),
+                                            MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                        btnCerrar_Click(sender, e);
+                                        return;
+                                    }
+                                    ValidarPermisos();
+                                }
+                                break;
 
-                            // Revalidar botones por si cambió el rol del usuario en sesión
-                            ValidarPermisos();
-                        }
-                        break;
-
-                    case UserAction.UnBlock:
+                            case UserAction.UnBlock:
                         ReiniciarBotones();
                         usuarioBLL.DesbloquearUsuario(dataGridView1.SelectedRows[0].DataBoundItem as Usuario);
                         MostrarUsuarios(dataGridView1, rbActivos.Checked
@@ -319,6 +302,32 @@ namespace GUI
 
         private void btnCancelar_Click(object sender, EventArgs e) => ReiniciarBotones();
 
+        private void SetModoEdicion(bool enEdicion)
+        {
+            // Botones de acción: deshabilitados durante edición
+            btnCrear.Enabled = !enEdicion;
+            btnDesbloquear.Enabled = !enEdicion;
+            btnModificar.Enabled = !enEdicion;
+            btnActDes.Enabled = !enEdicion;
+
+            btnCrear.BackColor = !enEdicion ? Color.Green : Color.Maroon;
+            btnDesbloquear.BackColor = !enEdicion ? Color.Green : Color.Maroon;
+            btnModificar.BackColor = !enEdicion ? Color.Green : Color.Maroon;
+            btnActDes.BackColor = !enEdicion ? Color.Green : Color.Maroon;
+
+            // Aplicar/Cancelar: solo activos durante edición
+            btnAplicar.Enabled = enEdicion;
+            btnCancelar.Enabled = enEdicion;
+            btnAplicar.BackColor = enEdicion ? Color.Green : Color.Maroon;
+            btnCancelar.BackColor = enEdicion ? Color.Green : Color.Maroon;
+            panel10.BackColor = enEdicion ? Color.Green : Color.Maroon;
+            panel11.BackColor = enEdicion ? Color.Green : Color.Maroon;
+
+            // Panel de filtrado y formulario
+            pnFiltrado.Enabled = !enEdicion;
+            panel3.Enabled = !enEdicion;
+            panModificarUsuario.Enabled = enEdicion;
+        }
         private void ReiniciarBotones()
         {
             txtNom.Clear();
@@ -327,32 +336,15 @@ namespace GUI
             txtEmail.Clear();
             txtUsuario.Clear();
             cbRol.SelectedIndex = -1;
+            txtDni.ReadOnly = false;
 
-            pnFiltrado.Enabled = true;
-            panel3.Enabled = true;
-            panModificarUsuario.Enabled = false;
-
-            btnAplicar.Enabled = false;
-            btnCancelar.Enabled = false;
-            btnAplicar.BackColor = Color.Maroon;
-            btnCancelar.BackColor = Color.Maroon;
-            panel10.BackColor = Color.Maroon;
-            panel11.BackColor = Color.Maroon;
-
-            btnCrear.Enabled = true;
-            btnDesbloquear.Enabled = true;
-            btnModificar.Enabled = true;
-            btnActDes.Enabled = true;
-            btnCrear.BackColor = Color.Green;
-            btnDesbloquear.BackColor = Color.Green;
-            btnModificar.BackColor = Color.Green;
-            btnActDes.BackColor = Color.Green;
-
-          
+            SetModoEdicion(false);
 
             txtBoxModo.Text = LanguageManager.Instance.GetTraduction("txtBoxModoConsulta");
-
             userAction = UserAction.Consult;
+
+            if (SessionManager.Instance.Logueado())
+                ValidarPermisos();
         }
 
         private void radioButton2_CheckedChanged(object sender, EventArgs e) =>
@@ -362,10 +354,14 @@ namespace GUI
         {
             if (userAction == UserAction.Delete || userAction == UserAction.Modify || userAction == UserAction.UnBlock)
             {
-                if (dataGridView1.SelectedRows.Count > 0)
+                if (dataGridView1.SelectedRows.Count > 0 && dataGridView1.SelectedRows[0].Cells[0].Value != null)
                 {
-                    Usuario user = usuarioBLL.BuscarUsuarioPorDNI(dataGridView1.SelectedRows[0].Cells[0].Value.ToString());
+                    Usuario user = usuarioBLL.BuscarUsuarioPorDNI(
+                        dataGridView1.SelectedRows[0].Cells[0].Value.ToString());
+                    if (user == null) return;
+
                     txtDni.Text = user.DNI;
+                    txtDni.ReadOnly = (userAction == UserAction.Modify); // mantiene el lock si estamos modificando
                     txtNom.Text = user.Nombre;
                     txtApe.Text = user.Apellido;
                     txtUsuario.Text = user.Username;
@@ -386,7 +382,7 @@ namespace GUI
             userAction = UserAction.Add;
             CargarPerfiles();
             txtBoxModo.Text = LanguageManager.Instance.GetTraduction("txtBoxModoAnadir");
-            EnabledControls(btnCrear, btnDesbloquear, btnModificar, btnActDes, btnAplicar, btnCancelar, btnSalir, pnFiltrado, panModificarUsuario, panel3);
+            SetModoEdicion(true);
         }
 
         private void btnDesbloquear_Click(object sender, EventArgs e)
@@ -395,24 +391,47 @@ namespace GUI
             {
                 userAction = UserAction.UnBlock;
                 txtBoxModo.Text = LanguageManager.Instance.GetTraduction("txtBoxModoDesbloquear");
-                EnabledControls(btnCrear, btnDesbloquear, btnModificar, btnActDes, btnAplicar, btnCancelar, btnSalir, pnFiltrado);
+                SetModoEdicion(true);
+                panModificarUsuario.Enabled = false; // en desbloqueo no se editan campos
             }
         }
 
         private void btnModificar_Click(object sender, EventArgs e)
         {
+            if (dataGridView1.SelectedRows.Count == 0 || dataGridView1.SelectedRows[0].Cells[0].Value == null)
+            {
+                MessageBox.Show(LanguageManager.Instance.GetTraduction("UserMsj4")); // "Seleccione un usuario" o similar
+                return;
+            }
+
             userAction = UserAction.Modify;
             txtBoxModo.Text = LanguageManager.Instance.GetTraduction("txtBoxModoModificar");
             CargarPerfiles();
-            EnabledControls(btnCrear, btnDesbloquear, btnModificar, btnActDes, btnAplicar, btnCancelar, btnSalir, pnFiltrado, panModificarUsuario, txtDni);
-            MostrarUsuarios(dataGridView1, usuarioBLL.ListarUsuariosActivos());
+            SetModoEdicion(true);
+
+            // Rellenamos los campos con los datos del usuario seleccionado
+            Usuario user = usuarioBLL.BuscarUsuarioPorDNI(
+                dataGridView1.SelectedRows[0].Cells[0].Value.ToString());
+
+            if (user == null) return;
+
+            txtDni.Text = user.DNI;
+            txtNom.Text = user.Nombre;
+            txtApe.Text = user.Apellido;
+            txtUsuario.Text = user.Username;
+            txtEmail.Text = user.Email;
+            cbRol.SelectedItem = user.Rol;
+            txtDni.ReadOnly = true;
         }
 
         private void btnActDes_Click(object sender, EventArgs e)
         {
-            if (dataGridView1.SelectedRows.Count > 0)
+            if (dataGridView1.SelectedRows.Count > 0 && dataGridView1.SelectedRows[0].Cells[0].Value != null)
             {
-                Usuario us = usuarioBLL.BuscarUsuarioPorDNI(dataGridView1.SelectedRows[0].Cells[0].Value.ToString());
+                Usuario us = usuarioBLL.BuscarUsuarioPorDNI(
+                    dataGridView1.SelectedRows[0].Cells[0].Value.ToString());
+                if (us == null) return;
+
                 if (!us.Activo)
                 {
                     userAction = UserAction.Activate;
@@ -423,7 +442,8 @@ namespace GUI
                     userAction = UserAction.Delete;
                     txtBoxModo.Text = LanguageManager.Instance.GetTraduction("txtBoxModoEliminar");
                 }
-                EnabledControls(btnCrear, btnDesbloquear, btnModificar, btnActDes, btnAplicar, btnCancelar, btnSalir, pnFiltrado, panModificarUsuario);
+                SetModoEdicion(true);
+                panModificarUsuario.Enabled = false;
             }
         }
 

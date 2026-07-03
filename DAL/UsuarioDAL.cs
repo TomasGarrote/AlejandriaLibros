@@ -3,25 +3,21 @@ using Microsoft.Data.SqlClient;
 using Servicios;
 using System;
 using System.Collections.Generic;
-using System.Net;
-using System.Text;
 using System.Windows.Forms;
 
 namespace DAL
 {
-    public class UsuarioDAL:AbstractDAL<Usuario>
+    public class UsuarioDAL : AbstractDAL<Usuario>
     {
-        public UsuarioDAL() : base()
-        {
-            
-        }
+        public UsuarioDAL() : base() { }
 
         public void Registrar(Usuario entity, string DVH)
         {
             try
             {
-                _sqlcommand.CommandText = @"INSERT INTO Usuario (DNI, Nombre, Apellido, UserName, Password, Email, Bloqueado, Activo, Rol, DVH)
-                                            VALUES (@dni, @nombre, @apellido, @username, @password, @email, 0, 1, @rol, @dvh);";
+                _sqlcommand.CommandText = @"INSERT INTO Usuario 
+                    (DNI, Nombre, Apellido, UserName, Password, Email, Bloqueado, Activo, Rol, DVH, Intentos)
+                    VALUES (@dni, @nombre, @apellido, @username, @password, @email, 0, 1, @rol, @dvh, 0);";
 
                 _sqlcommand.Parameters.AddWithValue("@dni", entity.DNI);
                 _sqlcommand.Parameters.AddWithValue("@nombre", entity.Nombre);
@@ -35,11 +31,7 @@ namespace DAL
                 _sqlserver.Open();
                 _sqlcommand.ExecuteNonQuery();
             }
-            catch (Exception ex)
-            {
-               
-                throw ex;
-            }
+            catch (Exception ex) { throw ex; }
             finally
             {
                 _sqlcommand.Parameters.Clear();
@@ -51,81 +43,58 @@ namespace DAL
         {
             try
             {
-                _sqlcommand.CommandText = @"update Usuario set Bloqueado = 1 where UserName=@user;";
+                _sqlcommand.CommandText = "UPDATE Usuario SET Bloqueado = 1 WHERE UserName = @user;";
                 _sqlcommand.Parameters.AddWithValue("@user", username);
-
                 _sqlserver.Open();
                 _sqlcommand.ExecuteNonQuery();
             }
-            catch (Exception ex)
-            {
-
-                throw;
-            }finally
-            {
-                _sqlcommand.Parameters.Clear();
-                _sqlserver.Close();
-            }
-        }
-        public int ObtenerIntentosFallidos(string dNI)
-        {
-            try
-            {
-                _sqlcommand.CommandText = @"SELECT Intentos FROM Usuario WHERE DNI = @dni;"; ;
-                _sqlcommand.Parameters.AddWithValue("@dni", dNI);
-
-                _sqlserver.Open();
-                using (var reader = _sqlcommand.ExecuteReader())
-                {
-                    if (reader.Read())
-                    {
-                        return reader.GetInt32(0);
-                    }
-
-                }
-                throw new Exception($"{LanguageManager.Instance.GetTraduction("UserDalText1")} {dNI}");
-            }
-            catch (Exception ex)
-            {
-
-                throw ex;
-            }
+            catch { throw; }
             finally
             {
                 _sqlcommand.Parameters.Clear();
                 _sqlserver.Close();
             }
+        }
 
+        public int ObtenerIntentosFallidos(string dNI)
+        {
+            try
+            {
+                _sqlcommand.CommandText = "SELECT Intentos FROM Usuario WHERE DNI = @dni;";
+                _sqlcommand.Parameters.AddWithValue("@dni", dNI);
+                _sqlserver.Open();
+                using (var reader = _sqlcommand.ExecuteReader())
+                {
+                    if (reader.Read()) return reader.GetInt32(0);
+                }
+                throw new Exception($"{LanguageManager.Instance.GetTraduction("UserDalText1")} {dNI}");
+            }
+            catch (Exception ex) { throw ex; }
+            finally
+            {
+                _sqlcommand.Parameters.Clear();
+                _sqlserver.Close();
+            }
         }
 
         public Usuario ObtenerPorUserName(string usuario)
         {
             try
             {
-                
-                _sqlcommand.CommandText = @"SELECT DNI, Nombre, Apellido, UserName, Password, Email, Bloqueado, Activo, Rol FROM Usuario WHERE UserName = @username;"; ;
+                _sqlcommand.CommandText = @"SELECT DNI, Nombre, Apellido, UserName, Password, Email, 
+                    Bloqueado, Activo, Rol FROM Usuario WHERE UserName = @username;";
                 _sqlcommand.Parameters.AddWithValue("@username", usuario);
-
                 _sqlserver.Open();
                 using (var reader = _sqlcommand.ExecuteReader())
                 {
                     if (reader.Read())
-                    {
-
-
-                        return new Usuario(reader.GetString(0), reader.GetString(1), reader.GetString(2), reader.GetString(3),
-                            reader.GetString(4), reader.GetString(5), reader.GetBoolean(6), reader.GetBoolean(7), reader.GetString(8));
-
-                    }
-
+                        return new Usuario(reader.GetString(0), reader.GetString(1), reader.GetString(2),
+                            reader.GetString(3), reader.GetString(4), reader.GetString(5),
+                            reader.GetBoolean(6), reader.GetBoolean(7), reader.GetString(8));
                 }
                 return null;
             }
-
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+            catch (Exception ex) { throw ex; }
             finally
             {
                 _sqlcommand.Parameters.Clear();
@@ -137,17 +106,12 @@ namespace DAL
         {
             try
             {
-                _sqlcommand.CommandText = @"update Usuario set Intentos = 0 where DNI=@dni;";
+                _sqlcommand.CommandText = "UPDATE Usuario SET Intentos = 0 WHERE DNI = @dni;";
                 _sqlcommand.Parameters.AddWithValue("@dni", usuario.DNI);
-
                 _sqlserver.Open();
                 _sqlcommand.ExecuteNonQuery();
             }
-            catch (Exception ex)
-            {
-
-                throw ex;
-            }
+            catch (Exception ex) { throw ex; }
             finally
             {
                 _sqlcommand.Parameters.Clear();
@@ -160,19 +124,13 @@ namespace DAL
             try
             {
                 int intentos = ObtenerIntentosFallidos(usuario.DNI);
-
-                _sqlcommand.CommandText = @"update Usuario set Intentos = @intentos where DNI=@dni;";
+                _sqlcommand.CommandText = "UPDATE Usuario SET Intentos = @intentos WHERE DNI = @dni;";
                 _sqlcommand.Parameters.AddWithValue("@dni", usuario.DNI);
-                _sqlcommand.Parameters.AddWithValue("@intentos", intentos+1);
-
+                _sqlcommand.Parameters.AddWithValue("@intentos", intentos + 1);
                 _sqlserver.Open();
                 _sqlcommand.ExecuteNonQuery();
             }
-            catch (Exception ex)
-            {
-
-                throw ex;
-            }
+            catch (Exception ex) { throw ex; }
             finally
             {
                 _sqlcommand.Parameters.Clear();
@@ -184,30 +142,20 @@ namespace DAL
         {
             try
             {
-
-                _sqlcommand.CommandText = @"SELECT DNI, Nombre, Apellido, UserName, Password, Email, Bloqueado, Activo, Rol FROM Usuario WHERE DNI = @dni;";
+                _sqlcommand.CommandText = @"SELECT DNI, Nombre, Apellido, UserName, Password, Email, 
+                    Bloqueado, Activo, Rol FROM Usuario WHERE DNI = @dni;";
                 _sqlcommand.Parameters.AddWithValue("@dni", dNI);
-
                 _sqlserver.Open();
                 using (var reader = _sqlcommand.ExecuteReader())
                 {
                     if (reader.Read())
-                    {
-
-
-                        return new Usuario(reader.GetString(0), reader.GetString(1), reader.GetString(2), reader.GetString(3),
-                            reader.GetString(4), reader.GetString(5), reader.GetBoolean(6), reader.GetBoolean(7), reader.GetString(8));
-
-                    }
-
+                        return new Usuario(reader.GetString(0), reader.GetString(1), reader.GetString(2),
+                            reader.GetString(3), reader.GetString(4), reader.GetString(5),
+                            reader.GetBoolean(6), reader.GetBoolean(7), reader.GetString(8));
                 }
                 return null;
             }
-
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+            catch (Exception ex) { throw ex; }
             finally
             {
                 _sqlcommand.Parameters.Clear();
@@ -219,61 +167,43 @@ namespace DAL
         {
             try
             {
-                _sqlcommand.CommandText = @"SELECT DNI, Nombre, Apellido, UserName, Password, Email, Bloqueado, Activo, Rol FROM Usuario;";
+                _sqlcommand.CommandText = @"SELECT DNI, Nombre, Apellido, UserName, Password, Email, 
+                    Bloqueado, Activo, Rol FROM Usuario;";
                 _sqlserver.Open();
                 var reader = _sqlcommand.ExecuteReader();
-                var Usuariolst = new List<Usuario>();
+                var lista = new List<Usuario>();
                 while (reader.Read())
-                {
-                    Usuariolst.Add(new Usuario(reader.GetString(0), reader.GetString(1), reader.GetString(2), reader.GetString(3),
-                            reader.GetString(4), reader.GetString(5), reader.GetBoolean(6), reader.GetBoolean(7), reader.GetString(8)));
-                }
-                return Usuariolst;
-
+                    lista.Add(new Usuario(reader.GetString(0), reader.GetString(1), reader.GetString(2),
+                        reader.GetString(3), reader.GetString(4), reader.GetString(5),
+                        reader.GetBoolean(6), reader.GetBoolean(7), reader.GetString(8)));
+                return lista;
             }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+            catch (Exception ex) { throw ex; }
             finally
             {
                 _sqlcommand.Parameters.Clear();
                 _sqlserver.Close();
             }
         }
+
         public List<Usuario> ListarTodosLosUsuariosDVH()
         {
             try
             {
-                _sqlcommand.CommandText = @"SELECT DNI, Nombre, Apellido, UserName, Password, Email, Bloqueado, Activo, Rol, Intentos,DVH FROM Usuario;";
+                _sqlcommand.CommandText = @"SELECT DNI, Nombre, Apellido, UserName, Password, Email, 
+                    Bloqueado, Activo, Rol, Intentos, DVH FROM Usuario;";
                 _sqlserver.Open();
                 var reader = _sqlcommand.ExecuteReader();
-                var Usuariolst = new List<Usuario>();
+                var lista = new List<Usuario>();
                 while (reader.Read())
-                {
-                    Usuario us = new Usuario(
-                            reader.GetString(0), //DNI
-                            reader.GetString(1), //Nombre
-                            reader.GetString(2), //Apellido
-                            reader.GetString(3), //UserName
-                            reader.GetString(4), //Password
-                            reader.GetString(5), //Email
-                            reader.GetBoolean(6), //Bloqueado
-                            reader.GetBoolean(7), //Activo
-                            reader.GetString(8), //Rol
-                            reader.GetInt32(9), //Intentos
-                            reader.GetString(10) //DVH
-                            ); 
-
-                    Usuariolst.Add(us);
-                }
-                return Usuariolst;
-
+                    lista.Add(new Usuario(
+                        reader.GetString(0), reader.GetString(1), reader.GetString(2),
+                        reader.GetString(3), reader.GetString(4), reader.GetString(5),
+                        reader.GetBoolean(6), reader.GetBoolean(7), reader.GetString(8),
+                        reader.GetInt32(9), reader.GetString(10)));
+                return lista;
             }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+            catch (Exception ex) { throw ex; }
             finally
             {
                 _sqlcommand.Parameters.Clear();
@@ -285,18 +215,12 @@ namespace DAL
         {
             try
             {
-                _sqlcommand.CommandText = "update Usuario set Activo = 0 where DNI=@dni;";
+                _sqlcommand.CommandText = "UPDATE Usuario SET Activo = 0 WHERE DNI = @dni;";
                 _sqlcommand.Parameters.AddWithValue("@dni", _dni);
-
                 _sqlserver.Open();
                 _sqlcommand.ExecuteNonQuery();
-
-
             }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+            catch (Exception ex) { throw ex; }
             finally
             {
                 _sqlcommand.Parameters.Clear();
@@ -308,8 +232,25 @@ namespace DAL
         {
             try
             {
-                _sqlcommand.CommandText = @"UPDATE Usuario SET DNI = @dninuevo, Nombre = @nombre, Apellido = @apellido, UserName = @username, Email = @email, Rol = @rol
-                                            WHERE DNI = @dni;";
+                // Calculamos el nuevo DVH con los datos actualizados
+                string cadenaDV =
+                    UserNew.DNI +
+                    UserNew.Nombre +
+                    UserNew.Apellido +
+                    UserNew.Username +
+                    UserNew.Password +
+                    UserNew.Email +
+                    UserNew.Bloqueado +
+                    UserNew.Activo +
+                    UserNew.Rol;
+
+                string nuevoDVH = DigitoVerificador.CalcularDVH(cadenaDV);
+
+                _sqlcommand.CommandText = @"UPDATE Usuario 
+                    SET DNI = @dninuevo, Nombre = @nombre, Apellido = @apellido, 
+                        UserName = @username, Email = @email, Rol = @rol, DVH = @dvh
+                    WHERE DNI = @dni;";
+
                 _sqlcommand.Parameters.AddWithValue("@dni", dni);
                 _sqlcommand.Parameters.AddWithValue("@dninuevo", UserNew.DNI);
                 _sqlcommand.Parameters.AddWithValue("@nombre", UserNew.Nombre);
@@ -317,17 +258,12 @@ namespace DAL
                 _sqlcommand.Parameters.AddWithValue("@username", UserNew.Username);
                 _sqlcommand.Parameters.AddWithValue("@email", UserNew.Email);
                 _sqlcommand.Parameters.AddWithValue("@rol", UserNew.Rol);
+                _sqlcommand.Parameters.AddWithValue("@dvh", nuevoDVH);
 
                 _sqlserver.Open();
-
                 _sqlcommand.ExecuteNonQuery();
-
-
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
+            catch (Exception ex) { MessageBox.Show(ex.Message); }
             finally
             {
                 _sqlcommand.Parameters.Clear();
@@ -339,18 +275,15 @@ namespace DAL
         {
             try
             {
-                _sqlcommand.CommandText = @"UPDATE Usuario SET Bloqueado = 0, Password = @password, Intentos = 0 WHERE DNI = @dni;";
-
+                _sqlcommand.CommandText = @"UPDATE Usuario 
+                    SET Bloqueado = 0, Password = @password, Intentos = 0 
+                    WHERE DNI = @dni;";
                 _sqlcommand.Parameters.AddWithValue("@dni", dNI);
                 _sqlcommand.Parameters.AddWithValue("@password", nuevaClave);
-
                 _sqlserver.Open();
                 _sqlcommand.ExecuteNonQuery();
             }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+            catch (Exception ex) { throw ex; }
             finally
             {
                 _sqlcommand.Parameters.Clear();
@@ -362,18 +295,13 @@ namespace DAL
         {
             try
             {
-                _sqlcommand.CommandText = "update Usuario set Password = @nuevaPassword where UserName=@usuario;";
+                _sqlcommand.CommandText = "UPDATE Usuario SET Password = @nuevaPassword WHERE UserName = @usuario;";
                 _sqlcommand.Parameters.AddWithValue("@usuario", usuario);
                 _sqlcommand.Parameters.AddWithValue("@nuevaPassword", nuevaContra);
-
                 _sqlserver.Open();
                 _sqlcommand.ExecuteNonQuery();
             }
-            catch (Exception ex)
-            {
-
-                throw;
-            }
+            catch { throw; }
             finally
             {
                 _sqlcommand.Parameters.Clear();
@@ -385,18 +313,12 @@ namespace DAL
         {
             try
             {
-                _sqlcommand.CommandText = "update Usuario set Activo = 1 where DNI=@dni;";
+                _sqlcommand.CommandText = "UPDATE Usuario SET Activo = 1 WHERE DNI = @dni;";
                 _sqlcommand.Parameters.AddWithValue("@dni", dNI);
-
                 _sqlserver.Open();
                 _sqlcommand.ExecuteNonQuery();
-
-
             }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+            catch (Exception ex) { throw ex; }
             finally
             {
                 _sqlcommand.Parameters.Clear();
@@ -408,18 +330,13 @@ namespace DAL
         {
             try
             {
-                _sqlcommand.CommandText = "update Usuario set DVH =  @dvh WHERE DNI = @dni;";
+                _sqlcommand.CommandText = "UPDATE Usuario SET DVH = @dvh WHERE DNI = @dni;";
                 _sqlcommand.Parameters.AddWithValue("@dni", dNI);
                 _sqlcommand.Parameters.AddWithValue("@dvh", dvhCalculado);
-
                 _sqlserver.Open();
                 _sqlcommand.ExecuteNonQuery();
             }
-            catch (Exception ex)
-            {
-
-                throw ex;
-            }
+            catch (Exception ex) { throw ex; }
             finally
             {
                 _sqlcommand.Parameters.Clear();
