@@ -14,6 +14,7 @@ namespace GUI
 {
     public partial class Login : Form,IObserver
     {
+        BitacoraBLL bitacoraBLL;
         int posX, posY;
         bool arrastrando = false;
         public Login()
@@ -108,6 +109,14 @@ namespace GUI
                         string username = SessionManager.Instance.UsuarioActual().Username;
                         string idioma = idiomaBLL.ObtenerIdioma(username);
                         var Auditoria = digitoVerificadorBLL.EjecutarAuditoriaDetalladaCompleta();
+
+                        Bitacora bitacora = new Bitacora();
+                        bitacora.Login = SessionManager.Instance.UsuarioActual().Username;
+                        bitacora.Modulo = "Usuarios";
+                        bitacora.Evento = "Login exitoso";
+                        bitacora.Criticidad = 1;
+                        bitacoraBLL.RegistrarEvento(bitacora);
+
                         string rol = usuarioBLL.RetornarRol(username);
 
                         if (Auditoria.Count > 0)

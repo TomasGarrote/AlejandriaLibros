@@ -65,13 +65,6 @@ namespace BLL
 
                         SessionManager.Instance.Loguear(usuarioBE);
 
-                        Bitacora bitacora = new Bitacora();
-                        bitacora.Login = SessionManager.Instance.UsuarioActual().Username;
-                        bitacora.Modulo = "Usuarios";
-                        bitacora.Evento = "Login exitoso";
-                        bitacora.Criticidad = 1;
-                        bitacoraBLL.RegistrarEvento(bitacora);
-
                         return LoginResultado.Valido;
                     }
                 }

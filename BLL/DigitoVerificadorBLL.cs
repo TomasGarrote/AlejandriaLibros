@@ -271,16 +271,18 @@ namespace BLL
             return reporteInconsistencias;
         }
         private void AgregarErroresAlReporteOptimizada<T>(
-                string nombreTabla,
-                string nombreColumnaPK,
-                Func<T, string> selectorPK,
-                Func<T, string> selectorDVHGuardado,
-                Func<T, string> funcionCalcularDVH,
-                List<T> listaRegistros,
-                List<string> columnasErroneas,
-                List<string> reporte)
+        string nombreTabla,
+        string nombreColumnaPK,
+        Func<T, string> selectorPK,
+        Func<T, string> selectorDVHGuardado,
+        Func<T, string> funcionCalcularDVH,
+        List<T> listaRegistros,
+        List<string> columnasErroneas,
+        List<string> reporte)
         {
             if (columnasErroneas.Count == 0) return;
+
+            bool seEncontroRegistroCorrupto = false;
 
             foreach (T registro in listaRegistros)
             {
@@ -289,6 +291,7 @@ namespace BLL
 
                 if (dvhCalculado != dvhGuardado)
                 {
+                    seEncontroRegistroCorrupto = true;
                     string valorPK = selectorPK(registro);
                     string columnaCulpableReal = "";
 
@@ -319,10 +322,10 @@ namespace BLL
                             string dvvSimuladoSHA = Encriptador.GetHash256(dvvAcumuladoSano);
 
                             string dvvBD = _controlDVDal.ObtenerDVV(nombreTabla, col) ?? "0";
-
                         }
                         catch { }
                     }
+
                     foreach (string col in columnasErroneas)
                     {
                         var prop = r.GetType().GetProperty(col);
@@ -334,6 +337,7 @@ namespace BLL
                             }
                         }
                     }
+
                     foreach (string col in columnasErroneas)
                     {
                         var p = r.GetType().GetProperty(col);
@@ -343,6 +347,7 @@ namespace BLL
                             columnaCulpableReal = col;
                         }
                     }
+
                     if (columnasErroneas.Contains("Criticidad") && nombreTabla == "Bitacora")
                     {
                         if (columnasErroneas.Count > 1)
@@ -356,8 +361,13 @@ namespace BLL
                             }
                         }
                     }
-                    reporte.Add($"[ERROR] Tabla: '{nombreTabla}' -> Registro {nombreColumnaPK}: '{valorPK}' alterado en la Columna: '{columnaCulpableReal}'.");
+                    reporte.Add($"[ERROR MODIFICACIÓN] Tabla: '{nombreTabla}' -> Registro {nombreColumnaPK}: '{valorPK}' alterado en la Columna: '{columnaCulpableReal}'.");
                 }
+            }
+            if (!seEncontroRegistroCorrupto)
+            {
+                string colsAfectadas = string.Join(", ", columnasErroneas);
+                reporte.Add($"[ERROR ELIMINACIÓN] Tabla: '{nombreTabla}' -> Se ha detectado la ELIMINACIÓN de uno o más registros. (Inconsistencia de DVV en columnas: {colsAfectadas}).");
             }
         }
 
