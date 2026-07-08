@@ -110,12 +110,7 @@ namespace GUI
                         string idioma = idiomaBLL.ObtenerIdioma(username);
                         var Auditoria = digitoVerificadorBLL.EjecutarAuditoriaDetalladaCompleta();
 
-                        Bitacora bitacora = new Bitacora();
-                        bitacora.Login = SessionManager.Instance.UsuarioActual().Username;
-                        bitacora.Modulo = "Usuarios";
-                        bitacora.Evento = "Login exitoso";
-                        bitacora.Criticidad = 1;
-                        bitacoraBLL.RegistrarEvento(bitacora);
+                        
 
                         string rol = usuarioBLL.RetornarRol(username);
 
@@ -135,7 +130,13 @@ namespace GUI
                                 Application.Exit();
                             }
                         }
-                        
+
+                        Bitacora bitacora = new Bitacora();
+                        bitacora.Login = SessionManager.Instance.UsuarioActual().Username;
+                        bitacora.Modulo = "Usuarios";
+                        bitacora.Evento = "Login exitoso";
+                        bitacora.Criticidad = 1;
+                        bitacoraBLL.RegistrarEvento(bitacora);
 
                         LanguageManager.Instance.CargarIdioma(idioma);
                         this.Hide();
