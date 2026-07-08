@@ -14,7 +14,7 @@ namespace GUI
 {
     public partial class Login : Form,IObserver
     {
-        BitacoraBLL bitacoraBLL;
+        BitacoraBLL bitacoraBLL = new BitacoraBLL();
         int posX, posY;
         bool arrastrando = false;
         public Login()
