@@ -110,7 +110,7 @@ namespace GUI
                         string idioma = idiomaBLL.ObtenerIdioma(username);
                         var Auditoria = digitoVerificadorBLL.EjecutarAuditoriaDetalladaCompleta();
 
-                        
+                        LanguageManager.Instance.CargarIdioma(idioma);
 
                         string rol = usuarioBLL.RetornarRol(username);
 
@@ -138,7 +138,7 @@ namespace GUI
                         bitacora.Criticidad = 1;
                         bitacoraBLL.RegistrarEvento(bitacora);
 
-                        LanguageManager.Instance.CargarIdioma(idioma);
+                        
                         this.Hide();
                         Menu menu = new Menu();
                         menu.ShowDialog();

@@ -271,18 +271,18 @@ namespace BLL
             return reporteInconsistencias;
         }
         private void AgregarErroresAlReporteOptimizada<T>(
-        string nombreTabla,
-        string nombreColumnaPK,
-        Func<T, string> selectorPK,
-        Func<T, string> selectorDVHGuardado,
-        Func<T, string> funcionCalcularDVH,
-        List<T> listaRegistros,
-        List<string> columnasErroneas,
-        List<string> reporte)
+            string nombreTabla,
+            string nombreColumnaPK,
+            Func<T, string> selectorPK,
+            Func<T, string> selectorDVHGuardado,
+            Func<T, string> funcionCalcularDVH,
+            List<T> listaRegistros,
+            List<string> columnasErroneas,
+            List<string> reporte)
         {
             if (columnasErroneas.Count == 0) return;
 
-            bool seEncontroRegistroCorrupto = false;
+            List<string> registrosCorruptosPK = new List<string>();
 
             foreach (T registro in listaRegistros)
             {
@@ -291,83 +291,105 @@ namespace BLL
 
                 if (dvhCalculado != dvhGuardado)
                 {
-                    seEncontroRegistroCorrupto = true;
                     string valorPK = selectorPK(registro);
-                    string columnaCulpableReal = "";
+                    registrosCorruptosPK.Add(valorPK);
 
-                    dynamic r = registro;
+                    bool esNuevoConDvhCorrupto = false;
 
                     foreach (string col in columnasErroneas)
                     {
-                        try
+                        string dvvBD = _controlDVDal.ObtenerDVV(nombreTabla, col) ?? "0";
+
+                        var listaSinEsteRegistro = listaRegistros
+                            .Where(x => selectorPK(x) != valorPK)
+                            .Select(x => {
+                                var p = x.GetType().GetProperty(col);
+                                return p?.GetValue(x, null)?.ToString() ?? "";
+                            })
+                            .ToList();
+
+                        string dvvSimulado = DigitoVerificador.CalcularDVV(listaSinEsteRegistro);
+
+                        if (dvvSimulado == dvvBD)
                         {
-                            var propiedad = r.GetType().GetProperty(col);
-                            if (propiedad == null) continue;
+                            esNuevoConDvhCorrupto = true;
+                            break;
+                        }
+                    }
 
-                            string valorActualCelda = propiedad.GetValue(registro, null)?.ToString() ?? "";
+                    if (esNuevoConDvhCorrupto)
+                    {
+                        reporte.Add($"[ERROR INSERCIÓN NO AUTORIZADA] Tabla: '{nombreTabla}' -> Se insertó un NUEVO registro (PK {nombreColumnaPK}: '{valorPK}') con DVH Inválido/Corrupto.");
+                    }
+                    else
+                    {
+                        string columnaCulpableReal = columnasErroneas.FirstOrDefault() ?? "Desconocida";
+                        dynamic r = registro;
 
-                            var listaValoresSanos = listaRegistros
-                                .Where(x => selectorPK(x) != valorPK)
-                                .Select(x => {
-                                    var p = x.GetType().GetProperty(col);
-                                    return p?.GetValue(x, null)?.ToString() ?? "";
-                                })
-                                .ToList();
-
-                            string dvvAcumuladoSano = "";
-                            foreach (var item in listaValoresSanos)
+                        foreach (string col in columnasErroneas)
+                        {
+                            var p = r.GetType().GetProperty(col);
+                            if (p != null)
                             {
-                                dvvAcumuladoSano += DigitoVerificador.GetHexa(item);
-                            }
-                            string dvvSimuladoSHA = Encriptador.GetHash256(dvvAcumuladoSano);
-
-                            string dvvBD = _controlDVDal.ObtenerDVV(nombreTabla, col) ?? "0";
-                        }
-                        catch { }
-                    }
-
-                    foreach (string col in columnasErroneas)
-                    {
-                        var prop = r.GetType().GetProperty(col);
-                        if (prop != null)
-                        {
-                            if (col == "Criticidad" && columnasErroneas.Contains("Criticidad") && dvhCalculado.Contains("Criticidad"))
-                            {
-                                columnaCulpableReal = "Criticidad";
+                                columnaCulpableReal = col;
                             }
                         }
-                    }
 
-                    foreach (string col in columnasErroneas)
-                    {
-                        var p = r.GetType().GetProperty(col);
-                        if (p != null)
-                        {
-                            string valorCampo = p.GetValue(registro, null)?.ToString() ?? "";
-                            columnaCulpableReal = col;
-                        }
-                    }
-
-                    if (columnasErroneas.Contains("Criticidad") && nombreTabla == "Bitacora")
-                    {
-                        if (columnasErroneas.Count > 1)
+                        if (columnasErroneas.Contains("Criticidad") && nombreTabla == "Bitacora" && columnasErroneas.Count > 1)
                         {
                             var columnasFalsas = new List<string> { "Fecha", "Login" };
                             var candidatasReales = columnasErroneas.Where(c => !columnasFalsas.Contains(c)).ToList();
-
                             if (candidatasReales.Count == 1)
                             {
                                 columnaCulpableReal = candidatasReales[0];
                             }
                         }
+
+                        reporte.Add($"[ERROR MODIFICACIÓN] Tabla: '{nombreTabla}' -> Registro {nombreColumnaPK}: '{valorPK}' tiene datos alterados en la Columna: '{columnaCulpableReal}'.");
                     }
-                    reporte.Add($"[ERROR MODIFICACIÓN] Tabla: '{nombreTabla}' -> Registro {nombreColumnaPK}: '{valorPK}' alterado en la Columna: '{columnaCulpableReal}'.");
                 }
             }
-            if (!seEncontroRegistroCorrupto)
+            if (registrosCorruptosPK.Count == 0)
             {
                 string colsAfectadas = string.Join(", ", columnasErroneas);
-                reporte.Add($"[ERROR ELIMINACIÓN] Tabla: '{nombreTabla}' -> Se ha detectado la ELIMINACIÓN de uno o más registros. (Inconsistencia de DVV en columnas: {colsAfectadas}).");
+                string registroInfiltradoPK = null;
+
+                foreach (string col in columnasErroneas)
+                {
+                    string dvvBD = _controlDVDal.ObtenerDVV(nombreTabla, col) ?? "0";
+
+                    foreach (T reg in listaRegistros)
+                    {
+                        string pkActual = selectorPK(reg);
+
+                        var listaSinEstaFila = listaRegistros
+                            .Where(x => selectorPK(x) != pkActual)
+                            .Select(x => {
+                                var p = x.GetType().GetProperty(col);
+                                return p?.GetValue(x, null)?.ToString() ?? "";
+                            })
+                            .ToList();
+
+                        string dvvSimulado = DigitoVerificador.CalcularDVV(listaSinEstaFila);
+
+                        if (dvvSimulado == dvvBD)
+                        {
+                            registroInfiltradoPK = pkActual;
+                            break;
+                        }
+                    }
+
+                    if (registroInfiltradoPK != null) break;
+                }
+
+                if (registroInfiltradoPK != null)
+                {
+                    reporte.Add($"[ERROR INSERCIÓN NO AUTORIZADA] Tabla: '{nombreTabla}' -> Se detectó un NUEVO registro no autorizado (PK {nombreColumnaPK}: '{registroInfiltradoPK}') en columnas: {colsAfectadas}.");
+                }
+                else
+                {
+                    reporte.Add($"[ERROR ELIMINACIÓN] Tabla: '{nombreTabla}' -> Se ha detectado la ELIMINACIÓN de uno o más registros (Inconsistencia de DVV en columnas: {colsAfectadas}).");
+                }
             }
         }
 
@@ -387,11 +409,11 @@ namespace BLL
                 RecalcularDVH_Familia();
                 RecalcularDVH_PermisoSimple();
                 RecalcularDVH_Perfil();
-                RecalcularDVH_Bitacora();
+                
                 RecalcularDVH_Idioma();
 
                 
-                RecalcularDVV_Bitacora();
+                
                 RecalcularDVV_Familia();
                 RecalcularDVV_Idioma();
                 RecalcularDVV_Perfil();
@@ -399,6 +421,8 @@ namespace BLL
                 RecalcularDVV_Usuario();
 
                 RegistrarEvento("Recalculo de DVV y DVH realizado correctamente", 1);
+                RecalcularDVH_Bitacora();
+                RecalcularDVV_Bitacora();
             }
             catch (Exception ex)
             {
