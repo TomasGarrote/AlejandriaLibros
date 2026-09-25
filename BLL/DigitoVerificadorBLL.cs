@@ -1,4 +1,5 @@
-﻿using DAL;
+﻿using BE;
+using DAL;
 using Servicios;
 using System;
 using System.Collections.Generic;
@@ -15,8 +16,10 @@ namespace BLL
         private readonly UsuarioDAL _usuarioDal = new UsuarioDAL();
         private readonly BitacoraDAL _bitacoraDal = new BitacoraDAL();
         private readonly IdiomaDAL _idiomaDal = new IdiomaDAL();
+        private readonly VentaDAL _ventaDal = new VentaDAL();
+        private readonly LibroDAL _libroDal = new LibroDAL();
 
-        
+
         public void RecalcularDVH_Usuario()
         {
             var listaUsuarios = _usuarioDal.ListarTodosLosUsuariosDVH();
@@ -37,8 +40,59 @@ namespace BLL
             }
         }
 
+        public void RecalcularDVH_Venta()
+        {
+            var listaVentas = _ventaDal.ListarTodasLasVentas();
+            foreach (var venta in listaVentas)
+            {
+                string dvhCalculado = venta.NroVenta +
+                        venta.Fecha.ToString("yyyy-MM-dd HH:mm:ss") +
+                        venta.DniUsuario +
+                        venta.MedioDePago +
+                        venta.Descuento.ToString() +
+                        venta.Subtotal.ToString() +
+                        venta.Total.ToString() +
+                        venta.Detalle.ToString();
+                
+                _ventaDal.ActualizarVentaDVH(venta.NroVenta.ToString(), DigitoVerificador.CalcularDVH(dvhCalculado));
+            }
+        }
 
-        
+        public void RecalcularDVH_Detalle()
+        {
+            var listaDetalleVentas = _ventaDal.ListarTodosLosDetalles();
+            foreach (var detVenta in listaDetalleVentas)
+            {
+                string dvhCalculado = detVenta.NroVenta.ToString() +
+                        detVenta.CodigoLibro.ToString() +
+                        detVenta.PrecioUnitario.ToString() +
+                        detVenta.Cantidad.ToString() +
+                        detVenta.Subtotal.ToString();
+
+                _ventaDal.ActualizarDetalleDVH(detVenta.NroVenta.ToString(), DigitoVerificador.CalcularDVH(dvhCalculado));
+            }
+        }
+
+        public void RecalcularDVH_Libro()
+        {
+            var listarLibros = _libroDal.ListarTodosLosLibros();
+            foreach (var libro in listarLibros)
+            {
+                string dvhCalculado = libro.CodigoInterno.ToString()
+                    + libro.ISBN
+                    + libro.Titulo
+                    + libro.Autor
+                    + libro.Categoria
+                    + libro.Ubicacion
+                    + libro.Precio.ToString()
+                    + libro.StockDisponible.ToString()
+                    + libro.Activo.ToString();
+
+                _libroDal.ActualizarDVH(libro.CodigoInterno.ToString(), DigitoVerificador.CalcularDVH(dvhCalculado));
+            }
+        }
+
+
         public void RecalcularDVH_Bitacora()
         {
             var listaBitacora = _bitacoraDal.listarTodosLosEventos();
@@ -103,17 +157,17 @@ namespace BLL
         {
             var lista = _usuarioDal.ListarTodosLosUsuariosDVH();
             var datos = new Dictionary<string, List<string>> {
-            { "DNI", lista.Select(x => x.DNI).ToList() },
-            { "Nombre", lista.Select(x => x.Nombre).ToList() },
-            { "Apellido", lista.Select(x => x.Apellido).ToList() },
-            { "UserName", lista.Select(x => x.Username).ToList() },
-            { "Password", lista.Select(x => x.Password).ToList() },
-            { "Email", lista.Select(x => x.Email).ToList() },
-            { "Bloqueado", lista.Select(x => x.Bloqueado ? "1" : "0").ToList() },
-            { "Activo", lista.Select(x => x.Activo ? "1" : "0").ToList() },
-            { "Rol", lista.Select(x => x.Rol).ToList() },
-            { "Intentos", lista.Select(x => x.Intentos.ToString()).ToList() }
-        };
+                { "DNI", lista.Select(x => x.DNI).ToList() },
+                { "Nombre", lista.Select(x => x.Nombre).ToList() },
+                { "Apellido", lista.Select(x => x.Apellido).ToList() },
+                { "UserName", lista.Select(x => x.Username).ToList() },
+                { "Password", lista.Select(x => x.Password).ToList() },
+                { "Email", lista.Select(x => x.Email).ToList() },
+                { "Bloqueado", lista.Select(x => x.Bloqueado ? "1" : "0").ToList() },
+                { "Activo", lista.Select(x => x.Activo ? "1" : "0").ToList() },
+                { "Rol", lista.Select(x => x.Rol).ToList() },
+                { "Intentos", lista.Select(x => x.Intentos.ToString()).ToList() }
+            };
             RecalcularDVVDeTablaGenerica("Usuario", datos);
         }
 
@@ -158,7 +212,52 @@ namespace BLL
             RecalcularDVVDeTablaGenerica("Familia", datos);
         }
 
-        
+        public void RecalcularDVV_Libro()
+        {
+            var lista = _libroDal.ListarTodosLosLibros();
+            var datos = new Dictionary<string, List<string>> {
+                { "CodigoInterno", lista.Select(x => x.CodigoInterno.ToString()).ToList() },
+                { "ISBN", lista.Select(x => x.ISBN).ToList() },
+                { "Titulo", lista.Select(x => x.Titulo).ToList() },
+                { "Autor", lista.Select(x => x.Autor).ToList() },
+                { "Categoria", lista.Select(x => x.Categoria).ToList() },
+                { "Ubicacion", lista.Select(x => x.Ubicacion).ToList() },
+                { "Precio", lista.Select(x => x.Precio.ToString()).ToList() },
+                { "StockDisponible", lista.Select(x => x.StockDisponible.ToString()).ToList() },
+                { "Activo", lista.Select(x => x.Activo.ToString()).ToList() }
+            };
+            RecalcularDVVDeTablaGenerica("Libro", datos);
+        }
+
+        public void RecalcularDVV_Venta()
+        {
+            var lista = _ventaDal.ListarTodasLasVentas();
+            var datos = new Dictionary<string, List<string>> {
+                { "NroVenta", lista.Select(x => x.NroVenta.ToString()).ToList() },
+                { "Fecha", lista.Select(x => x.Fecha.ToString("yyyy-MM-dd HH:mm:ss")).ToList() },
+                { "DniUsuario", lista.Select(x => x.DniUsuario).ToList() },
+                { "MedioPago", lista.Select(x => x.MedioDePago).ToList() },
+                { "Descuento", lista.Select(x => x.Descuento.ToString()).ToList() },
+                { "Subtotal", lista.Select(x => x.Subtotal.ToString()).ToList() },
+                { "Total", lista.Select(x => x.Total.ToString()).ToList() },
+                { "Detalle", lista.Select(x => x.Detalle.ToString()).ToList() }
+            };
+            RecalcularDVVDeTablaGenerica("Venta", datos);
+        }
+        public void RecalcularDVV_Detalle()
+        {
+            var lista = _ventaDal.ListarTodosLosDetalles();
+            var datos = new Dictionary<string, List<string>> {
+                { "NroVenta", lista.Select(x => x.NroVenta.ToString()).ToList() },
+                { "CodigoLibro", lista.Select(x => x.CodigoLibro.ToString()).ToList() },
+                { "Cantidad", lista.Select(x => x.Cantidad.ToString()).ToList() },
+                { "PrecioUnitario", lista.Select(x => x.PrecioUnitario.ToString()).ToList() },
+                { "Subtotal", lista.Select(x => x.Subtotal.ToString()).ToList() }
+            };
+            RecalcularDVVDeTablaGenerica("DetalleVenta", datos);
+        }
+
+
         private void RecalcularDVVDeTablaGenerica(string nombreTabla, Dictionary<string, List<string>> columnasData)
         {
             List<string> hashesDeLasColumnas = new List<string>();
@@ -268,6 +367,42 @@ namespace BLL
 
             AgregarErroresAlReporteOptimizada("Familia", "Nombre", x => x.Nombre, x => x.DVH, CalcularDVH_Familia, listaFamilia, colsErrFamilia, reporteInconsistencias);
 
+            var listaVenta = _ventaDal.ListarTodasLasVentas();
+            List<string> colsErrVenta = new List<string>();
+            if (DigitoVerificador.CalcularDVV(listaVenta.Select(x => x.NroVenta.ToString()).ToList()) != (_controlDVDal.ObtenerDVV("Venta", "NroVenta") ?? "0")) colsErrVenta.Add("NroVenta");
+            if (DigitoVerificador.CalcularDVV(listaVenta.Select(x => x.Fecha.ToString("yyyy-MM-dd HH:mm:ss")).ToList()) != (_controlDVDal.ObtenerDVV("Venta", "Fecha") ?? "0")) colsErrVenta.Add("Fecha");
+            if (DigitoVerificador.CalcularDVV(listaVenta.Select(x => x.DniUsuario).ToList()) != (_controlDVDal.ObtenerDVV("Venta", "DniUsuario") ?? "0")) colsErrVenta.Add("DniUsuario");
+            if (DigitoVerificador.CalcularDVV(listaVenta.Select(x => x.MedioDePago).ToList()) != (_controlDVDal.ObtenerDVV("Venta", "MedioPago") ?? "0")) colsErrVenta.Add("MedioPago");
+            if (DigitoVerificador.CalcularDVV(listaVenta.Select(x => x.Descuento.ToString()).ToList()) != (_controlDVDal.ObtenerDVV("Venta", "Descuento") ?? "0")) colsErrVenta.Add("Descuento");
+            if (DigitoVerificador.CalcularDVV(listaVenta.Select(x => x.Subtotal.ToString()).ToList()) != (_controlDVDal.ObtenerDVV("Venta", "Subtotal") ?? "0")) colsErrVenta.Add("Subtotal");
+            if (DigitoVerificador.CalcularDVV(listaVenta.Select(x => x.Total.ToString()).ToList()) != (_controlDVDal.ObtenerDVV("Venta", "Total") ?? "0")) colsErrVenta.Add("Total");
+            if (DigitoVerificador.CalcularDVV(listaVenta.Select(x => x.Detalle.ToString()).ToList()) != (_controlDVDal.ObtenerDVV("Venta", "Detalle") ?? "0")) colsErrVenta.Add("Detalle");
+            
+            AgregarErroresAlReporteOptimizada("Venta", "NroVenta", x => x.NroVenta.ToString(), x => x.DVH, CalcularDVH_Venta, listaVenta, colsErrVenta, reporteInconsistencias);
+
+            var listaDetalle = _ventaDal.ListarTodosLosDetalles();
+            List<string> colsErrDetalle = new List<string>();
+            if (DigitoVerificador.CalcularDVV(listaDetalle.Select(x => x.NroVenta.ToString()).ToList()) != (_controlDVDal.ObtenerDVV("DetalleVenta", "NroVenta") ?? "0")) colsErrDetalle.Add("NroVenta");
+            if (DigitoVerificador.CalcularDVV(listaDetalle.Select(x => x.CodigoLibro.ToString()).ToList()) != (_controlDVDal.ObtenerDVV("DetalleVenta", "CodigoLibro") ?? "0")) colsErrDetalle.Add("CodigoLibro");
+            if (DigitoVerificador.CalcularDVV(listaDetalle.Select(x => x.Cantidad.ToString()).ToList()) != (_controlDVDal.ObtenerDVV("DetalleVenta", "Cantidad") ?? "0")) colsErrDetalle.Add("Cantidad");
+            if (DigitoVerificador.CalcularDVV(listaDetalle.Select(x => x.PrecioUnitario.ToString()).ToList()) != (_controlDVDal.ObtenerDVV("DetalleVenta", "PrecioUnitario") ?? "0")) colsErrDetalle.Add("PrecioUnitario");
+            if (DigitoVerificador.CalcularDVV(listaDetalle.Select(x => x.Subtotal.ToString()).ToList()) != (_controlDVDal.ObtenerDVV("DetalleVenta", "Subtotal") ?? "0")) colsErrDetalle.Add("Subtotal");
+            
+            AgregarErroresAlReporteOptimizada("DetalleVenta", "NroVenta", x => x.NroVenta.ToString(), x => x.DVH, CalcularDVH_DetalleVenta, listaDetalle, colsErrDetalle, reporteInconsistencias);
+
+            var listaLibro = _libroDal.ListarTodosLosLibros();
+            List<string> colsErrLibro = new List<string>();
+            if (DigitoVerificador.CalcularDVV(listaLibro.Select(x => x.CodigoInterno.ToString()).ToList()) != (_controlDVDal.ObtenerDVV("Libro", "CodigoInterno") ?? "0")) colsErrLibro.Add("CodigoInterno");
+            if (DigitoVerificador.CalcularDVV(listaLibro.Select(x => x.ISBN.ToString()).ToList()) != (_controlDVDal.ObtenerDVV("Libro", "ISBN") ?? "0")) colsErrLibro.Add("ISBN");
+            if (DigitoVerificador.CalcularDVV(listaLibro.Select(x => x.Titulo).ToList()) != (_controlDVDal.ObtenerDVV("Libro", "Titulo") ?? "0")) colsErrLibro.Add("Titulo");
+            if (DigitoVerificador.CalcularDVV(listaLibro.Select(x => x.Autor).ToList()) != (_controlDVDal.ObtenerDVV("Libro", "Autor") ?? "0")) colsErrLibro.Add("Autor");
+            if (DigitoVerificador.CalcularDVV(listaLibro.Select(x => x.Categoria).ToList()) != (_controlDVDal.ObtenerDVV("Libro", "Categoria") ?? "0")) colsErrLibro.Add("Categoria");
+            if (DigitoVerificador.CalcularDVV(listaLibro.Select(x => x.Ubicacion).ToList()) != (_controlDVDal.ObtenerDVV("Libro", "Ubicacion") ?? "0")) colsErrLibro.Add("Ubicacion");
+            if (DigitoVerificador.CalcularDVV(listaLibro.Select(x => x.Precio.ToString()).ToList()) != (_controlDVDal.ObtenerDVV("Libro", "Precio") ?? "0")) colsErrLibro.Add("Precio");
+            if (DigitoVerificador.CalcularDVV(listaLibro.Select(x => x.StockDisponible.ToString()).ToList()) != (_controlDVDal.ObtenerDVV("Libro", "StockDisponible") ?? "0")) colsErrLibro.Add("StockDisponible");
+            if (DigitoVerificador.CalcularDVV(listaLibro.Select(x => x.Activo.ToString()).ToList()) != (_controlDVDal.ObtenerDVV("Libro", "Activo") ?? "0")) colsErrLibro.Add("Activo");
+
+            AgregarErroresAlReporteOptimizada("Libro", "CodigoInterno", x => x.CodigoInterno.ToString(), x => x.DVH, CalcularDVH_Libro, listaLibro, colsErrLibro, reporteInconsistencias);
             return reporteInconsistencias;
         }
         private void AgregarErroresAlReporteOptimizada<T>(
@@ -399,6 +534,9 @@ namespace BLL
         private string CalcularDVH_Idioma(Idioma i) => DigitoVerificador.CalcularDVH(i.UserName + i.CodigoIdioma);
         private string CalcularDVH_PermisoSimple(PermisoSimple p) => DigitoVerificador.CalcularDVH(p.Nombre);
         private string CalcularDVH_Familia(Familia f) => DigitoVerificador.CalcularDVH(f.Nombre);
+        private string CalcularDVH_Venta(Venta v) => DigitoVerificador.CalcularDVH(v.NroVenta.ToString() + v.Fecha.ToString() + v.DniUsuario + v.MedioDePago + v.Descuento.ToString() + v.Subtotal.ToString() + v.Total.ToString() + v.Detalle.ToString());
+        private string CalcularDVH_DetalleVenta(DetalleVenta dv) => DigitoVerificador.CalcularDVH(dv.NroVenta.ToString() + dv.CodigoLibro.ToString() + dv.PrecioUnitario.ToString() + dv.Cantidad.ToString() + dv.Subtotal.ToString());
+        private string CalcularDVH_Libro(Libro l) => DigitoVerificador.CalcularDVH(l.CodigoInterno.ToString() + l.ISBN + l.Titulo + l.Autor + l.Categoria + l.Ubicacion + l.Precio.ToString() + l.StockDisponible.ToString() + l.Activo.ToString());
 
         public void RecalcularDVV_General()
         {
@@ -409,7 +547,9 @@ namespace BLL
                 RecalcularDVH_Familia();
                 RecalcularDVH_PermisoSimple();
                 RecalcularDVH_Perfil();
-                
+                RecalcularDVH_Venta();
+                RecalcularDVH_Detalle();
+                RecalcularDVH_Libro();
                 RecalcularDVH_Idioma();
 
                 
@@ -419,7 +559,9 @@ namespace BLL
                 RecalcularDVV_Perfil();
                 RecalcularDVV_PermisoSimple();
                 RecalcularDVV_Usuario();
-
+                RecalcularDVV_Libro();
+                RecalcularDVV_Venta();
+                RecalcularDVV_Detalle();
                 RegistrarEvento("Recalculo de DVV y DVH realizado correctamente", 1);
                 RecalcularDVH_Bitacora();
                 RecalcularDVV_Bitacora();
@@ -433,6 +575,8 @@ namespace BLL
 
 
         }
+
+      
         private void RegistrarEvento(string descripcion, int criticidad)
         {
             try

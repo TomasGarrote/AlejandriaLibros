@@ -246,6 +246,22 @@
   "text32": "操作をキャンセル（変更を行わない）",
   "text33": "権限が変更されました。この画面へのアクセス権限はもうありません。",
   "text34": "権限が更新されました",
+  //FormVentas
+  "lblTituloVenta": "売上登録",
+  "lblTituloLibro": "タイトル",
+  "lblAutorLibro": "著者",
+  "lblCategoriaLibro": "カテゴリー",
+  "lblCantidadVenta": "数量",
+  "lblMedioDePago": "支払い方法",
+  "lblSubtotal": "小計",
+  "lblDescuento": "割引",
+  "lblTotal": "合計",
+  "btnAgregar": "カートに追加",
+  "btnQuitar": "選択項目を削除",
+  "btnComprobante": "領収書を印刷",
+  "btnVolver": "戻る",
+  "btnAplicarFiltro": "適用",
+  "btnConfirmar": "売上を確定",
 
   //Sesion manager
   "UserLogueado": "既にユーザーがログインしています。",

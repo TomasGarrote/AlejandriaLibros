@@ -61,6 +61,7 @@
             this.btnAplicar = new System.Windows.Forms.Button();
             this.btnCancelar = new System.Windows.Forms.Button();
             this.panModificarUsuario = new System.Windows.Forms.Panel();
+            this.cbRol = new System.Windows.Forms.ComboBox();
             this.btnSalir = new System.Windows.Forms.Button();
             this.panel4 = new System.Windows.Forms.Panel();
             this.panel5 = new System.Windows.Forms.Panel();
@@ -74,7 +75,6 @@
             this.panel6 = new System.Windows.Forms.Panel();
             this.panel13 = new System.Windows.Forms.Panel();
             this.lblOpciones = new System.Windows.Forms.Label();
-            this.cbRol = new System.Windows.Forms.ComboBox();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnCerrar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnMaximizar)).BeginInit();
@@ -495,6 +495,15 @@
             this.panModificarUsuario.TabIndex = 52;
             this.panModificarUsuario.EnabledChanged += new System.EventHandler(this.panModificarUsuario_EnabledChanged);
             // 
+            // cbRol
+            // 
+            this.cbRol.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbRol.FormattingEnabled = true;
+            this.cbRol.Location = new System.Drawing.Point(98, 117);
+            this.cbRol.Name = "cbRol";
+            this.cbRol.Size = new System.Drawing.Size(165, 21);
+            this.cbRol.TabIndex = 56;
+            // 
             // btnSalir
             // 
             this.btnSalir.BackColor = System.Drawing.Color.Transparent;
@@ -510,6 +519,7 @@
             this.btnSalir.Text = "SALIR";
             this.btnSalir.UseVisualStyleBackColor = false;
             this.btnSalir.Visible = false;
+            this.btnSalir.Click += new System.EventHandler(this.btnSalir_Click);
             // 
             // panel4
             // 
@@ -633,15 +643,6 @@
             this.lblOpciones.Size = new System.Drawing.Size(106, 24);
             this.lblOpciones.TabIndex = 44;
             this.lblOpciones.Text = "Opciones:";
-            // 
-            // cbRol
-            // 
-            this.cbRol.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbRol.FormattingEnabled = true;
-            this.cbRol.Location = new System.Drawing.Point(98, 117);
-            this.cbRol.Name = "cbRol";
-            this.cbRol.Size = new System.Drawing.Size(165, 21);
-            this.cbRol.TabIndex = 56;
             // 
             // Usuarios
             // 

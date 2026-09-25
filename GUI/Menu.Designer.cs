@@ -283,8 +283,9 @@
             this.btnMaestro.Name = "btnMaestro";
             this.btnMaestro.Size = new System.Drawing.Size(200, 35);
             this.btnMaestro.TabIndex = 3;
-            this.btnMaestro.Text = "Maestros";
+            this.btnMaestro.Text = "Ventas";
             this.btnMaestro.UseVisualStyleBackColor = true;
+            this.btnMaestro.Click += new System.EventHandler(this.btnMaestro_Click);
             // 
             // panelAdminSubmenu
             // 

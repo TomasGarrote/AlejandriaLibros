@@ -472,6 +472,11 @@ namespace GUI
             dgv.AllowUserToAddRows = false;
         }
 
+        private void btnSalir_Click(object sender, EventArgs e)
+        {
+
+        }
+
         public void Actualizar(LanguageManager lenguaje)
         {
             lblTextoTabla.Text = lenguaje.GetTraduction("lblTextoTabla");

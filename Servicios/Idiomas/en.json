@@ -7,7 +7,7 @@
   "btnRestore": "Restore",
   "btnBitacora": "Logs",
   "btnDigitoVerificador": "Digit Ver.",
-  "btnMaestro": "Master",
+  "btnMaestro": "Sale",
   "btnUsuario": "User",
   "btnReLogin": "Re_Login",
   "btnCambiarClave": "ChangePassword",
@@ -244,6 +244,22 @@
   "text32": "Cancel operation (Do not perform modifications)",
   "text33": "Your permissions have been modified. You no longer have access to this screen.",
   "text34": "Permissions updated",
+  //Form Venta
+  "lblTituloVenta": "Record a Sale",
+  "lblTituloLibro": "Title",
+  "lblAutorLibro": "Author",
+  "lblCategoriaLibro": "Category",
+  "lblCantidadVenta": "Quantity",
+  "lblMedioDePago": "Payment Method",
+  "lblSubtotal": "Subtotal",
+  "lblDescuento": "Discount",
+  "lblTotal": "Total",
+  "btnAgregar": "Add to Cart",
+  "btnQuitar": "Remove Selected",
+  "btnComprobante": "Print Receipt",
+  "btnVolver": "Back",
+  "btnAplicarFiltro": "Apply",
+  "btnConfirmar": "Confirm Sale",
 
   //Sesion manager
   "UserLogueado": "A user is already logged in.",
@@ -329,7 +345,7 @@
   "TextBP3": "Backup successfully generated at",
   "TextBP4": "Operation Successful",
   "TextBP5": "Could not generate the backup.",
-   
+
   //restore
   "lblTituloRes": "Restore",
   "btnEjecutar": "Execute"

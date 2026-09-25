@@ -245,6 +245,13 @@ namespace GUI
             frmReparacionDV.Show();
         }
 
+        private void btnMaestro_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            FormVenta formVenta = new FormVenta(SessionManager.Instance.UsuarioActual().DNI);
+            formVenta.Show();
+        }
+
         public void Actualizar(LanguageManager lenguaje)
         {
             btnAdmin.Text = LanguageManager.Instance.GetTraduction("btnAdmin");
