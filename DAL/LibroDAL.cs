@@ -277,14 +277,14 @@ namespace DAL
             }
         }
 
-        public void ActualizarDVH(string v, string dvhCalculado)
+        public void ActualizarDVH(string codInterno, string dvhCalculado)
         {
             try
             {
                 _sqlcommand.CommandText = @"UPDATE Libro SET DVH = @DVH WHERE CodigoInterno = @codInter";
                 _sqlcommand.Parameters.Clear();
                 _sqlcommand.Parameters.AddWithValue("@DVH", dvhCalculado);
-                _sqlcommand.Parameters.AddWithValue("@codInter", v);
+                _sqlcommand.Parameters.AddWithValue("@codInter", codInterno);
                 _sqlserver.Open();
                 _sqlcommand.ExecuteNonQuery();
             }

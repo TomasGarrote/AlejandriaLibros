@@ -130,14 +130,14 @@ namespace DAL
             }
         }
 
-        public void ActualizarVentaDVH(string v, string dvhCalculado)
+        public void ActualizarVentaDVH(string nroVenta, string dvhCalculado)
         {
             try
             {
                 _sqlcommand.CommandText = @"UPDATE Venta SET DVH = @DVH WHERE NroVenta = @nroVenta";
                 _sqlcommand.Parameters.Clear();
                 _sqlcommand.Parameters.AddWithValue("@DVH", dvhCalculado);
-                _sqlcommand.Parameters.AddWithValue("@nroVenta", v);
+                _sqlcommand.Parameters.AddWithValue("@nroVenta", nroVenta);
                 _sqlserver.Open();
                 _sqlcommand.ExecuteNonQuery();
             }
@@ -153,14 +153,14 @@ namespace DAL
             }
         }
 
-        public void ActualizarDetalleDVH(string v, string dvhCalculado)
+        public void ActualizarDetalleDVH(string nroVenta, string dvhCalculado)
         {
             try
             {
                 _sqlcommand.CommandText = @"UPDATE DetalleVenta SET DVH = @DVH WHERE NroVenta = @nroVenta";
                 _sqlcommand.Parameters.Clear();
                 _sqlcommand.Parameters.AddWithValue("@DVH", dvhCalculado);
-                _sqlcommand.Parameters.AddWithValue("@nroVenta", v);
+                _sqlcommand.Parameters.AddWithValue("@nroVenta", nroVenta);
                 _sqlserver.Open();
                 _sqlcommand.ExecuteNonQuery();
             }
