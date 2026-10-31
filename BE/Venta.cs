@@ -13,6 +13,7 @@ namespace BE
         public decimal Descuento { get; set; } // CU-003
         public decimal Subtotal { get; set; }
         public decimal Total => Subtotal - Descuento;
+        public string DniCliente { get; set; }
         public List<DetalleVenta> Detalle { get; set; } = new List<DetalleVenta>();
         public string DVH { get; set; }
     }

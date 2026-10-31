@@ -8,6 +8,8 @@
   "btnBitacora": "ログ",
   "btnDigitoVerificador": "チェックデジット",
   "btnMaestro": "マスター",
+  "btnVentas": "販売",
+  "btnClientes": "顧客",
   "btnUsuario": "ユーザー",
   "btnReLogin": "再ログイン",
   "btnCambiarClave": "パスワード変更",
@@ -66,6 +68,18 @@
   "UserMsj1": "プロファイルを選択してください。",
   "UserMsj2": "プロファイルが変更されたため、このセクションへのアクセス権限がなくなりました。",
   "UserMsj3": "アクセス権限が取り消されました",
+
+  //Form Clientes
+  "lblTituloClientes": "顧客",
+  "ClientModif": "顧客が変更されました",
+  "ClientCreado": "顧客が作成されました",
+  "ClientBorrado": "顧客が削除されました",
+  "btnBorrar": "削除",
+  "lblTelefono": "電話",
+  "btnSeleccionar": "選択",
+  "msjErrorCrearCliente": "顧客作成エラー",
+  "MsjNoEncotroCliente": "該当する顧客が見つかりません。作成しますか？",
+  "AlertaClienteNoEncontrado": "顧客が見つかりません",
 
   //Form Cambiar contraserña
   "lblUsuarioFCC": "ユーザー",
@@ -262,6 +276,18 @@
   "btnVolver": "戻る",
   "btnAplicarFiltro": "適用",
   "btnConfirmar": "売上を確定",
+  "msjErrorVenta": "",
+  "msjErrorVentaCarrito": "カートに商品が入っていません。",
+  "msjVentaExitosa": "売上が正常に記録されました。",
+  "msjComprobanteExitoso": "領収書が正常に生成されました。",
+  "msjErrorFiltros": "適用されたフィルタに一致する結果が見つかりませんでした。",
+  "StockInsuficiente": "在庫不足により操作を完了できません。利用可能な在庫",
+  "DescuentoInvalido": "入力された割引は有効ではありません",
+  "msjCantidadInvalida": "数量はゼロより大きくなければなりません",
+  "msjNoHayEjemplares": "現在利用可能なコピーがありません",
+  "Exito": "成功",
+  "Error": "エラー",
+  "Venta": "売上",
 
   //Sesion manager
   "UserLogueado": "既にユーザーがログインしています。",

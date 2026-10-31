@@ -13,15 +13,17 @@ namespace DAL
             try
             {
                 int nroVenta;
-                _sqlcommand.CommandText = @"INSERT INTO Venta (Fecha, DniUsuario, MedioPago, Subtotal, Descuento, Total)
+                _sqlcommand.CommandText = @"INSERT INTO Venta (Fecha, DniUsuario, MedioPago, Subtotal, Descuento, Total, DniCliente, DVH)
                         OUTPUT INSERTED.NroVenta
-                        VALUES (@fecha, @dniEmp, @medioPago, @subtotal, @desc, @total)";
+                        VALUES (@fecha, @dniEmp, @medioPago, @subtotal, @desc, @total, @dniCliente, @dvh)";
                 
                 _sqlcommand.Parameters.AddWithValue("@fecha", venta.Fecha);
                 _sqlcommand.Parameters.AddWithValue("@dniEmp", venta.DniUsuario);
                 _sqlcommand.Parameters.AddWithValue("@medioPago", venta.MedioDePago);
                 _sqlcommand.Parameters.AddWithValue("@subtotal", venta.Subtotal);
                 _sqlcommand.Parameters.AddWithValue("@desc", venta.Descuento);
+                _sqlcommand.Parameters.AddWithValue("@dniCliente", int.Parse(venta.DniCliente));
+                _sqlcommand.Parameters.AddWithValue("@dvh", int.Parse(venta.DVH));
                 _sqlcommand.Parameters.AddWithValue("@total", venta.Total);
 
                 _sqlserver.Open();
@@ -30,14 +32,15 @@ namespace DAL
 
                 foreach (var d in venta.Detalle)
                 {
-                    _sqlcommand.CommandText = @"INSERT INTO DetalleVenta (NroVenta, CodigoLibro, Cantidad, PrecioUnitario, Subtotal)
-                            VALUES (@nro, @cod, @cant, @precio, @sub)";
+                    _sqlcommand.CommandText = @"INSERT INTO DetalleVenta (NroVenta, CodigoLibro, Cantidad, PrecioUnitario, Subtotal, DVH)
+                            VALUES (@nro, @cod, @cant, @precio, @sub, @dvh)";
                     
                     _sqlcommand.Parameters.AddWithValue("@nro", nroVenta);
                     _sqlcommand.Parameters.AddWithValue("@cod", d.CodigoLibro);
                     _sqlcommand.Parameters.AddWithValue("@cant", d.Cantidad);
                     _sqlcommand.Parameters.AddWithValue("@precio", d.PrecioUnitario);
                     _sqlcommand.Parameters.AddWithValue("@sub", d.Subtotal);
+                    _sqlcommand.Parameters.AddWithValue("@dvh", d.DVH);
                     _sqlcommand.ExecuteNonQuery();
                     
                 }
@@ -50,6 +53,7 @@ namespace DAL
             }
             finally
             {
+                _sqlcommand.Parameters.Clear();
                 _sqlserver.Close();
             }
         }
@@ -59,7 +63,7 @@ namespace DAL
             List<Venta> ventas = new List<Venta>();
             try
             {
-                _sqlcommand.CommandText = @"SELECT v.NroVenta, v.Fecha, v.DniUsuario, v.MedioPago, v.Subtotal, v.Descuento, v.Total
+                _sqlcommand.CommandText = @"SELECT v.NroVenta, v.Fecha, v.DniUsuario, v.MedioPago, v.Subtotal, v.Descuento, v.Total, v.DniCliente
                       FROM Venta v";
                 _sqlcommand.Parameters.Clear();
                 _sqlserver.Open();
@@ -75,11 +79,52 @@ namespace DAL
                             DniUsuario = reader.GetString(2),
                             MedioDePago = reader.GetString(3),
                             Subtotal = reader.GetDecimal(4),
-                            Descuento = reader.GetDecimal(5)
+                            Descuento = reader.GetDecimal(5),
+                            DniCliente = reader.GetInt32(6).ToString()
                         });
                     }
                 }
                 
+                return ventas;
+            }
+            catch
+            {
+                throw;
+            }
+            finally
+            {
+                _sqlserver.Close();
+            }
+        }
+        public List<Venta> ListarTodasLasVentasDVH()
+        {
+            List<Venta> ventas = new List<Venta>();
+            try
+            {
+                _sqlcommand.CommandText = @"SELECT v.NroVenta, v.Fecha, v.DniUsuario, v.MedioPago, v.Subtotal, v.Descuento, v.Total, v.DniCliente, v.DVH
+                      FROM Venta v";
+                _sqlcommand.Parameters.Clear();
+                _sqlserver.Open();
+
+                using (var reader = _sqlcommand.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        ventas.Add(new Venta
+                        {
+                            NroVenta = reader.GetInt32(0),
+                            Fecha = reader.GetDateTime(1),
+                            DniUsuario = reader.GetString(2),
+                            MedioDePago = reader.GetString(3),
+                            Subtotal = reader.GetDecimal(4),
+                            Descuento = reader.GetDecimal(5),
+                            DniCliente = reader.GetInt32(7).ToString(),
+                            DVH = reader.GetString(8),
+                            
+                        });
+                    }
+                }
+
                 return ventas;
             }
             catch
@@ -113,7 +158,45 @@ namespace DAL
                             CodigoLibro = reader.GetInt32(1),
                             TituloLibro = reader.GetString(2),
                             Cantidad = reader.GetInt32(3),
-                            PrecioUnitario = reader.GetDecimal(4)
+                            PrecioUnitario = reader.GetDecimal(4),
+                        });
+                    }
+                }
+
+                return detalles;
+            }
+            catch
+            {
+                throw;
+            }
+            finally
+            {
+                _sqlserver.Close();
+            }
+        }
+        public List<DetalleVenta> ListarTodosLosDetallesDVH()
+        {
+            List<DetalleVenta> detalles = new List<DetalleVenta>();
+            try
+            {
+
+                _sqlcommand.CommandText = @"SELECT dv.NroVenta, dv.CodigoLibro, l.Titulo, dv.Cantidad, dv.PrecioUnitario, dv.Subtotal, dv.DVH
+                      FROM DetalleVenta dv JOIN Libro l ON dv.CodigoLibro = l.CodigoInterno";
+                _sqlcommand.Parameters.Clear();
+                _sqlserver.Open();
+
+                using (var reader = _sqlcommand.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        detalles.Add(new DetalleVenta
+                        {
+                            NroVenta = reader.GetInt32(0),
+                            CodigoLibro = reader.GetInt32(1),
+                            TituloLibro = reader.GetString(2),
+                            Cantidad = reader.GetInt32(3),
+                            PrecioUnitario = reader.GetDecimal(4),
+                            DVH = reader.GetString(6)
                         });
                     }
                 }
@@ -153,14 +236,16 @@ namespace DAL
             }
         }
 
-        public void ActualizarDetalleDVH(string nroVenta, string dvhCalculado)
+        public void ActualizarDetalleDVH(int nroVenta, int codigoLibro, string dvhCalculado)
         {
             try
             {
-                _sqlcommand.CommandText = @"UPDATE DetalleVenta SET DVH = @DVH WHERE NroVenta = @nroVenta";
+                _sqlcommand.CommandText = @"UPDATE DetalleVenta SET DVH = @DVH
+                                            WHERE NroVenta = @nroVenta AND CodigoLibro = @codigoLibro";
                 _sqlcommand.Parameters.Clear();
                 _sqlcommand.Parameters.AddWithValue("@DVH", dvhCalculado);
                 _sqlcommand.Parameters.AddWithValue("@nroVenta", nroVenta);
+                _sqlcommand.Parameters.AddWithValue("@codigoLibro", codigoLibro);
                 _sqlserver.Open();
                 _sqlcommand.ExecuteNonQuery();
             }

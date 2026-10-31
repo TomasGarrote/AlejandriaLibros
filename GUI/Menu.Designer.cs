@@ -34,6 +34,10 @@
             this.btnMaximizar = new System.Windows.Forms.PictureBox();
             this.btnMinimizar = new System.Windows.Forms.PictureBox();
             this.MenuVertical = new System.Windows.Forms.Panel();
+            this.panelMaestroSubmenu = new System.Windows.Forms.Panel();
+            this.panel13 = new System.Windows.Forms.Panel();
+            this.btnCliente = new System.Windows.Forms.Button();
+            this.btnMaestro = new System.Windows.Forms.Button();
             this.panelUsuarioSubmenu = new System.Windows.Forms.Panel();
             this.panel10 = new System.Windows.Forms.Panel();
             this.btnCambiarIdioma = new System.Windows.Forms.Button();
@@ -44,7 +48,7 @@
             this.btnCambiarClave = new System.Windows.Forms.Button();
             this.btnReLogin = new System.Windows.Forms.Button();
             this.btnUsuario = new System.Windows.Forms.Button();
-            this.btnMaestro = new System.Windows.Forms.Button();
+            this.btnVentas = new System.Windows.Forms.Button();
             this.panelAdminSubmenu = new System.Windows.Forms.Panel();
             this.panel9 = new System.Windows.Forms.Panel();
             this.panel8 = new System.Windows.Forms.Panel();
@@ -66,6 +70,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.btnMaximizar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnMinimizar)).BeginInit();
             this.MenuVertical.SuspendLayout();
+            this.panelMaestroSubmenu.SuspendLayout();
             this.panelUsuarioSubmenu.SuspendLayout();
             this.panelAdminSubmenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -128,17 +133,71 @@
             // MenuVertical
             // 
             this.MenuVertical.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
+            this.MenuVertical.Controls.Add(this.panelMaestroSubmenu);
+            this.MenuVertical.Controls.Add(this.btnMaestro);
             this.MenuVertical.Controls.Add(this.panelUsuarioSubmenu);
             this.MenuVertical.Controls.Add(this.btnUsuario);
-            this.MenuVertical.Controls.Add(this.btnMaestro);
+            this.MenuVertical.Controls.Add(this.btnVentas);
             this.MenuVertical.Controls.Add(this.panelAdminSubmenu);
             this.MenuVertical.Controls.Add(this.btnAdmin);
             this.MenuVertical.Controls.Add(this.pictureBox1);
             this.MenuVertical.Dock = System.Windows.Forms.DockStyle.Left;
             this.MenuVertical.Location = new System.Drawing.Point(0, 43);
             this.MenuVertical.Name = "MenuVertical";
-            this.MenuVertical.Size = new System.Drawing.Size(200, 615);
+            this.MenuVertical.Size = new System.Drawing.Size(200, 788);
             this.MenuVertical.TabIndex = 1;
+            // 
+            // panelMaestroSubmenu
+            // 
+            this.panelMaestroSubmenu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
+            this.panelMaestroSubmenu.Controls.Add(this.panel13);
+            this.panelMaestroSubmenu.Controls.Add(this.btnCliente);
+            this.panelMaestroSubmenu.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelMaestroSubmenu.Location = new System.Drawing.Point(0, 599);
+            this.panelMaestroSubmenu.Name = "panelMaestroSubmenu";
+            this.panelMaestroSubmenu.Size = new System.Drawing.Size(200, 152);
+            this.panelMaestroSubmenu.TabIndex = 7;
+            this.panelMaestroSubmenu.Visible = false;
+            // 
+            // panel13
+            // 
+            this.panel13.BackColor = System.Drawing.Color.Maroon;
+            this.panel13.Location = new System.Drawing.Point(12, 0);
+            this.panel13.Name = "panel13";
+            this.panel13.Size = new System.Drawing.Size(5, 35);
+            this.panel13.TabIndex = 7;
+            // 
+            // btnCliente
+            // 
+            this.btnCliente.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnCliente.FlatAppearance.BorderSize = 0;
+            this.btnCliente.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.btnCliente.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCliente.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCliente.ForeColor = System.Drawing.Color.White;
+            this.btnCliente.Location = new System.Drawing.Point(0, 0);
+            this.btnCliente.Name = "btnCliente";
+            this.btnCliente.Size = new System.Drawing.Size(200, 35);
+            this.btnCliente.TabIndex = 0;
+            this.btnCliente.Text = "Cliente";
+            this.btnCliente.UseVisualStyleBackColor = true;
+            this.btnCliente.Click += new System.EventHandler(this.button4_Click);
+            // 
+            // btnMaestro
+            // 
+            this.btnMaestro.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnMaestro.FlatAppearance.BorderSize = 0;
+            this.btnMaestro.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Maroon;
+            this.btnMaestro.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnMaestro.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnMaestro.ForeColor = System.Drawing.Color.White;
+            this.btnMaestro.Location = new System.Drawing.Point(0, 557);
+            this.btnMaestro.Name = "btnMaestro";
+            this.btnMaestro.Size = new System.Drawing.Size(200, 42);
+            this.btnMaestro.TabIndex = 6;
+            this.btnMaestro.Text = "Maestro";
+            this.btnMaestro.UseVisualStyleBackColor = true;
+            this.btnMaestro.Click += new System.EventHandler(this.btnMaestro_Click);
             // 
             // panelUsuarioSubmenu
             // 
@@ -152,7 +211,7 @@
             this.panelUsuarioSubmenu.Controls.Add(this.btnCambiarClave);
             this.panelUsuarioSubmenu.Controls.Add(this.btnReLogin);
             this.panelUsuarioSubmenu.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelUsuarioSubmenu.Location = new System.Drawing.Point(0, 402);
+            this.panelUsuarioSubmenu.Location = new System.Drawing.Point(0, 405);
             this.panelUsuarioSubmenu.Name = "panelUsuarioSubmenu";
             this.panelUsuarioSubmenu.Size = new System.Drawing.Size(200, 152);
             this.panelUsuarioSubmenu.TabIndex = 5;
@@ -263,7 +322,7 @@
             this.btnUsuario.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnUsuario.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnUsuario.ForeColor = System.Drawing.Color.White;
-            this.btnUsuario.Location = new System.Drawing.Point(0, 367);
+            this.btnUsuario.Location = new System.Drawing.Point(0, 370);
             this.btnUsuario.Name = "btnUsuario";
             this.btnUsuario.Size = new System.Drawing.Size(200, 35);
             this.btnUsuario.TabIndex = 4;
@@ -271,21 +330,21 @@
             this.btnUsuario.UseVisualStyleBackColor = true;
             this.btnUsuario.Click += new System.EventHandler(this.btnUsuario_Click_1);
             // 
-            // btnMaestro
+            // btnVentas
             // 
-            this.btnMaestro.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnMaestro.FlatAppearance.BorderSize = 0;
-            this.btnMaestro.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Maroon;
-            this.btnMaestro.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnMaestro.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnMaestro.ForeColor = System.Drawing.Color.White;
-            this.btnMaestro.Location = new System.Drawing.Point(0, 332);
-            this.btnMaestro.Name = "btnMaestro";
-            this.btnMaestro.Size = new System.Drawing.Size(200, 35);
-            this.btnMaestro.TabIndex = 3;
-            this.btnMaestro.Text = "Ventas";
-            this.btnMaestro.UseVisualStyleBackColor = true;
-            this.btnMaestro.Click += new System.EventHandler(this.btnMaestro_Click);
+            this.btnVentas.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnVentas.FlatAppearance.BorderSize = 0;
+            this.btnVentas.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Maroon;
+            this.btnVentas.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnVentas.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnVentas.ForeColor = System.Drawing.Color.White;
+            this.btnVentas.Location = new System.Drawing.Point(0, 332);
+            this.btnVentas.Name = "btnVentas";
+            this.btnVentas.Size = new System.Drawing.Size(200, 38);
+            this.btnVentas.TabIndex = 3;
+            this.btnVentas.Text = "Ventas";
+            this.btnVentas.UseVisualStyleBackColor = true;
+            this.btnVentas.Click += new System.EventHandler(this.btnVentas_Click);
             // 
             // panelAdminSubmenu
             // 
@@ -486,7 +545,7 @@
             this.panelContenedor.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelContenedor.Location = new System.Drawing.Point(200, 43);
             this.panelContenedor.Name = "panelContenedor";
-            this.panelContenedor.Size = new System.Drawing.Size(837, 615);
+            this.panelContenedor.Size = new System.Drawing.Size(837, 788);
             this.panelContenedor.TabIndex = 2;
             this.panelContenedor.Paint += new System.Windows.Forms.PaintEventHandler(this.panelContenedor_Paint);
             // 
@@ -495,7 +554,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Maroon;
-            this.ClientSize = new System.Drawing.Size(1037, 658);
+            this.ClientSize = new System.Drawing.Size(1037, 831);
             this.Controls.Add(this.panelContenedor);
             this.Controls.Add(this.MenuVertical);
             this.Controls.Add(this.BarraTitulo);
@@ -508,6 +567,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.btnMaximizar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnMinimizar)).EndInit();
             this.MenuVertical.ResumeLayout(false);
+            this.panelMaestroSubmenu.ResumeLayout(false);
             this.panelUsuarioSubmenu.ResumeLayout(false);
             this.panelAdminSubmenu.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
@@ -534,7 +594,7 @@
         private System.Windows.Forms.Button btnCambiarClave;
         private System.Windows.Forms.Button btnReLogin;
         private System.Windows.Forms.Button btnUsuario;
-        private System.Windows.Forms.Button btnMaestro;
+        private System.Windows.Forms.Button btnVentas;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Panel panel2;
@@ -549,6 +609,10 @@
         private System.Windows.Forms.PictureBox btnMaximizar;
         private System.Windows.Forms.Button btnCambiarIdioma;
         private System.Windows.Forms.Panel panel10;
+        private System.Windows.Forms.Button btnMaestro;
+        private System.Windows.Forms.Panel panelMaestroSubmenu;
+        private System.Windows.Forms.Panel panel13;
+        private System.Windows.Forms.Button btnCliente;
     }
 }
 

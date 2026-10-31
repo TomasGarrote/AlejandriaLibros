@@ -184,6 +184,24 @@
     <Compile Include="CambiarContraseña.Designer.cs">
       <DependentUpon>CambiarContraseña.cs</DependentUpon>
     </Compile>
+    <Compile Include="formClientes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="formClientes.Designer.cs">
+      <DependentUpon>formClientes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="formCarritoClientes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="formCarritoClientes.Designer.cs">
+      <DependentUpon>formCarritoClientes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="formCrearCliente.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="formCrearCliente.Designer.cs">
+      <DependentUpon>formCrearCliente.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormRestore.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -247,6 +265,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="CambiarContraseña.resx">
       <DependentUpon>CambiarContraseña.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="formClientes.resx">
+      <DependentUpon>formClientes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="formCarritoClientes.resx">
+      <DependentUpon>formCarritoClientes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="formCrearCliente.resx">
+      <DependentUpon>formCrearCliente.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormRestore.resx">
       <DependentUpon>FormRestore.cs</DependentUpon>
@@ -317,6 +344,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\icons8-buscar-50.png" />
+    <None Include="Resources\icons8-buscar-25.png" />
     <Content Include="Resources\OjoAbierto.png" />
     <Content Include="Resources\OjoCerrado.png" />
     <None Include="Resources\trash-can.png" />

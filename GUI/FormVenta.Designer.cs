@@ -16,6 +16,8 @@ namespace GUI
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormVenta));
             this.BarraTitulo = new System.Windows.Forms.Panel();
+            this.btnCerrar = new System.Windows.Forms.PictureBox();
+            this.btnMinimizar = new System.Windows.Forms.PictureBox();
             this.lblTituloVenta = new System.Windows.Forms.Label();
             this.dgvCatalogo = new System.Windows.Forms.DataGridView();
             this.nudCantidad = new System.Windows.Forms.NumericUpDown();
@@ -33,21 +35,25 @@ namespace GUI
             this.panel3 = new System.Windows.Forms.Panel();
             this.btnVolver = new System.Windows.Forms.Button();
             this.panel4 = new System.Windows.Forms.Panel();
+            this.btnLimpiar = new System.Windows.Forms.Button();
+            this.btnAplicarFiltro = new System.Windows.Forms.Button();
+            this.lblCategoriaLibro = new System.Windows.Forms.Label();
+            this.lblAutorLibro = new System.Windows.Forms.Label();
+            this.lblTituloLibro = new System.Windows.Forms.Label();
+            this.cmbCategoria = new System.Windows.Forms.ComboBox();
+            this.cmbAutor = new System.Windows.Forms.ComboBox();
+            this.txtTitulo = new System.Windows.Forms.TextBox();
             this.lblCantidadVenta = new System.Windows.Forms.Label();
             this.panel5 = new System.Windows.Forms.Panel();
             this.panel6 = new System.Windows.Forms.Panel();
             this.lblMedioDePago = new System.Windows.Forms.Label();
-            this.txtTitulo = new System.Windows.Forms.TextBox();
-            this.cmbAutor = new System.Windows.Forms.ComboBox();
-            this.cmbCategoria = new System.Windows.Forms.ComboBox();
-            this.lblTituloLibro = new System.Windows.Forms.Label();
-            this.lblAutorLibro = new System.Windows.Forms.Label();
-            this.lblCategoriaLibro = new System.Windows.Forms.Label();
-            this.btnAplicarFiltro = new System.Windows.Forms.Button();
-            this.btnLimpiar = new System.Windows.Forms.Button();
-            this.btnCerrar = new System.Windows.Forms.PictureBox();
-            this.btnMinimizar = new System.Windows.Forms.PictureBox();
+            this.panel7 = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
+            this.cmbDescuento = new System.Windows.Forms.ComboBox();
+            this.label2 = new System.Windows.Forms.Label();
             this.BarraTitulo.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.btnCerrar)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnMinimizar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCatalogo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudCantidad)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCarrito)).BeginInit();
@@ -57,8 +63,7 @@ namespace GUI
             this.panel4.SuspendLayout();
             this.panel5.SuspendLayout();
             this.panel6.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.btnCerrar)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.btnMinimizar)).BeginInit();
+            this.panel7.SuspendLayout();
             this.SuspendLayout();
             // 
             // BarraTitulo
@@ -72,6 +77,30 @@ namespace GUI
             this.BarraTitulo.Name = "BarraTitulo";
             this.BarraTitulo.Size = new System.Drawing.Size(1000, 44);
             this.BarraTitulo.TabIndex = 0;
+            // 
+            // btnCerrar
+            // 
+            this.btnCerrar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnCerrar.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnCerrar.Image = ((System.Drawing.Image)(resources.GetObject("btnCerrar.Image")));
+            this.btnCerrar.Location = new System.Drawing.Point(971, 5);
+            this.btnCerrar.Name = "btnCerrar";
+            this.btnCerrar.Size = new System.Drawing.Size(25, 35);
+            this.btnCerrar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.btnCerrar.TabIndex = 7;
+            this.btnCerrar.TabStop = false;
+            // 
+            // btnMinimizar
+            // 
+            this.btnMinimizar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnMinimizar.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnMinimizar.Image = ((System.Drawing.Image)(resources.GetObject("btnMinimizar.Image")));
+            this.btnMinimizar.Location = new System.Drawing.Point(943, 5);
+            this.btnMinimizar.Name = "btnMinimizar";
+            this.btnMinimizar.Size = new System.Drawing.Size(25, 35);
+            this.btnMinimizar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.btnMinimizar.TabIndex = 6;
+            this.btnMinimizar.TabStop = false;
             // 
             // lblTituloVenta
             // 
@@ -274,6 +303,87 @@ namespace GUI
             this.panel4.Size = new System.Drawing.Size(600, 65);
             this.panel4.TabIndex = 15;
             // 
+            // btnLimpiar
+            // 
+            this.btnLimpiar.BackColor = System.Drawing.Color.Maroon;
+            this.btnLimpiar.BackgroundImage = global::GUI.Properties.Resources.trash_can;
+            this.btnLimpiar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnLimpiar.FlatAppearance.BorderSize = 0;
+            this.btnLimpiar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnLimpiar.ForeColor = System.Drawing.Color.White;
+            this.btnLimpiar.Location = new System.Drawing.Point(552, 14);
+            this.btnLimpiar.Name = "btnLimpiar";
+            this.btnLimpiar.Size = new System.Drawing.Size(35, 35);
+            this.btnLimpiar.TabIndex = 20;
+            this.btnLimpiar.UseVisualStyleBackColor = false;
+            this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click);
+            // 
+            // btnAplicarFiltro
+            // 
+            this.btnAplicarFiltro.BackColor = System.Drawing.Color.Maroon;
+            this.btnAplicarFiltro.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAplicarFiltro.ForeColor = System.Drawing.Color.White;
+            this.btnAplicarFiltro.Location = new System.Drawing.Point(432, 14);
+            this.btnAplicarFiltro.Name = "btnAplicarFiltro";
+            this.btnAplicarFiltro.Size = new System.Drawing.Size(108, 35);
+            this.btnAplicarFiltro.TabIndex = 19;
+            this.btnAplicarFiltro.Text = "Aplicar";
+            this.btnAplicarFiltro.UseVisualStyleBackColor = false;
+            this.btnAplicarFiltro.Click += new System.EventHandler(this.btnAplicarFiltro_Click);
+            // 
+            // lblCategoriaLibro
+            // 
+            this.lblCategoriaLibro.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold);
+            this.lblCategoriaLibro.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.lblCategoriaLibro.Location = new System.Drawing.Point(298, 7);
+            this.lblCategoriaLibro.Name = "lblCategoriaLibro";
+            this.lblCategoriaLibro.Size = new System.Drawing.Size(88, 20);
+            this.lblCategoriaLibro.TabIndex = 19;
+            this.lblCategoriaLibro.Text = "Categoria";
+            // 
+            // lblAutorLibro
+            // 
+            this.lblAutorLibro.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold);
+            this.lblAutorLibro.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.lblAutorLibro.Location = new System.Drawing.Point(178, 8);
+            this.lblAutorLibro.Name = "lblAutorLibro";
+            this.lblAutorLibro.Size = new System.Drawing.Size(51, 18);
+            this.lblAutorLibro.TabIndex = 18;
+            this.lblAutorLibro.Text = "Autor";
+            // 
+            // lblTituloLibro
+            // 
+            this.lblTituloLibro.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold);
+            this.lblTituloLibro.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.lblTituloLibro.Location = new System.Drawing.Point(39, 9);
+            this.lblTituloLibro.Name = "lblTituloLibro";
+            this.lblTituloLibro.Size = new System.Drawing.Size(51, 18);
+            this.lblTituloLibro.TabIndex = 17;
+            this.lblTituloLibro.Text = "Titulo";
+            // 
+            // cmbCategoria
+            // 
+            this.cmbCategoria.FormattingEnabled = true;
+            this.cmbCategoria.Location = new System.Drawing.Point(282, 28);
+            this.cmbCategoria.Name = "cmbCategoria";
+            this.cmbCategoria.Size = new System.Drawing.Size(121, 21);
+            this.cmbCategoria.TabIndex = 2;
+            // 
+            // cmbAutor
+            // 
+            this.cmbAutor.FormattingEnabled = true;
+            this.cmbAutor.Location = new System.Drawing.Point(140, 28);
+            this.cmbAutor.Name = "cmbAutor";
+            this.cmbAutor.Size = new System.Drawing.Size(121, 21);
+            this.cmbAutor.TabIndex = 1;
+            // 
+            // txtTitulo
+            // 
+            this.txtTitulo.Location = new System.Drawing.Point(15, 29);
+            this.txtTitulo.Name = "txtTitulo";
+            this.txtTitulo.Size = new System.Drawing.Size(100, 20);
+            this.txtTitulo.TabIndex = 0;
+            // 
             // lblCantidadVenta
             // 
             this.lblCantidadVenta.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold);
@@ -314,115 +424,58 @@ namespace GUI
             this.lblMedioDePago.TabIndex = 17;
             this.lblMedioDePago.Text = "Medio de Pago:";
             // 
-            // txtTitulo
+            // panel7
             // 
-            this.txtTitulo.Location = new System.Drawing.Point(15, 29);
-            this.txtTitulo.Name = "txtTitulo";
-            this.txtTitulo.Size = new System.Drawing.Size(100, 20);
-            this.txtTitulo.TabIndex = 0;
+            this.panel7.BackColor = System.Drawing.Color.Maroon;
+            this.panel7.Controls.Add(this.label2);
+            this.panel7.Controls.Add(this.label1);
+            this.panel7.Controls.Add(this.cmbDescuento);
+            this.panel7.Location = new System.Drawing.Point(497, 607);
+            this.panel7.Name = "panel7";
+            this.panel7.Size = new System.Drawing.Size(198, 41);
+            this.panel7.TabIndex = 19;
             // 
-            // cmbAutor
+            // label1
             // 
-            this.cmbAutor.FormattingEnabled = true;
-            this.cmbAutor.Location = new System.Drawing.Point(140, 28);
-            this.cmbAutor.Name = "cmbAutor";
-            this.cmbAutor.Size = new System.Drawing.Size(121, 21);
-            this.cmbAutor.TabIndex = 1;
+            this.label1.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold);
+            this.label1.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.label1.Location = new System.Drawing.Point(10, 9);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(94, 25);
+            this.label1.TabIndex = 17;
+            this.label1.Text = "Descuento:";
             // 
-            // cmbCategoria
+            // cmbDescuento
             // 
-            this.cmbCategoria.FormattingEnabled = true;
-            this.cmbCategoria.Location = new System.Drawing.Point(282, 28);
-            this.cmbCategoria.Name = "cmbCategoria";
-            this.cmbCategoria.Size = new System.Drawing.Size(121, 21);
-            this.cmbCategoria.TabIndex = 2;
+            this.cmbDescuento.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbDescuento.Items.AddRange(new object[] {
+            "0",
+            "10",
+            "25",
+            "50",
+            "75",
+            "100"});
+            this.cmbDescuento.Location = new System.Drawing.Point(110, 10);
+            this.cmbDescuento.Name = "cmbDescuento";
+            this.cmbDescuento.Size = new System.Drawing.Size(66, 21);
+            this.cmbDescuento.TabIndex = 5;
+            this.cmbDescuento.SelectedIndexChanged += new System.EventHandler(this.cmbDescuento_SelectedIndexChanged);
             // 
-            // lblTituloLibro
+            // label2
             // 
-            this.lblTituloLibro.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold);
-            this.lblTituloLibro.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.lblTituloLibro.Location = new System.Drawing.Point(39, 9);
-            this.lblTituloLibro.Name = "lblTituloLibro";
-            this.lblTituloLibro.Size = new System.Drawing.Size(51, 18);
-            this.lblTituloLibro.TabIndex = 17;
-            this.lblTituloLibro.Text = "Titulo";
-            // 
-            // lblAutorLibro
-            // 
-            this.lblAutorLibro.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold);
-            this.lblAutorLibro.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.lblAutorLibro.Location = new System.Drawing.Point(178, 8);
-            this.lblAutorLibro.Name = "lblAutorLibro";
-            this.lblAutorLibro.Size = new System.Drawing.Size(51, 18);
-            this.lblAutorLibro.TabIndex = 18;
-            this.lblAutorLibro.Text = "Autor";
-            // 
-            // lblCategoriaLibro
-            // 
-            this.lblCategoriaLibro.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold);
-            this.lblCategoriaLibro.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.lblCategoriaLibro.Location = new System.Drawing.Point(298, 7);
-            this.lblCategoriaLibro.Name = "lblCategoriaLibro";
-            this.lblCategoriaLibro.Size = new System.Drawing.Size(88, 20);
-            this.lblCategoriaLibro.TabIndex = 19;
-            this.lblCategoriaLibro.Text = "Categoria";
-            // 
-            // btnAplicarFiltro
-            // 
-            this.btnAplicarFiltro.BackColor = System.Drawing.Color.Maroon;
-            this.btnAplicarFiltro.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAplicarFiltro.ForeColor = System.Drawing.Color.White;
-            this.btnAplicarFiltro.Location = new System.Drawing.Point(432, 14);
-            this.btnAplicarFiltro.Name = "btnAplicarFiltro";
-            this.btnAplicarFiltro.Size = new System.Drawing.Size(108, 35);
-            this.btnAplicarFiltro.TabIndex = 19;
-            this.btnAplicarFiltro.Text = "Aplicar";
-            this.btnAplicarFiltro.UseVisualStyleBackColor = false;
-            this.btnAplicarFiltro.Click += new System.EventHandler(this.btnAplicarFiltro_Click);
-            // 
-            // btnLimpiar
-            // 
-            this.btnLimpiar.BackColor = System.Drawing.Color.Maroon;
-            this.btnLimpiar.BackgroundImage = global::GUI.Properties.Resources.trash_can;
-            this.btnLimpiar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnLimpiar.FlatAppearance.BorderSize = 0;
-            this.btnLimpiar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnLimpiar.ForeColor = System.Drawing.Color.White;
-            this.btnLimpiar.Location = new System.Drawing.Point(552, 14);
-            this.btnLimpiar.Name = "btnLimpiar";
-            this.btnLimpiar.Size = new System.Drawing.Size(35, 35);
-            this.btnLimpiar.TabIndex = 20;
-            this.btnLimpiar.UseVisualStyleBackColor = false;
-            this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click);
-            // 
-            // btnCerrar
-            // 
-            this.btnCerrar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnCerrar.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnCerrar.Image = ((System.Drawing.Image)(resources.GetObject("btnCerrar.Image")));
-            this.btnCerrar.Location = new System.Drawing.Point(971, 5);
-            this.btnCerrar.Name = "btnCerrar";
-            this.btnCerrar.Size = new System.Drawing.Size(25, 35);
-            this.btnCerrar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.btnCerrar.TabIndex = 7;
-            this.btnCerrar.TabStop = false;
-            // 
-            // btnMinimizar
-            // 
-            this.btnMinimizar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnMinimizar.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnMinimizar.Image = ((System.Drawing.Image)(resources.GetObject("btnMinimizar.Image")));
-            this.btnMinimizar.Location = new System.Drawing.Point(943, 5);
-            this.btnMinimizar.Name = "btnMinimizar";
-            this.btnMinimizar.Size = new System.Drawing.Size(25, 35);
-            this.btnMinimizar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.btnMinimizar.TabIndex = 6;
-            this.btnMinimizar.TabStop = false;
+            this.label2.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold);
+            this.label2.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.label2.Location = new System.Drawing.Point(177, 10);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(20, 25);
+            this.label2.TabIndex = 18;
+            this.label2.Text = "%";
             // 
             // FormVenta
             // 
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
             this.ClientSize = new System.Drawing.Size(1000, 759);
+            this.Controls.Add(this.panel7);
             this.Controls.Add(this.panel6);
             this.Controls.Add(this.panel5);
             this.Controls.Add(this.panel4);
@@ -439,6 +492,8 @@ namespace GUI
             this.Name = "FormVenta";
             this.Load += new System.EventHandler(this.FormVenta_Load);
             this.BarraTitulo.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.btnCerrar)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnMinimizar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCatalogo)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudCantidad)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCarrito)).EndInit();
@@ -449,8 +504,7 @@ namespace GUI
             this.panel4.PerformLayout();
             this.panel5.ResumeLayout(false);
             this.panel6.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.btnCerrar)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.btnMinimizar)).EndInit();
+            this.panel7.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -488,5 +542,9 @@ namespace GUI
         private System.Windows.Forms.ComboBox cmbAutor;
         private System.Windows.Forms.TextBox txtTitulo;
         private System.Windows.Forms.Button btnLimpiar;
+        private System.Windows.Forms.Panel panel7;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ComboBox cmbDescuento;
+        private System.Windows.Forms.Label label2;
     }
 }

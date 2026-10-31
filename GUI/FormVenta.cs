@@ -18,7 +18,8 @@ namespace GUI
         private readonly List<Libro> catalogo = new List<Libro>();
         private readonly BindingList<DetalleVenta> carrito = new BindingList<DetalleVenta>();
         private int nroVentaConfirmada = -1;
-        private readonly string dniEmpleadoActual; // se recibe por constructor desde la sesión (Singleton de Login)
+        private readonly string dniEmpleadoActual; 
+        private string dniClienteSeleccionado;
 
         public FormVenta(string dniEmpleado)
         {
@@ -28,7 +29,6 @@ namespace GUI
             btnConfirmar.Enabled = false;
         }
 
-        // CU-001: Visualizar Catálogo
         private void FormVenta_Load(object sender, EventArgs e)
         {
             try
@@ -39,6 +39,7 @@ namespace GUI
                 catalogo.AddRange(ventaBLL.ObtenerCatalogo());
                 dgvCatalogo.DataSource = catalogo;
                 cmbMedioPago.SelectedIndex = 0;
+                cmbDescuento.SelectedIndex = 0;
                 cmbAutor.Items.AddRange(libroBLL.ListarAutores());
                 cmbCategoria.Items.AddRange(libroBLL.ListarCategorias());
             }
@@ -48,7 +49,6 @@ namespace GUI
             }
         }
 
-        // CU-002: Seleccionar Producto
         private void btnAgregar_Click(object sender, EventArgs e)
         {
             if (dgvCatalogo.CurrentRow == null) return;
@@ -104,32 +104,39 @@ namespace GUI
             RecalcularTotales();
         }
 
-        // CU-003: Aplicar Descuento (automático)
         private void RecalcularTotales()
         {
             decimal subtotal = carrito.Sum(d => d.Subtotal);
             string medioPago = cmbMedioPago.SelectedItem?.ToString();
 
-            decimal promoAplicada = 0;
+            int promoAplicada = int.TryParse(cmbDescuento.Text, out int resultado) ? resultado : 0;
 
-            decimal total = ventaBLL.CalcularTotal(carrito.ToList(), promoAplicada, out decimal descuento);
+            decimal total = ventaBLL.CalcularTotal(carrito.ToList(), medioPago, promoAplicada, out decimal descuento);
 
             lblSubtotal.Text = $"{LanguageManager.Instance.GetTraduction("lblSubtotal")}: ${subtotal:0.00}";
-            lblDescuento.Text = $"{LanguageManager.Instance.GetTraduction("lblDescuento")}: -$0.00";
+            lblDescuento.Text = $"{LanguageManager.Instance.GetTraduction("lblDescuento")}: -${descuento:0.00}";
             lblTotal.Text = $"{LanguageManager.Instance.GetTraduction("lblTotal")}: ${total:0.00}";
         }
 
-        // CU-004: Registrar Venta
         private void btnConfirmar_Click(object sender, EventArgs e)
         {
             if (carrito.Count == 0)
             {
-                MessageBox.Show("No hay productos cargados en la venta.", "Venta", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(LanguageManager.Instance.GetTraduction("msjErrorVentaCarrito"), LanguageManager.Instance.GetTraduction("Venta"), MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
 
+            using (var selectorClientes = new formCarritoClientes())
+            {
+                if (selectorClientes.ShowDialog(this) != DialogResult.OK)
+                    return;
+
+                dniClienteSeleccionado = selectorClientes.DniSeleccionado;
+            }
+
+            int promoAplicada = int.TryParse(cmbDescuento.Text, out int resultado) ? resultado : 0;
             decimal subtotal = carrito.Sum(d => d.Subtotal);
-            decimal total = ventaBLL.CalcularTotal(carrito.ToList(), 0, out decimal descuento);
+            decimal total = ventaBLL.CalcularTotal(carrito.ToList(), cmbMedioPago.SelectedItem?.ToString(), promoAplicada, out decimal descuento);
 
             string usuario = SessionManager.Instance.UsuarioActual().DNI;
 
@@ -140,14 +147,13 @@ namespace GUI
                 MedioDePago = cmbMedioPago.SelectedItem?.ToString(),   
                 Subtotal = subtotal,
                 Descuento = descuento,
+                DniCliente = dniClienteSeleccionado,
                 Detalle = carrito.ToList()
             };
-            // TODO: agregar PromocionId al set de Venta si aplica
-
             try
             {
                 ventaBLL.ConfirmarVenta(venta);
-                MessageBox.Show($"Venta registrada con éxito.", "Venta",
+                MessageBox.Show(LanguageManager.Instance.GetTraduction("msjVentaExitosa"), LanguageManager.Instance.GetTraduction("Venta"),
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
                 
                 SaveFileDialog saveFileDialog = new SaveFileDialog
@@ -161,7 +167,7 @@ namespace GUI
                     // Generar el documento
                     ComprobanteService.GenerarComprobantePDF(venta, saveFileDialog.FileName);
 
-                    MessageBox.Show("Comprobante generado con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show(LanguageManager.Instance.GetTraduction("msjComprobanteExitoso"), LanguageManager.Instance.GetTraduction("Éxito"), MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                     // Abrir el PDF automáticamente en el visor de PDF por defecto de Windows
                     System.Diagnostics.Process.Start(saveFileDialog.FileName);
@@ -179,9 +185,8 @@ namespace GUI
             }
             catch (Exception ex)
             {
-                // Flujo alternativo CU-004: no se modifica stock, se informa el error
-                MessageBox.Show("Error al confirmar la venta. La operación no pudo ser procesada.\n" + ex.Message,
-                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(LanguageManager.Instance.GetTraduction("msjErrorVenta"),
+                    LanguageManager.Instance.GetTraduction("Error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -203,7 +208,14 @@ namespace GUI
         private void btnAplicarFiltro_Click(object sender, EventArgs e)
         {
             catalogo.Clear();
+
+
             catalogo.AddRange(ventaBLL.FiltrarCatalogo(cmbCategoria.Text, cmbAutor.Text, txtTitulo.Text));
+
+            if (catalogo.Count == 0)
+            {
+                MessageBox.Show(LanguageManager.Instance.GetTraduction("msjErrorFiltros"), LanguageManager.Instance.GetTraduction("Error"), MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
             dgvCatalogo.DataSource = null;
             dgvCatalogo.DataSource = catalogo;
             dgvCatalogo.ClearSelection();
@@ -242,6 +254,11 @@ namespace GUI
 
             btnAplicarFiltro.Text = LanguageManager.Instance.GetTraduction("btnAplicarFiltro");
             btnConfirmar.Text = LanguageManager.Instance.GetTraduction("btnConfirmar");
+        }
+
+        private void cmbDescuento_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            RecalcularTotales();
         }
     }
 }

@@ -176,12 +176,12 @@ namespace DAL
             }
         }
 
-        public List<Libro> ListarTodosLosLibros()
+        public List<Libro> ListarTodosLosLibrosDVH()
         {
             List<Libro> lista = new List<Libro>();
             try
             {
-                string query = @"SELECT CodigoInterno, ISBN, Titulo, Autor, Categoria, Ubicacion, Precio, StockDisponible
+                string query = @"SELECT CodigoInterno, ISBN, Titulo, Autor, Categoria, Ubicacion, Precio, StockDisponible, Activo, DVH
                       FROM Libro";
                 _sqlcommand.Parameters.Clear();
 
@@ -200,7 +200,9 @@ namespace DAL
                             Categoria = reader["Categoria"].ToString(),
                             Ubicacion = reader["Ubicacion"].ToString(),
                             Precio = (decimal)reader["Precio"],
-                            StockDisponible = (int)reader["StockDisponible"]
+                            StockDisponible = (int)reader["StockDisponible"],
+                            Activo = Convert.ToInt32(reader["Activo"]),
+                            DVH = reader["DVH"].ToString()
                         });
                     }
                 }
@@ -214,6 +216,44 @@ namespace DAL
             }
         }
 
+        public List<Libro> ListarTodosLosLibros()
+        {
+            List<Libro> lista = new List<Libro>();
+            try
+            {
+                string query = @"SELECT CodigoInterno, ISBN, Titulo, Autor, Categoria, Ubicacion, Precio, StockDisponible, Activo
+                      FROM Libro";
+                _sqlcommand.Parameters.Clear();
+
+                _sqlcommand.CommandText = query;
+                _sqlserver.Open();
+                using (SqlDataReader reader = _sqlcommand.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        lista.Add(new Libro
+                        {
+                            CodigoInterno = Convert.ToInt32(reader["CodigoInterno"]),
+                            ISBN = reader["ISBN"].ToString(),
+                            Titulo = reader["Titulo"].ToString(),
+                            Autor = reader["Autor"].ToString(),
+                            Categoria = reader["Categoria"].ToString(),
+                            Ubicacion = reader["Ubicacion"].ToString(),
+                            Precio = (decimal)reader["Precio"],
+                            StockDisponible = (int)reader["StockDisponible"],
+                            Activo = Convert.ToInt32(reader["Activo"])
+                        });
+                    }
+                }
+
+                return lista;
+            }
+            finally
+            {
+                _sqlcommand.Parameters.Clear();
+                _sqlserver.Close();
+            }
+        }
         public object [] ListarCategorias()
         {
             List<string> categorias = new List<string>();

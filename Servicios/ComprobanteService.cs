@@ -37,6 +37,7 @@ namespace Servicios
                 doc.Add(new Paragraph($"Fecha: {venta.Fecha:dd/MM/yyyy HH:mm}", textoFont));
                 doc.Add(new Paragraph($"Atendido por DNI: {venta.DniUsuario}", textoFont));
                 doc.Add(new Paragraph($"Medio de Pago: {venta.MedioDePago}", textoFont));
+                doc.Add(new Paragraph($"DNI del Cliente: {venta.DniCliente}", textoFont));
                 doc.Add(new Paragraph("\n"));
 
                 // 5. Tabla de Productos

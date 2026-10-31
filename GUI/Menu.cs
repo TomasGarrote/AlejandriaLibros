@@ -25,6 +25,7 @@ namespace GUI
         {
             panelAdminSubmenu.Visible = false;
             panelUsuarioSubmenu.Visible = false;
+            panelMaestroSubmenu.Visible = false;
 
         }
         private void esconderSubmenu()
@@ -33,6 +34,8 @@ namespace GUI
                 panelAdminSubmenu.Visible = false;
             if (panelUsuarioSubmenu.Visible == true)
                 panelUsuarioSubmenu.Visible = false;
+            if (panelMaestroSubmenu.Visible == true)
+                panelMaestroSubmenu.Visible = false;
         }
         private void mostrarSubmenu(Panel submenu)
         {
@@ -146,7 +149,7 @@ namespace GUI
 
         private void btnReLogin_Click(object sender, EventArgs e)
         {
-            if(SessionManager.Instance != null )
+            if (SessionManager.Instance.Logueado())
             {
                 MessageBox.Show(LanguageManager.Instance.GetTraduction("YaHaySesionActiva"), LanguageManager.Instance.GetTraduction("Informacion"), MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
@@ -158,16 +161,26 @@ namespace GUI
             string Decision = MessageBox.Show(LanguageManager.Instance.GetTraduction("menumsj1"), LanguageManager.Instance.GetTraduction("menumsj2"), MessageBoxButtons.YesNo).ToString();
             if (Decision == "Yes")
             {
-                IdiomaBLL idiomaBLL = new IdiomaBLL();
+                try
+                {
+                    IdiomaBLL idiomaBLL = new IdiomaBLL();
+                    UsuarioBLL usuarioBLL = new UsuarioBLL();
 
-                string username = SessionManager.Instance.UsuarioActual().Username;
-                idiomaBLL.GuardarIdioma(username, LanguageManager.Instance.CodigoIdiomaActual);
+                    string username = SessionManager.Instance.UsuarioActual().Username;
+                    idiomaBLL.GuardarIdioma(username, LanguageManager.Instance.CodigoIdiomaActual);
 
-                SessionManager.Instance.Desloguear();
+                    // El cierre de sesión debe limpiar SessionManager antes
+                    // de volver a mostrar la pantalla de login.
+                    usuarioBLL.Desloguear();
 
-                this.Hide();
-                Login login = new Login();
-                login.Show();
+                    this.Hide();
+                    Login login = new Login();
+                    login.Show();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Cerrar sesión", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
             
         }
@@ -247,9 +260,21 @@ namespace GUI
 
         private void btnMaestro_Click(object sender, EventArgs e)
         {
+            mostrarSubmenu(panelMaestroSubmenu);
+        }
+
+        private void btnVentas_Click(object sender, EventArgs e)
+        {
             this.Hide();
             FormVenta formVenta = new FormVenta(SessionManager.Instance.UsuarioActual().DNI);
             formVenta.Show();
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            formClientes formCliente = new formClientes();
+            formCliente.Show();
         }
 
         public void Actualizar(LanguageManager lenguaje)
@@ -261,7 +286,9 @@ namespace GUI
             btnRestore.Text = LanguageManager.Instance.GetTraduction("btnRestore");
             btnBitacora.Text = LanguageManager.Instance.GetTraduction("btnBitacora");
             btnDigitoVerificador.Text = LanguageManager.Instance.GetTraduction("btnDigitoVerificador");
+            btnVentas.Text = LanguageManager.Instance.GetTraduction("btnVentas");
             btnMaestro.Text = LanguageManager.Instance.GetTraduction("btnMaestro");
+            btnCliente.Text = LanguageManager.Instance.GetTraduction("btnClientes");
             btnUsuario.Text = LanguageManager.Instance.GetTraduction("btnUsuario");
             btnReLogin.Text = LanguageManager.Instance.GetTraduction("btnReLogin");
             btnCambiarClave.Text = LanguageManager.Instance.GetTraduction("btnCambiarClave");

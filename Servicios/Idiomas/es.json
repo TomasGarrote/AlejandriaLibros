@@ -7,7 +7,9 @@
   "btnRestore": "Restore",
   "btnBitacora": "Bitacora",
   "btnDigitoVerificador": "Dig. Ver.",
-  "btnMaestro": "Venta",
+  "btnMaestro": "Maestro",
+  "btnVentas": "Ventas",
+  "btnClientes": "Clientes",
   "btnUsuario": "Usuario",
   "btnReLogin": "Re_Login",
   "btnCambiarClave": "CambiarClave",
@@ -66,6 +68,19 @@
   "UserMsj1": "Debe seleccionar un perfil.",
   "UserMsj2": "Tu perfil fue modificado y ya no tenés acceso a esta sección.",
   "UserMsj3": "Acceso revocado",
+
+  //Form Clientes
+  "lblTituloClientes": "Clientes",
+  "ClientModif": "Cliente Fue Modificado",
+  "ClientCreado": "Cliente Fue Creado",
+  "ClientBorrado": "Cliente Fue Borrado",
+  "btnBorrar": "Borrar",
+  "lblTelefono": "Teléfono",
+  "btnSeleccionar": "Seleccionar",
+  "msjErrorCrearCliente": "Error al crear cliente",
+  "MsjNoEncotroCliente": "No se encontró un cliente con ese DNI. ¿Desea crearlo?",
+  "AlertaClienteNoEncontrado": "Cliente no encontrado",
+
 
   //Form Cambiar contraserña
   "lblUsuarioFCC": "Usuario",
@@ -264,6 +279,19 @@
   "btnVolver": "Volver",
   "btnAplicarFiltro": "Aplicar",
   "btnConfirmar": "Confirmar Venta",
+
+  "msjErrorVenta": "Error al confirmar la venta. La operación no pudo ser procesada.",
+  "msjErrorVentaCarrito": "No hay productos cargados en el carrito.",
+  "msjVentaExitosa": "Venta registrada con éxito.",
+  "msjComprobanteExitoso": "Comprobante generado con éxito.",
+  "msjErrorFiltros": "No se encontraron resultados para los filtros aplicados.",
+  "StockInsuficiente": "La operación no puede completarse por falta de stock. Stock disponible",
+  "DescuentoInvalido": "El descuento ingresado no es válido",
+  "msjCantidadInvalida": "La cantidad debe ser mayor a cero",
+  "msjNoHayEjemplares": "No existen ejemplares disponibles en el momento",
+  "Exito": "Éxito",
+  "Error": "Error",
+  "Venta": "Venta",
 
   //Sesion manager
   "UserLogueado": "Ya hay un usuario logueado.",

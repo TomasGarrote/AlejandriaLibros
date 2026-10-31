@@ -21,7 +21,7 @@ namespace BLL
             {
                 var lista = libroBLL.ListarDisponibles();
                 if (lista.Count == 0)
-                    throw new Exception("No existen ejemplares disponibles en el momento");
+                    throw new Exception($"{LanguageManager.Instance.GetTraduction("msjNoHayEjemplares")}");
                 return lista;
             }
             catch (Exception ex)
@@ -37,8 +37,7 @@ namespace BLL
             try
             {
                 var lista = libroBLL.ListarLibrosPorFiltro(categoria, autor, titulo, "", "");
-                if (lista.Count == 0)
-                    throw new Exception("No se encontraron resultados para los filtros aplicados");
+                    
                 return lista;
             }
             catch (Exception ex)
@@ -54,10 +53,10 @@ namespace BLL
             {
                 int stockDisponible = libroBLL.ConsultarStock(codigoInterno);
                 if (cantidadSolicitada <= 0)
-                    throw new Exception("La cantidad debe ser mayor a cero");
+                    throw new Exception($"{LanguageManager.Instance.GetTraduction("msjCantidadInvalida")}");
                 if (cantidadSolicitada > stockDisponible)
                     throw new Exception(
-                        $"La operación no puede completarse por falta de stock. Stock disponible: {stockDisponible}");
+                        $"{LanguageManager.Instance.GetTraduction("StockInsuficiente")}: {stockDisponible}");
             }
             catch (Exception ex)
             {
@@ -66,14 +65,30 @@ namespace BLL
             
         }
 
-        public decimal CalcularTotal(List<DetalleVenta> detalle, decimal descuento, out decimal subtotal)
+        public decimal CalcularTotal(List<DetalleVenta> detalle, string medioPago, int descuentoAplicado, out decimal descuentoTotal)
         {
             try
             {
-                subtotal = detalle.Sum(d => d.Subtotal);
-                if (descuento < 0 || descuento > subtotal)
-                    throw new Exception("El descuento ingresado no es válido");
-                return subtotal - descuento;
+                decimal subtotal = detalle.Sum(d => d.Subtotal);
+                if (descuentoAplicado < 0 || descuentoAplicado > 100)
+                    throw new Exception($"{LanguageManager.Instance.GetTraduction("DescuentoInvalido")}");
+                descuentoTotal = subtotal * (descuentoAplicado / 100m);
+
+                subtotal -= descuentoTotal;
+
+                if(medioPago == "Efectivo")
+                {
+                    decimal descuentoEfectivo = subtotal * 0.10m;
+
+                    // Validamos que al restar este descuento el total siga siendo mayor o igual a cero
+                    if (subtotal - descuentoEfectivo >= 0)
+                    {
+                        subtotal -= descuentoEfectivo;
+                        descuentoTotal += descuentoEfectivo; // Opcional: sumamos este descuento al total reportado
+                    }
+                }
+
+                return subtotal;
             }
             catch (Exception ex)
             {
@@ -88,12 +103,11 @@ namespace BLL
             try
             {
                 if (venta.Detalle == null || venta.Detalle.Count == 0)
-                    throw new Exception("No hay productos cargados en la venta");
+                    throw new Exception($"{LanguageManager.Instance.GetTraduction("msjErrorVentaCarrito")}");
                 foreach (DetalleVenta detalle in venta.Detalle)
                 {
                     libroBLL.DescontarStock(detalle.CodigoLibro, detalle.Cantidad);
                 }
-                ventaDAL.RegistrarVenta(venta);
                 _digitoVerificadorBLL.RecalcularDVH_Libro();
                 _digitoVerificadorBLL.RecalcularDVH_Detalle();
                 _digitoVerificadorBLL.RecalcularDVH_Venta();

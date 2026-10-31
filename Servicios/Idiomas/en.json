@@ -7,7 +7,9 @@
   "btnRestore": "Restore",
   "btnBitacora": "Logs",
   "btnDigitoVerificador": "Digit Ver.",
-  "btnMaestro": "Sale",
+  "btnMaestro": "Master",
+  "btnVentas": "Sales",
+  "btnClientes": "Clients",
   "btnUsuario": "User",
   "btnReLogin": "Re_Login",
   "btnCambiarClave": "ChangePassword",
@@ -66,6 +68,18 @@
   "UserMsj1": "You must select a profile.",
   "UserMsj2": "Your profile has been modified and you no longer have access to this section.",
   "UserMsj3": "Access revoked",
+
+  //Form Clientes
+  "lblTituloClientes": "Clients",
+  "ClientModif": "Client Was Modified",
+  "ClientCreado": "Client Was Created",
+  "ClientBorrado": "Client Was Deleted",
+  "btnBorrar": "Delete",
+  "lblTelefono": "Phone",
+  "btnSeleccionar": "Select",
+  "msjErrorCrearCliente": "Error creating client",
+  "MsjNoEncotroCliente": "No client found with that DNI. Do you want to create it?",
+  "AlertaClienteNoEncontrado": "Client not found",
 
   //Form Cambiar contraserña
   "lblUsuarioFCC": "User",
@@ -260,6 +274,18 @@
   "btnVolver": "Back",
   "btnAplicarFiltro": "Apply",
   "btnConfirmar": "Confirm Sale",
+  "msjErrorVenta": "Error recording the sale. The operation could not be processed.",
+  "msjErrorVentaCarrito": "There are no products loaded in the cart.",
+  "msjVentaExitosa": "Sale recorded successfully.",
+  "msjComprobanteExitoso": "Receipt generated successfully.",
+  "msjErrorFiltros": "No results found for the applied filters.",
+  "StockInsuficiente": "The operation cannot be completed due to insufficient stock. Available stock",
+  "DescuentoInvalido": "The entered discount is not valid",
+  "msjCantidadInvalida": "The quantity must be greater than zero",
+  "msjNoHayEjemplares": "No available copies at the moment",
+  "Exito": "Success",
+  "Error": "Error",
+  "Venta": "Sale",
 
   //Sesion manager
   "UserLogueado": "A user is already logged in.",

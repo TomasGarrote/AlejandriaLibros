@@ -18,6 +18,7 @@ namespace BLL
         private readonly IdiomaDAL _idiomaDal = new IdiomaDAL();
         private readonly VentaDAL _ventaDal = new VentaDAL();
         private readonly LibroDAL _libroDal = new LibroDAL();
+        private readonly ClienteDAL _clienteDal = new ClienteDAL();
 
 
         public void RecalcularDVH_Usuario()
@@ -42,7 +43,7 @@ namespace BLL
 
         public void RecalcularDVH_Venta()
         {
-            var listaVentas = _ventaDal.ListarTodasLasVentas();
+            var listaVentas = _ventaDal.ListarTodasLasVentasDVH();
             foreach (var venta in listaVentas)
             {
                 string dvhCalculado = venta.NroVenta +
@@ -69,13 +70,13 @@ namespace BLL
                         detVenta.Cantidad.ToString() +
                         detVenta.Subtotal.ToString();
 
-                _ventaDal.ActualizarDetalleDVH(detVenta.NroVenta.ToString(), DigitoVerificador.CalcularDVH(dvhCalculado));
+                _ventaDal.ActualizarDetalleDVH(detVenta.NroVenta, detVenta.CodigoLibro, DigitoVerificador.CalcularDVH(dvhCalculado));
             }
         }
 
         public void RecalcularDVH_Libro()
         {
-            var listarLibros = _libroDal.ListarTodosLosLibros();
+            var listarLibros = _libroDal.ListarTodosLosLibrosDVH();
             foreach (var libro in listarLibros)
             {
                 string dvhCalculado = libro.CodigoInterno.ToString()
@@ -92,6 +93,20 @@ namespace BLL
             }
         }
 
+        public void RecalcularDVH_Cliente()
+        {
+            var listarClientes = new ClienteDAL().ListarClientesDVH();
+            foreach (var cliente in listarClientes)
+            {
+                string dvhCalculado = cliente.DNI.ToString()
+                    + cliente.Nombre
+                    + cliente.Apellido
+                    + cliente.Telefono
+                        + cliente.Email
+                        + cliente.Activo.ToString();
+                _clienteDal.ActualizarDVH(cliente.DNI, DigitoVerificador.CalcularDVH(dvhCalculado));
+            }
+        }
 
         public void RecalcularDVH_Bitacora()
         {
@@ -214,7 +229,7 @@ namespace BLL
 
         public void RecalcularDVV_Libro()
         {
-            var lista = _libroDal.ListarTodosLosLibros();
+            var lista = _libroDal.ListarTodosLosLibrosDVH();
             var datos = new Dictionary<string, List<string>> {
                 { "CodigoInterno", lista.Select(x => x.CodigoInterno.ToString()).ToList() },
                 { "ISBN", lista.Select(x => x.ISBN).ToList() },
@@ -231,7 +246,7 @@ namespace BLL
 
         public void RecalcularDVV_Venta()
         {
-            var lista = _ventaDal.ListarTodasLasVentas();
+            var lista = _ventaDal.ListarTodasLasVentasDVH();
             var datos = new Dictionary<string, List<string>> {
                 { "NroVenta", lista.Select(x => x.NroVenta.ToString()).ToList() },
                 { "Fecha", lista.Select(x => x.Fecha.ToString("yyyy-MM-dd HH:mm:ss")).ToList() },
@@ -257,6 +272,19 @@ namespace BLL
             RecalcularDVVDeTablaGenerica("DetalleVenta", datos);
         }
 
+        public void RecalcularDVV_Cliente()
+        {
+            var lista = new ClienteDAL().ListarClientesDVH();
+            var datos = new Dictionary<string, List<string>> {
+                { "DNI", lista.Select(x => x.DNI.ToString()).ToList() },
+                { "Nombre", lista.Select(x => x.Nombre).ToList() },
+                { "Apellido", lista.Select(x => x.Apellido).ToList() },
+                { "Telefono", lista.Select(x => x.Telefono).ToList() },
+                { "Email", lista.Select(x => x.Email).ToList() },
+                { "Activo", lista.Select(x => x.Activo.ToString()).ToList() }
+            };
+            RecalcularDVVDeTablaGenerica("Cliente", datos);
+        }
 
         private void RecalcularDVVDeTablaGenerica(string nombreTabla, Dictionary<string, List<string>> columnasData)
         {
@@ -367,7 +395,7 @@ namespace BLL
 
             AgregarErroresAlReporteOptimizada("Familia", "Nombre", x => x.Nombre, x => x.DVH, CalcularDVH_Familia, listaFamilia, colsErrFamilia, reporteInconsistencias);
 
-            var listaVenta = _ventaDal.ListarTodasLasVentas();
+            var listaVenta = _ventaDal.ListarTodasLasVentasDVH();
             List<string> colsErrVenta = new List<string>();
             if (DigitoVerificador.CalcularDVV(listaVenta.Select(x => x.NroVenta.ToString()).ToList()) != (_controlDVDal.ObtenerDVV("Venta", "NroVenta") ?? "0")) colsErrVenta.Add("NroVenta");
             if (DigitoVerificador.CalcularDVV(listaVenta.Select(x => x.Fecha.ToString("yyyy-MM-dd HH:mm:ss")).ToList()) != (_controlDVDal.ObtenerDVV("Venta", "Fecha") ?? "0")) colsErrVenta.Add("Fecha");
@@ -390,7 +418,7 @@ namespace BLL
             
             AgregarErroresAlReporteOptimizada("DetalleVenta", "NroVenta", x => x.NroVenta.ToString(), x => x.DVH, CalcularDVH_DetalleVenta, listaDetalle, colsErrDetalle, reporteInconsistencias);
 
-            var listaLibro = _libroDal.ListarTodosLosLibros();
+            var listaLibro = _libroDal.ListarTodosLosLibrosDVH();
             List<string> colsErrLibro = new List<string>();
             if (DigitoVerificador.CalcularDVV(listaLibro.Select(x => x.CodigoInterno.ToString()).ToList()) != (_controlDVDal.ObtenerDVV("Libro", "CodigoInterno") ?? "0")) colsErrLibro.Add("CodigoInterno");
             if (DigitoVerificador.CalcularDVV(listaLibro.Select(x => x.ISBN.ToString()).ToList()) != (_controlDVDal.ObtenerDVV("Libro", "ISBN") ?? "0")) colsErrLibro.Add("ISBN");
@@ -403,7 +431,19 @@ namespace BLL
             if (DigitoVerificador.CalcularDVV(listaLibro.Select(x => x.Activo.ToString()).ToList()) != (_controlDVDal.ObtenerDVV("Libro", "Activo") ?? "0")) colsErrLibro.Add("Activo");
 
             AgregarErroresAlReporteOptimizada("Libro", "CodigoInterno", x => x.CodigoInterno.ToString(), x => x.DVH, CalcularDVH_Libro, listaLibro, colsErrLibro, reporteInconsistencias);
-            return reporteInconsistencias;
+            
+
+            var listaCliente = _clienteDal.ListarClientesDVH();  
+            List<string> colsErrCliente = new List<string>();
+            if (DigitoVerificador.CalcularDVV(listaCliente.Select(x => x.DNI.ToString()).ToList()) != (_controlDVDal.ObtenerDVV("Cliente", "DNI") ?? "0")) colsErrCliente.Add("DNI");
+            if (DigitoVerificador.CalcularDVV(listaCliente.Select(x => x.Nombre).ToList()) != (_controlDVDal.ObtenerDVV("Cliente", "Nombre") ?? "0")) colsErrCliente.Add("Nombre");
+            if (DigitoVerificador.CalcularDVV(listaCliente.Select(x => x.Apellido).ToList()) != (_controlDVDal.ObtenerDVV("Cliente", "Apellido") ?? "0")) colsErrCliente.Add("Apellido");
+            if (DigitoVerificador.CalcularDVV(listaCliente.Select(x => x.Telefono).ToList()) != (_controlDVDal.ObtenerDVV("Cliente", "Telefono") ?? "0")) colsErrCliente.Add("Telefono");
+            if (DigitoVerificador.CalcularDVV(listaCliente.Select(x => x.Email).ToList()) != (_controlDVDal.ObtenerDVV("Cliente", "Email") ?? "0")) colsErrCliente.Add("Email");
+            if (DigitoVerificador.CalcularDVV(listaCliente.Select(x => x.Activo.ToString()).ToList()) != (_controlDVDal.ObtenerDVV("Cliente", "Activo") ?? "0")) colsErrCliente.Add("Activo");
+
+            AgregarErroresAlReporteOptimizada("Cliente", "DNI", x => x.DNI.ToString(), x => x.DVH, CalcularDVH_Cliente, listaCliente, colsErrCliente, reporteInconsistencias);
+            return reporteInconsistencias;  
         }
         private void AgregarErroresAlReporteOptimizada<T>(
             string nombreTabla,
@@ -534,9 +574,10 @@ namespace BLL
         private string CalcularDVH_Idioma(Idioma i) => DigitoVerificador.CalcularDVH(i.UserName + i.CodigoIdioma);
         private string CalcularDVH_PermisoSimple(PermisoSimple p) => DigitoVerificador.CalcularDVH(p.Nombre);
         private string CalcularDVH_Familia(Familia f) => DigitoVerificador.CalcularDVH(f.Nombre);
-        private string CalcularDVH_Venta(Venta v) => DigitoVerificador.CalcularDVH(v.NroVenta.ToString() + v.Fecha.ToString() + v.DniUsuario + v.MedioDePago + v.Descuento.ToString() + v.Subtotal.ToString() + v.Total.ToString() + v.Detalle.ToString());
+        private string CalcularDVH_Venta(Venta v) => DigitoVerificador.CalcularDVH(v.NroVenta.ToString() + v.Fecha.ToString("yyyy-MM-dd HH:mm:ss") + v.DniUsuario + v.MedioDePago + v.Descuento.ToString() + v.Subtotal.ToString() + v.Total.ToString() + v.Detalle.ToString());
         private string CalcularDVH_DetalleVenta(DetalleVenta dv) => DigitoVerificador.CalcularDVH(dv.NroVenta.ToString() + dv.CodigoLibro.ToString() + dv.PrecioUnitario.ToString() + dv.Cantidad.ToString() + dv.Subtotal.ToString());
         private string CalcularDVH_Libro(Libro l) => DigitoVerificador.CalcularDVH(l.CodigoInterno.ToString() + l.ISBN + l.Titulo + l.Autor + l.Categoria + l.Ubicacion + l.Precio.ToString() + l.StockDisponible.ToString() + l.Activo.ToString());
+        private string CalcularDVH_Cliente(Cliente c) => DigitoVerificador.CalcularDVH(c.DNI.ToString() + c.Nombre + c.Apellido + c.Telefono + c.Email + c.Activo.ToString());
 
         public void RecalcularDVV_General()
         {
@@ -551,11 +592,13 @@ namespace BLL
                 RecalcularDVH_Detalle();
                 RecalcularDVH_Libro();
                 RecalcularDVH_Idioma();
+                RecalcularDVH_Cliente();
 
                 
                 
                 RecalcularDVV_Familia();
                 RecalcularDVV_Idioma();
+                RecalcularDVV_Cliente();
                 RecalcularDVV_Perfil();
                 RecalcularDVV_PermisoSimple();
                 RecalcularDVV_Usuario();
