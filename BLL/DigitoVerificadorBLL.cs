@@ -19,6 +19,7 @@ namespace BLL
         private readonly VentaDAL _ventaDal = new VentaDAL();
         private readonly LibroDAL _libroDal = new LibroDAL();
         private readonly ClienteDAL _clienteDal = new ClienteDAL();
+        private readonly PrestamosDAL _prestamoDal = new PrestamosDAL();
 
 
         public void RecalcularDVH_Usuario()
@@ -36,14 +37,34 @@ namespace BLL
                         usuario.Activo +
                         usuario.Rol;
 
-                
+
                 _usuarioDal.ActualizarDVH(usuario.DNI, DigitoVerificador.CalcularDVH(dvhCalculado));
+            }
+        }
+
+        public void RecalcularDVH_Prestamo()
+        {
+            var prestamos = _prestamoDal.ListarTodosLosPrestamos();
+
+            foreach (var prestamo in prestamos)
+            {
+                string cadenaDVH = prestamo.NroPrestamo.ToString()
+                    + prestamo.Estado
+                    + prestamo.CodigoInterno
+                    + prestamo.FechaProgramada.ToString("yyyy-MM-dd HH:mm:ss")
+                    + prestamo.FechaEmision.ToString("yyyy-MM-dd HH:mm:ss")
+                    + prestamo.FechaDevolucionReal?.ToString("yyyy-MM-dd HH:mm:ss") ?? string.Empty
+                    + prestamo.Dni_Cliente.ToString()
+                    + prestamo.Dni_Usuario.ToString();
+
+                string dvh = DigitoVerificador.CalcularDVH(cadenaDVH);
+                _prestamoDal.ActualizarPrestamoDVH(prestamo.NroPrestamo, dvh);
             }
         }
 
         public void RecalcularDVH_Venta()
         {
-            var listaVentas = _ventaDal.ListarTodasLasVentasDVH();
+            var listaVentas = _ventaDal.ListarTodasLasVentas();
             foreach (var venta in listaVentas)
             {
                 string dvhCalculado = venta.NroVenta +
@@ -64,7 +85,9 @@ namespace BLL
             var listaDetalleVentas = _ventaDal.ListarTodosLosDetalles();
             foreach (var detVenta in listaDetalleVentas)
             {
-                string dvhCalculado = detVenta.NroVenta.ToString() +
+                string dvhCalculado = 
+                        detVenta.NroDetalleVenta.ToString() +
+                        detVenta.NroVenta.ToString() +
                         detVenta.CodigoLibro.ToString() +
                         detVenta.PrecioUnitario.ToString() +
                         detVenta.Cantidad.ToString() +
@@ -186,6 +209,28 @@ namespace BLL
             RecalcularDVVDeTablaGenerica("Usuario", datos);
         }
 
+        public void RecalcularDVV_Prestamo()
+        {
+            var prestamos = _prestamoDal.ListarTodosLosPrestamosDVH();
+
+            var columnas = new Dictionary<string, List<string>>
+            {
+                { "NroPrestamo", prestamos.Select(p => p.NroPrestamo.ToString()).ToList() },
+                { "Estado", prestamos.Select(p => p.Estado ?? string.Empty).ToList() },
+                { "CodigoInterno", prestamos.Select(p => p.CodigoInterno ?? string.Empty).ToList() },
+                { "FechaProgramada", prestamos.Select(p => p.FechaProgramada.ToString("yyyy-MM-dd HH:mm:ss")).ToList() },
+                { "FechaEmision", prestamos.Select(p => p.FechaEmision.ToString("yyyy-MM-dd HH:mm:ss")).ToList() },
+                { "FechaDevolucionReal", prestamos.Select(p => p.FechaDevolucionReal?.ToString("yyyy-MM-dd HH:mm:ss") ?? string.Empty).ToList() },
+                { "Dni_Cliente", prestamos.Select(p => p.Dni_Cliente.ToString()).ToList() },
+                { "Dni_Usuario", prestamos.Select(p => p.Dni_Usuario.ToString()).ToList() }
+            };
+
+            foreach (var columna in columnas)
+            {
+                string dvv = DigitoVerificador.CalcularDVV(columna.Value);
+                _controlDVDal.ActualizarDVV("Prestamo", columna.Key, dvv);
+            }
+        }
         public void RecalcularDVV_Bitacora()
         {
             var lista = _bitacoraDal.listarTodosLosEventos();
@@ -263,6 +308,7 @@ namespace BLL
         {
             var lista = _ventaDal.ListarTodosLosDetalles();
             var datos = new Dictionary<string, List<string>> {
+                { "NroDetalleVenta", lista.Select(x => x.NroDetalleVenta.ToString()).ToList() },
                 { "NroVenta", lista.Select(x => x.NroVenta.ToString()).ToList() },
                 { "CodigoLibro", lista.Select(x => x.CodigoLibro.ToString()).ToList() },
                 { "Cantidad", lista.Select(x => x.Cantidad.ToString()).ToList() },
@@ -410,13 +456,14 @@ namespace BLL
 
             var listaDetalle = _ventaDal.ListarTodosLosDetalles();
             List<string> colsErrDetalle = new List<string>();
+            if(DigitoVerificador.CalcularDVV(listaDetalle.Select(x => x.NroDetalleVenta.ToString()).ToList()) != (_controlDVDal.ObtenerDVV("DetalleVenta", "NroDetalleVenta") ?? "0")) colsErrDetalle.Add("NroDetalleVenta");
             if (DigitoVerificador.CalcularDVV(listaDetalle.Select(x => x.NroVenta.ToString()).ToList()) != (_controlDVDal.ObtenerDVV("DetalleVenta", "NroVenta") ?? "0")) colsErrDetalle.Add("NroVenta");
             if (DigitoVerificador.CalcularDVV(listaDetalle.Select(x => x.CodigoLibro.ToString()).ToList()) != (_controlDVDal.ObtenerDVV("DetalleVenta", "CodigoLibro") ?? "0")) colsErrDetalle.Add("CodigoLibro");
             if (DigitoVerificador.CalcularDVV(listaDetalle.Select(x => x.Cantidad.ToString()).ToList()) != (_controlDVDal.ObtenerDVV("DetalleVenta", "Cantidad") ?? "0")) colsErrDetalle.Add("Cantidad");
             if (DigitoVerificador.CalcularDVV(listaDetalle.Select(x => x.PrecioUnitario.ToString()).ToList()) != (_controlDVDal.ObtenerDVV("DetalleVenta", "PrecioUnitario") ?? "0")) colsErrDetalle.Add("PrecioUnitario");
             if (DigitoVerificador.CalcularDVV(listaDetalle.Select(x => x.Subtotal.ToString()).ToList()) != (_controlDVDal.ObtenerDVV("DetalleVenta", "Subtotal") ?? "0")) colsErrDetalle.Add("Subtotal");
             
-            AgregarErroresAlReporteOptimizada("DetalleVenta", "NroVenta", x => x.NroVenta.ToString(), x => x.DVH, CalcularDVH_DetalleVenta, listaDetalle, colsErrDetalle, reporteInconsistencias);
+            AgregarErroresAlReporteOptimizada("DetalleVenta", "NroDetalleVenta", x => x.NroDetalleVenta.ToString(), x => x.DVH, CalcularDVH_DetalleVenta, listaDetalle, colsErrDetalle, reporteInconsistencias);
 
             var listaLibro = _libroDal.ListarTodosLosLibrosDVH();
             List<string> colsErrLibro = new List<string>();
@@ -443,6 +490,21 @@ namespace BLL
             if (DigitoVerificador.CalcularDVV(listaCliente.Select(x => x.Activo.ToString()).ToList()) != (_controlDVDal.ObtenerDVV("Cliente", "Activo") ?? "0")) colsErrCliente.Add("Activo");
 
             AgregarErroresAlReporteOptimizada("Cliente", "DNI", x => x.DNI.ToString(), x => x.DVH, CalcularDVH_Cliente, listaCliente, colsErrCliente, reporteInconsistencias);
+
+            var listaPrestamo = _prestamoDal.ListarTodosLosPrestamosDVH();
+            List<string> colsErrPrestamo = new List<string>();
+
+            if (DigitoVerificador.CalcularDVV(listaPrestamo.Select(x => x.NroPrestamo.ToString()).ToList()) != (_controlDVDal.ObtenerDVV("Prestamo", "NroPrestamo") ?? "0")) colsErrPrestamo.Add("NroPrestamo");
+            if (DigitoVerificador.CalcularDVV(listaPrestamo.Select(x => x.Estado ?? string.Empty).ToList()) != (_controlDVDal.ObtenerDVV("Prestamo", "Estado") ?? "0")) colsErrPrestamo.Add("Estado");
+            if (DigitoVerificador.CalcularDVV(listaPrestamo.Select(x => x.CodigoInterno ?? string.Empty).ToList()) != (_controlDVDal.ObtenerDVV("Prestamo", "CodigoInterno") ?? "0")) colsErrPrestamo.Add("CodigoInterno");
+            if (DigitoVerificador.CalcularDVV(listaPrestamo.Select(x => x.FechaProgramada.ToString("yyyy-MM-dd HH:mm:ss")).ToList()) != (_controlDVDal.ObtenerDVV("Prestamo", "FechaProgramada") ?? "0")) colsErrPrestamo.Add("FechaProgramada");
+            if (DigitoVerificador.CalcularDVV(listaPrestamo.Select(x => x.FechaEmision.ToString("yyyy-MM-dd HH:mm:ss")).ToList()) != (_controlDVDal.ObtenerDVV("Prestamo", "FechaEmision") ?? "0")) colsErrPrestamo.Add("FechaEmision");
+            if (DigitoVerificador.CalcularDVV(listaPrestamo.Select(x => x.FechaDevolucionReal?.ToString("yyyy-MM-dd HH:mm:ss") ?? string.Empty).ToList()) != (_controlDVDal.ObtenerDVV("Prestamo", "FechaDevolucionReal") ?? "0")) colsErrPrestamo.Add("FechaDevolucionReal");
+            if (DigitoVerificador.CalcularDVV(listaPrestamo.Select(x => x.Dni_Cliente.ToString()).ToList()) != (_controlDVDal.ObtenerDVV("Prestamo", "Dni_Cliente") ?? "0")) colsErrPrestamo.Add("Dni_Cliente");
+            if (DigitoVerificador.CalcularDVV(listaPrestamo.Select(x => x.Dni_Usuario.ToString()).ToList()) != (_controlDVDal.ObtenerDVV("Prestamo", "Dni_Usuario") ?? "0")) colsErrPrestamo.Add("Dni_Usuario");
+
+            AgregarErroresAlReporteOptimizada("Prestamo", "NroPrestamo", x => x.NroPrestamo.ToString(), x => x.DVH, CalcularDVH_Prestamo, listaPrestamo, colsErrPrestamo, reporteInconsistencias);
+
             return reporteInconsistencias;  
         }
         private void AgregarErroresAlReporteOptimizada<T>(
@@ -575,9 +637,10 @@ namespace BLL
         private string CalcularDVH_PermisoSimple(PermisoSimple p) => DigitoVerificador.CalcularDVH(p.Nombre);
         private string CalcularDVH_Familia(Familia f) => DigitoVerificador.CalcularDVH(f.Nombre);
         private string CalcularDVH_Venta(Venta v) => DigitoVerificador.CalcularDVH(v.NroVenta.ToString() + v.Fecha.ToString("yyyy-MM-dd HH:mm:ss") + v.DniUsuario + v.MedioDePago + v.Descuento.ToString() + v.Subtotal.ToString() + v.Total.ToString() + v.Detalle.ToString());
-        private string CalcularDVH_DetalleVenta(DetalleVenta dv) => DigitoVerificador.CalcularDVH(dv.NroVenta.ToString() + dv.CodigoLibro.ToString() + dv.PrecioUnitario.ToString() + dv.Cantidad.ToString() + dv.Subtotal.ToString());
+        private string CalcularDVH_DetalleVenta(DetalleVenta dv) => DigitoVerificador.CalcularDVH(dv.NroDetalleVenta.ToString() + dv.NroVenta.ToString() + dv.CodigoLibro.ToString() + dv.PrecioUnitario.ToString() + dv.Cantidad.ToString() + dv.Subtotal.ToString());
         private string CalcularDVH_Libro(Libro l) => DigitoVerificador.CalcularDVH(l.CodigoInterno.ToString() + l.ISBN + l.Titulo + l.Autor + l.Categoria + l.Ubicacion + l.Precio.ToString() + l.StockDisponible.ToString() + l.Activo.ToString());
         private string CalcularDVH_Cliente(Cliente c) => DigitoVerificador.CalcularDVH(c.DNI.ToString() + c.Nombre + c.Apellido + c.Telefono + c.Email + c.Activo.ToString());
+        private string CalcularDVH_Prestamo(Prestamo p) => DigitoVerificador.CalcularDVH(p.NroPrestamo.ToString() + p.Estado + p.CodigoInterno + p.FechaProgramada.ToString("yyyy-MM-dd HH:mm:ss") + p.FechaEmision.ToString("yyyy-MM-dd HH:mm:ss") + p.FechaDevolucionReal?.ToString("yyyy-MM-dd HH:mm:ss") ?? string.Empty + p.Dni_Cliente.ToString() + p.Dni_Usuario.ToString());
 
         public void RecalcularDVV_General()
         {
@@ -593,12 +656,14 @@ namespace BLL
                 RecalcularDVH_Libro();
                 RecalcularDVH_Idioma();
                 RecalcularDVH_Cliente();
+                RecalcularDVH_Prestamo();
 
-                
-                
+
+
                 RecalcularDVV_Familia();
                 RecalcularDVV_Idioma();
                 RecalcularDVV_Cliente();
+                RecalcularDVV_Prestamo();
                 RecalcularDVV_Perfil();
                 RecalcularDVV_PermisoSimple();
                 RecalcularDVV_Usuario();

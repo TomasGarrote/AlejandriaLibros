@@ -15,6 +15,10 @@
   "btnCambiarClave": "パスワード変更",
   "btnLogout": "ログアウト",
   "btnCambiarIdioma": "言語変更",
+  "btnPrestamosDesplegable": "貸出",
+  "btnPrestamo": "貸出",
+  "btnDevolucion": "返却",
+  "btnHistPrestamo": "貸出履歴",
 
   "YaHaySesionActiva": "既にセッションが開始されています。新しいセッションを開始する前にログアウトしてください。",
   "Informacion": "情報",
@@ -288,6 +292,28 @@
   "Exito": "成功",
   "Error": "エラー",
   "Venta": "売上",
+
+  //Form Prestamos
+  "btnConfirmarPrestamo": "貸出を確定",
+  "lblFecha": "日付",
+  "lblDias": "日数",
+  "msjCampoFechaVacio": "日数または日付Fieldが空です",
+  "msjPrestamoExitoso": "貸出が成功しました",
+  "lblTituloLibrosPrestamo": "利用可能な書籍",
+
+  //Form Devolucion
+  "btnConfirmarDevolucion": "返却を確定",
+  "lblTituloPrestamosPendientes": "保留中の貸出",
+  "lblDNICliente": "顧客ID",
+  "msjDevolucionExitosa": "返却が成功しました",
+  "msjNoHayPrestamosPendientes": "保留中の貸出はありません",
+
+  //Form Historial Prestamo
+  "lblPrestamos": "貸出履歴",
+  "lblDesdeFecha": "開始日",
+  "lblHastaFecha": "終了日",
+  "lblEstado": "ステータス",
+  "msjNoHayPrestamos": "現在登録されている貸出はありません",
 
   //Sesion manager
   "UserLogueado": "既にユーザーがログインしています。",

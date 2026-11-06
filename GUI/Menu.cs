@@ -277,6 +277,32 @@ namespace GUI
             formCliente.Show();
         }
 
+        private void btnPrestamosDesplegable_Click(object sender, EventArgs e)
+        {
+            mostrarSubmenu(panelPrestamosSubmenu);
+        }
+
+        private void btnPrestamo_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            formPrestamo formPrestamo = new formPrestamo();
+            formPrestamo.Show();
+        }
+
+        private void btnDevolucion_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            formDevolucion formDevolucion = new formDevolucion();
+            formDevolucion.Show();
+        }
+
+        private void btnHistPrestamo_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            formHistorialPrestamos formHistorialPrestamos = new formHistorialPrestamos();
+            formHistorialPrestamos.Show();
+        }
+
         public void Actualizar(LanguageManager lenguaje)
         {
             btnAdmin.Text = LanguageManager.Instance.GetTraduction("btnAdmin");
@@ -294,6 +320,10 @@ namespace GUI
             btnCambiarClave.Text = LanguageManager.Instance.GetTraduction("btnCambiarClave");
             btnLogout.Text = LanguageManager.Instance.GetTraduction("btnLogout");
             btnCambiarIdioma.Text = LanguageManager.Instance.GetTraduction("btnCambiarIdioma");
+            btnPrestamosDesplegable.Text = LanguageManager.Instance.GetTraduction("btnPrestamosDesplegable");
+            btnPrestamo.Text = LanguageManager.Instance.GetTraduction("btnPrestamo");
+            btnDevolucion.Text = LanguageManager.Instance.GetTraduction("btnDevolucion");
+            btnHistPrestamo.Text = LanguageManager.Instance.GetTraduction("btnHistPrestamo");
         }
     }
 }

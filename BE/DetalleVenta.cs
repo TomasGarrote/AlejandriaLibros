@@ -6,6 +6,7 @@ namespace BE
 {
     public class DetalleVenta
     {
+        public int NroDetalleVenta { get; set; }
         public int NroVenta { get; set; }
         public int CodigoLibro { get; set; }
         public string TituloLibro { get; set; }

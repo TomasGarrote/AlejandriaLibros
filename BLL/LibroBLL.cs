@@ -18,6 +18,11 @@ namespace BLL
             return libroDAL.ListarDisponibles();
         }
 
+        public Libro ConsultarLibro(int codigoInterno)
+        {
+            return libroDAL.ConsultarLibro(codigoInterno);
+        }
+
         public int ConsultarStock(int codigoInterno)
         {
             return libroDAL.ConsultarStock(codigoInterno);
@@ -31,6 +36,18 @@ namespace BLL
             bitacora.Login = SessionManager.Instance.UsuarioActual().Username;
             bitacora.Modulo = "Stock";
             bitacora.Evento = "Se desconto el stock del producto exitosamente";
+            bitacora.Criticidad = 1;
+            _bitacoraBLL.RegistrarEvento(bitacora);
+        }
+
+        public void SumarStock(int codigoInterno, int cantidad)
+        {
+            libroDAL.SumarStock(codigoInterno, cantidad);
+
+            Bitacora bitacora = new Bitacora();
+            bitacora.Login = SessionManager.Instance.UsuarioActual().Username;
+            bitacora.Modulo = "Stock";
+            bitacora.Evento = "Se sumo el stock del producto exitosamente";
             bitacora.Criticidad = 1;
             _bitacoraBLL.RegistrarEvento(bitacora);
         }

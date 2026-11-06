@@ -34,6 +34,14 @@
             this.btnMaximizar = new System.Windows.Forms.PictureBox();
             this.btnMinimizar = new System.Windows.Forms.PictureBox();
             this.MenuVertical = new System.Windows.Forms.Panel();
+            this.panelPrestamosSubmenu = new System.Windows.Forms.Panel();
+            this.panel15 = new System.Windows.Forms.Panel();
+            this.btnHistPrestamo = new System.Windows.Forms.Button();
+            this.panel14 = new System.Windows.Forms.Panel();
+            this.btnDevolucion = new System.Windows.Forms.Button();
+            this.panel12 = new System.Windows.Forms.Panel();
+            this.btnPrestamo = new System.Windows.Forms.Button();
+            this.btnPrestamosDesplegable = new System.Windows.Forms.Button();
             this.panelMaestroSubmenu = new System.Windows.Forms.Panel();
             this.panel13 = new System.Windows.Forms.Panel();
             this.btnCliente = new System.Windows.Forms.Button();
@@ -70,6 +78,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.btnMaximizar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnMinimizar)).BeginInit();
             this.MenuVertical.SuspendLayout();
+            this.panelPrestamosSubmenu.SuspendLayout();
             this.panelMaestroSubmenu.SuspendLayout();
             this.panelUsuarioSubmenu.SuspendLayout();
             this.panelAdminSubmenu.SuspendLayout();
@@ -133,6 +142,8 @@
             // MenuVertical
             // 
             this.MenuVertical.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
+            this.MenuVertical.Controls.Add(this.panelPrestamosSubmenu);
+            this.MenuVertical.Controls.Add(this.btnPrestamosDesplegable);
             this.MenuVertical.Controls.Add(this.panelMaestroSubmenu);
             this.MenuVertical.Controls.Add(this.btnMaestro);
             this.MenuVertical.Controls.Add(this.panelUsuarioSubmenu);
@@ -144,8 +155,112 @@
             this.MenuVertical.Dock = System.Windows.Forms.DockStyle.Left;
             this.MenuVertical.Location = new System.Drawing.Point(0, 43);
             this.MenuVertical.Name = "MenuVertical";
-            this.MenuVertical.Size = new System.Drawing.Size(200, 788);
+            this.MenuVertical.Size = new System.Drawing.Size(200, 838);
             this.MenuVertical.TabIndex = 1;
+            // 
+            // panelPrestamosSubmenu
+            // 
+            this.panelPrestamosSubmenu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
+            this.panelPrestamosSubmenu.Controls.Add(this.panel15);
+            this.panelPrestamosSubmenu.Controls.Add(this.btnHistPrestamo);
+            this.panelPrestamosSubmenu.Controls.Add(this.panel14);
+            this.panelPrestamosSubmenu.Controls.Add(this.btnDevolucion);
+            this.panelPrestamosSubmenu.Controls.Add(this.panel12);
+            this.panelPrestamosSubmenu.Controls.Add(this.btnPrestamo);
+            this.panelPrestamosSubmenu.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelPrestamosSubmenu.Location = new System.Drawing.Point(0, 685);
+            this.panelPrestamosSubmenu.Name = "panelPrestamosSubmenu";
+            this.panelPrestamosSubmenu.Size = new System.Drawing.Size(200, 113);
+            this.panelPrestamosSubmenu.TabIndex = 9;
+            this.panelPrestamosSubmenu.Visible = false;
+            // 
+            // panel15
+            // 
+            this.panel15.BackColor = System.Drawing.Color.Maroon;
+            this.panel15.Location = new System.Drawing.Point(12, 70);
+            this.panel15.Name = "panel15";
+            this.panel15.Size = new System.Drawing.Size(5, 35);
+            this.panel15.TabIndex = 9;
+            // 
+            // btnHistPrestamo
+            // 
+            this.btnHistPrestamo.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnHistPrestamo.FlatAppearance.BorderSize = 0;
+            this.btnHistPrestamo.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.btnHistPrestamo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnHistPrestamo.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnHistPrestamo.ForeColor = System.Drawing.Color.White;
+            this.btnHistPrestamo.Location = new System.Drawing.Point(0, 70);
+            this.btnHistPrestamo.Name = "btnHistPrestamo";
+            this.btnHistPrestamo.Size = new System.Drawing.Size(200, 35);
+            this.btnHistPrestamo.TabIndex = 9;
+            this.btnHistPrestamo.Text = "Historial Prestamos";
+            this.btnHistPrestamo.UseVisualStyleBackColor = true;
+            this.btnHistPrestamo.Click += new System.EventHandler(this.btnHistPrestamo_Click);
+            // 
+            // panel14
+            // 
+            this.panel14.BackColor = System.Drawing.Color.Maroon;
+            this.panel14.Location = new System.Drawing.Point(12, 35);
+            this.panel14.Name = "panel14";
+            this.panel14.Size = new System.Drawing.Size(5, 35);
+            this.panel14.TabIndex = 8;
+            // 
+            // btnDevolucion
+            // 
+            this.btnDevolucion.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnDevolucion.FlatAppearance.BorderSize = 0;
+            this.btnDevolucion.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.btnDevolucion.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnDevolucion.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnDevolucion.ForeColor = System.Drawing.Color.White;
+            this.btnDevolucion.Location = new System.Drawing.Point(0, 35);
+            this.btnDevolucion.Name = "btnDevolucion";
+            this.btnDevolucion.Size = new System.Drawing.Size(200, 35);
+            this.btnDevolucion.TabIndex = 8;
+            this.btnDevolucion.Text = "Devolucion";
+            this.btnDevolucion.UseVisualStyleBackColor = true;
+            this.btnDevolucion.Click += new System.EventHandler(this.btnDevolucion_Click);
+            // 
+            // panel12
+            // 
+            this.panel12.BackColor = System.Drawing.Color.Maroon;
+            this.panel12.Location = new System.Drawing.Point(12, 0);
+            this.panel12.Name = "panel12";
+            this.panel12.Size = new System.Drawing.Size(5, 35);
+            this.panel12.TabIndex = 7;
+            // 
+            // btnPrestamo
+            // 
+            this.btnPrestamo.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnPrestamo.FlatAppearance.BorderSize = 0;
+            this.btnPrestamo.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.btnPrestamo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnPrestamo.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnPrestamo.ForeColor = System.Drawing.Color.White;
+            this.btnPrestamo.Location = new System.Drawing.Point(0, 0);
+            this.btnPrestamo.Name = "btnPrestamo";
+            this.btnPrestamo.Size = new System.Drawing.Size(200, 35);
+            this.btnPrestamo.TabIndex = 0;
+            this.btnPrestamo.Text = "Prestamo";
+            this.btnPrestamo.UseVisualStyleBackColor = true;
+            this.btnPrestamo.Click += new System.EventHandler(this.btnPrestamo_Click);
+            // 
+            // btnPrestamosDesplegable
+            // 
+            this.btnPrestamosDesplegable.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnPrestamosDesplegable.FlatAppearance.BorderSize = 0;
+            this.btnPrestamosDesplegable.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Maroon;
+            this.btnPrestamosDesplegable.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnPrestamosDesplegable.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnPrestamosDesplegable.ForeColor = System.Drawing.Color.White;
+            this.btnPrestamosDesplegable.Location = new System.Drawing.Point(0, 643);
+            this.btnPrestamosDesplegable.Name = "btnPrestamosDesplegable";
+            this.btnPrestamosDesplegable.Size = new System.Drawing.Size(200, 42);
+            this.btnPrestamosDesplegable.TabIndex = 8;
+            this.btnPrestamosDesplegable.Text = "Prestamos";
+            this.btnPrestamosDesplegable.UseVisualStyleBackColor = true;
+            this.btnPrestamosDesplegable.Click += new System.EventHandler(this.btnPrestamosDesplegable_Click);
             // 
             // panelMaestroSubmenu
             // 
@@ -155,7 +270,7 @@
             this.panelMaestroSubmenu.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelMaestroSubmenu.Location = new System.Drawing.Point(0, 599);
             this.panelMaestroSubmenu.Name = "panelMaestroSubmenu";
-            this.panelMaestroSubmenu.Size = new System.Drawing.Size(200, 152);
+            this.panelMaestroSubmenu.Size = new System.Drawing.Size(200, 44);
             this.panelMaestroSubmenu.TabIndex = 7;
             this.panelMaestroSubmenu.Visible = false;
             // 
@@ -545,7 +660,7 @@
             this.panelContenedor.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelContenedor.Location = new System.Drawing.Point(200, 43);
             this.panelContenedor.Name = "panelContenedor";
-            this.panelContenedor.Size = new System.Drawing.Size(837, 788);
+            this.panelContenedor.Size = new System.Drawing.Size(837, 838);
             this.panelContenedor.TabIndex = 2;
             this.panelContenedor.Paint += new System.Windows.Forms.PaintEventHandler(this.panelContenedor_Paint);
             // 
@@ -554,7 +669,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Maroon;
-            this.ClientSize = new System.Drawing.Size(1037, 831);
+            this.ClientSize = new System.Drawing.Size(1037, 881);
             this.Controls.Add(this.panelContenedor);
             this.Controls.Add(this.MenuVertical);
             this.Controls.Add(this.BarraTitulo);
@@ -567,6 +682,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.btnMaximizar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnMinimizar)).EndInit();
             this.MenuVertical.ResumeLayout(false);
+            this.panelPrestamosSubmenu.ResumeLayout(false);
             this.panelMaestroSubmenu.ResumeLayout(false);
             this.panelUsuarioSubmenu.ResumeLayout(false);
             this.panelAdminSubmenu.ResumeLayout(false);
@@ -613,6 +729,14 @@
         private System.Windows.Forms.Panel panelMaestroSubmenu;
         private System.Windows.Forms.Panel panel13;
         private System.Windows.Forms.Button btnCliente;
+        private System.Windows.Forms.Panel panelPrestamosSubmenu;
+        private System.Windows.Forms.Panel panel15;
+        private System.Windows.Forms.Button btnHistPrestamo;
+        private System.Windows.Forms.Panel panel14;
+        private System.Windows.Forms.Button btnDevolucion;
+        private System.Windows.Forms.Panel panel12;
+        private System.Windows.Forms.Button btnPrestamo;
+        private System.Windows.Forms.Button btnPrestamosDesplegable;
     }
 }
 

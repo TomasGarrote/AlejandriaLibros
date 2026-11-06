@@ -104,10 +104,15 @@ namespace BLL
             {
                 if (venta.Detalle == null || venta.Detalle.Count == 0)
                     throw new Exception($"{LanguageManager.Instance.GetTraduction("msjErrorVentaCarrito")}");
+                
+
+                int nroVenta = ventaDAL.RegistrarVenta(venta);
+
                 foreach (DetalleVenta detalle in venta.Detalle)
                 {
                     libroBLL.DescontarStock(detalle.CodigoLibro, detalle.Cantidad);
                 }
+
                 _digitoVerificadorBLL.RecalcularDVH_Libro();
                 _digitoVerificadorBLL.RecalcularDVH_Detalle();
                 _digitoVerificadorBLL.RecalcularDVH_Venta();

@@ -12,7 +12,7 @@ namespace DAL
             List<string> totales = new List<string>();
 
             // Lista fija con los nombres de todas tus tablas del script de la BD
-            string[] tablasDelSistema = { "Usuario", "Bitacora", "Idioma", "Perfil", "Familia" };
+            string[] tablasDelSistema = { "Usuario", "Bitacora", "Idioma", "Perfil", "Familia", "Prestamo", "Venta" };
 
             foreach (string tabla in tablasDelSistema)
             {

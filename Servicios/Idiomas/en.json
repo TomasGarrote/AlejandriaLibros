@@ -15,6 +15,10 @@
   "btnCambiarClave": "ChangePassword",
   "btnLogout": "Log Out",
   "btnCambiarIdioma": "Change Language",
+  "btnPrestamosDesplegable": "Loans",
+  "btnPrestamo": "Loan",
+  "btnDevolucion": "Return",
+  "btnHistPrestamo": "Loan History",
 
   "YaHaySesionActiva": "A session is already active. Please log out before trying to start a new one.",
   "Informacion": "Information",
@@ -286,6 +290,28 @@
   "Exito": "Success",
   "Error": "Error",
   "Venta": "Sale",
+
+  //Form Prestamo
+  "btnConfirmarPrestamo": "Confirm Loan",
+  "lblFecha": "Date",
+  "lblDias": "Days",
+  "msjCampoFechaVacio": "The Days or Date field is empty",
+  "msjPrestamoExitoso": "Successful Loan",
+  "lblTituloLibrosPrestamo": "Available Books",
+
+  //Form Devolucion
+  "btnConfirmarDevolucion": "Confirm Return",
+  "lblTituloPrestamosPendientes": "Pending Loans",
+  "lblDNICliente": "Client ID", // o "Customer DNI"
+  "msjDevolucionExitosa": "Successful Return",
+  "msjNoHayPrestamosPendientes": "There are no pending loans",
+
+  //Form Historial Prestamo
+  "lblPrestamos": "Loans",
+  "lblDesdeFecha": "From",
+  "lblHastaFecha": "To",
+  "lblEstado": "Status",
+  "msjNoHayPrestamos": "No loans currently loaded",
 
   //Sesion manager
   "UserLogueado": "A user is already logged in.",

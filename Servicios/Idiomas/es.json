@@ -15,6 +15,10 @@
   "btnCambiarClave": "CambiarClave",
   "btnLogout": "Log Out",
   "btnCambiarIdioma": "Cambiar Idioma",
+  "btnPrestamosDesplegable": "Prestamos",
+  "btnPrestamo": "Prestamo",
+  "btnDevolucion": "Devolucion",
+  "btnHistPrestamo": "Hisotrial Prestamos",
 
   "YaHaySesionActiva": "Ya hay una sesión iniciada. Por favor, cierre sesión antes de intentar iniciar una nueva.",
   "Informacion": "Informacion",
@@ -292,6 +296,29 @@
   "Exito": "Éxito",
   "Error": "Error",
   "Venta": "Venta",
+
+  //Form Prestamo
+  "btnConfirmarPrestamo": "Confirmar Prestamo",
+  "lblFecha": "Fecha",
+  "lblDias": "Dias",
+  "msjCampoFechaVacio": "El Campo Dias o Fecha esta vacio",
+  "msjPrestamoExitoso": "Prestamo Exitoso",
+  "lblTituloLibrosPrestamo": "Libros Disponibles",
+
+
+  //Form Devolucion
+  "btnConfirmarDevolucion": "Confirmar Devolucion",
+  "lblTituloPrestamosPendientes": "Prestamos Pendientes",
+  "lblDNICliente": "DNI Cliente",
+  "msjDevolucionExitosa": "Devolucion Exitosa",
+  "msjNoHayPrestamosPendientes": "No hay prestamos pendientes",
+
+  //Form Historial Prestamo
+  "lblPrestamos": "Prestamos",
+  "lblDesdeFecha": "Desde",
+  "lblHastaFecha": "Hasta",
+  "lblEstado": "Estado",
+  "msjNoHayPrestamos": "No hay prestamos cargados actualmente",
 
   //Sesion manager
   "UserLogueado": "Ya hay un usuario logueado.",

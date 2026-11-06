@@ -1,4 +1,5 @@
 ﻿using BE;
+using iTextSharp.text;
 using Microsoft.Data.SqlClient;
 using Servicios;
 using System;
@@ -52,7 +53,46 @@ namespace DAL
             }
         }
 
-        // Revalida stock puntual de un libro (usado en CU-002 y de nuevo en CU-004)
+        public Libro ConsultarLibro(int codigoInterno)
+        {
+            try
+            {
+                Libro libro = new Libro();
+
+                string query = "SELECT TOP 1 * FROM Libro WHERE CodigoInterno = @cod";
+                {
+                    _sqlcommand.Parameters.AddWithValue("@cod", codigoInterno);
+                    _sqlcommand.CommandText = query;
+                    _sqlserver.Open();
+
+                    using (SqlDataReader reader = _sqlcommand.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+
+                            libro.CodigoInterno = Convert.ToInt32(reader["CodigoInterno"]);
+                            libro.ISBN = reader["ISBN"].ToString();
+                            libro.Titulo = reader["Titulo"].ToString();
+                            libro.Autor = reader["Autor"].ToString();
+                            libro.Categoria = reader["Categoria"].ToString();
+                            libro.Ubicacion = reader["Ubicacion"].ToString();
+                            libro.Precio = (decimal)reader["Precio"];
+                            libro.StockDisponible = (int)reader["StockDisponible"];
+                            
+                        }
+                    }
+
+                    return libro;
+
+
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
         public int ConsultarStock(int codigoInterno)
         {
             try
@@ -332,6 +372,30 @@ namespace DAL
             {
 
                 throw ex;
+            }
+            finally
+            {
+                _sqlcommand.Parameters.Clear();
+                _sqlserver.Close();
+            }
+        }
+
+        public void SumarStock(int codigoInterno, int cantidad)
+        {
+            try
+            {
+                string query = "UPDATE Libro SET StockDisponible = StockDisponible + @cant WHERE CodigoInterno = @cod";
+                _sqlcommand.Parameters.Clear();
+                _sqlcommand.Parameters.AddWithValue("@cant", cantidad);
+                _sqlcommand.Parameters.AddWithValue("@cod", codigoInterno);
+                _sqlcommand.CommandText = query;
+                _sqlserver.Open();
+                _sqlcommand.ExecuteNonQuery();
+            }
+            catch (Exception)
+            {
+
+                throw;
             }
             finally
             {

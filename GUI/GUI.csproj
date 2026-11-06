@@ -202,6 +202,24 @@
     <Compile Include="formCrearCliente.Designer.cs">
       <DependentUpon>formCrearCliente.cs</DependentUpon>
     </Compile>
+    <Compile Include="formDevolucion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="formDevolucion.Designer.cs">
+      <DependentUpon>formDevolucion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="formHistorialPrestamos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="formHistorialPrestamos.Designer.cs">
+      <DependentUpon>formHistorialPrestamos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="formPrestamo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="formPrestamo.Designer.cs">
+      <DependentUpon>formPrestamo.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormRestore.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -279,6 +297,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="formCrearCliente.resx">
       <DependentUpon>formCrearCliente.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="formDevolucion.resx">
+      <DependentUpon>formDevolucion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="formHistorialPrestamos.resx">
+      <DependentUpon>formHistorialPrestamos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="formPrestamo.resx">
+      <DependentUpon>formPrestamo.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormRestore.resx">
       <DependentUpon>FormRestore.cs</DependentUpon>

@@ -93,5 +93,9 @@ namespace Servicios
                 throw new Exception("Error al generar el PDF: " + ex.Message);
             }
         }
+        public static void GenerarComprobantePDF(Prestamo prestamo, string rutaGuardado)
+        {
+
+        }
     }
 }
