@@ -46,7 +46,7 @@ namespace GUI
             listaPrestamos.Clear();
 
 
-            listaPrestamos.AddRange(prestamoBLL.ConsultarHistorial("", cmbEstado.Text, txtTitulo.Text, DateTime.MinValue, DateTime.MinValue));
+            listaPrestamos.AddRange(prestamoBLL.ConsultarHistorial(txtDni.Text, cmbEstado.Text, txtTitulo.Text, DateTime.MinValue, DateTime.MinValue));
 
             if (listaPrestamos.Count == 0)
             {
