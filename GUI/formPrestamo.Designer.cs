@@ -48,6 +48,7 @@
             this.lblDias = new System.Windows.Forms.Label();
             this.lblFecha = new System.Windows.Forms.Label();
             this.cmbDiasProgramados = new System.Windows.Forms.ComboBox();
+            this.btnReiniciarFechaProgramada = new System.Windows.Forms.Button();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCatalogo)).BeginInit();
             this.panel4.SuspendLayout();
@@ -185,6 +186,7 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.Maroon;
+            this.panel1.Controls.Add(this.btnReiniciarFechaProgramada);
             this.panel1.Controls.Add(this.btnVolver);
             this.panel1.Controls.Add(this.label4);
             this.panel1.Controls.Add(this.dtpFechaProgramada);
@@ -214,17 +216,17 @@
             // 
             this.label4.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold);
             this.label4.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label4.Location = new System.Drawing.Point(66, 37);
+            this.label4.Location = new System.Drawing.Point(57, 37);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(28, 18);
+            this.label4.Size = new System.Drawing.Size(20, 18);
             this.label4.TabIndex = 22;
             this.label4.Text = "o";
             // 
             // dtpFechaProgramada
             // 
-            this.dtpFechaProgramada.Location = new System.Drawing.Point(97, 37);
+            this.dtpFechaProgramada.Location = new System.Drawing.Point(83, 36);
             this.dtpFechaProgramada.Name = "dtpFechaProgramada";
-            this.dtpFechaProgramada.Size = new System.Drawing.Size(108, 20);
+            this.dtpFechaProgramada.Size = new System.Drawing.Size(90, 20);
             this.dtpFechaProgramada.TabIndex = 21;
             this.dtpFechaProgramada.ValueChanged += new System.EventHandler(this.dtpFechaProgramada_ValueChanged);
             // 
@@ -255,7 +257,7 @@
             // 
             this.lblFecha.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold);
             this.lblFecha.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.lblFecha.Location = new System.Drawing.Point(118, 13);
+            this.lblFecha.Location = new System.Drawing.Point(98, 13);
             this.lblFecha.Name = "lblFecha";
             this.lblFecha.Size = new System.Drawing.Size(69, 18);
             this.lblFecha.TabIndex = 18;
@@ -269,6 +271,17 @@
             this.cmbDiasProgramados.Size = new System.Drawing.Size(38, 21);
             this.cmbDiasProgramados.TabIndex = 2;
             this.cmbDiasProgramados.SelectedIndexChanged += new System.EventHandler(this.cmbDiasProgramados_SelectedIndexChanged);
+            // 
+            // btnReiniciarFechaProgramada
+            // 
+            this.btnReiniciarFechaProgramada.BackColor = System.Drawing.Color.Black;
+            this.btnReiniciarFechaProgramada.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnReiniciarFechaProgramada.Location = new System.Drawing.Point(180, 36);
+            this.btnReiniciarFechaProgramada.Name = "btnReiniciarFechaProgramada";
+            this.btnReiniciarFechaProgramada.Size = new System.Drawing.Size(24, 18);
+            this.btnReiniciarFechaProgramada.TabIndex = 24;
+            this.btnReiniciarFechaProgramada.UseVisualStyleBackColor = false;
+            this.btnReiniciarFechaProgramada.Click += new System.EventHandler(this.btnReiniciarFechaProgramada_Click);
             // 
             // formPrestamo
             // 
@@ -314,5 +327,6 @@
         private System.Windows.Forms.Button btnVolver;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.DateTimePicker dtpFechaProgramada;
+        private System.Windows.Forms.Button btnReiniciarFechaProgramada;
     }
 }

@@ -304,6 +304,8 @@
   "msjCampoFechaVacio": "El Campo Dias o Fecha esta vacio",
   "msjPrestamoExitoso": "Prestamo Exitoso",
   "lblTituloLibrosPrestamo": "Libros Disponibles",
+  "msjErrorPrestamoClienteInhabilitado": "El cliente esta inhabilitado. debe una multa de:",
+  "msjErrorPrestamoFechaProgramada": "La fecha programada no puede ser anterior a la fecha actual",
 
 
   //Form Devolucion
@@ -319,6 +321,7 @@
   "lblHastaFecha": "Hasta",
   "lblEstado": "Estado",
   "msjNoHayPrestamos": "No hay prestamos cargados actualmente",
+  "msjErrorFechas": "La fecha de inicio no puede ser mayor a la fecha final.",
 
   //Sesion manager
   "UserLogueado": "Ya hay un usuario logueado.",

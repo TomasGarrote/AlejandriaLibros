@@ -298,6 +298,8 @@
   "msjCampoFechaVacio": "The Days or Date field is empty",
   "msjPrestamoExitoso": "Successful Loan",
   "lblTituloLibrosPrestamo": "Available Books",
+  "msjErrorPrestamoClienteInhabilitado": "The client is disabled. A fine of:",
+  "msjErrorPrestamoFechaProgramada": "The scheduled date cannot be earlier than the current date",
 
   //Form Devolucion
   "btnConfirmarDevolucion": "Confirm Return",
@@ -305,6 +307,8 @@
   "lblDNICliente": "Client ID", // o "Customer DNI"
   "msjDevolucionExitosa": "Successful Return",
   "msjNoHayPrestamosPendientes": "There are no pending loans",
+  "msjErrorFechas": "The start date cannot be greater than the end date.",
+
 
   //Form Historial Prestamo
   "lblPrestamos": "Loans",

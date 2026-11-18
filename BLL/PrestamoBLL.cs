@@ -14,21 +14,22 @@ namespace BLL
         private readonly BitacoraBLL _bitacoraBLL = new BitacoraBLL();
         private readonly DigitoVerificadorBLL _digitoVerificadorBLL = new DigitoVerificadorBLL();
 
+        private decimal MultaDeCliente;
+
         public DateTime CalcularFechaDevolucion(int dias)
         {
             return DateTime.Now.AddDays(dias);
         }
 
-        public decimal CalcularMultaMora(DateTime fechaDevolucion, DateTime fechaActual)
+        public void CalcularMultaMora(DateTime fechaDevolucion, DateTime fechaActual)
         {
             decimal multaDiaria = 10; // Valor de la multa diaria
 
             if (fechaActual > fechaDevolucion)
             {
                 int diasAtraso = (fechaActual - fechaDevolucion).Days;
-                return diasAtraso * multaDiaria;
+                MultaDeCliente += diasAtraso * multaDiaria;
             }
-            return 0;
         }
 
         public void RegistrarPrestamo(Prestamo prestamo)
@@ -125,12 +126,28 @@ namespace BLL
 
         public void ValidarHabilitacionCliente(int dniCliente)
         {
-            List<Prestamo> prestamos = ListarPrestamosCliente(dniCliente); // Llamada a la función para obtener los préstamos del cliente
-            // Aquí podrías verificar si el cliente está habilitado basado en sus préstamos
-            if (prestamos == null || prestamos.Count == 0)
+            try
             {
-                throw new Exception($"{LanguageManager.Instance.GetTraduction("msjErrorPrestamoClienteInhabilitado")}");
+                MultaDeCliente = 0;
+
+                List<Prestamo> prestamos = ListarPrestamosCliente(dniCliente);
+
+                foreach (Prestamo prestamo in prestamos)
+                {
+                    CalcularMultaMora(prestamo.FechaProgramada, prestamo.FechaDevolucionReal ?? DateTime.MinValue);
+                }
+
+                if (MultaDeCliente > 0)
+                {
+                    throw new Exception($"{LanguageManager.Instance.GetTraduction("msjErrorPrestamoClienteInhabilitado")} {MultaDeCliente}");
+                }
             }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            
         }
 
         public List<Prestamo> ListarPrestamosCliente(int dniCliente)

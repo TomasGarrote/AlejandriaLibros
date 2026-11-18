@@ -9,6 +9,7 @@ namespace BE
         public int NroPrestamo { get; set; }
         public string Estado { get; set; }
         public string CodigoInterno { get; set; }
+        public string Titulo { get; set; }
         public DateTime FechaProgramada { get; set; }
         public DateTime FechaEmision { get; set; }
         public DateTime? FechaDevolucionReal { get; set; }

@@ -36,7 +36,7 @@ namespace GUI
                 LanguageManager.Instance.AgregarObservador(this);
                 Actualizar(LanguageManager.Instance);
                 catalogo.Clear();
-                catalogo.AddRange(ventaBLL.ObtenerCatalogo());
+                catalogo.AddRange(libroBLL.ListarDisponibles());
                 dgvCatalogo.DataSource = catalogo;
                 cmbMedioPago.SelectedIndex = 0;
                 cmbDescuento.SelectedIndex = 0;
@@ -57,24 +57,46 @@ namespace GUI
 
             try
             {
-                ventaBLL.ValidarAgregarAlCarrito(libro.CodigoInterno, cantidad);
+                //ventaBLL.ValidarAgregarAlCarrito(libro.CodigoInterno, cantidad);
+
+                //var existente = carrito.FirstOrDefault(d => d.CodigoLibro == libro.CodigoInterno);
+                //if (existente != null)
+                //{
+                //    ventaBLL.ValidarAgregarAlCarrito(libro.CodigoInterno, cantidad);
+                //    existente.Cantidad += cantidad;
+                //}
+                //else
+                //{
+                //    carrito.Add(new DetalleVenta
+                //    {
+                //        CodigoLibro = libro.CodigoInterno,
+                //        TituloLibro = libro.Titulo,
+                //        Cantidad = cantidad,
+                //        PrecioUnitario = libro.Precio
+                //    });
+                //}
+
+                ventaBLL.ValidarAgregarAlCarrito(carrito, libro.CodigoInterno, cantidad);
 
                 var existente = carrito.FirstOrDefault(d => d.CodigoLibro == libro.CodigoInterno);
-                if (existente != null)
+
+                if(existente != null) existente.Cantidad += cantidad;
+
+                carrito.Add(new DetalleVenta
                 {
-                    ventaBLL.ValidarAgregarAlCarrito(libro.CodigoInterno, existente.Cantidad + cantidad);
-                    existente.Cantidad += cantidad;
-                }
-                else
+                    CodigoLibro = libro.CodigoInterno,
+                    TituloLibro = libro.Titulo,
+                    Cantidad = cantidad,
+                    PrecioUnitario = libro.Precio
+                });
+
+                carrito.Add(new DetalleVenta
                 {
-                    carrito.Add(new DetalleVenta
-                    {
-                        CodigoLibro = libro.CodigoInterno,
-                        TituloLibro = libro.Titulo,
-                        Cantidad = cantidad,
-                        PrecioUnitario = libro.Precio
-                    });
-                }
+                    CodigoLibro = libro.CodigoInterno,
+                    TituloLibro = libro.Titulo,
+                    Cantidad = cantidad,
+                    PrecioUnitario = libro.Precio
+                });
 
                 btnConfirmar.Enabled = true;
                 dgvCarrito.DataSource = carrito;

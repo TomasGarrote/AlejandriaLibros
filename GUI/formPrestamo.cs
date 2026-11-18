@@ -100,7 +100,7 @@ namespace GUI
         {
             try
             {
-                if (dtpFechaProgramada.Value < DateTime.Now) throw new Exception();
+                if (dtpFechaProgramada.Value < DateTime.Now) throw new Exception(LanguageManager.Instance.GetTraduction("msjErrorPrestamoFechaProgramada"));
                 cmbDiasProgramados.Enabled = false;
                 fechaProgramada = dtpFechaProgramada.Value;
             }
@@ -133,7 +133,7 @@ namespace GUI
 
             
 
-            for (int i = 1; i <= 60; i++)
+            for (int i = 1; i <= 31; i++)
             {
                 cmbDiasProgramados.Items.Add(i);
             }
@@ -172,6 +172,14 @@ namespace GUI
             lblFecha.Text = LanguageManager.Instance.GetTraduction("lblFecha");
             lblDias.Text = LanguageManager.Instance.GetTraduction("lblDias");
             lblTituloLibrosPrestamo.Text = LanguageManager.Instance.GetTraduction("lblTituloLibrosPrestamo");
+        }
+
+        private void btnReiniciarFechaProgramada_Click(object sender, EventArgs e)
+        {
+            cmbDiasProgramados.SelectedIndex = -1;
+            cmbDiasProgramados.Enabled = true;
+            dtpFechaProgramada.Value = DateTime.MinValue;
+            dtpFechaProgramada.Enabled = true;
         }
     }
 }

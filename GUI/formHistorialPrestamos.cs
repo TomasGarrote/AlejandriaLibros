@@ -44,9 +44,28 @@ namespace GUI
         private void btnAplicarFiltro_Click(object sender, EventArgs e)
         {
             listaPrestamos.Clear();
+            if (dtpDesde.Value != default(DateTime) || dtpHasta.Value != default(DateTime))
+            {
+                if (dtpDesde.Value > dtpHasta.Value)
+                {
+                    MessageBox.Show(LanguageManager.Instance.GetTraduction("msjErrorFechas"), LanguageManager.Instance.GetTraduction("Error"), MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+            }
 
+            if (dtpDesde.Value == default(DateTime) && dtpHasta.Value != default(DateTime))
+            {
+                MessageBox.Show(LanguageManager.Instance.GetTraduction("msjErrorFechas"), LanguageManager.Instance.GetTraduction("Error"), MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
 
-            listaPrestamos.AddRange(prestamoBLL.ConsultarHistorial(txtDni.Text, cmbEstado.Text, txtTitulo.Text, DateTime.MinValue, DateTime.MinValue));
+            if (dtpHasta.Value == default(DateTime))
+            {
+                MessageBox.Show(LanguageManager.Instance.GetTraduction("msjErrorFechas"), LanguageManager.Instance.GetTraduction("Error"), MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+                listaPrestamos.AddRange(prestamoBLL.ConsultarHistorial(txtDni.Text, cmbEstado.Text, txtTitulo.Text, dtpDesde.Value, dtpHasta.Value));
 
             if (listaPrestamos.Count == 0)
             {

@@ -300,6 +300,8 @@
   "msjCampoFechaVacio": "日数または日付Fieldが空です",
   "msjPrestamoExitoso": "貸出が成功しました",
   "lblTituloLibrosPrestamo": "利用可能な書籍",
+  "msjErrorPrestamoClienteInhabilitado": "顧客は無効化されています。以下の罰金が発生しました：",
+  "msjErrorPrestamoFechaProgramada": "プログラムされた日付は現在の日付より前に設定することはできません",
 
   //Form Devolucion
   "btnConfirmarDevolucion": "返却を確定",
@@ -314,6 +316,7 @@
   "lblHastaFecha": "終了日",
   "lblEstado": "ステータス",
   "msjNoHayPrestamos": "現在登録されている貸出はありません",
+  "msjErrorFechas": "開始日は終了日より後の日付にすることはできません。",
 
   //Sesion manager
   "UserLogueado": "既にユーザーがログインしています。",

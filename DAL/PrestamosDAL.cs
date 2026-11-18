@@ -160,6 +160,7 @@ namespace DAL
                             NroPrestamo = Convert.ToInt32(reader["NroPrestamo"]),
                             Estado = reader["Estado"].ToString(),
                             CodigoInterno = reader["CodigoInterno"].ToString(),
+                            Titulo = reader["TituloLibro"].ToString(),
                             FechaProgramada = Convert.ToDateTime(reader["FechaProgramada"]),
                             FechaEmision = Convert.ToDateTime(reader["FechaEmision"]),
                             FechaDevolucionReal = reader["FechaDevolucionReal"] == DBNull.Value
@@ -208,6 +209,7 @@ namespace DAL
                             NroPrestamo = Convert.ToInt32(reader["NroPrestamo"]),
                             Estado = reader["Estado"].ToString(),
                             CodigoInterno = reader["CodigoInterno"].ToString(),
+                            Titulo = reader["TituloLibro"].ToString(),
                             FechaProgramada = Convert.ToDateTime(reader["FechaProgramada"]),
                             FechaEmision = Convert.ToDateTime(reader["FechaEmision"]),
                             FechaDevolucionReal = reader["FechaDevolucionReal"] == DBNull.Value
@@ -254,7 +256,8 @@ namespace DAL
                         {
                             NroPrestamo = Convert.ToInt32(reader["NroPrestamo"]),
                             Estado = reader["Estado"].ToString(),
-                            CodigoInterno = reader["CodigoInterno"].ToString(),
+                            CodigoInterno = reader["CodigoInterno"].ToString(),  
+                            Titulo = reader["TituloLibro"].ToString(),
                             FechaProgramada = Convert.ToDateTime(reader["FechaProgramada"]),
                             FechaEmision = Convert.ToDateTime(reader["FechaEmision"]),
                             FechaDevolucionReal = reader["FechaDevolucionReal"] == DBNull.Value
@@ -324,6 +327,7 @@ namespace DAL
                             NroPrestamo = Convert.ToInt32(reader["NroPrestamo"]),
                             Estado = reader["Estado"].ToString(),
                             CodigoInterno = reader["CodigoInterno"].ToString(),
+                            Titulo = reader["TituloLibro"].ToString(),
                             FechaProgramada = Convert.ToDateTime(reader["FechaProgramada"]),
                             FechaEmision = Convert.ToDateTime(reader["FechaEmision"]),
                             FechaDevolucionReal = reader["FechaDevolucionReal"] == DBNull.Value

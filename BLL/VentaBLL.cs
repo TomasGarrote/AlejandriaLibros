@@ -3,6 +3,7 @@ using DAL;
 using Servicios;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 
@@ -47,10 +48,13 @@ namespace BLL
 
         }
 
-        public void ValidarAgregarAlCarrito(int codigoInterno, int cantidadSolicitada)
+        public void ValidarAgregarAlCarrito(BindingList<DetalleVenta> carrito, int codigoInterno, int cantidadSolicitada)
         {
             try
             {
+                var existente = carrito.FirstOrDefault(d => d.CodigoLibro == codigoInterno);
+                cantidadSolicitada += existente != null ? existente.Cantidad : 0;
+
                 int stockDisponible = libroBLL.ConsultarStock(codigoInterno);
                 if (cantidadSolicitada <= 0)
                     throw new Exception($"{LanguageManager.Instance.GetTraduction("msjCantidadInvalida")}");
