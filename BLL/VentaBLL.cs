@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
+using System.Windows.Forms;
 
 namespace BLL
 {
@@ -15,6 +16,7 @@ namespace BLL
         private readonly VentaDAL ventaDAL = new VentaDAL();
         private readonly BitacoraBLL _bitacoraBLL = new BitacoraBLL();
         private readonly DigitoVerificadorBLL _digitoVerificadorBLL = new DigitoVerificadorBLL();
+        private readonly SerializacionService _serializacionService = new SerializacionService();
 
         public List<Libro> ObtenerCatalogo()
         {
@@ -137,6 +139,32 @@ namespace BLL
                 throw;
             }
             
+        }
+
+        public void SerializarLibro(List<Libro> listaLibros, string fileName)
+        {
+            _serializacionService.SerializarLibros(listaLibros, fileName);
+
+            Bitacora bitacora = new Bitacora();
+            bitacora.Login = SessionManager.Instance.UsuarioActual().Username;
+            bitacora.Modulo = "Venta";
+            bitacora.Evento = "Serializacion Exitosa";
+            bitacora.Criticidad = 1;
+            _bitacoraBLL.RegistrarEvento(bitacora);
+        }
+
+        public List<Libro> DeserializarLibros(string fileName)
+        {
+            List<Libro> libros = _serializacionService.DeserializarLibros(fileName);
+
+            Bitacora bitacora = new Bitacora();
+            bitacora.Login = SessionManager.Instance.UsuarioActual().Username;
+            bitacora.Modulo = "Venta";
+            bitacora.Evento = "Deserializacion Exitosa";
+            bitacora.Criticidad = 1;
+            _bitacoraBLL.RegistrarEvento(bitacora);
+
+            return libros;
         }
     }
 }
