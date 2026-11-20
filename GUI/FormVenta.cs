@@ -282,5 +282,65 @@ namespace GUI
         {
             RecalcularTotales();
         }
+
+        private void btnSerializar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                
+                List<Libro> listaLibros = (List<Libro>)dgvCatalogo.DataSource;
+
+                if (listaLibros == null || listaLibros.Count == 0)
+                {
+                    MessageBox.Show("No hay libros para serializar en la grilla.", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                using (SaveFileDialog saveFileDialog = new SaveFileDialog())
+                {
+                    saveFileDialog.Filter = "Archivo XML (*.xml)|*.xml";
+                    saveFileDialog.Title = "Guardar libros serializados";
+                    saveFileDialog.FileName = "libros_exportados.xml";
+
+                    if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                    {
+                        ventaBLL.SerializarLibro(listaLibros, saveFileDialog.FileName);
+                        
+
+                        MessageBox.Show("¡Libros serializados correctamente con éxito!", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al serializar: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnDeserializar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                using (OpenFileDialog openFileDialog = new OpenFileDialog())
+                {
+                    openFileDialog.Filter = "Archivo XML (*.xml)|*.xml";
+                    openFileDialog.Title = "Seleccionar archivo XML de libros";
+
+                    if (openFileDialog.ShowDialog() == DialogResult.OK)
+                    {
+                        List<Libro> librosDeserializados = ventaBLL.DeserializarLibros(openFileDialog.FileName);
+
+                        dgvCatalogo.DataSource = null;
+                        dgvCatalogo.DataSource = librosDeserializados;
+
+                        MessageBox.Show("¡Archivo XML deserializado e importado correctamente!", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al deserializar el archivo: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
     }
 }
