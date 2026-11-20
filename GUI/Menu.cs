@@ -303,6 +303,13 @@ namespace GUI
             formHistorialPrestamos.Show();
         }
 
+        private void btnBitacoraCambios_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            frmBitacoraDeCambios formBitacoraDeCambios = new frmBitacoraDeCambios();
+            formBitacoraDeCambios.Show();
+        }
+
         public void Actualizar(LanguageManager lenguaje)
         {
             btnAdmin.Text = LanguageManager.Instance.GetTraduction("btnAdmin");

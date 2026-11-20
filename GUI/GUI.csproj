@@ -232,6 +232,12 @@
     <Compile Include="FormVenta.Designer.cs">
       <DependentUpon>FormVenta.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmBitacoraDeCambios.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmBitacoraDeCambios.Designer.cs">
+      <DependentUpon>frmBitacoraDeCambios.cs</DependentUpon>
+    </Compile>
     <Compile Include="FrmConexionInicial.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -312,6 +318,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormVenta.resx">
       <DependentUpon>FormVenta.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmBitacoraDeCambios.resx">
+      <DependentUpon>frmBitacoraDeCambios.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmConexionInicial.resx">
       <DependentUpon>FrmConexionInicial.cs</DependentUpon>

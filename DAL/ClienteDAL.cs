@@ -199,6 +199,55 @@ namespace DAL
             }
         }
 
+        public void ActualizarConContexto(Cliente cliente, string tipoOperacion, string usuarioActual)
+        {
+            try
+            {
+                _sqlserver.Open();
+                using (var transaction = _sqlserver.BeginTransaction())
+                {
+                    _sqlcommand.Connection = _sqlserver;
+                    _sqlcommand.Transaction = transaction;
+
+                    _sqlcommand.CommandText = @"
+                EXEC sp_set_session_context @key = N'TipoOperacionCliente', @value = @TipoOp;
+                EXEC sp_set_session_context @key = N'UsuarioActual', @value = @Usuario;
+            ";
+                    _sqlcommand.Parameters.Clear();
+                    _sqlcommand.Parameters.AddWithValue("@TipoOp", tipoOperacion);
+                    _sqlcommand.Parameters.AddWithValue("@Usuario", usuarioActual);
+                    _sqlcommand.ExecuteNonQuery();
+
+                    _sqlcommand.CommandText = @"
+                UPDATE Cliente 
+                SET Nombre = @Nombre, 
+                    Apellido = @Apellido, 
+                    Email = @Email, 
+                    Telefono = @Telefono
+                WHERE Dni = @Dni;
+            ";
+                    _sqlcommand.Parameters.Clear();
+                    _sqlcommand.Parameters.AddWithValue("@Nombre", cliente.Nombre);
+                    _sqlcommand.Parameters.AddWithValue("@Apellido", cliente.Apellido);
+                    _sqlcommand.Parameters.AddWithValue("@Email", (object)cliente.Email ?? DBNull.Value);
+                    _sqlcommand.Parameters.AddWithValue("@Telefono", (object)cliente.Telefono ?? DBNull.Value);
+                    _sqlcommand.Parameters.AddWithValue("@Dni", cliente.DNI);
+
+                    _sqlcommand.ExecuteNonQuery();
+
+                    transaction.Commit();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error en DAL al actualizar el cliente con contexto de sesión.", ex);
+            }
+            finally
+            {
+                _sqlcommand.Parameters.Clear();
+                _sqlserver.Close();
+            }
+        }
         public void ActualizarDVH(int dni, string dvhCalculado)
         {
             try

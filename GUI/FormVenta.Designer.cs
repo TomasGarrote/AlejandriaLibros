@@ -48,9 +48,13 @@ namespace GUI
             this.panel6 = new System.Windows.Forms.Panel();
             this.lblMedioDePago = new System.Windows.Forms.Label();
             this.panel7 = new System.Windows.Forms.Panel();
+            this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.cmbDescuento = new System.Windows.Forms.ComboBox();
-            this.label2 = new System.Windows.Forms.Label();
+            this.panel8 = new System.Windows.Forms.Panel();
+            this.btnDeserializar = new System.Windows.Forms.Button();
+            this.btnSerializar = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
             this.BarraTitulo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnCerrar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnMinimizar)).BeginInit();
@@ -64,6 +68,7 @@ namespace GUI
             this.panel5.SuspendLayout();
             this.panel6.SuspendLayout();
             this.panel7.SuspendLayout();
+            this.panel8.SuspendLayout();
             this.SuspendLayout();
             // 
             // BarraTitulo
@@ -145,7 +150,7 @@ namespace GUI
             this.btnAgregar.BackColor = System.Drawing.Color.Maroon;
             this.btnAgregar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAgregar.ForeColor = System.Drawing.Color.White;
-            this.btnAgregar.Location = new System.Drawing.Point(231, 294);
+            this.btnAgregar.Location = new System.Drawing.Point(223, 294);
             this.btnAgregar.Name = "btnAgregar";
             this.btnAgregar.Size = new System.Drawing.Size(150, 41);
             this.btnAgregar.TabIndex = 8;
@@ -169,7 +174,7 @@ namespace GUI
             this.btnQuitar.BackColor = System.Drawing.Color.Maroon;
             this.btnQuitar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnQuitar.ForeColor = System.Drawing.Color.White;
-            this.btnQuitar.Location = new System.Drawing.Point(15, 606);
+            this.btnQuitar.Location = new System.Drawing.Point(15, 653);
             this.btnQuitar.Name = "btnQuitar";
             this.btnQuitar.Size = new System.Drawing.Size(150, 42);
             this.btnQuitar.TabIndex = 6;
@@ -223,7 +228,7 @@ namespace GUI
             this.btnConfirmar.BackColor = System.Drawing.Color.Maroon;
             this.btnConfirmar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnConfirmar.ForeColor = System.Drawing.Color.White;
-            this.btnConfirmar.Location = new System.Drawing.Point(713, 712);
+            this.btnConfirmar.Location = new System.Drawing.Point(713, 759);
             this.btnConfirmar.Name = "btnConfirmar";
             this.btnConfirmar.Size = new System.Drawing.Size(150, 35);
             this.btnConfirmar.TabIndex = 1;
@@ -237,7 +242,7 @@ namespace GUI
             this.btnComprobante.Enabled = false;
             this.btnComprobante.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnComprobante.ForeColor = System.Drawing.Color.White;
-            this.btnComprobante.Location = new System.Drawing.Point(873, 712);
+            this.btnComprobante.Location = new System.Drawing.Point(873, 759);
             this.btnComprobante.Name = "btnComprobante";
             this.btnComprobante.Size = new System.Drawing.Size(115, 35);
             this.btnComprobante.TabIndex = 0;
@@ -258,7 +263,7 @@ namespace GUI
             // 
             this.panel2.BackColor = System.Drawing.Color.Maroon;
             this.panel2.Controls.Add(this.dgvCarrito);
-            this.panel2.Location = new System.Drawing.Point(15, 392);
+            this.panel2.Location = new System.Drawing.Point(15, 437);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(973, 199);
             this.panel2.TabIndex = 12;
@@ -269,7 +274,7 @@ namespace GUI
             this.panel3.Controls.Add(this.lblTotal);
             this.panel3.Controls.Add(this.lblSubtotal);
             this.panel3.Controls.Add(this.lblDescuento);
-            this.panel3.Location = new System.Drawing.Point(713, 604);
+            this.panel3.Location = new System.Drawing.Point(713, 651);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(275, 96);
             this.panel3.TabIndex = 13;
@@ -279,7 +284,7 @@ namespace GUI
             this.btnVolver.BackColor = System.Drawing.Color.Maroon;
             this.btnVolver.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnVolver.ForeColor = System.Drawing.Color.White;
-            this.btnVolver.Location = new System.Drawing.Point(15, 712);
+            this.btnVolver.Location = new System.Drawing.Point(15, 759);
             this.btnVolver.Name = "btnVolver";
             this.btnVolver.Size = new System.Drawing.Size(150, 35);
             this.btnVolver.TabIndex = 14;
@@ -323,7 +328,7 @@ namespace GUI
             this.btnAplicarFiltro.BackColor = System.Drawing.Color.Maroon;
             this.btnAplicarFiltro.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAplicarFiltro.ForeColor = System.Drawing.Color.White;
-            this.btnAplicarFiltro.Location = new System.Drawing.Point(432, 14);
+            this.btnAplicarFiltro.Location = new System.Drawing.Point(423, 14);
             this.btnAplicarFiltro.Name = "btnAplicarFiltro";
             this.btnAplicarFiltro.Size = new System.Drawing.Size(108, 35);
             this.btnAplicarFiltro.TabIndex = 19;
@@ -409,7 +414,7 @@ namespace GUI
             this.panel6.BackColor = System.Drawing.Color.Maroon;
             this.panel6.Controls.Add(this.lblMedioDePago);
             this.panel6.Controls.Add(this.cmbMedioPago);
-            this.panel6.Location = new System.Drawing.Point(180, 606);
+            this.panel6.Location = new System.Drawing.Point(180, 653);
             this.panel6.Name = "panel6";
             this.panel6.Size = new System.Drawing.Size(311, 41);
             this.panel6.TabIndex = 18;
@@ -430,10 +435,20 @@ namespace GUI
             this.panel7.Controls.Add(this.label2);
             this.panel7.Controls.Add(this.label1);
             this.panel7.Controls.Add(this.cmbDescuento);
-            this.panel7.Location = new System.Drawing.Point(497, 607);
+            this.panel7.Location = new System.Drawing.Point(497, 654);
             this.panel7.Name = "panel7";
             this.panel7.Size = new System.Drawing.Size(198, 41);
             this.panel7.TabIndex = 19;
+            // 
+            // label2
+            // 
+            this.label2.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold);
+            this.label2.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.label2.Location = new System.Drawing.Point(177, 10);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(20, 25);
+            this.label2.TabIndex = 18;
+            this.label2.Text = "%";
             // 
             // label1
             // 
@@ -461,20 +476,58 @@ namespace GUI
             this.cmbDescuento.TabIndex = 5;
             this.cmbDescuento.SelectedIndexChanged += new System.EventHandler(this.cmbDescuento_SelectedIndexChanged);
             // 
-            // label2
+            // panel8
             // 
-            this.label2.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold);
-            this.label2.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label2.Location = new System.Drawing.Point(177, 10);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(20, 25);
-            this.label2.TabIndex = 18;
-            this.label2.Text = "%";
+            this.panel8.BackColor = System.Drawing.Color.Maroon;
+            this.panel8.Controls.Add(this.label3);
+            this.panel8.Controls.Add(this.btnSerializar);
+            this.panel8.Controls.Add(this.btnDeserializar);
+            this.panel8.Location = new System.Drawing.Point(69, 351);
+            this.panel8.Name = "panel8";
+            this.panel8.Size = new System.Drawing.Size(268, 70);
+            this.panel8.TabIndex = 21;
+            // 
+            // btnDeserializar
+            // 
+            this.btnDeserializar.BackColor = System.Drawing.Color.Maroon;
+            this.btnDeserializar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnDeserializar.ForeColor = System.Drawing.Color.White;
+            this.btnDeserializar.Location = new System.Drawing.Point(143, 38);
+            this.btnDeserializar.Name = "btnDeserializar";
+            this.btnDeserializar.Size = new System.Drawing.Size(108, 21);
+            this.btnDeserializar.TabIndex = 19;
+            this.btnDeserializar.Text = "Deserializar";
+            this.btnDeserializar.UseVisualStyleBackColor = false;
+            this.btnDeserializar.Click += new System.EventHandler(this.btnDeserializar_Click);
+            // 
+            // btnSerializar
+            // 
+            this.btnSerializar.BackColor = System.Drawing.Color.Maroon;
+            this.btnSerializar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSerializar.ForeColor = System.Drawing.Color.White;
+            this.btnSerializar.Location = new System.Drawing.Point(16, 38);
+            this.btnSerializar.Name = "btnSerializar";
+            this.btnSerializar.Size = new System.Drawing.Size(108, 21);
+            this.btnSerializar.TabIndex = 20;
+            this.btnSerializar.Text = "Serializar";
+            this.btnSerializar.UseVisualStyleBackColor = false;
+            this.btnSerializar.Click += new System.EventHandler(this.btnSerializar_Click);
+            // 
+            // label3
+            // 
+            this.label3.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold);
+            this.label3.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.label3.Location = new System.Drawing.Point(26, 8);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(213, 27);
+            this.label3.TabIndex = 21;
+            this.label3.Text = "Serializacion de Catalogo";
             // 
             // FormVenta
             // 
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
-            this.ClientSize = new System.Drawing.Size(1000, 759);
+            this.ClientSize = new System.Drawing.Size(1000, 818);
+            this.Controls.Add(this.panel8);
             this.Controls.Add(this.panel7);
             this.Controls.Add(this.panel6);
             this.Controls.Add(this.panel5);
@@ -505,6 +558,7 @@ namespace GUI
             this.panel5.ResumeLayout(false);
             this.panel6.ResumeLayout(false);
             this.panel7.ResumeLayout(false);
+            this.panel8.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -546,5 +600,9 @@ namespace GUI
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox cmbDescuento;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Panel panel8;
+        private System.Windows.Forms.Button btnDeserializar;
+        private System.Windows.Forms.Button btnSerializar;
+        private System.Windows.Forms.Label label3;
     }
 }

@@ -65,5 +65,22 @@ namespace BLL
             bitacora.Criticidad = 1;
             _bitacoraBLL.RegistrarEvento(bitacora);
         }
+        public void ActivarVersionCliente(Cliente clienteActualizado, string usuarioLogueado)
+        {
+            try
+            {
+
+                if (string.IsNullOrWhiteSpace(usuarioLogueado))
+                {
+                    throw new ArgumentException("El usuario logueado es obligatorio para registrar la activación.");
+                }
+
+                clienteDAL.ActualizarConContexto(clienteActualizado, "Activacion", usuarioLogueado);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(LanguageManager.Instance.GetTraduction("ClienteActivarError") ?? "Error al activar la versión del cliente: " + ex.Message, ex);
+            }
+        }
     }
 }
