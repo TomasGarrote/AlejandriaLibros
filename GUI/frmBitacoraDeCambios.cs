@@ -31,13 +31,14 @@ namespace GUI
         {
             if(txtDNI.Text.Length > 0 && !int.TryParse(txtDNI.Text, out _))
             {
-                MessageBox.Show("El DNI ingresado no es válido. Por favor, ingrese un número entero.", "Error de validación", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(LanguageManager.Instance.GetTraduction("ErroValidacionDNI"), "Error de validación", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
             if (dtpDesde.Value.Date > dtpHasta.Value.Date)
             {
-                throw new ArgumentException("La fecha de inicio no puede ser posterior a la fecha final.");
+                MessageBox.Show(LanguageManager.Instance.GetTraduction("ErrorValidacionFecha"), LanguageManager.Instance.GetTraduction("ErrorValidacion"), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
             }
 
             List<ClienteHistorial> historialFiltrado = bll.FiltrarHistorial(
@@ -128,7 +129,7 @@ namespace GUI
             {
                 if (dgvBitacoraCambios.CurrentRow == null || dgvBitacoraCambios.CurrentRow.DataBoundItem == null)
                 {
-                    MessageBox.Show("Por favor, seleccione una versión del historial para activar.", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show(LanguageManager.Instance.GetTraduction("AtencionUsuarioActivarVersion"), LanguageManager.Instance.GetTraduction("Atención"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
 
@@ -149,14 +150,14 @@ namespace GUI
 
                     bll.ActivarVersionCliente(historialSeleccionado, usuarioLogueado);
 
-                    MessageBox.Show("La versión ha sido activada exitosamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show(LanguageManager.Instance.GetTraduction("ExitoVersionUsuarioActivada"), LanguageManager.Instance.GetTraduction("Exito"), MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                     dgvBitacoraCambios.DataSource = bll.ListarTodoElHistorial();
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Ocurrió un error al intentar activar la versión: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(LanguageManager.Instance.GetTraduction("ErrorActivarVersionUsuario") + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             
         }

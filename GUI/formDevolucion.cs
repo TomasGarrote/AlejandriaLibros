@@ -89,7 +89,7 @@ namespace GUI
             catch (Exception ex)
             {
 
-                throw new Exception(LanguageManager.Instance.GetTraduction("msjErrorDevolucion") + ex.Message);
+               MessageBox.Show(LanguageManager.Instance.GetTraduction("msjErrorDevolucion") + ex.Message, LanguageManager.Instance.GetTraduction("Error") , MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
 
         }

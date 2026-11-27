@@ -289,7 +289,7 @@ namespace GUI
 
                 if (listaLibros == null || listaLibros.Count == 0)
                 {
-                    MessageBox.Show("No hay libros para serializar en la grilla.", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show(LanguageManager.Instance.GetTraduction("FaltaLibrosGrilla"), LanguageManager.Instance.GetTraduction("Atencion"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
 
@@ -304,13 +304,13 @@ namespace GUI
                         ventaBLL.SerializarLibro(listaLibros, saveFileDialog.FileName);
                         
 
-                        MessageBox.Show("¡Libros serializados correctamente con éxito!", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageBox.Show(LanguageManager.Instance.GetTraduction("ExitoSerializacion"), LanguageManager.Instance.GetTraduction("Exito"), MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error al serializar: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(LanguageManager.Instance.GetTraduction("ErrorSerializar") + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -330,13 +330,13 @@ namespace GUI
                         dgvCatalogo.DataSource = null;
                         dgvCatalogo.DataSource = librosDeserializados;
 
-                        MessageBox.Show("¡Archivo XML deserializado e importado correctamente!", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageBox.Show(LanguageManager.Instance.GetTraduction("ImportacionXMLCorrecta"), LanguageManager.Instance.GetTraduction("Exito"), MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error al deserializar el archivo: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(LanguageManager.Instance.GetTraduction("ErrorDeserializar") + ex.Message, LanguageManager.Instance.GetTraduction("Error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

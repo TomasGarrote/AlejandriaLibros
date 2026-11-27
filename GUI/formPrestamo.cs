@@ -104,7 +104,8 @@ namespace GUI
             catch (Exception ex)
             {
 
-                throw new Exception(LanguageManager.Instance.GetTraduction("msjErrorPrestamoRegistro") + ex.Message);
+                MessageBox.Show(LanguageManager.Instance.GetTraduction("msjErrorPrestamoRegistro") + ex.Message, LanguageManager.Instance.GetTraduction("Error"), MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
             }
             
         }
@@ -119,8 +120,8 @@ namespace GUI
             }
             catch (Exception ex)
             {
-
-                throw ex;
+                MessageBox.Show(ex.ToString());
+                return;
             }
             
         }

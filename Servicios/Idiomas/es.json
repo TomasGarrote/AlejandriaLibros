@@ -286,6 +286,11 @@
   "btnVolver": "Volver",
   "btnAplicarFiltro": "Aplicar",
   "btnConfirmar": "Confirmar Venta",
+  "ErrorSerializar": "Error al serializar:", //Agregar a los otros idiomas
+  "ExitoSerializacion": "¡Libros serializados correctamente con éxito!",
+  "ErrorDeserializar": "Error al deserializar el archivo: ",
+  "ImportacionXMLCorrecta": "¡Archivo XML deserializado e importado correctamente!",
+  "FaltaLibrosGrilla": "No hay libros para serializar en la grilla.",
 
   "msjErrorVenta": "Error al confirmar la venta. La operación no pudo ser procesada.",
   "msjErrorVentaCarrito": "No hay productos cargados en el carrito.",
@@ -329,6 +334,15 @@
   "lblEstado": "Estado",
   "msjNoHayPrestamos": "No hay prestamos cargados actualmente",
   "msjErrorFechas": "La fecha de inicio no puede ser mayor a la fecha final.",
+
+  //Form Historial Usuario
+  "ErrorActivarVersionUsuario": "Ocurrió un error al intentar activar la versión:",
+  "ExitoVersionUsuarioActivada": "La versión ha sido activada exitosamente.",
+  "AtencionUsuarioActivarVersion": "Por favor, seleccione una versión del historial para activar.",
+  "Atencion": "Atencion",
+  "ErrorValidacionDNI": "El DNI ingresado no es válido. Por favor, ingrese un número entero.",
+  "ErrorValidacion": "Error de validación",
+  "ErrorValidacionFecha": "La fecha de inicio no puede ser posterior a la fecha final.",
 
   //Sesion manager
   "UserLogueado": "Ya hay un usuario logueado.",
