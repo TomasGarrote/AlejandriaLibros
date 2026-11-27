@@ -260,11 +260,23 @@ namespace GUI
 
         private void btnMaestro_Click(object sender, EventArgs e)
         {
+            //if (!SessionManager.Instance.UsuarioActual().TienePermiso("Gestionar Maestros"))
+            //{
+            //    MessageBox.Show("No tiene permisos para acceder a Maestro.",
+            //        "Acceso Denegado", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            //    return;
+            //}
             mostrarSubmenu(panelMaestroSubmenu);
         }
 
         private void btnVentas_Click(object sender, EventArgs e)
         {
+            //if (!SessionManager.Instance.UsuarioActual().TienePermiso("Gestionar Ventas"))
+            //{
+            //    MessageBox.Show("No tiene permisos para acceder a Ventas.",
+            //        "Acceso Denegado", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            //    return;
+            //}
             this.Hide();
             FormVenta formVenta = new FormVenta(SessionManager.Instance.UsuarioActual().DNI);
             formVenta.Show();
@@ -272,6 +284,12 @@ namespace GUI
 
         private void button4_Click(object sender, EventArgs e)
         {
+            //if (!SessionManager.Instance.UsuarioActual().TienePermiso("Gestionar Maestros"))
+            //{
+            //    MessageBox.Show("No tiene permisos para acceder a Maestro.",
+            //        "Acceso Denegado", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            //    return;
+            //}
             this.Hide();
             formClientes formCliente = new formClientes();
             formCliente.Show();
@@ -279,11 +297,23 @@ namespace GUI
 
         private void btnPrestamosDesplegable_Click(object sender, EventArgs e)
         {
+            //if (!SessionManager.Instance.UsuarioActual().TienePermiso("Gestionar Prestamo"))
+            //{
+            //    MessageBox.Show("No tiene permisos para acceder a Prestamo.",
+            //        "Acceso Denegado", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            //    return;
+            //}
             mostrarSubmenu(panelPrestamosSubmenu);
         }
 
         private void btnPrestamo_Click(object sender, EventArgs e)
         {
+            //if (!SessionManager.Instance.UsuarioActual().TienePermiso("Gestionar Prestamo"))
+            //{
+            //    MessageBox.Show("No tiene permisos para acceder a Prestamo.",
+            //        "Acceso Denegado", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            //    return;
+            //}
             this.Hide();
             formPrestamo formPrestamo = new formPrestamo();
             formPrestamo.Show();
@@ -291,6 +321,12 @@ namespace GUI
 
         private void btnDevolucion_Click(object sender, EventArgs e)
         {
+            //if (!SessionManager.Instance.UsuarioActual().TienePermiso("Gestionar Prestamo"))
+            //{
+            //    MessageBox.Show("No tiene permisos para acceder a Prestamo.",
+            //        "Acceso Denegado", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            //    return;
+            //}
             this.Hide();
             formDevolucion formDevolucion = new formDevolucion();
             formDevolucion.Show();
@@ -298,6 +334,12 @@ namespace GUI
 
         private void btnHistPrestamo_Click(object sender, EventArgs e)
         {
+            //if (!SessionManager.Instance.UsuarioActual().TienePermiso("Gestionar Prestamo"))
+            //{
+            //    MessageBox.Show("No tiene permisos para acceder a Prestamo.",
+            //        "Acceso Denegado", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            //    return;
+            //}
             this.Hide();
             formHistorialPrestamos formHistorialPrestamos = new formHistorialPrestamos();
             formHistorialPrestamos.Show();
@@ -305,6 +347,12 @@ namespace GUI
 
         private void btnBitacoraCambios_Click(object sender, EventArgs e)
         {
+            //if (!SessionManager.Instance.UsuarioActual().TienePermiso("Gestionar Maestros"))
+            //{
+            //    MessageBox.Show("No tiene permisos para acceder a Maestro.",
+            //        "Acceso Denegado", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            //    return;
+            //}
             this.Hide();
             frmBitacoraDeCambios formBitacoraDeCambios = new frmBitacoraDeCambios();
             formBitacoraDeCambios.Show();
