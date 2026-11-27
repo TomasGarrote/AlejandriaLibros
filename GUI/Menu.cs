@@ -310,6 +310,31 @@ namespace GUI
             formBitacoraDeCambios.Show();
         }
 
+        private void btnAyuda_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string rutaArchivo = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Alejandría – Manual de Usuario.pdf");
+
+                if (System.IO.File.Exists(rutaArchivo))
+                {
+                    System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo
+                    {
+                        FileName = rutaArchivo,
+                        UseShellExecute = true
+                    });
+                }
+                else
+                {
+                    MessageBox.Show(LanguageManager.Instance.GetTraduction("msjArchivoNoEncontrado"), "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(LanguageManager.Instance.GetTraduction("msjErrorAbrirArchivo") + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
         public void Actualizar(LanguageManager lenguaje)
         {
             btnAdmin.Text = LanguageManager.Instance.GetTraduction("btnAdmin");

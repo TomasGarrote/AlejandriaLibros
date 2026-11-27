@@ -82,11 +82,12 @@ namespace BLL
 
         public void ActivarVersionCliente(ClienteHistorial historialSeleccionado, string usuarioLogueado)
         {
-            ClienteHistorial historialExistente = _dal.ObtenerVersionHistorial(historialSeleccionado.DNI); 
+            int DniHistorialSeleccionado = historialSeleccionado.DNI;
+            ClienteHistorial historialExistente = _dal.ObtenerVersionHistorial(DniHistorialSeleccionado); 
 
             Cliente clienteActualizado = new Cliente
             {
-                DNI = historialSeleccionado.DNI,
+                DNI = DniHistorialSeleccionado,
                 Nombre = historialSeleccionado.Nombre,
                 Apellido = historialSeleccionado.Apellido,
                 Email = historialSeleccionado.Email,

@@ -19,11 +19,14 @@
   "btnPrestamo": "Loan",
   "btnDevolucion": "Return",
   "btnHistPrestamo": "Loan History",
+  "btnAyuda": "Help",
 
   "YaHaySesionActiva": "A session is already active. Please log out before trying to start a new one.",
   "Informacion": "Information",
   "menumsj1": "Confirm Logout?",
   "menumsj2": "Logout",
+  "msjArchivoNoEncontrado": "The file is not found in the project folder.",
+  "msjErrorAbrirArchivo": "Error opening file: ",
 
   //Form Usuario
   "lblTextoTabla": "Active Users",
@@ -300,6 +303,9 @@
   "lblTituloLibrosPrestamo": "Available Books",
   "msjErrorPrestamoClienteInhabilitado": "The client is disabled. A fine of:",
   "msjErrorPrestamoFechaProgramada": "The scheduled date cannot be earlier than the current date",
+  "msjRealizarPagoPorHabilitacion": "Do you want to make the payment for your activation?",
+  "msjClienteHabilitado": "Client enabled!",
+  "msjErrorPrestamoRegistro": "Error confirming the loan. The operation could not be processed.:",
 
   //Form Devolucion
   "btnConfirmarDevolucion": "Confirm Return",
@@ -308,6 +314,7 @@
   "msjDevolucionExitosa": "Successful Return",
   "msjNoHayPrestamosPendientes": "There are no pending loans",
   "msjErrorFechas": "The start date cannot be greater than the end date.",
+  "msjErrorDevolucion": "Error confirming the return. The operation could not be processed.:",
 
 
   //Form Historial Prestamo

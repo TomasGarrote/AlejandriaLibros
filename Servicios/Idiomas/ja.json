@@ -19,11 +19,14 @@
   "btnPrestamo": "貸出",
   "btnDevolucion": "返却",
   "btnHistPrestamo": "貸出履歴",
+  "btnAyuda": "ヘルプ",
 
   "YaHaySesionActiva": "既にセッションが開始されています。新しいセッションを開始する前にログアウトしてください。",
   "Informacion": "情報",
   "menumsj1": "アウト?",
   "menumsj2": "にセッ",
+  "msjArchivoNoEncontrado": "ファイルがプロジェクトフォルダに見つかりません。",
+  "msjErrorAbrirArchivo": "ファイルを開く際のエラー: ",
 
   //Form Usuario
   "lblTextoTabla": "アクティブユーザー",
@@ -302,6 +305,9 @@
   "lblTituloLibrosPrestamo": "利用可能な書籍",
   "msjErrorPrestamoClienteInhabilitado": "顧客は無効化されています。以下の罰金が発生しました：",
   "msjErrorPrestamoFechaProgramada": "プログラムされた日付は現在の日付より前に設定することはできません",
+  "msjRealizarPagoPorHabilitacion": "有効化のための支払いを実行しますか？",
+  "msjClienteHabilitado": "顧客が有効化されました！",
+  "msjErrorPrestamoRegistro": "貸出の確認中にエラーが発生しました。操作を処理できませんでした。:",
 
   //Form Devolucion
   "btnConfirmarDevolucion": "返却を確定",
@@ -309,6 +315,7 @@
   "lblDNICliente": "顧客ID",
   "msjDevolucionExitosa": "返却が成功しました",
   "msjNoHayPrestamosPendientes": "保留中の貸出はありません",
+  "msjErrorDevolucion": "返却の確認中にエラーが発生しました。操作を処理できませんでした。:",
 
   //Form Historial Prestamo
   "lblPrestamos": "貸出履歴",

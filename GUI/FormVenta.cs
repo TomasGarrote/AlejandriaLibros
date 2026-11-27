@@ -90,14 +90,6 @@ namespace GUI
                     PrecioUnitario = libro.Precio
                 });
 
-                carrito.Add(new DetalleVenta
-                {
-                    CodigoLibro = libro.CodigoInterno,
-                    TituloLibro = libro.Titulo,
-                    Cantidad = cantidad,
-                    PrecioUnitario = libro.Precio
-                });
-
                 btnConfirmar.Enabled = true;
                 dgvCarrito.DataSource = carrito;
                 dgvCarrito.Refresh();
@@ -174,6 +166,11 @@ namespace GUI
             };
             try
             {
+                //AUTORIZACION DE PAGO
+                //.......
+                //.......
+                //.......
+
                 ventaBLL.ConfirmarVenta(venta);
                 MessageBox.Show(LanguageManager.Instance.GetTraduction("msjVentaExitosa"), LanguageManager.Instance.GetTraduction("Venta"),
                     MessageBoxButtons.OK, MessageBoxIcon.Information);

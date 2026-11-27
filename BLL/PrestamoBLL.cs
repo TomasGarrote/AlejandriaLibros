@@ -34,21 +34,30 @@ namespace BLL
 
         public void RegistrarPrestamo(Prestamo prestamo)
         {
-            _prestamosDAL.RegistrarPrestamo(prestamo);
-            libroBLL.DescontarStock(Convert.ToInt32(prestamo.CodigoInterno),1);
+            try
+            {
+                _prestamosDAL.RegistrarPrestamo(prestamo);
+                libroBLL.DescontarStock(Convert.ToInt32(prestamo.CodigoInterno), 1);
 
-            _digitoVerificadorBLL.RecalcularDVH_Prestamo();
-            _digitoVerificadorBLL.RecalcularDVV_Prestamo();
-            _digitoVerificadorBLL.RecalcularDVH_Libro();
-            _digitoVerificadorBLL.RecalcularDVV_Libro();
+                _digitoVerificadorBLL.RecalcularDVH_Prestamo();
+                _digitoVerificadorBLL.RecalcularDVV_Prestamo();
+                _digitoVerificadorBLL.RecalcularDVH_Libro();
+                _digitoVerificadorBLL.RecalcularDVV_Libro();
 
-            // Registrar evento en la bitácora
-            Bitacora bitacora = new Bitacora();
-            bitacora.Login = SessionManager.Instance.UsuarioActual().Username;
-            bitacora.Modulo = "Prestamo";
-            bitacora.Evento = "Prestamo registrado";
-            bitacora.Criticidad = 1;
-            _bitacoraBLL.RegistrarEvento(bitacora);
+                // Registrar evento en la bitácora
+                Bitacora bitacora = new Bitacora();
+                bitacora.Login = SessionManager.Instance.UsuarioActual().Username;
+                bitacora.Modulo = "Prestamo";
+                bitacora.Evento = "Prestamo registrado";
+                bitacora.Criticidad = 1;
+                _bitacoraBLL.RegistrarEvento(bitacora);
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            
         }
 
         public void RegistrarDevolucion(Prestamo prestamo)
@@ -124,23 +133,21 @@ namespace BLL
             }
         }
 
-        public void ValidarHabilitacionCliente(int dniCliente)
+        public decimal ValidarHabilitacionCliente(int dniCliente)
         {
             try
             {
                 MultaDeCliente = 0;
 
-                List<Prestamo> prestamos = ListarPrestamosCliente(dniCliente);
+                List<Prestamo> prestamos = _prestamosDAL.ListarPrestamosActivosCliente(dniCliente);
 
                 foreach (Prestamo prestamo in prestamos)
                 {
                     CalcularMultaMora(prestamo.FechaProgramada, prestamo.FechaDevolucionReal ?? DateTime.MinValue);
                 }
 
-                if (MultaDeCliente > 0)
-                {
-                    throw new Exception($"{LanguageManager.Instance.GetTraduction("msjErrorPrestamoClienteInhabilitado")} {MultaDeCliente}");
-                }
+                return MultaDeCliente;
+                
             }
             catch (Exception ex)
             {
@@ -148,6 +155,26 @@ namespace BLL
                 throw ex;
             }
             
+        }
+
+        public void HabilitarCliente(int dniCliente)
+        {
+            try
+            {
+                List<Prestamo> prestamos = _prestamosDAL.ListarPrestamosActivosCliente(dniCliente);
+                foreach (Prestamo prestamo in prestamos)
+                {
+                    prestamo.Estado = "Terminado";
+                    _prestamosDAL.RegistrarDevolucion(prestamo);
+                }
+                _digitoVerificadorBLL.RecalcularDVH_Prestamo();
+                _digitoVerificadorBLL.RecalcularDVV_Prestamo();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
         }
 
         public List<Prestamo> ListarPrestamosCliente(int dniCliente)
@@ -167,7 +194,7 @@ namespace BLL
             return _prestamosDAL.ListarEstados();
         }
 
-        public IEnumerable<Prestamo> ListarTodosLosPrestamos()
+        public List<Prestamo> ListarTodosLosPrestamos()
         {
             return _prestamosDAL.ListarTodosLosPrestamos();
         }

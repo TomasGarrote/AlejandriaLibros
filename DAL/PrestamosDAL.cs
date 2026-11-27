@@ -1,6 +1,7 @@
 ﻿using BE;
 using iTextSharp.text.pdf.codec.wmf;
 using Microsoft.Data.SqlClient;
+using Servicios;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -43,7 +44,7 @@ namespace DAL
             }
             catch (Exception ex)
             {
-                throw new Exception("Error al listar los préstamos del cliente: " + ex.Message);
+                throw ex;
             }
             finally
             {
@@ -72,7 +73,7 @@ namespace DAL
             }
             catch (Exception ex)
             {
-                throw new Exception("Error al registrar el préstamo: " + ex.Message);
+                throw ex;
             }
             finally
             {
@@ -95,7 +96,7 @@ namespace DAL
             }
             catch (Exception ex)
             {
-                throw new Exception("Error al registrar la devolución: " + ex.Message);
+                throw new Exception(LanguageManager.Instance.GetTraduction("msjErrorRegistrarDevolucion") + ex.Message);
             }
             finally
             {
@@ -225,7 +226,7 @@ namespace DAL
             }
             catch (Exception ex)
             {
-                throw new Exception("Error al listar los préstamos del cliente: " + ex.Message);
+                throw ex;
             }
             finally
             {
@@ -272,7 +273,7 @@ namespace DAL
             }
             catch (Exception ex)
             {
-                throw new Exception("Error al retornar el préstamo: " + ex.Message);
+                throw ex;
             }
             finally
             {
@@ -295,7 +296,7 @@ namespace DAL
             }
             catch (Exception ex)
             {
-                throw new Exception("Error al actualizar el DVH del préstamo: " + ex.Message);
+                throw ex;
             }
             finally
             {
@@ -343,7 +344,7 @@ namespace DAL
             }
             catch (Exception ex)
             {
-                throw new Exception("Error al listar los préstamos pendientes: " + ex.Message);
+                throw ex;
             }
             finally
             {
@@ -387,7 +388,7 @@ namespace DAL
             }
             catch (Exception ex)
             {
-                throw new Exception("Error al listar los préstamos pendientes: " + ex.Message);
+                throw ex;
             }
             finally
             {
@@ -427,6 +428,51 @@ namespace DAL
                 _sqlcommand.Parameters.Clear();
                 _sqlserver.Close();
             }
+        }
+
+        public List<Prestamo> ListarPrestamosActivosCliente(int dniCliente)
+        {
+            List<Prestamo> prestamos = new List<Prestamo>();
+            try
+            {
+                string query = @"SELECT * FROM Prestamo WHERE Dni_Cliente = @Dni_Cliente AND Estado = @Estado";
+                _sqlcommand.Parameters.Clear();
+                _sqlcommand.Parameters.AddWithValue("@Dni_Cliente", dniCliente);
+                _sqlcommand.Parameters.AddWithValue("@Estado", "Pendiente");
+                _sqlcommand.CommandText = query;
+                _sqlserver.Open();
+                using (SqlDataReader reader = _sqlcommand.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        Prestamo prestamo = new Prestamo
+                        {
+                            NroPrestamo = Convert.ToInt32(reader["NroPrestamo"]),
+                            Estado = reader["Estado"].ToString(),
+                            CodigoInterno = reader["CodigoInterno"].ToString(),
+                            FechaProgramada = Convert.ToDateTime(reader["FechaProgramada"]),
+                            FechaEmision = Convert.ToDateTime(reader["FechaEmision"]),
+                            FechaDevolucionReal = reader["FechaDevolucionReal"] == DBNull.Value
+                            ? (DateTime?)null
+                            : Convert.ToDateTime(reader["FechaDevolucionReal"]),
+                            Dni_Cliente = Convert.ToInt32(reader["Dni_Cliente"]),
+                            Dni_Usuario = Convert.ToInt32(reader["Dni_Usuario"]),
+                        };
+                        prestamos.Add(prestamo);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                _sqlcommand.Parameters.Clear();
+                _sqlserver.Close();
+            }
+            return prestamos;
         }
     }
 }

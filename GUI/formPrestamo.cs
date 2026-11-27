@@ -46,54 +46,67 @@ namespace GUI
 
         private void btnConfirmarPrestamo_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(cmbDiasProgramados.Text) ||
+            try
+            {
+                if (string.IsNullOrWhiteSpace(cmbDiasProgramados.Text) ||
                 fechaProgramada == default(DateTime))
-            {
-                MessageBox.Show(
-                    LanguageManager.Instance.GetTraduction("msjCampoFechaVacio"), LanguageManager.Instance.GetTraduction("Prestamo"),
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Warning);
+                {
+                    MessageBox.Show(
+                        LanguageManager.Instance.GetTraduction("msjCampoFechaVacio"), LanguageManager.Instance.GetTraduction("Prestamo"),
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning);
 
-                return;
+                    return;
+                }
+
+                var libroSel = (Libro)dgvCatalogo.CurrentRow.DataBoundItem;
+                if (libroBLL.ConsultarStock(libroSel.CodigoInterno) < 1)
+                {
+                    MessageBox.Show(LanguageManager.Instance.GetTraduction("msjNoHayEjemplares"), LanguageManager.Instance.GetTraduction("Error"), MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+
+                Prestamo prestamo = new Prestamo
+                {
+                    Estado = "Pendiente",
+                    CodigoInterno = libroSel.CodigoInterno.ToString(),
+                    FechaProgramada = fechaProgramada,
+                    FechaEmision = DateTime.Now,
+                    Dni_Cliente = DNI_Cli,
+                    Dni_Usuario = Convert.ToInt32(SessionManager.Instance.UsuarioActual().DNI)
+                };
+
+                prestamoBLL.RegistrarPrestamo(prestamo);
+                MessageBox.Show(LanguageManager.Instance.GetTraduction("msjPrestamoExitoso"), LanguageManager.Instance.GetTraduction("Prestamo"),
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                //SaveFileDialog saveFileDialog = new SaveFileDialog
+                //{
+                //    Filter = "Archivo PDF (*.pdf)|*.pdf",
+                //    FileName = $"Comprobante_Prestamo_{prestamo.NroPrestamo}.pdf"
+                //};
+
+                //if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                //{
+                //    // Generar el documento
+                //    ComprobanteService.GenerarComprobantePDF(prestamo, saveFileDialog.FileName);
+
+                //    MessageBox.Show(LanguageManager.Instance.GetTraduction("msjComprobanteExitoso"), LanguageManager.Instance.GetTraduction("Éxito"), MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                //    // Abrir el PDF automáticamente en el visor de PDF por defecto de Windows
+                //    System.Diagnostics.Process.Start(saveFileDialog.FileName);
+                //}
+                dgvCatalogo.DataSource = null;
+                dgvCatalogo.DataSource = catalogo;
+                dgvCatalogo.ClearSelection();
+                dgvCatalogo.Refresh();
             }
-
-            var libroSel = (Libro)dgvCatalogo.CurrentRow.DataBoundItem;
-            Libro libro = libroBLL.ConsultarLibro(libroSel.CodigoInterno);
-
-            Prestamo prestamo = new Prestamo
+            catch (Exception ex)
             {
-                Estado = "Pendiente",
-                CodigoInterno = libro.CodigoInterno.ToString(),
-                FechaProgramada = fechaProgramada,
-                FechaEmision = DateTime.Now,
-                Dni_Cliente = DNI_Cli,
-                Dni_Usuario = Convert.ToInt32(SessionManager.Instance.UsuarioActual().DNI)
-            };
 
-            prestamoBLL.RegistrarPrestamo(prestamo);
-            MessageBox.Show(LanguageManager.Instance.GetTraduction("msjPrestamoExitoso"), LanguageManager.Instance.GetTraduction("Prestamo"),
-                    MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-            //SaveFileDialog saveFileDialog = new SaveFileDialog
-            //{
-            //    Filter = "Archivo PDF (*.pdf)|*.pdf",
-            //    FileName = $"Comprobante_Prestamo_{prestamo.NroPrestamo}.pdf"
-            //};
-
-            //if (saveFileDialog.ShowDialog() == DialogResult.OK)
-            //{
-            //    // Generar el documento
-            //    ComprobanteService.GenerarComprobantePDF(prestamo, saveFileDialog.FileName);
-
-            //    MessageBox.Show(LanguageManager.Instance.GetTraduction("msjComprobanteExitoso"), LanguageManager.Instance.GetTraduction("Éxito"), MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-            //    // Abrir el PDF automáticamente en el visor de PDF por defecto de Windows
-            //    System.Diagnostics.Process.Start(saveFileDialog.FileName);
-            //}
-            dgvCatalogo.DataSource = null;
-            dgvCatalogo.DataSource = catalogo;
-            dgvCatalogo.ClearSelection();
-            dgvCatalogo.Refresh();
+                throw new Exception(LanguageManager.Instance.GetTraduction("msjErrorPrestamoRegistro") + ex.Message);
+            }
+            
         }
 
         private void dtpFechaProgramada_ValueChanged(object sender, EventArgs e)
@@ -131,7 +144,23 @@ namespace GUI
                 DNI_Cli = Convert.ToInt32(selectorClientes.DniSeleccionado);
             }
 
-            
+            decimal multa = prestamoBLL.ValidarHabilitacionCliente(DNI_Cli);
+
+            if (multa > 0)
+            {
+                MessageBox.Show($"{LanguageManager.Instance.GetTraduction("msjErrorPrestamoClienteInhabilitado")} {multa}", LanguageManager.Instance.GetTraduction("Error"), MessageBoxButtons.OK, MessageBoxIcon.Information);
+                
+                if (MessageBox.Show(LanguageManager.Instance.GetTraduction("msjRealizarPagoPorHabilitacion"), LanguageManager.Instance.GetTraduction("Error"), MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                    //Realizar cobro
+                    //..........
+                    //..........
+                    prestamoBLL.HabilitarCliente(DNI_Cli);
+                    MessageBox.Show(LanguageManager.Instance.GetTraduction("msjClienteHabilitado"), LanguageManager.Instance.GetTraduction("Exito"), MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                    return;
+            }
 
             for (int i = 1; i <= 31; i++)
             {

@@ -19,11 +19,14 @@
   "btnPrestamo": "Prestamo",
   "btnDevolucion": "Devolucion",
   "btnHistPrestamo": "Hisotrial Prestamos",
+  "btnAyuda": "Ayuda",
 
   "YaHaySesionActiva": "Ya hay una sesión iniciada. Por favor, cierre sesión antes de intentar iniciar una nueva.",
   "Informacion": "Informacion",
   "menumsj1": "Quiere cerrar sesion?",
   "menumsj2": "cerrar sesion",
+  "msjArchivoNoEncontrado": "El archivo no se encuentra en la carpeta del proyecto.",
+  "msjErrorAbrirArchivo": "Error al abrir el archivo: ",
 
   //Form Usuario
   "lblTextoTabla": "Usuarios Activos",
@@ -306,6 +309,9 @@
   "lblTituloLibrosPrestamo": "Libros Disponibles",
   "msjErrorPrestamoClienteInhabilitado": "El cliente esta inhabilitado. debe una multa de:",
   "msjErrorPrestamoFechaProgramada": "La fecha programada no puede ser anterior a la fecha actual",
+  "msjRealizarPagoPorHabilitacion": "¿Desea realizar el pago para su habilitación?",
+  "msjClienteHabilitado": "Cliente habilitado!",
+  "msjErrorPrestamoRegistro": "Error al confirmar el préstamo. La operación no pudo ser procesada.:",
 
 
   //Form Devolucion
@@ -314,6 +320,7 @@
   "lblDNICliente": "DNI Cliente",
   "msjDevolucionExitosa": "Devolucion Exitosa",
   "msjNoHayPrestamosPendientes": "No hay prestamos pendientes",
+  "msjErrorDevolucion": "Error al confirmar la devolución. La operación no pudo ser procesada.:",
 
   //Form Historial Prestamo
   "lblPrestamos": "Prestamos",

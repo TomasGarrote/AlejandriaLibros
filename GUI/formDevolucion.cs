@@ -47,6 +47,24 @@ namespace GUI
 
                 Prestamo devolucion = prestamoBLL.RetornarPrestamo(objDevolucion.NroPrestamo);
 
+                decimal multa = prestamoBLL.ValidarHabilitacionCliente(devolucion.Dni_Cliente);
+
+                if (multa > 0)
+                {
+                    MessageBox.Show($"{LanguageManager.Instance.GetTraduction("msjErrorPrestamoClienteInhabilitado")} {multa}", LanguageManager.Instance.GetTraduction("Error"), MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    if (MessageBox.Show(LanguageManager.Instance.GetTraduction("msjRealizarPagoPorHabilitacion"), LanguageManager.Instance.GetTraduction("Error"), MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                    {
+                        //Realizar cobro
+                        //..........
+                        //..........
+                        prestamoBLL.HabilitarCliente(devolucion.Dni_Cliente);
+                        MessageBox.Show(LanguageManager.Instance.GetTraduction("msjClienteHabilitado"), LanguageManager.Instance.GetTraduction("Exito"), MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    else
+                        return;
+                }
+
                 prestamoBLL.RegistrarDevolucion(devolucion);
                 MessageBox.Show(LanguageManager.Instance.GetTraduction("msjDevolucionExitosa"), LanguageManager.Instance.GetTraduction("Prestamo"),
                         MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -71,7 +89,7 @@ namespace GUI
             catch (Exception ex)
             {
 
-                MessageBox.Show(ex.Message);
+                throw new Exception(LanguageManager.Instance.GetTraduction("msjErrorDevolucion") + ex.Message);
             }
 
         }
